@@ -4,7 +4,7 @@ const {connect} = require ('mongoose')
 module.exports= connectDB = async () => {
 
     try{
-        await connect('mongodb+srv://Juancito:1234@cluster0.3isaija.mongodb.net/?retryWrites=true&w=majority')
+        await connect(process.env.MONGODB_URI)
         console.log('funcionando Mongo')
     }
     catch(e){
