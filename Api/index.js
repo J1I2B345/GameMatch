@@ -5,6 +5,7 @@ const {Server} = require ("socket.io");
 const http = require ('http');
 const sockets = require ('./src/sockets')
 
+
 // let httpServer
 // let io
 connectDB()
@@ -15,4 +16,7 @@ let httpServer = server.listen(process.env.PORT, () => {
 });
 let io = new Server(httpServer)
 sockets(io)
+
+
+
     
