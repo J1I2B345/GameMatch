@@ -12,7 +12,5 @@ const schema = new Schema({
         referece: 'Users',
         required: true
     },
-},{
-    timestamps: true
-}
-)
+    date: new Date()
+})

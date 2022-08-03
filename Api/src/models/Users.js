@@ -9,13 +9,12 @@ const schema = new Schema({
         unique: true,
         trim: true
     },
-    //reviews pasarlo por referencia para que sea más rápida la carga
-    reviews: Array, 
+    
     // rating podría actualizarse cuando se hace el post de reviews de la siguiente manera
     // reviews.length*rating+newReviewValue/reviews.length+1
+    //  (3.5*500+4)/51
     // esto se puede hacer con un middleware antes de que se actualice el reviews.
-    givenReviews: Array,
-    rating: Number,
+    rating: Decimal128,
     premium: {
         type: Boolean,
         default: false
@@ -25,18 +24,44 @@ const schema = new Schema({
         enum: ['user', 'admin', 'superadmin'],
         default: 'user'
     },
+
     //chats podría ser un array de mongoose.Types.ObjectId de los users. cuando se abre la pestaña de chats lo que 
     //haría sería ir a buscar a la base de datos los nombres y crear los posibles chats que se puedan elegir.
-    chats: Array
+    // chats_id
+    chats: Array,
 
-    // username: {
-    //     type: String,
-    //     required: true
-    // },
-    // password: {
-    //     type: String,
-    //     required: true
-    // }
+    //reviews pasarlo por referencia para que sea más rápida la carga _id de las reviews
+    reviews: Array, 
+    givenReviews: Array,
+    username: {
+        type: String,
+        required: true
+    },
+    img: {
+        type: String,
+        //default: buscar una imagen que sea tipo la de facebook
+    },
+    description: String,
+    steam: String,
+    riot: String,
+    ig: String,
+
+    
+    tenant: String,
+    connection: String,
+    username: {
+        type: String,
+        required: true
+    },
+    img: {
+        type: String,
+        //default: buscar una imagen que sea tipo la de facebook
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    debug: Boolean
 })
 
 module.exports = model('Users', schema)

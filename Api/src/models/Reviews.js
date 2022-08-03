@@ -1,7 +1,7 @@
 const {Schema, model} = require ('mongoose')
 
 
-const schema = new Schema({
+const schema = new Schema({    
     userRated:{
         type: mongoose.Schema.Types.ObjectId,
         referece: 'Users',
@@ -14,7 +14,13 @@ const schema = new Schema({
     },
     qualification: {
         type: Number,
-        required: true
+        required: true,
+        min: 1,
+        max: 5
+    },
+    comment: {
+        type: String,
+        required: false
     }
 })
 
