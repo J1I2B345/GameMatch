@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TextInput, Alert, TouchableOpacity } from 'react-native';
+import { Link } from 'react-router-native'
 
 const Login = () => {
      return (
@@ -22,11 +23,11 @@ const Login = () => {
                     <TextInput placeholder="Ussername" style={styles.input} />
                     <TextInput placeholder="Password" style={styles.input} />
 
-                    <TouchableOpacity onPress={() => Alert.alert('logeado')} style={styles.button}>
+                    <Link onPress={() => Alert.alert('logeado')} to="/selectgame" style={styles.button}>
                          <View>
                               <Text style={styles.button_text}>LOGIN</Text>
                          </View>
-                    </TouchableOpacity>
+                    </Link>
                </View>
 
                <View
