@@ -1,9 +1,13 @@
-import { View, Text } from "react-native";
+import { Routes, Route } from 'react-router-native';
+import { View } from 'react-native';
+import Login from './Login.jsx';
 
-export default function Home (){
-    return (
-        <View>
-            <Text> Soy home </Text>
-        </View>
-    )
+export default function Home() {
+     return (
+          <View>
+               <Routes>
+                    <Route path="/" element={<Login />} />
+               </Routes>
+          </View>
+     );
 }

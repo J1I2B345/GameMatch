@@ -11,17 +11,17 @@ const schema = new Schema({
     users: {
         type: [{
             type: Schema.Types.ObjectId,
-            referece: 'Users',
+            referece: 'User2',
             required: true}, 
         {
             type: Schema.Types.ObjectId,
-            referece: 'Users',
+            referece: 'User2',
             required: true
         }],
     },
     sender: {
         type: Schema.Types.ObjectId,
-        referece: 'Users',
+        referece: 'User2',
         required: true
     },
 },{

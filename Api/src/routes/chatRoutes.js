@@ -14,8 +14,8 @@ router.get('/all', async(req,res)=>{
 
 //get a chat from two users
 // body = {
-//     sender: 1,
-//     receiver: 2
+//     sender: _id,
+//     receiver: _id, 
 // }
 router.get('/', async (req, res)=>{
    try{ 
@@ -40,8 +40,8 @@ router.get('/', async (req, res)=>{
 //save a message
 // body = {
 //     message: 'hey dude',
-//     users: [1,3],
-//     sender: 1
+//     users: [_id1, _id2],
+//     sender: _id1
 // }
 
 
@@ -73,7 +73,7 @@ router.delete('/message/:id', async(req, res) =>{
 
 // delete full chat of two users
 // body = {
-//     users: [1, 2]
+//     users: [_id1, _id2]
 // }
 router.delete('/users', async(req, res) =>{
     try{
