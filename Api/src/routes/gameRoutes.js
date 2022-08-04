@@ -1,6 +1,5 @@
 const { Router } = require("express");
 const router = Router();
-const axios = require("axios");
 const GameSchema = require("../models/Games");
 
 //*----------------GET GAMES------------------------
@@ -16,19 +15,31 @@ router.get("/", (req, res) => {
   }
 });
 //*----------------POST GAMES------------------------
-router.post("/", (req, res) => {
-  const { name, image, category } = req.body;
+
+router.post("/", async (req, res) => {
+  const { name, image, gender, elo, position} = req.body;
   try {
-    const game = GameSchema(name, image, category);
-    game;
-    game
-      .find(name)
-      .save()
-      .then((data) => res.json(data));
+    const game = await GameSchema.create({ name, image, gender, elo, position });
+    res.status(200).json(game);
   } catch (error) {
-    console.log(error);
+    res.status(400).json({ error: error.message });
   }
-});
+})
+
+
+// router.post("/", (req, res) => {
+//   const { name, image, category } = req.body;
+//   try {
+//     const game = GameSchema(name, image, category);
+//     game;
+//     game
+//       .find(name)
+//       .save()
+//       .then((data) => res.json(data));
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
 
 //*----------------UPDATE GAMES------------------------
 
