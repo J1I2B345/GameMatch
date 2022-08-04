@@ -1,33 +1,54 @@
+import { Link } from 'react-router-native';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 
 const Nav = () => {
      return (
           <View style={styles.container}>
                <View style={styles.icon_container}>
-                    <TouchableOpacity style={styles.icon}>
+                    <Link
+                         to="/"
+                         //  activeOpacity={1}
+                         underlayColor={'#9A01E2'}
+                         style={styles.icon}
+                    >
                          <Image
                               source={require('../../assets/iconMenssage.png')}
                               style={{ width: 30, height: 30 }}
                          />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.icon}>
+                    </Link>
+                    <Link
+                         to="/"
+                         //  activeOpacity={1}
+                         underlayColor={'#9A01E2'}
+                         style={styles.icon}
+                    >
                          <Image
                               source={require('../../assets/iconHomeGames.png')}
                               style={{ width: 30, height: 30 }}
                          />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.icon}>
+                    </Link>
+                    <Link
+                         to="/"
+                         //  activeOpacity={1}
+                         underlayColor={'#9A01E2'}
+                         style={styles.icon}
+                    >
                          <Image
                               source={require('../../assets/iconForo.png')}
                               style={{ marginTop: 2, width: 26, height: 26 }}
                          />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.icon}>
+                    </Link>
+                    <Link
+                         to="/"
+                         //  activeOpacity={1}
+                         underlayColor={'#9A01E2'}
+                         style={styles.icon}
+                    >
                          <Image
                               source={require('../../assets/iconProfile.jpg')}
                               style={{ marginTop: 2, width: 26, height: 26 }}
                          />
-                    </TouchableOpacity>
+                    </Link>
                </View>
           </View>
      );
