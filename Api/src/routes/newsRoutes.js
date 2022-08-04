@@ -16,8 +16,13 @@ router.get('/', async(req,res) =>{
 
 router.post('/', async(req, res)=>{
     try {
+        if (req.body.editedBy) throw new Error(`edit user should be added just to update a news`)
         const {title, description, author} = req.body
-        if (!title.trim() || !description.trim() ||!author.trim()) throw new Error ('enter title, description and author')
+
+        if (!title || !description ||!author) throw new Error ('enter title, description and author')
+        if (title){ if (!title.trim()) throw new Error('enter a valid title')}
+        if (description){ if (!description.trim()) throw new Error('enter a valid description')}
+        if (author){ if (!author.trim()) throw new Error('enter a valid author')}
         const news = {title, description, author} 
         const newsSaved = await News.create(news)
         if (newsSaved) res.status(201).send('News created')
