@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-native';
 import { View } from 'react-native';
 import Login from './Login.jsx';
 
-export default function Home() {
+const Home = () => {
      return (
           <View>
                <Routes>
@@ -10,4 +10,6 @@ export default function Home() {
                </Routes>
           </View>
      );
-}
+};
+
+export default Home;
