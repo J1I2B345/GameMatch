@@ -2,6 +2,8 @@ import { Routes, Route } from 'react-router-native';
 import { View } from 'react-native';
 import Login from './Login.jsx';
 import Nav from './Nav.jsx';
+import SelectGame from './SelectGame.jsx';
+
 
 const Home = () => {
      return (
@@ -9,6 +11,7 @@ const Home = () => {
                <Nav />
                <Routes>
                     <Route path="/" element={<Login />} />
+                    <Route path="/selectgame" element={<SelectGame />} />
                </Routes>
           </View>
      );
