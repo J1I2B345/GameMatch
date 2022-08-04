@@ -55,9 +55,7 @@ router.put('/edit', async (req, res)=>{
         let updatedNew = {editedBy: editedBy}
         if (title) updatedNew.title= title
         if(description) updatedNew.description = description
-        console.log("datods a actualizar", updatedNew)
         const messageUpdated = await News.findByIdAndUpdate(_id, updatedNew)
-        console.log('mensaje updated: ', messageUpdated)
         if (messageUpdated) res.json({message: 'message updated', messageUpdated})
         else throw new Error('message not updated')
     } catch(e){
