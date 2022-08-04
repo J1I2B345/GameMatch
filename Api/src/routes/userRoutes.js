@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const router = Router();
-const UserSchema = require("../models/Users");
+const UserSchema = require("../models/Users2.js");
 
 //*----------------GET ALL USER------------------------
 
@@ -43,56 +43,69 @@ router.get("/:id", async (req, res) => {
 //solicitud Tipo POST: localhost:3001/user
 
 
-router.post("/", (req, res) => {
-  const {
-    username,
-    email,
-    password,
-    img,
-    rating,
-    rol,
-    reviews,
-    givenReviews,
-    description,
-    steam,
-    riot,
-    ig,
-    tenant,
-    connection,
-  } = req.body;
-  try {
-    const user = UserSchema({
-      username,
-      email,
-      password,
-      img,
-      rating,
-      rol,
-      reviews,
-      givenReviews,
-      description,
-      steam,
-      riot,
-      ig,
+// router.post("/", (req, res) => {
+//   const {
+//     username,
+//     email,
+//     password,
+//     img,
+//     rating,
+//     rol,
+//     reviews,
+//     givenReviews,
+//     description,
+//     steam,
+//     riot,
+//     ig,
+//     tenant,
+//     connection,
+//   } = req.body;
+//   try {
+//     const user = UserSchema({
+//       username,
+//       email,
+//       password,
+//       img,
+//       rating,
+//       rol,
+//       reviews,
+//       givenReviews,
+//       description,
+//       steam,
+//       riot,
+//       ig,
       
-      tenant,
-      connection,
-    });
-    user;
-    user
-      .save()
-      .then((data) => res.json(data))
-      .status(201);
+//       tenant,
+//       connection,
+//     });
+//     user;
+//     user
+//       .save()
+//       .then((data) => res.json(data))
+//       .status(201);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
+
+router.post("/", async (req, res) => {
+  try {
+    const user = req.body;
+    const createdUser = await UserSchema.create(user)
+    console.log("usuario ya creado: ", createdUser) 
+    if (createdUser) return res.status(201).json(createdUser) 
+    else throw new Error('user not created')
   } catch (error) {
-    console.log(error);
+    res.status(400).json(error.message);
   }
 });
+
 let examplePOST = {
   username: "Michi",
   email: "userMishuno@gmail.com",
   password: "exellentYpezcado",
   img: "https://img.itch.zone/aW1nLzQyMTg3MTcuanBn/original/AfGtkn.jpg",
-  rating: "5",
+  rating: 5,
   description: "un michi gamer",
   steam: "zXunMichuGamerXz",
   riot: "zXunMichuGamerXz",

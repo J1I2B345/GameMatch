@@ -1,6 +1,5 @@
 const { Router } = require("express");
 const router = Router();
-const axios = require("axios");
 const GameSchema = require("../models/Games");
 
 //*----------------GET GAMES------------------------

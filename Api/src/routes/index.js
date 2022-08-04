@@ -1,11 +1,13 @@
 const { Router } = require("express");
 const router = Router();
-const games = require("./gameRute");
-const user = require("./userRute");
+const games = require("./gameRoutes");
+const users = require("./userRoutes");
+const chats = require("./chatRoutes")
 
 //-------------------------------
 router.use("/games", games);
-router.use("/user", user);
+router.use("/users", users);
+router.use("/chats", chats)
 
 //-------------------------------
 
