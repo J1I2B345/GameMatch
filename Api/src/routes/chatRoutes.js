@@ -64,7 +64,7 @@ router.delete('/message/:id', async(req, res) =>{
     try{
         let messageDeleted = await Chat.findByIdAndRemove(req.params.id)
         if (messageDeleted) return res.json({message: 'message succesfully deleted', item: messageDeleted})
-        else throw new Error({error: 'message not deleted'})
+        else throw new Error('message not deleted -probably couldnt be found because it was already deleted, try another-')
     }catch(e){
         res.status(400).json({"error": e.message})
 
