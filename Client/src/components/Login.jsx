@@ -1,125 +1,60 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import iconApp from '../../assets/iconApp.png';
-import GameMatch from '../../assets/GameMatch.png';
-import Fondo from '../../assets/Fondo.png';
+import { StyleSheet, Text, View, Image, TextInput, Alert, TouchableOpacity } from 'react-native';
 
-export default function Login() {
+const Login = () => {
      return (
           <View style={styles.container}>
-               <style>@import url('http://fonts.cdnfonts.com/css/actor');</style>
-               <style>@import url('https://rsms.me/inter/inter.css');</style>
-               <style>
-                    @import
-                    url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2&display=swap');
-               </style>
                <View style={styles.portada}>
                     <View style={styles.portada_text}>
-                         <img src={GameMatch} style={{ width: 150 }} />
+                         <Image
+                              source={require('../../assets/GameMatch.png')}
+                              style={{ width: 130, height: 100 }}
+                         />
                     </View>
                     <View style={styles.portada_img}>
-                         <img src={iconApp} style={{ width: 105 }} />
+                         <Image
+                              source={require('../../assets/iconApp.png')}
+                              style={{ width: 110, height: 110 }}
+                         />
                     </View>
                </View>
                <View style={styles.form_container}>
-                    <form
-                         style={{
-                              width: '100%',
-                              textAlign: 'center',
-                              alignItems: 'center',
-                              marginBottom: 30,
-                         }}
-                    >
-                         <input
-                              type="text"
-                              name="username"
-                              maxLength="24"
-                              placeholder="Username"
-                              autoComplete="off"
-                              style={{
-                                   marginTop: 80,
-                                   height: 38,
-                                   width: '60%',
-                                   fontSize: 20,
-                                   border: 'none',
-                                   borderRadius: 20,
-                                   textAlign: 'center',
-                                   fontFamily: 'Inter',
-                              }}
-                         />
+                    <TextInput placeholder="Ussername" style={styles.input} />
+                    <TextInput placeholder="Password" style={styles.input} />
 
-                         <input
-                              type="password"
-                              name="password"
-                              maxLength="24"
-                              placeholder="Password"
-                              autoComplete="off"
-                              style={{
-                                   marginTop: 60,
-                                   height: 38,
-                                   width: '60%',
-                                   fontSize: 20,
-                                   border: 'none',
-                                   borderRadius: 20,
-                                   textAlign: 'center',
-                                   fontFamily: 'Inter',
-                              }}
-                         />
-                         <button
-                              type="submit"
-                              style={{
-                                   display: 'flex',
-                                   margin: 'auto',
-                                   marginTop: 60,
-                                   height: 40,
-                                   width: '60%',
-                                   alignItems: 'center',
-                                   borderRadius: 10,
-                                   border: 'none',
-                                   backgroundColor: '#98228C',
-                              }}
-                         >
-                              <span
-                                   style={{
-                                        fontSize: 20,
-                                        width: '100%',
-                                        textAlign: 'center',
-                                        color: 'white',
-                                        fontFamily: 'Baloo Bhai 2',
-                                   }}
-                              >
-                                   LOGIN
-                              </span>
-                         </button>
-                    </form>
+                    <TouchableOpacity onPress={() => Alert.alert('logeado')} style={styles.button}>
+                         <View>
+                              <Text style={styles.button_text}>LOGIN</Text>
+                         </View>
+                    </TouchableOpacity>
                </View>
+
                <View
                     style={{
-                         fontFamily: 'Inter',
+                         marginTop: 30,
                          fontSize: 15,
-                         alignItems: 'flex-start',
-                         height: 0,
+                         height: 'auto',
                     }}
                >
-                    <p
+                    <Text
                          style={{
                               color: 'gray',
                          }}
                     >
                          Don't have account?{' '}
-                         <span
+                         <Text
                               style={{
                                    color: 'white',
                               }}
                          >
                               Register
-                         </span>
-                    </p>
+                         </Text>
+                    </Text>
                </View>
                <View
                     style={{
-                         marginTop: 37,
-                         width: 215,
+                         marginTop: 0,
+                         width: 190,
                          height: 1,
                          backgroundColor: 'gray',
                     }}
@@ -127,32 +62,52 @@ export default function Login() {
                <StatusBar style="auto" />
           </View>
      );
-}
+};
 
 const styles = StyleSheet.create({
      container: {
-          height: '101vh',
-          // backgroundColor: '#34167D',
-          backgroundImage: `url(${Fondo})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-          backgroundSize: 'cover',
+          height: '100%',
+          width: '100%',
           alignItems: 'center',
      },
      portada: {
-          display: 'inline-block',
-          marginTop: '15vh',
+          marginTop: 120,
+          flexDirection: 'row',
      },
      portada_text: {
-          display: 'inline-block',
-          marginRight: 40,
-          width: 150,
-     },
-     portada_img: {
-          display: 'inline-block',
+          marginRight: 30,
      },
      form_container: {
           width: '100%',
           alignItems: 'center',
      },
+     input: {
+          marginTop: 70,
+          borderWidth: 1,
+          backgroundColor: '#fff',
+          height: 38,
+          width: '60%',
+          fontSize: 15,
+          borderRadius: 20,
+          textAlign: 'center',
+     },
+     button: {
+          margin: 'auto',
+          marginTop: 60,
+          height: 40,
+          width: '60%',
+          alignItems: 'center',
+          borderRadius: 10,
+          border: 'none',
+          backgroundColor: '#98228C',
+     },
+     button_text: {
+          marginTop: 6,
+          fontSize: 20,
+          width: '100%',
+          textAlign: 'center',
+          color: 'white',
+     },
 });
+
+export default Login;
