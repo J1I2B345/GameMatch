@@ -4,12 +4,12 @@ const {Schema, model} = require ('mongoose')
 const schema = new Schema({    
     userRated:{
         type: mongoose.Schema.Types.ObjectId,
-        referece: 'Users',
+        referece: 'User2',
         required:true
     },
     reviewer: {
         type: mongoose.Schema.Types.ObjectId,
-        referece: 'Users',
+        referece: 'User2',
         required:true
     },
     qualification: {
@@ -24,4 +24,4 @@ const schema = new Schema({
     }
 })
 
-module.exports = model('Reviews', schema)
+module.exports = model('Review', schema)
