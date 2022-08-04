@@ -26,15 +26,14 @@ router.get("/", async (req, res) => {
 //*----------------GET USER DETAIL------------------------
 
 //solicitud Tipo GET: localhost:3001/user/ID
-
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
-  try {
-    UserSchema.findById(id).then((user) => {
-      res.json(user).status(200);
-    });
+  try {  
+    UserSchema.findById(id)
+    .then((user) => {res.status(200).json(user)})
+    .catch(error => {res.status(400).json(error.message)})
   } catch (error) {
-    console.log(error);
+    res.status(400).json(error);
     console.log("Error trying to get user");
   }
 });

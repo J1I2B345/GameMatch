@@ -11,10 +11,14 @@ const schema = new Schema({
         required: true
     },
     author: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         reference: 'Users2',
         required: true,
 
+    },
+    editedBy: {
+        type: Schema.Types.ObjectId,
+        reference: 'Users2',
     }
 },{
     timestamps: true
