@@ -1,4 +1,6 @@
-const {Schema, model, default: mongoose} = require ('mongoose')
+const {Schema, model} = require ('mongoose')
+
+
 
 const schema = new Schema({
     message: {
@@ -6,11 +8,28 @@ const schema = new Schema({
         required: true
     },
     //en array se guardan los _id de los users involucrados
-    users: Array,
+    users: {
+        type: [{
+            type: Schema.Types.ObjectId,
+            referece: 'Users',
+            required: true}, 
+        {
+            type: Schema.Types.ObjectId,
+            referece: 'Users',
+            required: true
+        }],
+    },
     sender: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         referece: 'Users',
         required: true
     },
-    date: new Date()
+},{
+    timestamps: true
 })
+schema.pre('validate', function(next) {
+    if (this.users.length !== 2) throw new Error ("must have sender and receiver");
+    next();
+});
+
+module.exports = model('Chat', schema)

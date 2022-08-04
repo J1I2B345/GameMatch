@@ -24,4 +24,4 @@ const schema = new Schema({
     }
 })
 
-module.exports = model('Reviews', schema)
+module.exports = model('Review', schema)

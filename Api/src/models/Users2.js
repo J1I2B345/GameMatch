@@ -54,4 +54,4 @@ const schema = new Schema({
     debug: Boolean
 })
 
-module.exports = model('Users', schema)
+module.exports = model('Users2', schema)
