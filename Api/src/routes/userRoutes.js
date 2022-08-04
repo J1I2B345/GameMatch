@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const router = Router();
-const UserSchema = require("../models/Users.js");
+const UserSchema = require("../models/Users2.js");
 const mongoose = require("mongoose")
 
 //*----------------GET ALL USER------------------------
