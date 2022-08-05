@@ -59,8 +59,7 @@ router.put("/:id", async (req, res) => {
 
   try {
     const updateGame = await GameSchema.findByIdAndUpdate({ _id: req.params.id }, req.body);
-    console.log('UPDATE ' + updateGame.name)
-    res.status(201).json(updateGame);
+    res.status(201).json('the game was succesfully modified');
   } catch (error) {
     console.log("Error trying to update game");
     res.status(500).json({ error: error.message });
