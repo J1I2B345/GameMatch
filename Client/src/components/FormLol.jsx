@@ -46,7 +46,7 @@ export default function FormLol (){
 
     return (
         <Formik validate={validate} initialValues={initialValues}  onSubmit={(values) => {
-            navigate("/")
+            navigate("/playersLol")
             console.log(values)
         }}>
             {({handleChange, handleSubmit, values})=> {

@@ -46,7 +46,7 @@ export default function FormCs (){
 
     return (
         <Formik validate={validate} initialValues={initialValues}  onSubmit={(values) => {
-            navigate("/")
+            navigate("/playersCS")
             console.log(values)
         }}>
             {({handleChange, handleSubmit, values})=> {
