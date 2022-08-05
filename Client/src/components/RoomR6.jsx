@@ -3,9 +3,9 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import { Link } from 'react-router-native';
 import Constants from 'expo-constants';
 import Nav from './Nav';
-import PlayerCard from './PlayerCard.jsx';
+import PlayersR6 from './PlayersR6.jsx';
 
-const WaintingRoom = () => {
+const RoomCS = () => {
      return (
           <View style={styles.container}>
                <Text
@@ -18,7 +18,7 @@ const WaintingRoom = () => {
                          fontSize: 45,
                     }}
                >
-                    League of Legends
+                    Rainbows Six
                </Text>
                <View
                     style={{
@@ -28,7 +28,7 @@ const WaintingRoom = () => {
                          backgroundColor: '#98228C',
                     }}
                ></View>
-               <PlayerCard />
+               <PlayersR6 />
                <Link
                     to="/selectgame"
                     activeOpacity={1}
@@ -58,4 +58,4 @@ const styles = StyleSheet.create({
      },
 });
 
-export default WaintingRoom;
+export default RoomCS;

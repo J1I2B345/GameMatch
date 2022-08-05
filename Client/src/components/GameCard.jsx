@@ -3,7 +3,6 @@ import { FlatList, View, Image } from 'react-native';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-native';
 import axios from 'axios';
-import Games from './Games';
 
 const GameCard = () => {
      let [gamesDB, setGames] = useState([]);
