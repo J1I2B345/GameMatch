@@ -1,13 +1,9 @@
-import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  Alert,
-  TouchableOpacity,
-} from "react-native";
+
+
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View, Image, TextInput, Alert } from 'react-native';
+import { Link } from 'react-router-native';
+
 
 const Login = () => {
   return (
@@ -30,12 +26,53 @@ const Login = () => {
         <TextInput placeholder="Username" style={styles.input} />
         <TextInput placeholder="Password" style={styles.input} />
 
-        <TouchableOpacity
-          onPress={() => Alert.alert("logeado")}
-          style={styles.button}
-        >
-          <View>
-            <Text style={styles.button_text}>LOGIN</Text>
+
+
+                    <Link
+                         onPress={() => Alert.alert('Logeado Exitosamente')}
+                         to="/selectgame"
+                         activeOpacity={1}
+                         underlayColor={'#9A01E2'}
+                         style={styles.button}
+                    >
+                         <View>
+                              <Text style={styles.button_text}>LOGIN</Text>
+                         </View>
+                    </Link>
+               </View>
+
+               <View
+                    style={{
+                         marginTop: 30,
+                         fontSize: 15,
+                         height: 'auto',
+                    }}
+               >
+                    <Text
+                         style={{
+                              color: 'gray',
+                         }}
+                    >
+                         Don't have account?{' '}
+                         <Text
+                              style={{
+                                   color: 'white',
+                              }}
+                         >
+                              Register
+                         </Text>
+                    </Text>
+               </View>
+               <View
+                    style={{
+                         marginTop: 0,
+                         width: 190,
+                         height: 1,
+                         backgroundColor: 'gray',
+                    }}
+               ></View>
+               <StatusBar style="auto" />
+
           </View>
         </TouchableOpacity>
       </View>
