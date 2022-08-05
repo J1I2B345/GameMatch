@@ -58,8 +58,8 @@ router.put("/:id", async (req, res) => {
   //solicitud Tipo GET: localhost:3001/games/id
 
   try {
-    const updateGame = await GameSchema.findByIdAndUpdate({ _id: req.params.id }, req.body);
-    res.status(201).json('the game was succesfully modified');
+    const updateGame = await GameSchema.findByIdAndUpdate({ _id: req.params.id }, req.body, {new:true});
+    res.status(201).json(updateGame);
   } catch (error) {
     console.log("Error trying to update game");
     res.status(500).json({ error: error.message });
