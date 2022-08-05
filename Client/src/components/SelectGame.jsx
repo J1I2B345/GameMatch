@@ -28,19 +28,35 @@ useEffect(() => {
             <StatusBar style="auto" />
             <Text style={{color: "white", fontSize:40}} >Select your game</Text>
             {
-                games.length > 0 &&
+                games.length > 0 ?
                 <View style={{height: "83%",justifyContent: "space-evenly"}}>
-                    <Link to="/" activeOpacity={1} underlayColor={""}>
+                    <Link to="/formlol" activeOpacity={1} underlayColor={""}>
                         <Image source={{uri: games[0].image}} style={{width: 350, height: 180, borderRadius: 20}}/>
                     </Link>
-                    <Link to="/" activeOpacity={1} underlayColor={""}>
+                    <Link to="/formcs" activeOpacity={1} underlayColor={""}>
                         <Image source={{uri: games[1].image}} style={{width: 350, height: 180, borderRadius: 20}}/>
                     </Link>
-                    <Link to="/" activeOpacity={1} underlayColor={""}>
+                    <Link to="/formrainbow" activeOpacity={1} underlayColor={""}>
                         <Image source={{uri: games[2].image}} style={{width: 350, height: 180, borderRadius: 20}}/>
                     </Link>
                 </View>
+                :
+                <Text style={{color:"white", fontSize:40}}>Cargando...</Text>
             }
         </View>
     )
 }
+
+
+// games.length > 0 &&
+//                 <View style={{height: "83%",justifyContent: "space-evenly"}}>
+//                     <Link to="/formlol" activeOpacity={1} underlayColor={""}>
+//                         <Image source={{uri: games[0].image}} style={{width: 350, height: 180, borderRadius: 20}}/>
+//                     </Link>
+//                     <Link to="/formcs" activeOpacity={1} underlayColor={""}>
+//                         <Image source={{uri: games[1].image}} style={{width: 350, height: 180, borderRadius: 20}}/>
+//                     </Link>
+//                     <Link to="/formrainbow" activeOpacity={1} underlayColor={""}>
+//                         <Image source={{uri: games[2].image}} style={{width: 350, height: 180, borderRadius: 20}}/>
+//                     </Link>
+//                 </View>
