@@ -3,7 +3,9 @@ import { View } from 'react-native';
 import Login from './Login.jsx';
 import SelectGame from './SelectGame.jsx';
 // import GameHome from './GameHome.jsx';
-import WaitingRoom from './WaitingRoom.jsx';
+import RoomLoL from './RoomLoL.jsx';
+import RoomCS from './RoomCS.jsx';
+import RoomR6 from './RoomR6.jsx';
 
 const Home = () => {
      return (
@@ -12,7 +14,9 @@ const Home = () => {
                     <Route path="/" element={<Login />} />
                     <Route path="/selectgame" element={<SelectGame />} />
                     {/* <Route path="/GameHome" element={<GameHome />} /> */}
-                    <Route path="/players" element={<WaitingRoom />} />
+                    <Route path="/playersLoL" element={<RoomLoL />} />
+                    <Route path="/playersCS" element={<RoomCS />} />
+                    <Route path="/playersR6" element={<RoomR6 />} />
                </Routes>
           </View>
      );

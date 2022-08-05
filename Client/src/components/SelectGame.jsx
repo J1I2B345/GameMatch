@@ -47,7 +47,7 @@ export default function SelectGame() {
                          }}
                     >
                          <Link
-                              to="/players"
+                              to="/playersLoL"
                               activeOpacity={1}
                               underlayColor={''}
                               style={{ margin: 5 }}
@@ -57,13 +57,23 @@ export default function SelectGame() {
                                    style={{ width: 340, height: 180, borderRadius: 20 }}
                               />
                          </Link>
-                         <Link to="/" activeOpacity={1} underlayColor={''} style={{ margin: 5 }}>
+                         <Link
+                              to="/playersCS"
+                              activeOpacity={1}
+                              underlayColor={''}
+                              style={{ margin: 5 }}
+                         >
                               <Image
                                    source={{ uri: games[1].image }}
                                    style={{ width: 340, height: 180, borderRadius: 20 }}
                               />
                          </Link>
-                         <Link to="/" activeOpacity={1} underlayColor={''} style={{ margin: 5 }}>
+                         <Link
+                              to="/playersR6"
+                              activeOpacity={1}
+                              underlayColor={''}
+                              style={{ margin: 5 }}
+                         >
                               <Image
                                    source={{ uri: games[2].image }}
                                    style={{ width: 340, height: 180, borderRadius: 20 }}
