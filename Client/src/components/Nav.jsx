@@ -5,45 +5,25 @@ const Nav = () => {
      return (
           <View style={styles.container}>
                <View style={styles.icon_container}>
-                    <Link
-                         to="/"
-                         //  activeOpacity={1}
-                         underlayColor={'#9A01E2'}
-                         style={styles.icon}
-                    >
+                    <Link to="/" underlayColor={'#9A01E2'} style={styles.icon}>
                          <Image
                               source={require('../../assets/iconMenssage.png')}
                               style={{ marginTop: 1, width: 28.5, height: 28.5 }}
                          />
                     </Link>
-                    <Link
-                         to="/"
-                         //  activeOpacity={1}
-                         underlayColor={'#9A01E2'}
-                         style={styles.icon}
-                    >
+                    <Link to="/selectgame" underlayColor={'#9A01E2'} style={styles.icon}>
                          <Image
                               source={require('../../assets/iconHomeGames.png')}
                               style={{ width: 30, height: 30 }}
                          />
                     </Link>
-                    <Link
-                         to="/"
-                         //  activeOpacity={1}
-                         underlayColor={'#9A01E2'}
-                         style={styles.icon}
-                    >
+                    <Link to="/" underlayColor={'#9A01E2'} style={styles.icon}>
                          <Image
                               source={require('../../assets/iconForo.png')}
                               style={{ marginTop: 2, width: 26, height: 26 }}
                          />
                     </Link>
-                    <Link
-                         to="/"
-                         //  activeOpacity={1}
-                         underlayColor={'#9A01E2'}
-                         style={styles.icon}
-                    >
+                    <Link to="/" underlayColor={'#9A01E2'} style={styles.icon}>
                          <Image
                               source={require('../../assets/iconProfile.png')}
                               style={{ marginTop: 2, width: 27, height: 27 }}
