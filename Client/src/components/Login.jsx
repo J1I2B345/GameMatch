@@ -26,6 +26,8 @@ const Login = () => {
                     <Link
                          onPress={() => Alert.alert('Logeado Exitosamente')}
                          to="/selectgame"
+                         activeOpacity={1}
+                         underlayColor={'#9A01E2'}
                          style={styles.button}
                     >
                          <View>
