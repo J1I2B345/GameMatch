@@ -8,6 +8,7 @@ const news  = require("./newsRoutes")
 router.use("/games", games);
 router.use("/users", users);
 router.use("/chats", chats);
+router.use("/news", news)
 
 //-------------------------------
 
