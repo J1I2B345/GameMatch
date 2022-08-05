@@ -19,7 +19,12 @@
     "react-native": "0.68.2",
     "react-native-hide-show-password-input": "^1.2.0",
     "react-native-web": "0.17.7",
-    "react-router-native": "^6.3.0"
+    "react-redux": "^8.0.2",
+    "react-router-native": "^6.3.0",
+    "redux": "^4.2.0",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.1",
+    "socket.io-client": "^4.5.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
