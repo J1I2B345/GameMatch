@@ -23,56 +23,27 @@ export default function SelectGame() {
           fetchGames();
      }, []);
 
-     return (
-          <View
-               style={{
-                    alignItems: 'center',
-                    height: '100%',
-               }}
-          >
-               <Text
-                    style={{
-                         marginTop: Constants.statusBarHeight + 10,
-                         marginBottom: 10,
-                         color: 'white',
-                         fontSize: 40,
-                    }}
-               >
-                    Select your game
-               </Text>
-               {games.length > 0 && (
-                    <View
-                         style={{
-                              height: '83%',
-                         }}
-                    >
-                         <Link
-                              to="/players"
-                              activeOpacity={1}
-                              underlayColor={''}
-                              style={{ margin: 5 }}
-                         >
-                              <Image
-                                   source={{ uri: games[0].image }}
-                                   style={{ width: 340, height: 180, borderRadius: 20 }}
-                              />
-                         </Link>
-                         <Link to="/" activeOpacity={1} underlayColor={''} style={{ margin: 5 }}>
-                              <Image
-                                   source={{ uri: games[1].image }}
-                                   style={{ width: 340, height: 180, borderRadius: 20 }}
-                              />
-                         </Link>
-                         <Link to="/" activeOpacity={1} underlayColor={''} style={{ margin: 5 }}>
-                              <Image
-                                   source={{ uri: games[2].image }}
-                                   style={{ width: 340, height: 180, borderRadius: 20 }}
-                              />
-                         </Link>
-                    </View>
-               )}
-               <StatusBar style="auto" />
-               <Nav />
-          </View>
-     );
+    return (
+        <View style={{alignItems: "center", height:"100%", marginTop: Constants.statusBarHeight}}>
+            <StatusBar style="auto" />
+            <Text style={{color: "white", fontSize:40}} >Select your game</Text>
+            {
+                games.length > 0 ?
+                <View style={{height: "83%",justifyContent: "space-evenly"}}>
+                    <Link to="/formlol" activeOpacity={1} underlayColor={""}>
+                        <Image source={{uri: games[0].image}} style={{width: 350, height: 180, borderRadius: 20}}/>
+                    </Link>
+                    <Link to="/formcs" activeOpacity={1} underlayColor={""}>
+                        <Image source={{uri: games[1].image}} style={{width: 350, height: 180, borderRadius: 20}}/>
+                    </Link>
+                    <Link to="/formrainbow" activeOpacity={1} underlayColor={""}>
+                        <Image source={{uri: games[2].image}} style={{width: 350, height: 180, borderRadius: 20}}/>
+                    </Link>
+                </View>
+                :
+                <Text style={{color:"white", fontSize:40}}>Cargando...</Text>
+            }
+            <Nav />
+        </View>
+    )
 }
