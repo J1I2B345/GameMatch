@@ -46,7 +46,12 @@ export default function SelectGame() {
                               height: '83%',
                          }}
                     >
-                         <Link to="/" activeOpacity={1} underlayColor={''} style={{ margin: 5 }}>
+                         <Link
+                              to="/players"
+                              activeOpacity={1}
+                              underlayColor={''}
+                              style={{ margin: 5 }}
+                         >
                               <Image
                                    source={{ uri: games[0].image }}
                                    style={{ width: 340, height: 180, borderRadius: 20 }}
