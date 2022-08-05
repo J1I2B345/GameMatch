@@ -47,7 +47,7 @@ export default function SelectGame() {
                          }}
                     >
                          <Link
-                              to="/playersLoL"
+                              to="/formlol"
                               activeOpacity={1}
                               underlayColor={''}
                               style={{ margin: 5 }}
@@ -58,7 +58,7 @@ export default function SelectGame() {
                               />
                          </Link>
                          <Link
-                              to="/playersCS"
+                              to="/formcs"
                               activeOpacity={1}
                               underlayColor={''}
                               style={{ margin: 5 }}
@@ -69,7 +69,7 @@ export default function SelectGame() {
                               />
                          </Link>
                          <Link
-                              to="/playersR6"
+                              to="/formrainbow"
                               activeOpacity={1}
                               underlayColor={''}
                               style={{ margin: 5 }}
