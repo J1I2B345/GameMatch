@@ -58,7 +58,7 @@ router.put("/:id", async (req, res) => {
   //solicitud Tipo GET: localhost:3001/games/id
 
   try {
-    const updateGame = await GameSchema.findOne({ _id: req.params.id }, req.body);
+    const updateGame = await GameSchema.findByIdAndUpdate({ _id: req.params.id }, req.body);
     console.log('UPDATE ' + updateGame.name)
     res.status(201).json(updateGame);
   } catch (error) {
