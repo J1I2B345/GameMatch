@@ -1,6 +1,6 @@
 import { CREATE_GAME } from "../constants";
 
-export const createGame = (game) => {
+export const createGame = (game) => (dispatch) => {
   return fetch("https://backend-gamematch.herokuapp.com/games", {
     method: "POST",
     headers: { Accept: "applcation/json", "Content-Type": "application/json" },
@@ -10,6 +10,6 @@ export const createGame = (game) => {
       return response.json();
     })
     .then((json) => {
-      ({ type: CREATE_GAME, payload: game });
+      dispatch({ type: CREATE_GAME });
     });
 };

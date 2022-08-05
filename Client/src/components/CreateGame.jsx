@@ -25,11 +25,11 @@ export default function CreateGame() {
   const dispatch = useDispatch();
   const [data, setData] = useState(initialValues);
 
-  const submit = (values) => {
+  const submit = (values, actions) => {
     console.log({ values });
     dispatch(createGame(data));
     alert("Juego creado");
-    setData(initialValues);
+    actions.resetForm();
   };
 
   return (
