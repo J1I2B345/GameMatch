@@ -54,7 +54,7 @@ export default function FormRainbow() {
                validate={validate}
                initialValues={initialValues}
                onSubmit={(values) => {
-                    navigate('/playersV6');
+                    navigate('/playersR6');
                     console.log(values);
                }}
           >
