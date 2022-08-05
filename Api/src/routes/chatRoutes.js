@@ -1,7 +1,7 @@
 const {Router} = require("express")
 const router = Router()
 const Chat = require("../models/Chats.js")
-
+const User = require("../models/Users.js")
 // get all chats. used for testing and keep track of mocked data
 router.get('/all', async(req,res)=>{
     try{
@@ -53,7 +53,16 @@ router.post('/', async(req, res)=>{
         if (sender !== users[0] && sender!== users[1]) throw new Error ('sender must be one of the users in this chat')
         const chat = {message, users, sender} 
         const chatSaved = await Chat.create(chat)
-        if (chatSaved) res.status(201).send('Message send')
+    
+        if (chatSaved) {
+            const addUser1ToChatOfUser0 = await User.findByIdAndUpdate(users[0], {
+                $addToSet: {chats: users[1]}})
+            console.log(addUser1ToChatOfUser0)
+            const addUser0ToChatOfUser1= await User.findByIdAndUpdate(users[1], {
+                $addToSet: {chats: users[0]}})
+            console.log(addUser0ToChatOfUser1)    
+            res.status(201).send('Message send')
+        }
     } catch(e){
         res.status(400).json({"error": e.message})
     }
@@ -77,11 +86,18 @@ router.delete('/message/:id', async(req, res) =>{
 // }
 router.delete('/users', async(req, res) =>{
     try{
-        let users=req.body.users        
+        const users=req.body.users        
         if (users.length!==2 ) throw new Error ('must enter two users')
         if (users[0] === users[1]) throw new Error ('insert two differents users')
         let chatDeleted = await Chat.deleteMany({users})
+
         if (chatDeleted.deletedCount > 0) {
+            let chatUser0 = await User.findByIdAndUpdate(users[0],{
+                $pull: {chats: users[1]}
+            })
+            let chatUser1 = await User.findByIdAndUpdate(users[1],{
+                $pull: {chats: users[0]}
+            })
             return res.json({message: `chat succesfully deleted ${chatDeleted.deletedCount}`})
         } else {
             throw new Error('chat not deleted')
