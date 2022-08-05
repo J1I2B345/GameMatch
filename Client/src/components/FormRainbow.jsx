@@ -39,7 +39,7 @@ export default function FormRainbow (){
 
     return (
         <Formik validate={validate} initialValues={initialValues}  onSubmit={(values) => {
-            navigate("/")
+            navigate("/playersV6")
             console.log(values)
         }}>
             {({handleChange, handleSubmit, values})=> {
