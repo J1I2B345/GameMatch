@@ -19,6 +19,7 @@ export function lowerRating (array) {
 export function selectPosition(array, position){
     return array.filter(player => player.position.toLowerCase() === position.toLowerCase())
 }
+
 export function selectElo(array, elo){
     return array.filter(player => player.elo.toLowerCase() === elo.toLowerCase())
 }
