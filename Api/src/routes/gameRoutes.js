@@ -9,7 +9,8 @@ const GameSchema = require("../models/Games");
 router.get("/", async (req, res) => {
   try {
     const games = await GameSchema.find();
-    res.json(games);
+    if (games) res.json(games);
+    else throw new Error('No games')
   } catch (error) {
     console.log("Error trying to get games");
     res.status(400).send({ error: error.message });
@@ -23,7 +24,8 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const games = await GameSchema.findById(req.params.id);
-    res.json(games);
+    if(games) return res.json(games);
+    else throw new Error ('Game not found')
   } catch (error) {
     console.log("Error trying to get games");
     res.status(500).send({ error: error.message });
@@ -44,8 +46,10 @@ router.post("/", async (req, res) => {
       elo,
       position,
     });
-    console.log('POST ' + game.name)
-    res.status(201).json(game);
+    console.log(typeof image)
+    if (game) res.status(201).json(game);
+    
+    else throw new Error ('the game already exists')
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -61,7 +65,6 @@ router.put("/:id", async (req, res) => {
     const updateGame = await GameSchema.findByIdAndUpdate({ _id: req.params.id }, req.body, {new:true});
     res.status(201).json(updateGame);
   } catch (error) {
-    console.log("Error trying to update game");
     res.status(500).json({ error: error.message });
   }
 });
@@ -74,11 +77,10 @@ router.delete("/:id", async (req, res) => {
   try {
 
     const deleteGame = await GameSchema.findOneAndDelete({ _id: req.params.id }, req.body);
-    console.log('DELETED ' + deleteGame.name)
-    res.status(200).json(deleteGame);
+    if(deleteGame) res.status(200).json(deleteGame);
+    else throw new Error('There is no game with that _id')
 
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: error.message });
   }
 });
