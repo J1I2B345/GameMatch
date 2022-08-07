@@ -4,7 +4,7 @@ import Home from "./src/components/Home.jsx";
 import Fondo from "./assets/Fondo.png";
 
 import { Provider } from "react-redux";
-import configureStore from "./store/configureStore";
+import configureStore from "./src/redux/store/configureStore";
 
 const store = configureStore();
 

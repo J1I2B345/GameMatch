@@ -17,16 +17,16 @@ const Home = () => {
           <View>
                <Routes>
                     <Route path="/" element={<Login />} />
-                    <Route path="/selectgame" element={<SelectGame />} />
+                    <Route exact path="/selectgame" element={<SelectGame />} />
                     {/* <Route path="/GameHome" element={<GameHome />} /> */}
+                    <Route path="/createGame" element={<CreateGame />} />
                     <Route path="/playersLoL" element={<RoomLoL />} />
                     <Route path="/playersCS" element={<RoomCS />} />
                     <Route path="/playersR6" element={<RoomR6 />} />
                     <Route path="/formlol" element={<FormLol />} />
                     <Route path="/formcs" element={<FormCs />} />
                     <Route path="/formrainbow" element={<FormRainbow />} />
-                    <Route path="/chat" element={<Chat />} />
-                    {/* <Route path="/" element={<CreateGame />} /> */}
+                    {/* <Route path="/chat" element={<Chat />} /> */}
                </Routes>
           </View>
      );

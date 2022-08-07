@@ -1,5 +1,7 @@
 import { useDispatch } from "react-redux";
-import { createGame } from "./actions/create";
+import { Image} from 'react-native'
+import { createGame } from "../redux/actions/create";
+import { Link } from 'react-router-native';
 import { connect } from "react-redux";
 import {
   StyleSheet,
@@ -111,6 +113,21 @@ export default function CreateGame() {
                     title="Crear Juego"
                     onPress={formikProps.handleSubmit}
                   />
+                  <Link
+                    to="/"
+                    activeOpacity={1}
+                    underlayColor={''}
+                    style={{
+                         position: 'absolute',
+                         bottom: 80,
+                         left: 20,
+                         height: 45,
+                    }}>
+                  <Image
+                    source={require('../../assets/iconBack.png')}
+                    style={{ width: 50, height: 50 }}
+                  />
+                  </Link>
                 </View>
               </TouchableWithoutFeedback>
             )}
