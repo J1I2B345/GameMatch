@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createGame } from "./actions/create";
 import { connect } from "react-redux";
 import {
@@ -10,85 +9,115 @@ import {
   Text,
   TouchableWithoutFeedback,
   Keyboard,
+  SafeAreaView,
+  ScrollView,
 } from "react-native";
 import { Formik } from "formik";
+import * as yup from "yup";
 
-const initialValues = {
-  name: "",
-  gender: "",
-  elo: "",
-  position: "",
-  image: "",
-};
+const reviewSchema = yup.object({
+  name: yup.string().required().min(3),
+  gender: yup.string().required().min(3),
+  elo: yup.string().required().min(3),
+  position: yup.string().required().min(3),
+  image: yup.string().required().url(),
+});
 
 export default function CreateGame() {
   const dispatch = useDispatch();
-  const [data, setData] = useState(initialValues);
 
   const submit = (values, actions) => {
     console.log({ values });
-    dispatch(createGame(data));
+    dispatch(createGame(values));
     alert("Juego creado");
     actions.resetForm();
   };
 
   return (
-    <View style={styles.container}>
-      <Formik
-        initialValues={{
-          name: "",
-          gender: "",
-          elo: "",
-          position: "",
-          image: "",
-        }}
-        onSubmit={submit}
-      >
-        {(formikProps) => (
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={styles.form_container}>
-              <TextInput
-                style={styles.input}
-                placeholder="Nombre del juego"
-                onChangeText={formikProps.handleChange("name")}
-                value={formikProps.values.name}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Genero del juego"
-                onChangeText={formikProps.handleChange("gender")}
-                value={formikProps.values.gender}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Niveles de jugadores"
-                onChangeText={formikProps.handleChange("elo")}
-                value={formikProps.values.elo}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Posiciones de jugadores"
-                onChangeText={formikProps.handleChange("position")}
-                value={formikProps.values.position}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Imagen en url"
-                onChangeText={formikProps.handleChange("image")}
-                value={formikProps.values.image}
-              />
+    <SafeAreaView style={styles.portada}>
+      <ScrollView>
+        <View style={styles.container}>
+          <Formik
+            initialValues={{
+              name: "",
+              gender: "",
+              elo: "",
+              position: "",
+              image: "",
+            }}
+            validationSchema={reviewSchema}
+            onSubmit={submit}
+          >
+            {(formikProps) => (
+              <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.form_container}>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Nombre del juego"
+                    onChangeText={formikProps.handleChange("name")}
+                    value={formikProps.values.name}
+                    onBlur={formikProps.handleBlur("name")}
+                  />
+                  <Text style={styles.errorText}>
+                    {formikProps.touched.name && formikProps.errors.name}
+                  </Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Genero del juego"
+                    onChangeText={formikProps.handleChange("gender")}
+                    value={formikProps.values.gender}
+                    onBlur={formikProps.handleBlur("gender")}
+                  />
+                  <Text style={styles.errorText}>
+                    {formikProps.touched.gender && formikProps.errors.gender}
+                  </Text>
+                  <TextInput
+                    multiline
+                    style={styles.input}
+                    placeholder="Niveles de jugadores"
+                    onChangeText={formikProps.handleChange("elo")}
+                    value={formikProps.values.elo}
+                    onBlur={formikProps.handleBlur("elo")}
+                  />
+                  <Text style={styles.errorText}>
+                    {formikProps.touched.elo && formikProps.errors.elo}
+                  </Text>
 
-              <Button
-                style={styles.button}
-                title="submit"
-                color="maroon"
-                onPress={formikProps.handleSubmit}
-              />
-            </View>
-          </TouchableWithoutFeedback>
-        )}
-      </Formik>
-    </View>
+                  <TextInput
+                    multiline
+                    style={styles.input}
+                    placeholder="Posiciones de jugadores"
+                    onChangeText={formikProps.handleChange("position")}
+                    value={formikProps.values.position}
+                    onBlur={formikProps.handleBlur("position")}
+                  />
+                  <Text style={styles.errorText}>
+                    {formikProps.touched.position &&
+                      formikProps.errors.position}
+                  </Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Imagen en url"
+                    onChangeText={formikProps.handleChange("image")}
+                    value={formikProps.values.image}
+                    onBlur={formikProps.handleBlur("image")}
+                  />
+                  <Text style={styles.errorText}>
+                    {formikProps.touched.image && formikProps.errors.image}
+                  </Text>
+
+                  <Button
+                    style={styles.button}
+                    title="Crear Juego"
+                    onPress={formikProps.handleSubmit}
+                  />
+                </View>
+              </TouchableWithoutFeedback>
+            )}
+          </Formik>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
@@ -134,5 +163,11 @@ const styles = StyleSheet.create({
     width: "100%",
     textAlign: "center",
     color: "white",
+  },
+  errorText: {
+    color: "crimson",
+    fontWeight: "bold",
+    marginBottom: 10,
+    marginTop: 6,
   },
 });
