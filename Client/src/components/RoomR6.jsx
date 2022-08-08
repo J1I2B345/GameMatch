@@ -1,11 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView } from 'react-native';
 import { Link } from 'react-router-native';
 import Constants from 'expo-constants';
 import Nav from './Nav';
 import PlayersR6 from './PlayersR6.jsx';
+import FilterElo from './Filters/FilterEloR6';
+import OrderRating from './Filters/OrderRating';
+import Players from '../data/usersR6.js';
 
 const RoomCS = () => {
+     // const Players = useSelector((state) => state.playersR6);
      return (
           <View style={styles.container}>
                <Text
@@ -28,7 +32,30 @@ const RoomCS = () => {
                          backgroundColor: '#98228C',
                     }}
                ></View>
-               <PlayersR6 />
+               <SafeAreaView style={{ marginBottom: 175 }}>
+                    <ScrollView>
+                         <View
+                              style={{
+                                   flexDirection: 'row',
+                                   justifyContent: 'center',
+                              }}
+                         >
+                              <OrderRating />
+                              <FilterElo />
+                         </View>
+                         {Players.map((player) => (
+                              <PlayersR6
+                                   key={player.id}
+                                   id={player.id}
+                                   img={player.img}
+                                   name={player.name}
+                                   elo={player.elo}
+                                   position={player.position}
+                                   rating={player.rating}
+                              />
+                         ))}
+                    </ScrollView>
+               </SafeAreaView>
                <Link
                     to="/selectgame"
                     activeOpacity={1}

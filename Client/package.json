@@ -25,7 +25,8 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
     "socket.io-client": "^4.5.1",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "@react-native-picker/picker": "2.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

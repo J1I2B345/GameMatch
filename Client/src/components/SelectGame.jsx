@@ -1,12 +1,15 @@
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, SafeAreaView, ScrollView } from 'react-native';
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
 import Constants from 'expo-constants';
 import { Link } from 'react-router-native';
 import Nav from './Nav';
 import axios from 'axios';
+import { getPlayersCSGO, getPlayersLoL, getPlayersR6 } from '../redux/actions/create';
 
 export default function SelectGame() {
+     const dispatch = useDispatch();
      let [games, setGames] = useState([]);
 
      const fetchGames = async () => {
@@ -21,64 +24,51 @@ export default function SelectGame() {
 
      useEffect(() => {
           fetchGames();
+          dispatch(getPlayersLoL());
+          dispatch(getPlayersCSGO());
+          dispatch(getPlayersR6());
      }, []);
 
      return (
-          <View
+          <SafeAreaView
                style={{
                     alignItems: 'center',
+                    justifyContent: 'center',
                     height: '100%',
                }}
           >
-               <Text
+               <ScrollView
                     style={{
-                         marginTop: Constants.statusBarHeight + 10,
-                         marginBottom: 10,
-                         color: 'white',
-                         fontSize: 40,
+                         marginBottom: 45,
                     }}
                >
-                    Select your game
-               </Text>
-               {games.length > 0 && (
                     <View
                          style={{
-                              height: '83%',
+                              marginLeft: '5%',
                          }}
                     >
-                         <Link
-                              to="/formlol"
-                              activeOpacity={1}
-                              underlayColor={''}
-                              style={{ margin: 5 }}
+                         <Text
+                              style={{
+                                   marginTop: Constants.statusBarHeight + 10,
+                                   color: 'white',
+                                   fontSize: 45,
+                              }}
                          >
-                              <Image
-                                   source={{ uri: games[0].image }}
-                                   style={{ width: 340, height: 180, borderRadius: 20 }}
-                              />
-                         </Link>
-                         <Link
-                              to="/formcs"
-                              activeOpacity={1}
-                              underlayColor={''}
-                              style={{ margin: 5 }}
+                              ¿What
+                         </Text>
+                         <Text style={{ marginTop: -5, color: 'white', fontSize: 45 }}>
+                              do you want
+                         </Text>
+                         <Text
+                              style={{
+                                   marginTop: -5,
+                                   marginBottom: 10,
+                                   color: 'white',
+                                   fontSize: 45,
+                              }}
                          >
-                              <Image
-                                   source={{ uri: games[1].image }}
-                                   style={{ width: 340, height: 180, borderRadius: 20 }}
-                              />
-                         </Link>
-                         <Link
-                              to="/formrainbow"
-                              activeOpacity={1}
-                              underlayColor={''}
-                              style={{ margin: 5 }}
-                         >
-                              <Image
-                                   source={{ uri: games[2].image }}
-                                   style={{ width: 340, height: 180, borderRadius: 20 }}
-                              />
-                         </Link>
+                              to play today?
+                         </Text>
                     </View>
                )}
                <Link
@@ -99,6 +89,6 @@ export default function SelectGame() {
                </Link>
                <StatusBar style="auto" />
                <Nav />
-          </View>
+          </SafeAreaView>
      );
 }
