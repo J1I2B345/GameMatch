@@ -70,49 +70,24 @@ export default function SelectGame() {
                               to play today?
                          </Text>
                     </View>
-                    {games.length > 0 && (
-                         <View
-                              style={{
-                                   height: '83%',
-                              }}
-                         >
-                              <Link
-                                   to="/formlol"
-                                   activeOpacity={1}
-                                   underlayColor={''}
-                                   style={{ margin: 5 }}
-                              >
-                                   <Image
-                                        source={{ uri: games[0].image }}
-                                        style={{ width: 340, height: 180, borderRadius: 20 }}
-                                   />
-                              </Link>
-                              <Link
-                                   to="/formcs"
-                                   activeOpacity={1}
-                                   underlayColor={''}
-                                   style={{ margin: 5 }}
-                              >
-                                   <Image
-                                        source={{ uri: games[1].image }}
-                                        style={{ width: 340, height: 180, borderRadius: 20 }}
-                                   />
-                              </Link>
-                              <Link
-                                   to="/formrainbow"
-                                   activeOpacity={1}
-                                   underlayColor={''}
-                                   style={{ margin: 5 }}
-                              >
-                                   <Image
-                                        source={{ uri: games[2].image }}
-                                        style={{ width: 340, height: 180, borderRadius: 20 }}
-                                   />
-                              </Link>
-                         </View>
-                    )}
-                    <StatusBar style="auto" />
-               </ScrollView>
+               )}
+               <Link
+                    to="/createGame"
+                    activeOpacity={1}
+                    underlayColor={''}
+                    style={{
+                         position: 'absolute',
+                         bottom: 80,
+                         left: 20,
+                         height: 45,
+                    }}
+               >
+                    <Image
+                         source={require('../../assets/addGame.png')}
+                         style={{ width: 50, height: 50 }}
+                    />
+               </Link>
+               <StatusBar style="auto" />
                <Nav />
           </SafeAreaView>
      );

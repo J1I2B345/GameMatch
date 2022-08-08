@@ -3,6 +3,7 @@ import { Link } from 'react-router-native';
 import { Formik, useField } from 'formik';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-native';
+import Nav from './Nav';
 
 const FormikInputValue = ({ name, ...props }) => {
      const [field, meta, helpers] = useField(name);
@@ -69,65 +70,94 @@ export default function FormLol() {
      };
 
      return (
-          <Formik
-               validate={validate}
-               initialValues={initialValues}
-               onSubmit={(values) => {
-                    navigate('/playersLol');
-                    console.log(values);
-               }}
-          >
-               {({ handleChange, handleSubmit, values }) => {
-                    return (
-                         <View
-                              style={{
-                                   height: '100%',
-                                   alignItems: 'center',
-                                   justifyContent: 'space-evenly',
-                              }}
-                         >
-                              <Text style={{ fontSize: 45, color: 'white' }}>
-                                   League of Legends
-                              </Text>
-                              <FormikInputValue placeholder="Role" name="role" />
-                              <FormikInputValue placeholder="Division" name="division" />
-                              {Object.keys(error).length === 0 ? (
-                                   <Button onPress={handleSubmit} title="Start" color="#98228C" />
-                              ) : (
-                                   <></>
-                              )}
-                              <Link
-                                   to="/selectgame"
-                                   activeOpacity={1}
-                                   underlayColor={''}
+          <View>
+               <Formik
+                    validate={validate}
+                    initialValues={initialValues}
+                    onSubmit={(values) => {
+                         navigate('/playersLol');
+                         console.log(values);
+                    }}
+               >
+                    {({ handleChange, handleSubmit, values }) => {
+                         return (
+                              <View
                                    style={{
-                                        position: 'absolute',
-                                        bottom: 80,
-                                        left: 20,
-                                        height: 45,
+                                        height: '100%',
+                                        alignItems: 'center',
+                                        justifyContent: 'space-evenly',
                                    }}
                               >
-                                   <Image
-                                        source={require('../../assets/iconBack.png')}
-                                        style={{ width: 50, height: 50 }}
-                                   />
-                              </Link>
-                         </View>
-                    );
-               }}
-          </Formik>
+                                   <Text
+                                        style={{
+                                             marginTop: -50,
+                                             width: '80%',
+                                             color: 'white',
+                                             textAlign: 'center',
+                                             fontSize: 45,
+                                        }}
+                                   >
+                                        League of Legends
+                                   </Text>
+                                   <View
+                                        style={{
+                                             marginTop: -50,
+                                             marginBottom: 20,
+                                             height: 2,
+                                             width: '90%',
+                                             backgroundColor: '#98228C',
+                                        }}
+                                   ></View>
+                                   <View
+                                        style={{
+                                             marginTop: -130,
+                                        }}
+                                   ></View>
+                                   <FormikInputValue placeholder="Role" name="role" />
+                                   <FormikInputValue placeholder="Division" name="division" />
+                                   {Object.keys(error).length === 0 ? (
+                                        <Button
+                                             onPress={handleSubmit}
+                                             title="Start"
+                                             color="#98228C"
+                                        />
+                                   ) : (
+                                        <></>
+                                   )}
+                                   <Link
+                                        to="/selectgame"
+                                        activeOpacity={1}
+                                        underlayColor={''}
+                                        style={{
+                                             position: 'absolute',
+                                             bottom: 80,
+                                             left: 20,
+                                             height: 45,
+                                        }}
+                                   >
+                                        <Image
+                                             source={require('../../assets/iconBack.png')}
+                                             style={{ width: 50, height: 50 }}
+                                        />
+                                   </Link>
+                              </View>
+                         );
+                    }}
+               </Formik>
+               <Nav />
+          </View>
      );
 }
 
 {
      /* <View style={{height: "100%", alignItems: "center"}}>
-                <Text style={{fontSize: 45, color: "white", marginTop: "10%"}}>League of Legends</Text>
-                <View style={{width:"100%", alignItems:"center", height:"70%", justifyContent: 'space-evenly'}}>
-                    <View style={{width:"100%", alignItems:"center"}}>
-                        <Text style={{fontSize: 30, color: "white"}}>Role</Text>
-                        <TextInput onChangeText={handleChange} name="role" style={{backgroundColor: "white", borderRadius: 20, width: "70%", height: "27%"}}></TextInput>
-                    </View>
-                    <View style={{width:"100%", alignItems:"center"}}>
+     <Text style={{fontSize: 45, color: "white", marginTop: "10%"}}>League of Legends</Text>
+     <View style={{width:"100%", alignItems:"center", height:"70%", justifyContent: 'space-evenly'}}>
+     <View style={{width:"100%", alignItems:"center"}}>
+     <Text style={{fontSize: 30, color: "white"}}>Role</Text>
+     <TextInput onChangeText={handleChange} name="role" style={{backgroundColor: "white", borderRadius: 20, width: "70%", height: "27%"}}></TextInput>
+     </View>
+     <View style={{width:"100%", alignItems:"center"}}>
                         <Text style={{fontSize: 30, color: "white"}}>Division</Text>
                         <TextInput onChangeText={handleChange} name="division" style={{backgroundColor: "white", borderRadius: 20, width: "70%", height: "27%"}}></TextInput>
                     </View>
