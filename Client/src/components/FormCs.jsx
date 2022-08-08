@@ -3,6 +3,7 @@ import { Link } from 'react-router-native';
 import { Formik, useField } from 'formik';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-native';
+import Nav from './Nav';
 
 const FormikInputValue = ({ name, ...props }) => {
      const [field, meta, helpers] = useField(name);
@@ -68,53 +69,84 @@ export default function FormCs() {
      };
 
      return (
-          <Formik
-               validate={validate}
-               initialValues={initialValues}
-               onSubmit={(values) => {
-                    navigate('/playersCS');
-                    console.log(values);
-               }}
-          >
-               {({ handleChange, handleSubmit, values }) => {
-                    return (
-                         <View
-                              style={{
-                                   height: '100%',
-                                   alignItems: 'center',
-                                   justifyContent: 'space-evenly',
-                              }}
-                         >
-                              <Text style={{ fontSize: 45, color: 'white' }}>Counter Strike</Text>
-                              <FormikInputValue placeholder="Role" name="role" />
-                              <FormikInputValue placeholder="Rank" name="rank" />
-                              {Object.keys(error).length === 0 ? (
-                                   <Button onPress={handleSubmit} title="Start" color="#98228C" />
-                              ) : (
-                                   <></>
-                              )}
-                              {/* <Link to="/" style={{backgroundColor:"grey", borderRadius: 10, height:30, justifyContent:"center"}}>
-                        <Text>Ir a sala de chats</Text>
-                    </Link> */}
-                              <Link
-                                   to="/selectgame"
-                                   activeOpacity={1}
-                                   underlayColor={''}
+          <View>
+               <Formik
+                    validate={validate}
+                    initialValues={initialValues}
+                    onSubmit={(values) => {
+                         navigate('/playersCS');
+                         console.log(values);
+                    }}
+               >
+                    {({ handleChange, handleSubmit, values }) => {
+                         return (
+                              <View
                                    style={{
-                                        position: 'absolute',
-                                        bottom: 80,
-                                        left: 20,
-                                        height: 45,
+                                        height: '100%',
+                                        alignItems: 'center',
+                                        justifyContent: 'space-evenly',
                                    }}
                               >
-                                   <Image
-                                        source={require('../../assets/iconBack.png')}
-                                        style={{ width: 50, height: 50 }}
-                                   />
-                              </Link>
-                         </View>
-                    );
-               }}
-          </Formik>
+                                   <Text
+                                        style={{
+                                             marginTop: -50,
+                                             width: '80%',
+                                             color: 'white',
+                                             textAlign: 'center',
+                                             fontSize: 45,
+                                        }}
+                                   >
+                                        Counter Strike : GO
+                                   </Text>
+                                   <View
+                                        style={{
+                                             marginTop: -50,
+                                             marginBottom: 20,
+                                             height: 2,
+                                             width: '90%',
+                                             backgroundColor: '#98228C',
+                                        }}
+                                   ></View>
+                                   <View
+                                        style={{
+                                             marginTop: -130,
+                                        }}
+                                   ></View>
+                                   <FormikInputValue placeholder="Role" name="role" />
+                                   <FormikInputValue placeholder="Rank" name="rank" />
+                                   {Object.keys(error).length === 0 ? (
+                                        <Button
+                                             onPress={handleSubmit}
+                                             title="Start"
+                                             color="#98228C"
+                                        />
+                                   ) : (
+                                        <></>
+                                   )}
+                                   {/* <Link to="/" style={{backgroundColor:"grey", borderRadius: 10, height:30, justifyContent:"center"}}>
+                        <Text>Ir a sala de chats</Text>
+                    </Link> */}
+                                   <Link
+                                        to="/selectgame"
+                                        activeOpacity={1}
+                                        underlayColor={''}
+                                        style={{
+                                             position: 'absolute',
+                                             bottom: 80,
+                                             left: 20,
+                                             height: 45,
+                                        }}
+                                   >
+                                        <Image
+                                             source={require('../../assets/iconBack.png')}
+                                             style={{ width: 50, height: 50 }}
+                                        />
+                                   </Link>
+                              </View>
+                         );
+                    }}
+               </Formik>
+               <Nav />
+          </View>
      );
 }
