@@ -113,6 +113,66 @@ const createReducer = (state = initialState, action) => {
                };
           }
 
+          case 'FILTER_BY_POSITION':
+               let allPlayers = [state.playersLoL, state.playersCSGO, state.playersR6];
+               allPlayers = allPlayers.flat();
+               let playerPosition = state.allPlayers.filter((data) =>
+                    data.position.map((data) => data.name).includes(payload)
+               );
+               if (playerPosition.length > 0)
+                    return {
+                         ...state,
+                         playersLoL: playerPosition,
+                         playersCSGO: playerPosition,
+                         playersR6: playerPosition,
+                    };
+               return {
+                    ...state,
+                    playersIsEmpty: 'There are no players whit this position',
+               };
+
+          case 'FILTER_BY_ELO_LOL':
+               let playerEloLoL = state.playersLoL.filter((data) =>
+                    data.elo.map((data) => data.name).includes(payload)
+               );
+               if (playerEloLoL.length > 0)
+                    return {
+                         ...state,
+                         playersLoL: playerEloLoL,
+                    };
+               return {
+                    ...state,
+                    playersIsEmpty: 'There are no players whit this elo',
+               };
+
+          case 'FILTER_BY_ELO_CSGO':
+               let playerEloCSGO = state.playersCSGO.filter((data) =>
+                    data.elo.map((data) => data.name).includes(payload)
+               );
+               if (playerEloCSGO.length > 0)
+                    return {
+                         ...state,
+                         playersCSGO: playerEloCSGO,
+                    };
+               return {
+                    ...state,
+                    playersIsEmpty: 'There are no players whit this elo',
+               };
+
+          case 'FILTER_BY_ELO_R6':
+               let playerEloR6 = state.playersR6.filter((data) =>
+                    data.elo.map((data) => data.name).includes(payload)
+               );
+               if (playerEloR6.length > 0)
+                    return {
+                         ...state,
+                         playersR6: playerEloR6,
+                    };
+               return {
+                    ...state,
+                    playersIsEmpty: 'There are no players whit this elo',
+               };
+
           default:
                return state;
      }

@@ -53,3 +53,31 @@ export const orderByRating = (payload) => {
           payload,
      };
 };
+
+export const filterByPosition = (payload) => {
+     return {
+          type: 'FILTER_BY_GENRE',
+          payload,
+     };
+};
+
+export const filterByEloLoL = (payload) => {
+     return {
+          type: 'FILTER_BY_ELO_LOL',
+          payload,
+     };
+};
+
+export const filterByEloCSGO = (payload) => {
+     return {
+          type: 'FILTER_BY_ELO_CSGO',
+          payload,
+     };
+};
+
+export const filterByEloR6 = (payload) => {
+     return {
+          type: 'FILTER_BY_ELO_R6',
+          payload,
+     };
+};

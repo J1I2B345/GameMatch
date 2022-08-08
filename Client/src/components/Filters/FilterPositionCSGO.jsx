@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { filterByPosition } from '../../redux/actions/create';
 
 const FilterPosition = () => {
      const dispatch = useDispatch();
@@ -23,6 +24,15 @@ const FilterPosition = () => {
      useEffect(() => {
           fetchPosition();
      }, []);
+
+     function handleAll(e) {
+          setOption(e);
+          handleClickFilter(e);
+     }
+
+     function handleClickFilter(e) {
+          dispatch(filterByPosition(e));
+     }
 
      return (
           <View
@@ -45,7 +55,7 @@ const FilterPosition = () => {
                </Text>
                <Picker
                     selectedValue={option}
-                    onValueChange={(value, index) => setOption(value)}
+                    onValueChange={(value, index) => handleAll(value)}
                     style={{
                          marginBottom: 10,
                          width: '100%',
