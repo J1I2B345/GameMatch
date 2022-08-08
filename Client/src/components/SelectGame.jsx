@@ -70,6 +70,29 @@ export default function SelectGame() {
                               to play today?
                          </Text>
                     </View>
+                    <Link to="/formlol" activeOpacity={1} underlayColor={''} style={{ margin: 5 }}>
+                         <Image
+                              source={{ uri: games[0].image }}
+                              style={{ width: 340, height: 180, borderRadius: 20 }}
+                         />
+                    </Link>
+                    <Link to="/formcs" activeOpacity={1} underlayColor={''} style={{ margin: 5 }}>
+                         <Image
+                              source={{ uri: games[1].image }}
+                              style={{ width: 340, height: 180, borderRadius: 20 }}
+                         />
+                    </Link>
+                    <Link
+                         to="/formrainbow"
+                         activeOpacity={1}
+                         underlayColor={''}
+                         style={{ margin: 5 }}
+                    >
+                         <Image
+                              source={{ uri: games[2].image }}
+                              style={{ width: 340, height: 180, borderRadius: 20 }}
+                         />
+                    </Link>
                </ScrollView>
 
                <Link
