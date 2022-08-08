@@ -27,7 +27,7 @@ const FormikInputValue = ({ name, ...props }) => {
      );
 };
 
-const ranks = [
+export const ranks = [
      'silver',
      'nova',
      'master guardian',

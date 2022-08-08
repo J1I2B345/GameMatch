@@ -26,12 +26,8 @@ const FilterElo = () => {
           fetchElos();
      }, []);
 
-     function handleAll(e) {
+     function handleClick(e) {
           setOption(e);
-          handleClickFilter(e);
-     }
-
-     function handleClickFilter(e) {
           dispatch(filterByEloR6(e));
      }
 
@@ -57,7 +53,7 @@ const FilterElo = () => {
                </Text>
                <Picker
                     selectedValue={option}
-                    onValueChange={(value, index) => handleAll(value)}
+                    onValueChange={(value, index) => handleClick(value)}
                     style={{
                          marginBottom: 10,
                          width: '100%',

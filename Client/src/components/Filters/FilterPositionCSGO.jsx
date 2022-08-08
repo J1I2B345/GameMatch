@@ -26,13 +26,9 @@ const FilterPosition = () => {
           fetchPosition();
      }, []);
 
-     function handleAll(e) {
+     function handleClick(e) {
           setOption(e);
-          handleClickFilter(e);
-     }
-
-     function handleClickFilter(e) {
-          dispatch(filterByPosition(e));
+          dispatch(filterByPosition(e))
      }
 
      return (
@@ -57,7 +53,7 @@ const FilterPosition = () => {
                </Text>
                <Picker
                     selectedValue={option}
-                    onValueChange={(value, index) => handleAll(value)}
+                    onValueChange={(value, index) => handleClick(value)}
                     style={{
                          marginBottom: 10,
                          width: '100%',
