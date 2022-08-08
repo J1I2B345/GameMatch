@@ -6,10 +6,12 @@ import Nav from './Nav';
 import PlayersR6 from './PlayersR6.jsx';
 import FilterElo from './Filters/FilterEloR6';
 import OrderRating from './Filters/OrderRating';
-import Players from '../data/usersR6.js';
+import { connect, useSelector } from 'react-redux';
+// import Players from '../data/usersR6.js';
 
 const RoomCS = () => {
-     // const Players = useSelector((state) => state.playersR6);
+     const Players = useSelector((state) => state.games.playersR6);
+
      return (
           <View style={styles.container}>
                <Text
@@ -34,6 +36,7 @@ const RoomCS = () => {
                ></View>
                <SafeAreaView style={{ marginBottom: 175 }}>
                     <ScrollView>
+                         {}
                          <View
                               style={{
                                    flexDirection: 'row',
@@ -43,17 +46,29 @@ const RoomCS = () => {
                               <OrderRating />
                               <FilterElo />
                          </View>
-                         {Players.map((player) => (
-                              <PlayersR6
-                                   key={player.id}
-                                   id={player.id}
-                                   img={player.img}
-                                   name={player.name}
-                                   elo={player.elo}
-                                   position={player.position}
-                                   rating={player.rating}
-                              />
-                         ))}
+                         {Players.length > 0 ? (
+                              Players.map((player) => (
+                                   <PlayersR6
+                                        key={player.id}
+                                        id={player.id}
+                                        img={player.img}
+                                        name={player.name}
+                                        elo={player.elo}
+                                        position={player.position}
+                                        rating={player.rating}
+                                   />
+                              ))
+                         ) : (
+                              <Text
+                                   style={{
+                                        textAlign: 'center',
+                                        color: 'white',
+                                        fontSize: 20,
+                                   }}
+                              >
+                                   Loading...
+                              </Text>
+                         )}
                     </ScrollView>
                </SafeAreaView>
                <Link

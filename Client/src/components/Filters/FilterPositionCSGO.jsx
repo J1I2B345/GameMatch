@@ -41,6 +41,7 @@ const FilterPosition = () => {
                     color: 'white',
                     textAlign: 'center',
                     justifyContent: 'center',
+                    marginLeft: 30,
                }}
           >
                <Text
@@ -63,9 +64,10 @@ const FilterPosition = () => {
                     }}
                >
                     <Picker.Item label="All" value="All" />
-                    {position.map((data) => (
-                         <Picker.Item key={data} label={data} value={data} />
-                    ))}
+                    {position.length > 0 &&
+                         position.map((data) => (
+                              <Picker.Item key={data} label={data} value={data} />
+                         ))}
                </Picker>
           </View>
      );

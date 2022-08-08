@@ -70,7 +70,7 @@ export default function SelectGame() {
                               to play today?
                          </Text>
                     </View>
-                    {games.length > 0 && (
+                    {games.length > 0 ? (
                          <View>
                               <Link
                                    to="/formlol"
@@ -106,6 +106,16 @@ export default function SelectGame() {
                                    />
                               </Link>
                          </View>
+                    ) : (
+                         <Text
+                              style={{
+                                   textAlign: 'center',
+                                   color: 'white',
+                                   fontSize: 20,
+                              }}
+                         >
+                              Loading...
+                         </Text>
                     )}
                </ScrollView>
 

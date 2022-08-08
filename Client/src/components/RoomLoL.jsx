@@ -7,11 +7,13 @@ import PlayersLoLCard from './PlayersLoLCard.jsx';
 import OrderRating from './Filters/OrderRating';
 import FilterElo from './Filters/FilterEloLoL';
 import FilterPosition from './Filters/FilterPositionLoL';
-import Players from '../data/usersLOL.js';
+// import Players from '../data/usersLOL.js';
 import { useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 
 const RoomLoL = () => {
-     // const Players = useSelector((state) => state.playersLoL);
+     const Players = useSelector((state) => state.games.playersLoL);
+
      return (
           <View style={styles.container}>
                <Text
@@ -53,17 +55,29 @@ const RoomLoL = () => {
                          >
                               <FilterElo />
                          </View>
-                         {Players.map((player) => (
-                              <PlayersLoLCard
-                                   key={player.id}
-                                   id={player.id}
-                                   img={player.img}
-                                   name={player.name}
-                                   elo={player.elo}
-                                   position={player.position}
-                                   rating={player.rating}
-                              />
-                         ))}
+                         {Players.length > 0 ? (
+                              Players.map((player) => (
+                                   <PlayersLoLCard
+                                        key={player.id}
+                                        id={player.id}
+                                        img={player.img}
+                                        name={player.name}
+                                        elo={player.elo}
+                                        position={player.position}
+                                        rating={player.rating}
+                                   />
+                              ))
+                         ) : (
+                              <Text
+                                   style={{
+                                        textAlign: 'center',
+                                        color: 'white',
+                                        fontSize: 20,
+                                   }}
+                              >
+                                   Loading...
+                              </Text>
+                         )}
                     </ScrollView>
                </SafeAreaView>
                <Link

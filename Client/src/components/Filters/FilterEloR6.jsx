@@ -41,6 +41,7 @@ const FilterElo = () => {
                     color: 'white',
                     textAlign: 'center',
                     justifyContent: 'center',
+                    marginLeft: 30,
                }}
           >
                <Text
@@ -63,9 +64,7 @@ const FilterElo = () => {
                     }}
                >
                     <Picker.Item label="All" value="All" />
-                    {elo.map((data) => (
-                         <Picker.Item label={data} value={data} />
-                    ))}
+                    {elo.length > 0 && elo.map((data) => <Picker.Item label={data} value={data} />)}
                </Picker>
           </View>
      );
