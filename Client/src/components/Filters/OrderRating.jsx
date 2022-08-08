@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 const OrderRating = () => {
      const dispatch = useDispatch();
-     const [option, setOption] = useState('All');
+     const [option, setOption] = useState('Any');
 
      function handleAll(e) {
           setOption(e);
@@ -46,9 +46,9 @@ const OrderRating = () => {
                          backgroundColor: '#fff',
                     }}
                >
-                    <Picker.Item label="Random" value="Unknow" />
-                    <Picker.Item label="Min-Max" value="Min-Max" />
+                    <Picker.Item label="Any" value="Any" />
                     <Picker.Item label="Max-Min" value="Max-Min" />
+                    <Picker.Item label="Min-Max" value="Min-Max" />
                </Picker>
           </View>
      );

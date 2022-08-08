@@ -30,7 +30,7 @@ const FormikInputValue = ({ name, ...props }) => {
 const roles = ['top', 'jungle', 'mid', 'adc', 'supp'];
 const divisions = [
      'iron',
-     'bronce',
+     'bronze',
      'silver',
      'gold',
      'platinum',
@@ -62,7 +62,7 @@ export default function FormLol() {
                errors.division = 'Role is required';
           } else if (!divisions.includes(values.division.toLowerCase())) {
                errors.division =
-                    'the possibles roles are iron, bronce, silver, gold, platinum, diamond, master, gran master or challenger';
+                    'the possibles roles are iron, bronze, silver, gold, platinum, diamond, master, gran master or challenger';
           }
 
           setError(errors);

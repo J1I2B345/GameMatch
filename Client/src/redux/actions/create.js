@@ -56,7 +56,7 @@ export const orderByRating = (payload) => {
 
 export const filterByPosition = (payload) => {
      return {
-          type: 'FILTER_BY_GENRE',
+          type: 'FILTER_BY_POSITION',
           payload,
      };
 };
