@@ -8,8 +8,10 @@ import OrderRating from './Filters/OrderRating';
 import FilterPosition from './Filters/FilterPositionCSGO';
 import FilterElo from './Filters/FilterEloCSGO';
 import Players from '../data/usersCSGO.js';
+import { useSelector } from 'react-redux';
 
 const RoomCS = () => {
+     // const Players = useSelector((state) => state.playersCSGO);
      return (
           <View style={styles.container}>
                <Text

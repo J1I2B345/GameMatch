@@ -9,6 +9,7 @@ import OrderRating from './Filters/OrderRating';
 import Players from '../data/usersR6.js';
 
 const RoomCS = () => {
+     // const Players = useSelector((state) => state.playersR6);
      return (
           <View style={styles.container}>
                <Text

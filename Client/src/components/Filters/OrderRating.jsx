@@ -2,10 +2,20 @@ import { useDispatch } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useState } from 'react';
+import { orderByRating } from '../../redux/actions/create';
 
 const OrderRating = () => {
      const dispatch = useDispatch();
      const [option, setOption] = useState('All');
+
+     function handleAll(e) {
+          setOption(e);
+          handleClickOrder(e);
+     }
+
+     function handleClickOrder(e) {
+          dispatch(orderByRating(e));
+     }
 
      return (
           <View
@@ -28,7 +38,7 @@ const OrderRating = () => {
                </Text>
                <Picker
                     selectedValue={option}
-                    onValueChange={(value, index) => setOption(value)}
+                    onValueChange={(value, index) => handleAll(value)}
                     style={{
                          marginBottom: 10,
                          width: '100%',

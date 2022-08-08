@@ -46,3 +46,10 @@ export const getPlayersR6 = () => {
           });
      };
 };
+
+export const orderByRating = (payload) => {
+     return {
+          type: 'ORDER_BY_RATING',
+          payload,
+     };
+};
