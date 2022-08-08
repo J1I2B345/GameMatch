@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 
 const RoomCS = () => {
      const Players = useSelector((state) => state.games.playersCSGO);
+
      return (
           <View style={styles.container}>
                <Text

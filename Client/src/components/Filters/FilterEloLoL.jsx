@@ -4,6 +4,7 @@ import { Picker } from '@react-native-picker/picker';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { filterByEloLoL } from '../../redux/actions/create';
+import { connect } from 'react-redux';
 
 const FilterElo = () => {
      const dispatch = useDispatch();
