@@ -70,7 +70,8 @@ export default function SelectGame() {
                               to play today?
                          </Text>
                     </View>
-               )}
+               </ScrollView>
+
                <Link
                     to="/createGame"
                     activeOpacity={1}
