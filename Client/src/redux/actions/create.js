@@ -17,35 +17,35 @@ export const createGame = (game) => (dispatch) => {
           });
 };
 
-export const getPlayersLoL = () => {
-     return async (dispatch) => {
-          let json = playersLoL;
-          return dispatch({
-               type: 'GET_PLAYERS_LOL',
-               payload: json,
-          });
-     };
-};
+// export const getPlayersLoL = () => {
+//      return async (dispatch) => {
+//           let json = playersLoL;
+//           return dispatch({
+//                type: 'GET_PLAYERS_LOL',
+//                payload: json,
+//           });
+//      };
+// };
 
-export const getPlayersCSGO = () => {
-     return async (dispatch) => {
-          let json = playersCSGO;
-          return dispatch({
-               type: 'GET_PLAYERS_CSGO',
-               payload: json,
-          });
-     };
-};
+// export const getPlayersCSGO = () => {
+//      return async (dispatch) => {
+//           let json = playersCSGO;
+//           return dispatch({
+//                type: 'GET_PLAYERS_CSGO',
+//                payload: json,
+//           });
+//      };
+// };
 
-export const getPlayersR6 = () => {
-     return async (dispatch) => {
-          let json = playersR6;
-          return dispatch({
-               type: 'GET_PLAYERS_R6',
-               payload: json,
-          });
-     };
-};
+// export const getPlayersR6 = () => {
+//      return async (dispatch) => {
+//           let json = playersR6;
+//           return dispatch({
+//                type: 'GET_PLAYERS_R6',
+//                payload: json,
+//           });
+//      };
+// };
 
 export const orderByRating = (payload) => {
      return {

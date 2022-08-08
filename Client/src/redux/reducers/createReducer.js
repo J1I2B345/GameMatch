@@ -317,21 +317,21 @@ const createReducer = (state = initialState, action) => {
           case CREATE_GAME:
                return state;
 
-          case 'GET_PLAYERS_LOL':
-               return {
-                    ...state,
-                    playersLoL: payload,
-               };
-          case 'GET_PLAYERS_CSGO':
-               return {
-                    ...state,
-                    playersCSGO: payload,
-               };
-          case 'GET_PLAYERS_R6':
-               return {
-                    ...state,
-                    playersR6: payload,
-               };
+          // case 'GET_PLAYERS_LOL':
+          //      return {
+          //           ...state,
+          //           playersLoL: payload,
+          //      };
+          // case 'GET_PLAYERS_CSGO':
+          //      return {
+          //           ...state,
+          //           playersCSGO: payload,
+          //      };
+          // case 'GET_PLAYERS_R6':
+          //      return {
+          //           ...state,
+          //           playersR6: payload,
+          //      };
 
           case 'ORDER_BY_RATING': {
                let playersInLoL = [];

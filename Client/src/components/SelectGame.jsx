@@ -6,7 +6,7 @@ import Constants from 'expo-constants';
 import { Link } from 'react-router-native';
 import Nav from './Nav';
 import axios from 'axios';
-import { getPlayersCSGO, getPlayersLoL, getPlayersR6 } from '../redux/actions/create';
+// import { getPlayersCSGO, getPlayersLoL, getPlayersR6 } from '../redux/actions/create';
 
 export default function SelectGame() {
      const dispatch = useDispatch();
@@ -24,9 +24,9 @@ export default function SelectGame() {
 
      useEffect(() => {
           fetchGames();
-          dispatch(getPlayersLoL());
-          dispatch(getPlayersCSGO());
-          dispatch(getPlayersR6());
+          // dispatch(getPlayersLoL());
+          // dispatch(getPlayersCSGO());
+          // dispatch(getPlayersR6());
      }, []);
 
      return (
