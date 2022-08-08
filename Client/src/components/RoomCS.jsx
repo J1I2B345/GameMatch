@@ -1,11 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView } from 'react-native';
 import { Link } from 'react-router-native';
 import Constants from 'expo-constants';
 import Nav from './Nav';
 import PlayersCSCard from './PlayersCSCard.jsx';
+import OrderRating from './Filters/OrderRating';
+import FilterPosition from './Filters/FilterPositionCSGO';
+import FilterElo from './Filters/FilterEloCSGO';
+import Players from '../data/usersCSGO.js';
+import { useSelector } from 'react-redux';
 
 const RoomCS = () => {
+     // const Players = useSelector((state) => state.playersCSGO);
      return (
           <View style={styles.container}>
                <Text
@@ -28,7 +34,38 @@ const RoomCS = () => {
                          backgroundColor: '#98228C',
                     }}
                ></View>
-               <PlayersCSCard />
+               <SafeAreaView style={{ marginBottom: 225 }}>
+                    <ScrollView>
+                         <View
+                              style={{
+                                   flexDirection: 'row',
+                                   justifyContent: 'center',
+                              }}
+                         >
+                              <OrderRating />
+                              <FilterPosition />
+                         </View>
+                         <View
+                              style={{
+                                   flexDirection: 'row',
+                                   justifyContent: 'center',
+                              }}
+                         >
+                              <FilterElo />
+                         </View>
+                         {Players.map((player) => (
+                              <PlayersCSCard
+                                   key={player.id}
+                                   id={player.id}
+                                   img={player.img}
+                                   name={player.name}
+                                   elo={player.elo}
+                                   position={player.position}
+                                   rating={player.rating}
+                              />
+                         ))}
+                    </ScrollView>
+               </SafeAreaView>
                <Link
                     to="/selectgame"
                     activeOpacity={1}
