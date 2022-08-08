@@ -24,8 +24,6 @@ const FilterElo = () => {
           fetchElos();
      }, []);
 
-     console.log(elo);
-
      return (
           <View
                style={{
