@@ -70,7 +70,7 @@ const createReducer = (state = initialState, action) => {
                          ...state,
                          playersLoL: playersInLoL,
                          playersCSGO: playersInCSGO,
-                         playersInR6: playersInR6,
+                         playersR6: playersInR6,
                     };
                }
                else if (payload === 'Max-Min') {
