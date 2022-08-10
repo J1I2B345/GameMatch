@@ -69,7 +69,9 @@ function leaveRoom(game, id){
 }
 
 function getUser(socketid){
-    
+    let userLol = usersLol.find(e => e.socketid === socketid)
+    let userCS = usersCS.find( e=> e.socketid === socketid)
+    let userR6 = usersR6.find( e=> e.socketid === socketid)
 }
 
 module.exports = {
