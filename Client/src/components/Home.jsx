@@ -11,6 +11,7 @@ import FormCs from './FormCs.jsx';
 import FormRainbow from './FormRainbow.jsx';
 import Chat from './Chat.jsx';
 import CreateGame from './CreateGame.jsx';
+import Profile from './Profile.jsx';
 
 const Home = () => {
      return (
@@ -26,7 +27,8 @@ const Home = () => {
                     <Route path="/formlol" element={<FormLol />} />
                     <Route path="/formcs" element={<FormCs />} />
                     <Route path="/formrainbow" element={<FormRainbow />} />
-                    {/* <Route path="/chat" element={<Chat />} /> */}
+                    <Route path="/chat" element={<Chat />} />
+                    <Route path="/profile" element={<Profile />} />
                </Routes>
           </View>
      );
