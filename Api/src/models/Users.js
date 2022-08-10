@@ -45,10 +45,19 @@ const schema = new Schema({
         type: String,
         //default: buscar una imagen que sea tipo la de facebook
     },
+
     description: String,
-    steam: String,
-    riot: String,
-    ig: String,
+    socialNetworks: {
+        steam: String,
+        riot: String,
+        ig: String,
+        discord: String,
+        twitter: String,
+    },
+    ban: {
+        type: Boolean,
+        default: false
+    },
     tenant: String,
     connection: String,
     debug: Boolean
