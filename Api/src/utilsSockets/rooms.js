@@ -6,7 +6,7 @@ const usersR6 = []
 
 
 function userJoin(user){
-     console.log (user)
+     console.log ('back', user)
     if (user.game === "League of Legends")    
     usersLol.push(user)
 
