@@ -85,7 +85,7 @@ export const filterByEloR6 = (payload) => {
 
 
 export const getUser = (username) => (dispatch) =>{
-     return fetch(`http://localhost:3001/users/username/${username}`)
+     return fetch(`https://backend-gamematch.herokuapp.com/users/username/${username}`)
           .then((response) => response.json())
           .then((json) => {
                dispatch({ type: GET_USERNAME, payload: json });

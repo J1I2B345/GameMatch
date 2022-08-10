@@ -192,4 +192,17 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+
+router.get("/username/:username", async (req, res) => {
+  try {
+    const username = req.params.username;
+    const userFound = await UserSchema.findOne({username: username});
+    if (userFound) return res.status(200).json(userFound);
+    else throw new Error("user not found");
+  } catch (error) {
+    console.log("Error trying to get the user");
+    res.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = router;
