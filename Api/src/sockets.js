@@ -12,7 +12,7 @@ module.exports = (io) => {
             socket.broadcast.to(userFull.game).emit('message', `${userFull.username} has joined the chat`)
 
             
-            io.to(userFull.game).emit('gameUsers', getGameUsers(userFull.game))
+            io.to(userFull.game).emit('gameUsers', getGameUsers(userFull.game, userFull._id))
         })
 
         socket.on('disconnect', () =>{
