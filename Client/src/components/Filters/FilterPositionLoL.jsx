@@ -1,73 +1,74 @@
-import { useDispatch } from 'react-redux';
-import { View, Text, StyleSheet } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
-import { useEffect, useState } from 'react';
-import { filterByPosition } from '../../redux/actions';
-import { connect } from 'react-redux';
-import axios from 'axios';
+import { useDispatch } from "react-redux";
+import { View, Text, StyleSheet } from "react-native";
+import { Picker } from "@react-native-picker/picker";
+import { useEffect, useState } from "react";
+import { filterByPosition } from "../../redux/actions";
+import { connect } from "react-redux";
+import axios from "axios";
 
 const FilterPosition = () => {
-     const dispatch = useDispatch();
-     const [option, setOption] = useState('All');
-     let [position, setPosition] = useState([]);
+    const dispatch = useDispatch();
+    const [option, setOption] = useState("All");
+    let [position, setPosition] = useState([]);
 
-     const fetchPosition = async () => {
-          try {
-               const response = await axios.get('https://backend-gamematch.herokuapp.com/games');
-               const respuesta = response.data;
-               setPosition(respuesta[0].position);
-          } catch (error) {
-               console.error(error.message);
-          }
-     };
+    const fetchPosition = async () => {
+        try {
+            const response = await axios.get(
+                "https://backend-gamematch.herokuapp.com/games"
+            );
+            const respuesta = response.data;
+            setPosition(respuesta[0].position);
+        } catch (error) {
+            console.error(error.message);
+        }
+    };
 
-     useEffect(() => {
-          fetchPosition();
-     }, []);
+    useEffect(() => {
+        fetchPosition();
+    }, []);
 
-     function handleClick(e) {
-          setOption(e);
-          dispatch(filterByPosition(e))
-     }
+    function handleClick(e) {
+        setOption(e);
+        dispatch(filterByPosition(e));
+    }
 
-
-     return (
-          <View
-               style={{
-                    width: '40%',
-                    color: 'white',
-                    textAlign: 'center',
-                    justifyContent: 'center',
-                    marginLeft: 30,
-               }}
-          >
-               <Text
-                    style={{
-                         marginBottom: 10,
-                         color: 'white',
-                         textAlign: 'center',
-                         fontSize: 16,
-                    }}
-               >
-                    Filter By Position
-               </Text>
-               <Picker
-                    selectedValue={option}
-                    onValueChange={(value, index) => handleClick(value)}
-                    style={{
-                         marginBottom: 10,
-                         width: '100%',
-                         backgroundColor: '#fff',
-                    }}
-               >
-                    <Picker.Item label="All" value="All" />
-                    {position.length > 0 &&
-                         position.map((data) => (
-                              <Picker.Item key={data} label={data} value={data} />
-                         ))}
-               </Picker>
-          </View>
-     );
+    return (
+        <View
+            style={{
+                width: "40%",
+                color: "white",
+                textAlign: "center",
+                justifyContent: "center",
+                marginLeft: 30,
+            }}
+        >
+            <Text
+                style={{
+                    marginBottom: 10,
+                    color: "white",
+                    textAlign: "center",
+                    fontSize: 16,
+                }}
+            >
+                Filter By Position
+            </Text>
+            <Picker
+                selectedValue={option}
+                onValueChange={(value, index) => handleClick(value)}
+                style={{
+                    marginBottom: 10,
+                    width: "100%",
+                    backgroundColor: "#fff",
+                }}
+            >
+                <Picker.Item label="All" value="All" />
+                {position.length > 0 &&
+                    position.map((data) => (
+                        <Picker.Item key={data} label={data} value={data} />
+                    ))}
+            </Picker>
+        </View>
+    );
 };
 
 export default FilterPosition;
