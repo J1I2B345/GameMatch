@@ -3,7 +3,7 @@ import {getUser} from '../redux/actions';
 import { useEffect, useState } from 'react';
 import {useSelector, connect, useDispatch} from 'react-redux'; 
 import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
-import { useSelector } from 'react-redux';
+
 import { Link, useNavigate } from 'react-router-native';
 
 const Login = () => {
