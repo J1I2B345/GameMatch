@@ -1,4 +1,4 @@
-const {userJoin} = require('./utilsSockets/rooms')
+const {userJoin, getGameUsers} = require('./utilsSockets/rooms')
 
 
 module.exports = (io) => {
@@ -10,6 +10,9 @@ module.exports = (io) => {
             userJoin(userFull)
             socket.join(userFull.game)
             socket.broadcast.to(userFull.game).emit('message', `${userFull.username} has joined the chat`)
+
+
+            io.to(userFull.game).emit('gameUsers', getGameUsers(userFull.game))
         })
 
         socket.on('disconnect', () =>{

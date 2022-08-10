@@ -25,6 +25,7 @@ const RoomLoL = () => {
           socket.current.emit('joinRoom', user)
           socket.current.on('message', (data)=>{
                console.log(data)
+          socket.current.on('gameUsers', data => console.log(data))
           })
      }
 

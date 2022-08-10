@@ -19,7 +19,7 @@ function userJoin(user){
     return user
 }
 
-function getRoomUsers(game){
+function getGameUsers(game){
     if (game === "League of Legends")    
     return usersLol
 
@@ -31,5 +31,5 @@ function getRoomUsers(game){
 }
 
 module.exports = {
-    userJoin, getRoomUsers
+    userJoin, getGameUsers
 }
