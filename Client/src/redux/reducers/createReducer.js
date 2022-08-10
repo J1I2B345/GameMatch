@@ -1,25 +1,25 @@
-import { CREATE_GAME } from '../constants';
-import playersLoL from '../../data/usersLOL';
-import playersCSGO from '../../data/usersCSGO';
-import playersR6 from '../../data/usersR6';
-import allUsers from '../../data/UsersInfo.js';
+import { CREATE_GAME, GET_USERNAME, UPDATE_USER } from '../constants';
+import playersLoL from '../../data/usersLOL'
+import playersCSGO from '../../data/usersCSGO'
+import playersR6 from '../../data/usersR6'
 
 const initialState = {
      games: null,
-     user: allUsers, //[]
-     users: allUsers,
      playersLoL: playersLoL,
      playersCSGO: playersCSGO,
      playersR6: playersR6,
+     user: null
 };
 
 const createReducer = (state = initialState, action) => {
      const { type, payload } = action;
 
      switch (type) {
-          case CREATE_GAME: {
-               return state;
-          }
+
+          case CREATE_GAME:
+               return {...state,
+                    games: [...state.games, payload]}
+
 
           case 'GET_USERS':
                return {
@@ -148,7 +148,7 @@ const createReducer = (state = initialState, action) => {
 
                return {
                     ...state,
-                    playersIsEmpty: 'There are no players whit this position',
+                    playersIsEmpty: 'There are no players with this position',
                };
 
           case 'FILTER_BY_ELO_LOL':
@@ -169,7 +169,7 @@ const createReducer = (state = initialState, action) => {
                     };
                return {
                     ...state,
-                    playersIsEmpty: 'There are no players whit this elo',
+                    playersIsEmpty: 'There are no players with this elo',
                };
 
           case 'FILTER_BY_ELO_CSGO':
@@ -191,7 +191,7 @@ const createReducer = (state = initialState, action) => {
                     };
                return {
                     ...state,
-                    playersIsEmpty: 'There are no players whit this elo',
+                    playersIsEmpty: 'There are no players with this elo',
                };
 
           case 'FILTER_BY_ELO_R6':
@@ -209,9 +209,16 @@ const createReducer = (state = initialState, action) => {
                     };
                return {
                     ...state,
-                    playersIsEmpty: 'There are no players whit this elo',
+                    playersIsEmpty: 'There are no players with this elo',
                };
 
+          case GET_USERNAME:
+               return {...state,
+               user: payload};
+               
+          case UPDATE_USER:
+               return {...state,
+                    user: payload};
           default:
                return state;
      }

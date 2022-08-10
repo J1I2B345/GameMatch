@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { filterByEloCSGO } from '../../redux/actions/create';
+import { filterByEloCSGO } from '../../redux/actions';
 import { connect } from 'react-redux';
 
 const FilterElo = () => {

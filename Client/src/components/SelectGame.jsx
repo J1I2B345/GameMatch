@@ -1,6 +1,6 @@
 import { View, Text, Image, SafeAreaView, ScrollView } from "react-native";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
 import { Link } from "react-router-native";
@@ -8,12 +8,22 @@ import Nav from "./Nav";
 import axios from "axios";
 import Game from "./Game";
 import Spinner from './Spinner';
+import { updateUser } from "../redux/actions";
 
 // import { getPlayersCSGO, getPlayersLoL, getPlayersR6 } from '../redux/actions/create';
 
 export default function SelectGame() {
     const dispatch = useDispatch();
     let [games, setGames] = useState([]);
+    
+    const userGlobal = useSelector(state => state.games.user)
+    
+    function onPress(game){
+        dispatch(updateUser({...userGlobal, game}))
+    }
+
+   
+
 
     const fetchGames = async () => {
         try {
@@ -89,6 +99,7 @@ export default function SelectGame() {
                                 gender={game.gender}
                                 positions={game.position}
                                 rank={game.elo}
+                                onPress={onPress}
                             />
                         );
                     })
