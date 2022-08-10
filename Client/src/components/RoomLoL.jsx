@@ -22,17 +22,23 @@ const RoomLoL = () => {
      const user = useSelector(state => state.games.user)
      const socket = useRef()
      
-     if(socket.current) socket.current.emit('joinRoom', user)
      
      useEffect(()=>{
           socket.current = io('https://backend-gamematch.herokuapp.com/');
+          if(socket.current) socket.current.emit('joinRoom', user)
+          
+     }, [])
+
+     useEffect(()=>{
           socket.current.on('gameUsers', data => setPlayers((prev) => [...prev, data]))
           socket.current.on('message', (data)=>{
                console.log(data)})
           return () => {
-                    socket.current.removeAllListeners()
+                    socket.current.off('gameUsers')
+                    socket.current.off('message')
                   }
-     }, [])
+
+     }, [socket.current])
     
 
      return (
