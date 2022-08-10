@@ -6,7 +6,7 @@ import Constants from 'expo-constants';
 import Nav from './Nav';
 
 const Profile = () => {
-     const User = useSelector((state) => state.games.user);
+     const User = useSelector((state) => state.games.userProfile);
 
      let arrayStars = [];
      (() => {
@@ -17,6 +17,7 @@ const Profile = () => {
           }
           return arrayStars;
      })();
+
      return (
           <View style={styles.container}>
                <View style={styles.portada_container}>
