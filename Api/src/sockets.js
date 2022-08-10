@@ -18,11 +18,9 @@ module.exports = (io) => {
         }
         })
 
-        socket.on('disconnect', () =>{
-           console.log ('global: ', global[socket.id])
-            
+        socket.on('disconnect', () =>{            
             console.log(`${socket.id} left the room`)
-            // leaveRoom( user.game, user._id)
+            leaveRoom( global[socket.id].game, global.[socket.id]._id)
         })
         
     }
