@@ -7,6 +7,8 @@ import { Link } from "react-router-native";
 import Nav from "./Nav";
 import axios from "axios";
 import Game from "./Game";
+import Spinner from './Spinner';
+
 // import { getPlayersCSGO, getPlayersLoL, getPlayersR6 } from '../redux/actions/create';
 
 export default function SelectGame() {
@@ -31,6 +33,7 @@ export default function SelectGame() {
         // dispatch(getPlayersCSGO());
         // dispatch(getPlayersR6());
     }, []);
+
 
     return (
         <SafeAreaView
@@ -157,4 +160,5 @@ style={{ margin: 5 }}
      style={{ width: 340, height: 180, borderRadius: 20 }}
 />
 </Link> */
+
 }
