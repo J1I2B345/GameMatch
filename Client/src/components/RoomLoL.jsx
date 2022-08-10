@@ -23,6 +23,9 @@ const RoomLoL = () => {
 
      if (socket.current){
           socket.current.emit('joinRoom', user)
+          socket.current.on('message', (data)=>{
+               console.log(data)
+          })
      }
 
      useEffect(()=>{
@@ -31,9 +34,7 @@ const RoomLoL = () => {
           return(console.log('se desmontó roomLOL'))
      }, [])
 
-     socket.current.on('message', (data)=>{
-          console.log(data)
-     })
+     
      
 
      return (

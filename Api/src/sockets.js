@@ -1,13 +1,13 @@
-const {joinUser} = require('./utilsSockets/rooms')
+const {userJoin} = require('./utilsSockets/rooms')
 
 
 module.exports = (io) => {
     io.on('connection', (socket) => {
         console.log('conectado', socket.id)
 
-        socket.on ('joinRoom', (user)=>{
+        socket.on('joinRoom', (user)=>{
             let userFull = {...user, socketid: socket.id}
-            joinUser(userFull)
+            userJoin(userFull)
             socket.join(userFull.game)
             socket.broadcast.to(userFull.game).emit('message', `${userFull.username} has joined the chat`)
         })
