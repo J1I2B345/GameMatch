@@ -6,9 +6,12 @@ var usersR6 = []
 
 
 function userJoin(user){
+    console.log('user que entra', user)
     if (user.game === "League of Legends"){
+        console.log ('users en LOL pre joinear el user', usersLol)
         usersLol = usersLol.filter(e => e._id !== user._id)
         usersLol.push(user)
+        console.log('users que hay luego del join', usersLol)
     }      
 
     if (user.game === "Tom Clancy's Rainbow Six Siege"){
@@ -23,20 +26,18 @@ function userJoin(user){
     return user
 }
 
-function getGameUsers(game, id){
+function getGameUsers(game){
+    console.log ('cuando va a mandar los users', game, usersLol)
     if (game === "League of Legends") {
-        if(id) return usersLol.filter(e=> e._id !==id)
-        else return usersLol
+        return usersLol        
     }
 
     if (game === "Tom Clancy's Rainbow Six Siege"){
-        if(id) return usersR6.filter(e=> e._id !==id)
-        else return usersR6 
+        return usersR6 
     }    
 
     if (game === "Counter-Strike: Global Offensive"){
-        if(id) return usersCS.filter(e=> e._id !==id)
-        else return usersCS
+        return usersCS
     }    
     
 }

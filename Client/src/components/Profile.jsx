@@ -6,7 +6,7 @@ import Constants from 'expo-constants';
 import Nav from './Nav';
 
 const Profile = () => {
-     const User = useSelector((state) => state.games.user);
+     const User = useSelector((state) => state.games.userProfile);
 
      let arrayStars = [];
      (() => {
@@ -17,6 +17,7 @@ const Profile = () => {
           }
           return arrayStars;
      })();
+
      return (
           <View style={styles.container}>
                <View style={styles.portada_container}>
@@ -46,6 +47,18 @@ const Profile = () => {
                <View style={styles.separador}></View>
                <SafeAreaView style={{ marginBottom: 263 }}>
                     <ScrollView>
+                         <View>
+                              <Link
+                                   to="/buypremium"
+                                   activeOpacity={1}
+                                   underlayColor={'#9A01E2'}
+                                   style={styles.button}
+                              >
+                                   <View>
+                                        <Text style={styles.button_text}>Pasate a Premium</Text>
+                                   </View>
+                              </Link>
+                         </View>
                          {User[0].description ? (
                               <View style={{ ...styles.info_container, paddingBottom: 20 }}>
                                    <Text
@@ -64,54 +77,54 @@ const Profile = () => {
 
                          <View
                               style={
-                                   Object.keys(User[0].users).length > 0
+                                   Object.keys(User[0].redes).length > 0
                                         ? styles.info_container
                                         : { display: 'none' }
                               }
                          >
                               <Text style={styles.users_title}>
-                                   {Object.keys(User[0].users).length > 1 ? 'Users:' : 'User:'}
+                                   {Object.keys(User[0].redes).length > 1 ? 'Users:' : 'User:'}
                               </Text>
                               <Text
                                    style={
-                                        User[0].users.steam
+                                        User[0].redes.steam
                                              ? styles.users_item
                                              : { display: 'none' }
                                    }
                               >
-                                   Steam: {User[0].users.steam}
+                                   Steam: {User[0].redes.steam}
                               </Text>
                               <Text
                                    style={
-                                        User[0].users.riot ? styles.users_item : { display: 'none' }
+                                        User[0].redes.riot ? styles.users_item : { display: 'none' }
                                    }
                               >
-                                   Riot: {User[0].users.riot}
+                                   Riot: {User[0].redes.riot}
                               </Text>
                               <Text
                                    style={
-                                        User[0].users.discord
+                                        User[0].redes.discord
                                              ? styles.users_item
                                              : { display: 'none' }
                                    }
                               >
-                                   Discord: {User[0].users.discord}
+                                   Discord: {User[0].redes.discord}
                               </Text>
                               <Text
                                    style={
-                                        User[0].users.ig ? styles.users_item : { display: 'none' }
+                                        User[0].redes.ig ? styles.users_item : { display: 'none' }
                                    }
                               >
-                                   Instagram: {User[0].users.ig}
+                                   Instagram: {User[0].redes.ig}
                               </Text>
                               <Text
                                    style={
-                                        User[0].users.twitter
+                                        User[0].redes.twitter
                                              ? styles.users_item
                                              : { display: 'none' }
                                    }
                               >
-                                   Twitter: {User[0].users.twitter}
+                                   Twitter: {User[0].redes.twitter}
                               </Text>
                          </View>
                     </ScrollView>
@@ -206,6 +219,24 @@ const styles = StyleSheet.create({
           padding: 20,
           paddingTop: 0,
           paddingLeft: 40,
+     },
+     button: {
+          margin: 20,
+          marginTop: 5,
+          marginBottom: 10,
+          height: 40,
+          width: '90%',
+          alignItems: 'center',
+          borderRadius: 10,
+          border: 'none',
+          backgroundColor: '#98228C',
+     },
+     button_text: {
+          marginTop: 6,
+          fontSize: 20,
+          width: '100%',
+          textAlign: 'center',
+          color: 'white',
      },
 });
 

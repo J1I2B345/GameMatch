@@ -10,15 +10,14 @@ module.exports = (io) => {
             userJoin(userFull)
             socket.join(userFull.game)
             socket.broadcast.to(userFull.game).emit('message', `${userFull.username} has joined the chat`)
-            io.to(userFull.game).emit('gameUsers', getGameUsers(userFull.game, userFull._id))
+            io.to(userFull.game).emit('gameUsers', getGameUsers(userFull.game))
         }
         })
 
         socket.on('disconnect', () =>{
             if(global[socket.id]){
-                console.log(global[socket.id])
                 socket.broadcast.to(global[socket.id].game).emit('message', `${global[socket.id].username} has left the chat`)
-                leaveRoom( global[socket.id].game, global[socket.id]._id)
+                leaveRoom(global[socket.id].game, global[socket.id]._id)
                 io.to(global[socket.id].game).emit('gameUsers', getGameUsers(global[socket.id].game))
             }
         })
