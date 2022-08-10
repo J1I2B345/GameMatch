@@ -17,31 +17,28 @@ import {io} from 'socket.io-client';
 
 const RoomLoL = () => {
 
-     const playersGlobal = useSelector((state) => state.games.playersLoL);
-     const [Players, setPlayers] = useState(playersGlobal)
+     // const playersGlobal = useSelector((state) => state.games.playersLoL);
+     const [Players, setPlayers] = useState('')
      const user = useSelector(state => state.games.user)
      const socket = useRef()
 
-     if (socket.current){
-          socket.current.emit('joinRoom', user)
-          socket.current.on('message', (data)=>{
-               console.log(data)
-          })
-     }
-
-     useEffect(()=>{
-          if (socket.current)
-          socket.current.on('gameUsers', data => setPlayers([...Players, data]))
-     }, [])
-
+     
+     
+     
      useEffect(()=>{
           socket.current = io('https://backend-gamematch.herokuapp.com/');
            socket.current.emit('joinRoom', user)
           return(console.log('se desmontó roomLOL'))
      }, [])
 
-     
-     
+     useEffect(()=>{
+          if (socket.current){
+               socket.current.emit('joinRoom', user)
+               socket.current.on('message', (data)=>{
+                    console.log(data)
+               })} 
+          if (socket.current) socket.current.on('gameUsers', data => setPlayers([...Players, data]))
+     }, [Players])
 
      return (
           <View style={styles.container}>
@@ -85,17 +82,18 @@ const RoomLoL = () => {
                               <FilterElo />
                          </View>
                          {Players.length > 0 ? (
-                              Players.map((player) => (
-                                   <PlayersLoLCard
-                                        key={player.id}
-                                        id={player.id}
-                                        img={player.img}
-                                        name={player.name}
+                              Players.map((player) => 
+                                   {console.log(player)
+                                   return <PlayersLoLCard
+                                        key={player._id}
+                                        id={player._id}
+                                        // img={player.img}
+                                        name={player.username}
                                         elo={player.elo}
                                         position={player.position}
                                         rating={player.rating}
-                                   />
-                              ))
+                                   />}
+                              )
                          ) : (
                               <Text
                                    style={{

@@ -6,7 +6,7 @@ const usersR6 = []
 
 
 function userJoin(user){
-     
+     console.log (user)
     if (user.game === "League of Legends")    
     usersLol.push(user)
 
@@ -20,8 +20,10 @@ function userJoin(user){
 }
 
 function getGameUsers(game){
-    if (game === "League of Legends")    
-    return usersLol
+    if (game === "League of Legends") {
+        console.log(usersLol)   
+        return usersLol
+    }
 
     if (game === "Tom Clancy's Rainbow Six Siege")    
     return usersR6
