@@ -4,12 +4,17 @@ import { Text, View, Image } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import axios from "axios";
 import { Link, useParams } from "react-router-native";
+import {useSelector, useDispatch} from 'react-redux'
+import { updateUser } from "../redux/actions";
 
 export default function Form() {
     let [game, setGame] = useState({ position: false });
     let [playerRank, setPlayerRank] = useState("--");
     let [playerPosition, setPlayerPosition] = useState("any");
     let { id } = useParams();
+    let dispatch = useDispatch()
+
+    let user = useSelector(state=> state.games.user)
 
     const fetchGame = async () => {
         try {
@@ -36,8 +41,9 @@ export default function Form() {
     }
 
     function handleSubmit() {
-        console.log(playerRank);
-        console.log(playerPosition);
+        playerRank? user = {...user, elo: playerRank} : ''
+        playerPosition? user = {...user, position: playerPosition} : ''
+        dispatch(updateUser(user))
         // disparar evento a socket io
     }
 

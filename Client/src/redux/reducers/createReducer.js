@@ -1,4 +1,4 @@
-import { CREATE_GAME, GET_USERNAME } from '../constants';
+import { CREATE_GAME, GET_USERNAME, UPDATE_USER } from '../constants';
 import playersLoL from '../../data/usersLOL'
 import playersCSGO from '../../data/usersCSGO'
 import playersR6 from '../../data/usersR6'
@@ -8,7 +8,7 @@ const initialState = {
      playersLoL: playersLoL,
      playersCSGO: playersCSGO,
      playersR6: playersR6,
-     username: 'juancito'
+     user: null
 };
 
 const createReducer = (state = initialState, action) => {
@@ -206,7 +206,11 @@ const createReducer = (state = initialState, action) => {
 
           case GET_USERNAME:
                return {...state,
-               username: payload}
+               user: payload};
+               
+          case UPDATE_USER:
+               return {...state,
+                    user: payload};
           default:
                return state;
      }

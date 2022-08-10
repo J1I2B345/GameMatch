@@ -2,8 +2,12 @@ import React from 'react';
 import { FlatList, View, Image, Text } from 'react-native';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-native';
+import { useSelector } from 'react-redux';
 
 const PlayerLoLCard = ({ id, img, name, elo, position, rating }) => {
+
+   
+
      return (
           <View key={id} style={{ margin: 5 }}>
                <Link to="/" activeOpacity={1} underlayColor={''}>

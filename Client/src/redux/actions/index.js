@@ -1,4 +1,4 @@
-import { CREATE_GAME, GET_USERNAME } from '../constants';
+import { CREATE_GAME, GET_USERNAME, UPDATE_USER } from '../constants';
 import playersLoL from '../../data/data/usersLOL.json';
 import playersCSGO from '../../data/data/usersCSGO.json';
 import playersR6 from '../../data/data/usersR6.json';
@@ -90,4 +90,8 @@ export const getUser = (username) => (dispatch) =>{
           .then((json) => {
                dispatch({ type: GET_USERNAME, payload: json });
           });
+}
+
+export const updateUser = (payload) =>{
+     return {type: UPDATE_USER, payload}
 }
