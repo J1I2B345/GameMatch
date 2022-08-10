@@ -41,6 +41,33 @@ function getGameUsers(game, id){
     return usersCS.filter(e=> e._id !==id)
 }
 
+function leaveRoom(game, id){
+   
+    if (game === "League of Legends") { 
+        console.log('pre.. game: ', game, 'id: ', id, 'users: ', usersLol)
+        const index = usersLol .findIndex(user => user._id === id)
+        if(index!== -1) {
+            return usersLol.splice(index, 1)[0];
+        }        
+        
+    }
+    if (game === "Tom Clancy's Rainbow Six Siege")  {
+        const index = usersR6.findIndex(user => user._id === id)
+        if(index!== -1) {
+            return usersR6.splice(index, 1)[0];
+        }   
+    } 
+
+    if (game === "Counter-Strike: Global Offensive"){
+        const index = usersCS.findIndex(user => user._id === id)
+        if(index!== -1) {
+            return usersCS.splice(index, 1)[0];
+        }
+        
+    }  
+    console.log('post: ', usersLol)
+}
+
 module.exports = {
-    userJoin, getGameUsers
+    userJoin, getGameUsers, leaveRoom
 }
