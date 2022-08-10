@@ -21,9 +21,13 @@ const RoomLoL = () => {
      const user = useSelector(state => state.games.user)
      const socket = useRef()
 
+     if (socket.current){
+          socket.emit('joinRoom', user)
+     }
+
      useEffect(()=>{
           socket.current = io('https://backend-gamematch.herokuapp.com/');
-          console.log(socket.current)
+          return(console.log('se desmontó roomLOL'))
      }, [])
      
 
