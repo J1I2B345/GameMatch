@@ -1,4 +1,4 @@
-const {userJoin, getGameUsers} = require('./utilsSockets/rooms')
+const {userJoin, getGameUsers, leaveRoom} = require('./utilsSockets/rooms')
 
 
 module.exports = (io) => {
@@ -19,7 +19,8 @@ module.exports = (io) => {
         })
 
         socket.on('disconnect', () =>{
-            console.log('desconectado, ', socket.id)
+            console.log(`${userFull.username} left the room`)
+            leaveRoom( userFull.game, userFull._id)
         })
         
     }
