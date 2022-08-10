@@ -47,7 +47,8 @@ function leaveRoom(game, id){
         console.log('pre.. game: ', game, 'id: ', id, 'users: ', usersLol)
         const index = usersLol .findIndex(user => user._id === id)
         if(index!== -1) {
-            return usersLol.splice(index, 1)[0];
+            usersLol.splice(index, 1);
+            console.log('post: ', usersLol)
         }        
         
     }
@@ -65,7 +66,7 @@ function leaveRoom(game, id){
         }
         
     }  
-    console.log('post: ', usersLol)
+    
 }
 
 
