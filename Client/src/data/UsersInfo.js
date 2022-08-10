@@ -4,7 +4,7 @@ export default [
           name: 'Mischief Magma',
           img: 'https://randomwordgenerator.com/img/picture-generator/55e1d4414e51aa14f1dc8460962e33791c3ad6e04e507749772f78d69f4acc_640.jpg',
           rating: 5,
-          premium: true,
+          premium: false,
           rol: 'user',
           chat: [],
           description: 'Hola, me llamo Mischief Magma, me gusta el arte y el LoL',

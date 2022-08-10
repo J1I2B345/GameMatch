@@ -47,18 +47,38 @@ const Profile = () => {
                <View style={styles.separador}></View>
                <SafeAreaView style={{ marginBottom: 263 }}>
                     <ScrollView>
-                         <View>
-                              <Link
-                                   to="/buypremium"
-                                   activeOpacity={1}
-                                   underlayColor={'#9A01E2'}
-                                   style={styles.button}
-                              >
-                                   <View>
-                                        <Text style={styles.button_text}>Pasate a Premium</Text>
-                                   </View>
-                              </Link>
-                         </View>
+                         {User[0].premium == false ? (
+                              <View>
+                                   <Link
+                                        to="/buypremium"
+                                        activeOpacity={1}
+                                        underlayColor={'#9A01E2'}
+                                        style={styles.button}
+                                   >
+                                        <View style={{ flexDirection: 'row' }}>
+                                             <Text style={styles.button_text}>
+                                                  <Image
+                                                       source={require('../../assets/starPremium.png')}
+                                                       style={{
+                                                            width: 20,
+                                                            height: 20,
+                                                       }}
+                                                  />
+                                                  BE PREMIUM
+                                                  <Image
+                                                       source={require('../../assets/starPremium.png')}
+                                                       style={{
+                                                            width: 20,
+                                                            height: 20,
+                                                       }}
+                                                  />
+                                             </Text>
+                                        </View>
+                                   </Link>
+                              </View>
+                         ) : (
+                              <View></View>
+                         )}
                          {User[0].description ? (
                               <View style={{ ...styles.info_container, paddingBottom: 20 }}>
                                    <Text
@@ -236,6 +256,8 @@ const styles = StyleSheet.create({
           fontSize: 20,
           width: '100%',
           textAlign: 'center',
+          alignItems: 'center',
+          justifyContent: 'center',
           color: 'white',
      },
 });
