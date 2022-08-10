@@ -23,17 +23,21 @@ const RoomLoL = () => {
      const socket = useRef()
      
      
-     useEffect(()=>{
-          socket.current = io('https://backend-gamematch.herokuapp.com/');
-          
-          socket.current.emit('joinRoom', user)
      
+     useEffect(()=>{
+          socket.current = io('https://backend-gamematch.herokuapp.com/');     
+          socket.current.emit('joinRoom', user)
      }, [])
 
      useEffect(()=>{
-          socket.current.on('gameUsers', data => setPlayers(data))
+          socket.current.on('gameUsers', (data)=>{
+               let playersList = data.filter(e=> e._id !==user._id)
+               setPlayers(playersList)
+          })
+               
           socket.current.on('message', (data)=>{
-               console.log(data)})
+               console.log('message', data)})
+               
           return () => {
                     socket.current.off('gameUsers')
                     socket.current.off('message')
@@ -83,7 +87,7 @@ const RoomLoL = () => {
                               <FilterElo />
                          </View>
                          {players.length > 0 ? (
-                              players.map((player) => console.log(player.username)
+                              players.map((player, i) => console.log(i, player.username)
                               )
                          ) : (
                               <Text
