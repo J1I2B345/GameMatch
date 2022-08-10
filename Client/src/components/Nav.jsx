@@ -5,7 +5,7 @@ const Nav = () => {
      return (
           <View style={styles.container}>
                <View style={styles.icon_container}>
-                    <Link to="/chat" underlayColor={'#9A01E2'} style={styles.icon}>
+                    <Link to="/" underlayColor={'#9A01E2'} style={styles.icon}>
                          <Image
                               source={require('../../assets/iconMenssage.png')}
                               style={{ marginTop: 1, width: 28.5, height: 28.5 }}
