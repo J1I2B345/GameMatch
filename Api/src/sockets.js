@@ -2,12 +2,14 @@ const {userJoin, getGameUsers, leaveRoom} = require('./utilsSockets/rooms')
 
 
 module.exports = (io) => {
+    let user
     io.on('connection', (socket) => {
         console.log('conectado', socket.id)
 
         socket.on('joinRoom', (user)=>{
             if(user.username){
             let userFull = {...user, socketid: socket.id}
+            user = userFull
             userJoin(userFull)
             socket.join(userFull.game)
             socket.broadcast.to(userFull.game).emit('message', `${userFull.username} has joined the chat`)
@@ -19,8 +21,10 @@ module.exports = (io) => {
         })
 
         socket.on('disconnect', () =>{
-            console.log(`${userFull.username} left the room`)
-            leaveRoom( userFull.game, userFull._id)
+            console.log(user)
+            console.log(`${socket.id} left the room`)
+            
+            // leaveRoom( userFull.game, userFull._id)
         })
         
     }

@@ -68,6 +68,10 @@ function leaveRoom(game, id){
     console.log('post: ', usersLol)
 }
 
+function getUser(socketid){
+    
+}
+
 module.exports = {
     userJoin, getGameUsers, leaveRoom
 }
