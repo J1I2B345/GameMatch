@@ -6,13 +6,10 @@ const usersR6 = []
 
 
 function userJoin(user){
-    console.log(user)
     if (user.game === "League of Legends"){
-        console.log("pre: ", usersLol)
         let userExist = usersLol.filter(e => e._id === user._id)
         if (userExist.length) return false
         else usersLol.push(user)
-        console.log ("post: ", usersLol)
     }      
 
     if (user.game === "Tom Clancy's Rainbow Six Siege"){
@@ -30,25 +27,29 @@ function userJoin(user){
 }
 
 function getGameUsers(game, id){
-    if (game === "League of Legends") { 
-        return usersLol.filter(e=> e._id !==id)
+    if (game === "League of Legends") {
+        if(id) return usersLol.filter(e=> e._id !==id)
+        else return usersLol
     }
 
-    if (game === "Tom Clancy's Rainbow Six Siege")    
-    return usersR6.filter(e=> e._id !==id)
+    if (game === "Tom Clancy's Rainbow Six Siege"){
+        if(id) return usersR6.filter(e=> e._id !==id)
+        else return usersR6 
+    }    
 
-    if (game === "Counter-Strike: Global Offensive")    
-    return usersCS.filter(e=> e._id !==id)
+    if (game === "Counter-Strike: Global Offensive"){
+        if(id) return usersCS.filter(e=> e._id !==id)
+        else return usersCS
+    }    
+    
 }
 
 function leaveRoom(game, id){
    
     if (game === "League of Legends") { 
-        console.log('pre.. game: ', game, 'id: ', id, 'users: ', usersLol)
         const index = usersLol .findIndex(user => user._id === id)
         if(index!== -1) {
-            usersLol.splice(index, 1);
-            console.log('post: ', usersLol)
+            return usersLol.splice(index, 1)[0];
         }        
         
     }
@@ -64,9 +65,7 @@ function leaveRoom(game, id){
         if(index!== -1) {
             return usersCS.splice(index, 1)[0];
         }
-        
     }  
-    
 }
 
 
