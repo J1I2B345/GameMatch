@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useEffect, useState } from 'react';
-import { filterByPosition } from '../../redux/actions/create';
+import { filterByPosition } from '../../redux/actions';
 import { connect } from 'react-redux';
 import axios from 'axios';
 

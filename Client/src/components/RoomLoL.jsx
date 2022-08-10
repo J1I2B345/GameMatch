@@ -10,9 +10,36 @@ import FilterPosition from './Filters/FilterPositionLoL';
 // import Players from '../data/usersLOL.js';
 import { useSelector } from 'react-redux';
 import { connect } from 'react-redux';
+import {useEffect, useRef, useState} from 'react'
+import {io} from 'socket.io-client';
+
+
 
 const RoomLoL = () => {
-     const Players = useSelector((state) => state.games.playersLoL);
+
+     // const playersGlobal = useSelector((state) => state.games.playersLoL);
+     const [players, setPlayers] = useState('')
+     const user = useSelector(state => state.games.user)
+     const socket = useRef()
+     
+     
+     useEffect(()=>{
+          socket.current = io('https://backend-gamematch.herokuapp.com/');
+          
+          socket.current.emit('joinRoom', user)
+     
+     }, [])
+
+     useEffect(()=>{
+          socket.current.on('gameUsers', data => setPlayers(data))
+          socket.current.on('message', (data)=>{
+               console.log(data)})
+          return () => {
+                    socket.current.off('gameUsers')
+                    socket.current.off('message')
+                  }
+     }, [socket.current, players])
+    
 
      return (
           <View style={styles.container}>
@@ -55,18 +82,9 @@ const RoomLoL = () => {
                          >
                               <FilterElo />
                          </View>
-                         {Players.length > 0 ? (
-                              Players.map((player) => (
-                                   <PlayersLoLCard
-                                        key={player.id}
-                                        id={player.id}
-                                        img={player.img}
-                                        name={player.name}
-                                        elo={player.elo}
-                                        position={player.position}
-                                        rating={player.rating}
-                                   />
-                              ))
+                         {players.length > 0 ? (
+                              players.map((player) => console.log(player.username)
+                              )
                          ) : (
                               <Text
                                    style={{

@@ -1,5 +1,9 @@
-import { CREATE_GAME } from '../constants';
-import allUsers from '../../data/UsersInfo.js';
+
+import { CREATE_GAME, GET_USERNAME, UPDATE_USER } from '../constants';
+import playersLoL from '../../data/data/usersLOL.json';
+import playersCSGO from '../../data/data/usersCSGO.json';
+import playersR6 from '../../data/data/usersR6.json';
+
 
 export const createGame = (game) => (dispatch) => {
      return fetch('https://backend-gamematch.herokuapp.com/games', {
@@ -11,7 +15,7 @@ export const createGame = (game) => (dispatch) => {
                return response.json();
           })
           .then((json) => {
-               dispatch({ type: CREATE_GAME });
+               dispatch({ type: CREATE_GAME, payload: json });
           });
 };
 
@@ -74,3 +78,19 @@ export const filterByEloR6 = (payload) => {
           payload,
      };
 };
+
+
+
+export const getUser = (username) => (dispatch) =>{
+     return fetch(`https://backend-gamematch.herokuapp.com/users/username/${username}`)
+          .then((response) => response.json())
+          .then((json) => {
+               const {username, rating, _id, img} = json
+               let user = {username, rating, _id, img}
+               dispatch({ type: GET_USERNAME, payload: user});
+          });
+}
+
+export const updateUser = (payload) =>{
+     return {type: UPDATE_USER, payload}
+}
