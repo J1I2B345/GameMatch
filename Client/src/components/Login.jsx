@@ -1,8 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
 import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
-import { Link } from 'react-router-native';
+import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-native';
 
 const Login = () => {
+     const navigate = useNavigate();
+     const [userState, setUserState] = useState('');
+
+     const user = useSelector((state) => state.games.user);
+     user.length == 1 ?? user[0].name === userState ?? navigate('/selectgame');
+
      return (
           <View style={styles.container}>
                <View style={styles.portada}>
