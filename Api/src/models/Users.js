@@ -15,7 +15,8 @@ const schema = new Schema({
     },
     username: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     
     // rating podría actualizarse cuando se hace el post de reviews de la siguiente manera

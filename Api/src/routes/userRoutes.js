@@ -127,6 +127,7 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const user = req.body;
+    user.username = user.username.trim()
     const createdUser = await UserSchema.create(user);
     console.log("Created User: " + createdUser.username);
     if (createdUser) return res.status(201).json(createdUser);
