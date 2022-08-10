@@ -25,8 +25,9 @@ const RoomLoL = () => {
      
      useEffect(()=>{
           socket.current = io('https://backend-gamematch.herokuapp.com/');
-          if(socket.current) socket.current.emit('joinRoom', user)
           
+          socket.current.emit('joinRoom', user)
+     
      }, [])
 
      useEffect(()=>{

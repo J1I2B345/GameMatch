@@ -8,9 +8,11 @@ const usersR6 = []
 function userJoin(user){
     console.log(user)
     if (user.game === "League of Legends"){
+        console.log("pre: ", usersLol)
         let userExist = usersLol.filter(e => e._id === user._id)
         if (userExist.length) return false
         else usersLol.push(user)
+        console.log ("post: ", usersLol)
     }      
 
     if (user.game === "Tom Clancy's Rainbow Six Siege"){

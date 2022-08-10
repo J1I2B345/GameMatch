@@ -11,7 +11,8 @@ module.exports = (io) => {
             socket.join(userFull.game)
             socket.broadcast.to(userFull.game).emit('message', `${userFull.username} has joined the chat`)
 
-            
+            let users = getGameUsers(userFull.game, userFull._id)
+            console.log('usuarios que estan en la sala: ', users)
             io.to(userFull.game).emit('gameUsers', getGameUsers(userFull.game, userFull._id))
         })
 
