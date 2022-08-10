@@ -1,7 +1,9 @@
+
 import { CREATE_GAME, GET_USERNAME, UPDATE_USER } from '../constants';
 import playersLoL from '../../data/data/usersLOL.json';
 import playersCSGO from '../../data/data/usersCSGO.json';
 import playersR6 from '../../data/data/usersR6.json';
+
 
 export const createGame = (game) => (dispatch) => {
      return fetch('https://backend-gamematch.herokuapp.com/games', {
@@ -17,35 +19,30 @@ export const createGame = (game) => (dispatch) => {
           });
 };
 
-// export const getPlayersLoL = () => {
-//      return async (dispatch) => {
-//           let json = playersLoL;
-//           return dispatch({
-//                type: 'GET_PLAYERS_LOL',
-//                payload: json,
-//           });
-//      };
-// };
+export const getUsers = () => {
+     return async (dispatch) => {
+          let json = allUsers;
+          return dispatch({
+               type: 'GET_USERS',
+               payload: json,
+          });
+     };
+};
 
-// export const getPlayersCSGO = () => {
-//      return async (dispatch) => {
-//           let json = playersCSGO;
-//           return dispatch({
-//                type: 'GET_PLAYERS_CSGO',
-//                payload: json,
-//           });
-//      };
-// };
-
-// export const getPlayersR6 = () => {
-//      return async (dispatch) => {
-//           let json = playersR6;
-//           return dispatch({
-//                type: 'GET_PLAYERS_R6',
-//                payload: json,
-//           });
-//      };
-// };
+export const getUserByName = (name) => {
+     return async (dispatch) => {
+          try {
+               // let json = await axios.get(`/user?name=${name}`);
+               return dispatch({
+                    type: 'GET_USER_BY_NAME',
+                    // payload: json.data,
+                    payload: name,
+               });
+          } catch (error) {
+               console.log(error);
+          }
+     };
+};
 
 export const orderByRating = (payload) => {
      return {
