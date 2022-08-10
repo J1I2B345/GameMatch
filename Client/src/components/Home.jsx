@@ -12,6 +12,7 @@ import FormRainbow from './FormRainbow.jsx';
 import Chat from './Chat.jsx';
 import CreateGame from './CreateGame.jsx';
 import Profile from './Profile.jsx';
+import BuyPremium from './BuyPremium.jsx';
 
 const Home = () => {
      return (
@@ -29,6 +30,7 @@ const Home = () => {
                     <Route path="/formrainbow" element={<FormRainbow />} />
                     <Route path="/chat" element={<Chat />} />
                     <Route path="/profile" element={<Profile />} />
+                    <Route path="/buypremium" element={<BuyPremium />} />
                </Routes>
           </View>
      );
