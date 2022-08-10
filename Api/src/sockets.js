@@ -16,9 +16,8 @@ module.exports = (io) => {
 
         socket.on('disconnect', () =>{
             if(global[socket.id]){
-                console.log(global[socket.id])
                 socket.broadcast.to(global[socket.id].game).emit('message', `${global[socket.id].username} has left the chat`)
-                leaveRoom( global[socket.id].game, global[socket.id]._id)
+                leaveRoom(global[socket.id].game, global[socket.id]._id)
                 io.to(global[socket.id].game).emit('gameUsers', getGameUsers(global[socket.id].game))
             }
         })
