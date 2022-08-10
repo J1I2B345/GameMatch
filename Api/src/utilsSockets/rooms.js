@@ -26,21 +26,20 @@ function userJoin(user){
     return user
 }
 
-function getGameUsers(game, id){
+function getGameUsers(game){
+    console.log ('cuando va a mandar los users, primero game: ', game, 'userID', id)
     if (game === "League of Legends") {
         console.log('server: getusers, pre: ', usersLol)
-        if(id) return usersLol.filter(e=> e._id !==id)
-        else return usersLol
+        return usersLol
+        
     }
 
     if (game === "Tom Clancy's Rainbow Six Siege"){
-        if(id) return usersR6.filter(e=> e._id !==id)
-        else return usersR6 
+        return usersR6 
     }    
 
     if (game === "Counter-Strike: Global Offensive"){
-        if(id) return usersCS.filter(e=> e._id !==id)
-        else return usersCS
+        return usersCS
     }    
     
 }
