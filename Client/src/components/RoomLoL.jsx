@@ -27,6 +27,7 @@ const RoomLoL = () => {
 
      useEffect(()=>{
           socket.current = io('https://backend-gamematch.herokuapp.com/');
+           socket.current.emit('joinRoom', user)
           return(console.log('se desmontó roomLOL'))
      }, [])
      
