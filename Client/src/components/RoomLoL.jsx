@@ -10,14 +10,15 @@ import FilterPosition from './Filters/FilterPositionLoL';
 // import Players from '../data/usersLOL.js';
 import { useSelector } from 'react-redux';
 import { connect } from 'react-redux';
-import {useEffect, useRef} from 'react'
+import {useEffect, useRef, useState} from 'react'
 import {io} from 'socket.io-client';
 
 
 
 const RoomLoL = () => {
 
-     const Players = useSelector((state) => state.games.playersLoL);
+     const playersGlobal = useSelector((state) => state.games.playersLoL);
+     const [Players, setPlayers] = useState(playersGlobal)
      const user = useSelector(state => state.games.user)
      const socket = useRef()
 
@@ -25,9 +26,13 @@ const RoomLoL = () => {
           socket.current.emit('joinRoom', user)
           socket.current.on('message', (data)=>{
                console.log(data)
-          socket.current.on('gameUsers', data => console.log(data))
           })
      }
+
+     useEffect(()=>{
+          if (socket.current)
+          socket.current.on('gameUsers', data => setPlayers([...Players, data]))
+     }, [])
 
      useEffect(()=>{
           socket.current = io('https://backend-gamematch.herokuapp.com/');
