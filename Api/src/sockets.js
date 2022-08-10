@@ -6,6 +6,7 @@ module.exports = (io) => {
         console.log('conectado', socket.id)
 
         socket.on('joinRoom', (user)=>{
+            if(user.username){
             let userFull = {...user, socketid: socket.id}
             userJoin(userFull)
             socket.join(userFull.game)
@@ -14,6 +15,7 @@ module.exports = (io) => {
             let users = getGameUsers(userFull.game, userFull._id)
             console.log('usuarios que estan en la sala: ', users)
             io.to(userFull.game).emit('gameUsers', getGameUsers(userFull.game, userFull._id))
+        }
         })
 
         socket.on('disconnect', () =>{
