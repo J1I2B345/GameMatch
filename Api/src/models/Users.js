@@ -44,7 +44,7 @@ const schema = new Schema({
     givenReviews: Array,
     img: {
         type: String,
-        //default: buscar una imagen que sea tipo la de facebook
+        default: 'https://randomwordgenerator.com/img/picture-generator/55e1d4414e51aa14f1dc8460962e33791c3ad6e04e507749772f78d69f4acc_640.jpg'
     },
 
     description: String,
