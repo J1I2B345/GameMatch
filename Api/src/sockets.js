@@ -2,7 +2,7 @@ const {userJoin, getGameUsers, leaveRoom} = require('./utilsSockets/rooms')
 
 
 module.exports = (io) => {
-    let user
+    var user
     io.on('connection', (socket) => {
         console.log('conectado', socket.id)
 
