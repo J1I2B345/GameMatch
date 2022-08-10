@@ -1,8 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
+import {getUser} from '../redux/actions'
+import { useEffect, useState } from 'react';
+import {useSelector, useDispatch} from 'react-redux'; 
 import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
 import { Link } from 'react-router-native';
 
 const Login = () => {
+     const [user, setUser] = useState('')
+     const dispatch = useDispatch();
+     const userGlobal = useSelector(state => state.username)
+
+     function handleChange(value){
+          setUser(value)
+     }
+
+     function onSubmit(e){
+          dispatch(getUser(user))  
+          console.log(userGlobal)     
+     }
+
+
+
      return (
           <View style={styles.container}>
                <View style={styles.portada}>
@@ -20,13 +38,14 @@ const Login = () => {
                     </View>
                </View>
                <View style={styles.form_container}>
-                    <TextInput placeholder="Username" style={styles.input} />
+                    <TextInput placeholder="Username" style={styles.input} value={user} onChangeText={(e)=> handleChange(e)}/>
                     <TextInput placeholder="Password" style={styles.input} />
                     <Link
                          to="/selectgame"
                          activeOpacity={1}
                          underlayColor={'#9A01E2'}
                          style={styles.button}
+                         onPress={(e)=> onSubmit(e)}
                     >
                          <View>
                               <Text style={styles.button_text}>LOGIN</Text>

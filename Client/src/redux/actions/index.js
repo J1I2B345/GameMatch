@@ -1,7 +1,7 @@
-import { CREATE_GAME } from '../constants';
+import { CREATE_GAME, GET_USERNAME } from '../constants';
 import playersLoL from '../../data/data/usersLOL.json';
 import playersCSGO from '../../data/data/usersCSGO.json';
-import playersR6 from '../../data//data/usersR6.json';
+import playersR6 from '../../data/data/usersR6.json';
 
 export const createGame = (game) => (dispatch) => {
      return fetch('https://backend-gamematch.herokuapp.com/games', {
@@ -81,3 +81,13 @@ export const filterByEloR6 = (payload) => {
           payload,
      };
 };
+
+
+
+export const getUser = (username) => (dispatch) =>{
+     return fetch(`http://localhost:3001/users/username/${username}`)
+          .then((response) => response.json())
+          .then((json) => {
+               dispatch({ type: GET_USERNAME, payload: json });
+          });
+}
