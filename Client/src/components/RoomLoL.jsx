@@ -23,6 +23,7 @@ const RoomLoL = () => {
 
      useEffect(()=>{
           socket.current = io('https://backend-gamematch.herokuapp.com/');
+          console.log(socket.current)
      }, [])
      
 
