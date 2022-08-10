@@ -121,10 +121,10 @@ export default function SelectGame() {
 
 {
      /* <Link
-to="/formlol"
-activeOpacity={1}
-underlayColor={''}
-style={{ margin: 5 }}
+  to="/formlol"
+  activeOpacity={1}
+  underlayColor={''}
+  style={{ margin: 5 }}
 >
 <Image
      source={{ uri: games[0].image }}
