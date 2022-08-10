@@ -5,7 +5,7 @@ const usersR6 = []
 //join user to chat
 
 
-export function userJoin(user){
+function userJoin(user){
      
     if (user.game === "League of Legends")    
     usersLol.push(user)
@@ -19,7 +19,7 @@ export function userJoin(user){
     return user
 }
 
-export function getRoomUsers(game){
+function getRoomUsers(game){
     if (game === "League of Legends")    
     return usersLol
 
@@ -28,4 +28,8 @@ export function getRoomUsers(game){
 
     if (game === "Counter-Strike: Global Offensive")    
     return usersCS
+}
+
+module.exports = {
+    userJoin, getRoomUsers
 }
