@@ -18,7 +18,7 @@ import {io} from 'socket.io-client';
 const RoomLoL = () => {
 
      // const playersGlobal = useSelector((state) => state.games.playersLoL);
-     const [Players, setPlayers] = useState('')
+     const [players, setPlayers] = useState('')
      const user = useSelector(state => state.games.user)
      const socket = useRef()
      
@@ -31,15 +31,14 @@ const RoomLoL = () => {
      }, [])
 
      useEffect(()=>{
-          socket.current.on('gameUsers', data => setPlayers((prev) => [...prev, data]))
+          socket.current.on('gameUsers', data => setPlayers(data))
           socket.current.on('message', (data)=>{
                console.log(data)})
           return () => {
                     socket.current.off('gameUsers')
                     socket.current.off('message')
                   }
-
-     }, [socket.current])
+     }, [socket.current, players])
     
 
      return (
@@ -83,18 +82,8 @@ const RoomLoL = () => {
                          >
                               <FilterElo />
                          </View>
-                         {Players.length > 0 ? (
-                              Players.map((player) => 
-                                   {console.log(player)
-                                   return <PlayersLoLCard
-                                        key={player._id}
-                                        id={player._id}
-                                        // img={player.img}
-                                        name={player.username}
-                                        elo={player.elo}
-                                        position={player.position}
-                                        rating={player.rating}
-                                   />}
+                         {players.length > 0 ? (
+                              players.map((player) => console.log(player.username)
                               )
                          ) : (
                               <Text
