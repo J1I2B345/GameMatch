@@ -20,7 +20,7 @@ module.exports = (io) => {
 
         socket.on('disconnect', () =>{            
             console.log(`${socket.id} left the room`)
-            leaveRoom( global[socket.id].game, global.[socket.id]._id)
+            leaveRoom( global[socket.id].game, global[socket.id]._id)
         })
         
     }
