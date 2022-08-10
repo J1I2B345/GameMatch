@@ -1,27 +1,24 @@
-const usersLol = []
-const usersCS = []
-const usersR6 = []
+var usersLol = []
+var usersCS = []
+var usersR6 = []
 
 //join user to chat
 
 
 function userJoin(user){
     if (user.game === "League of Legends"){
-        let userExist = usersLol.filter(e => e._id === user._id)
-        if (userExist.length) return false
-        else usersLol.push(user)
+        usersLol = usersLol.filter(e => e._id !== user._id)
+        usersLol.push(user)
     }      
 
     if (user.game === "Tom Clancy's Rainbow Six Siege"){
-        let userExist = usersR6.filter(e => e._id === user._id)
-        if (userExist.length) return false
-        else usersR6.push(user)
+        usersR6 = usersR6.filter(e => e._id !== user._id)
+        usersR6.push(user)
     }    
 
     if (user.game === "Counter-Strike: Global Offensive"){
-        let userExist = usersCS.filter(e => e._id === user._id)
-        if (userExist.length) return false
-        else usersCS.push(user)
+        usersCS = usersCS.filter(e => e._id === user._id)
+        usersCS.push(user)
     }    
     return user
 }
