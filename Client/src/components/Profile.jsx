@@ -45,48 +45,61 @@ const Profile = () => {
                </View>
 
                <View style={styles.separador}></View>
-               <SafeAreaView style={{ marginBottom: 263 }}>
-                    <ScrollView>
-                         {User[0].premium == false ? (
-                              <View>
-                                   <Link
-                                        to="/buypremium"
-                                        activeOpacity={1}
-                                        underlayColor={'#9A01E2'}
-                                        style={styles.button}
-                                   >
-                                        <View style={{ flexDirection: 'row' }}>
-                                             <Text style={styles.button_text}>
-                                                  <Image
-                                                       source={require('../../assets/starPremium.png')}
-                                                       style={{
-                                                            width: 20,
-                                                            height: 20,
-                                                       }}
-                                                  />
-                                                  BE PREMIUM
-                                                  <Image
-                                                       source={require('../../assets/starPremium.png')}
-                                                       style={{
-                                                            width: 20,
-                                                            height: 20,
-                                                       }}
-                                                  />
-                                             </Text>
-                                        </View>
-                                   </Link>
+
+               {User[0].premium == false ? (
+                    <View style={{ paddingBottom: 5 }}>
+                         <Link
+                              to="/buypremium"
+                              activeOpacity={1}
+                              underlayColor={'#9A01E2'}
+                              style={styles.button}
+                         >
+                              <View style={{ flexDirection: 'row' }}>
+                                   <Text style={styles.button_text}>
+                                        <Image
+                                             source={require('../../assets/starPremium.png')}
+                                             style={{
+                                                  width: 20,
+                                                  height: 20,
+                                             }}
+                                        />
+                                        BE PREMIUM
+                                        <Image
+                                             source={require('../../assets/starPremium.png')}
+                                             style={{
+                                                  width: 20,
+                                                  height: 20,
+                                             }}
+                                        />
+                                   </Text>
                               </View>
-                         ) : (
-                              <View></View>
-                         )}
+                         </Link>
+                    </View>
+               ) : (
+                    <View></View>
+               )}
+               <SafeAreaView
+                    style={User[0].premium == false ? { marginBottom: 315 } : { marginBottom: 260 }}
+               >
+                    <ScrollView>
                          {User[0].description ? (
-                              <View style={{ ...styles.info_container, paddingBottom: 20 }}>
+                              <View
+                                   style={{
+                                        ...styles.info_container,
+                                        paddingBottom: 20,
+                                        marginTop: 0,
+                                   }}
+                              >
                                    <Text
                                         style={{
                                              color: '#fff',
                                              fontSize: 18,
                                         }}
                                    >
+                                        {User[0].description}
+                                        {User[0].description}
+                                        {User[0].description}
+                                        {User[0].description}
                                         {User[0].description}
                                         {User[0].description}
                                    </Text>
@@ -98,7 +111,9 @@ const Profile = () => {
                          <View
                               style={
                                    Object.keys(User[0].redes).length > 0
-                                        ? styles.info_container
+                                        ? User[0].description
+                                             ? { ...styles.info_container, marginTop: -5 }
+                                             : styles.info_container
                                         : { display: 'none' }
                               }
                          >
@@ -213,17 +228,16 @@ const styles = StyleSheet.create({
           borderRadius: 100,
      },
      separador: {
-          marginBottom: 10,
+          marginBottom: 15,
           height: 2,
           width: '90%',
           backgroundColor: '#98228C',
      },
      info_container: {
           margin: 20,
-          marginTop: 5,
-          marginBottom: 10,
+          marginTop: 0,
           padding: 20,
-          paddingBottom: 13,
+          paddingBottom: 10,
           borderRadius: 20,
           backgroundColor: '#443ABB',
      },
