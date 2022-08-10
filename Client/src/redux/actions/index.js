@@ -13,7 +13,7 @@ export const createGame = (game) => (dispatch) => {
                return response.json();
           })
           .then((json) => {
-               dispatch({ type: CREATE_GAME });
+               dispatch({ type: CREATE_GAME, payload: json });
           });
 };
 
