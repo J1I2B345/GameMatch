@@ -2,15 +2,16 @@ import { CREATE_GAME, GET_USERNAME, UPDATE_USER } from '../constants';
 import playersLoL from '../../data/usersLOL';
 import playersCSGO from '../../data/usersCSGO';
 import playersR6 from '../../data/usersR6';
-import userProfile from '../../data/UsersInfo';
+// import userProfile from '../../data/UsersInfo';
 
 const initialState = {
      games: null,
      news: [],
-     playersLoL: playersLoL,
-     playersCSGO: playersCSGO,
-     playersR6: playersR6,
+     playersLoL: [],
+     playersCSGO: [],
+     playersR6: [],
      user: [],
+     userProfile: []
 };
 
 const createReducer = (state = initialState, action) => {

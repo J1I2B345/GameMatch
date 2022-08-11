@@ -7,7 +7,7 @@ import Nav from './Nav';
 import Spinner from './Spinner';
 
 const Profile = () => {
-     const User = useSelector((state) => state.games.user);
+     const User = useSelector((state) => state.games.userProfile);
 
      let arrayStars = [];
 

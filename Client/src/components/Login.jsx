@@ -1,9 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { getUser } from '../redux/actions';
-import { useEffect, useState } from 'react';
-import { useSelector, connect, useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
-import { Link, useNavigate } from 'react-router-native';
+import { Link } from 'react-router-native';
 
 const Login = () => {
      const [user, setUser] = useState('');
