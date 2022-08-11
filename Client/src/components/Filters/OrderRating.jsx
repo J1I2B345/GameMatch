@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useState } from 'react';
-import { orderByRating } from '../../redux/actions/create';
+import { orderByRating } from '../../redux/actions';
 import { connect } from 'react-redux';
 
 const OrderRating = () => {

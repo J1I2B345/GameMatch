@@ -151,6 +151,7 @@ router.post("/register",[verify.checkExistingRole,verify.checkExistingUser], asy
   } = req.body;
 
   try {
+
     //  const createdUser = await UserSchema.create(user);
 
     const alredyCreated = await UserSchema.find({ email });
@@ -193,6 +194,7 @@ router.post("/register",[verify.checkExistingRole,verify.checkExistingUser], asy
     if (savedUser)  return res.status(200).json({ token });
     //*CON ESTO EVIO AL FRONT TODO ME PIDEN LOS DATOS POR ESTE TOKEN
     else throw new Error("This user has already been created. Login!");
+
   } catch (error) {
     console.log("Error trying to create user");
 
@@ -268,14 +270,16 @@ router.post("/login", async (req, res) => {
 
 router.put("/:id",[auth.verifyToken,auth.isAdmin], async (req, res) => {
   try {
+
     req.body.username = req.body.username?.trim()
     req.body.email=req.body.email?.trim()
     const userUpdate = await UserSchema.findByIdAndUpdate(
       { _id: req.params.id },
-      req.body
+      req.body, 
+      {new:true}
     );
     console.log("UPDATE :" + userUpdate.username);
-    res.status(201).json(userUpdate);
+    res.status(200).json(userUpdate);
   } catch (error) {
     console.log("Error trying to update a user");
     res.status(500).json({ error: error.message });
@@ -307,6 +311,7 @@ router.delete("/:id",[auth.verifyToken,auth.isAdmin], async (req, res) => {
   }
 });
 
+
 //*----------------GET BY NAME ------------------------
 router.get("/username/:username", async (req, res) => {
   try {
@@ -319,6 +324,9 @@ router.get("/username/:username", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+
+
 
 
 module.exports = router;

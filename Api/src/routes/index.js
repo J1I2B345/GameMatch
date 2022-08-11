@@ -7,6 +7,7 @@ const news = require("./newsRoutes");
 const review = require("./reviewsRutes");
 const auth = require("./authRoute");
 const pago =require("./mercadoPago");
+
 //-------------------------------
 router.use("/games", games);
 router.use("/users", users);
@@ -15,6 +16,7 @@ router.use("/news", news);
 router.use("/review", review);
 router.use("/auth", auth);
 router.use("/pago", pago);
+
 //-------------------------------
 
 module.exports = router;

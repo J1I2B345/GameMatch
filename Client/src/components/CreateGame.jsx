@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { Image } from 'react-native';
-import { createGame } from '../redux/actions/create';
+import { createGame } from '../redux/actions';
 import { Link } from 'react-router-native';
 import { connect } from 'react-redux';
 import {

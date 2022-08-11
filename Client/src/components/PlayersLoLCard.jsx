@@ -2,11 +2,15 @@ import React from 'react';
 import { FlatList, View, Image, Text } from 'react-native';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-native';
+import { useSelector } from 'react-redux';
 
 const PlayerLoLCard = ({ id, img, name, elo, position, rating }) => {
+
+   console.log(id, img, name, elo, position, rating )
+
      return (
           <View key={id} style={{ margin: 5 }}>
-               <Link to="/" activeOpacity={1} underlayColor={''}>
+               <Link to="" activeOpacity={1} underlayColor={''}>
                     <View
                          style={{
                               width: 340,
@@ -16,7 +20,7 @@ const PlayerLoLCard = ({ id, img, name, elo, position, rating }) => {
                               flexDirection: 'row',
                          }}
                     >
-                         <Image
+                         {img && <Image
                               source={{ uri: img }}
                               style={{
                                    marginTop: 10,
@@ -25,7 +29,7 @@ const PlayerLoLCard = ({ id, img, name, elo, position, rating }) => {
                                    height: 60,
                                    borderRadius: 50,
                               }}
-                         />
+                         />}
                          <View
                               style={{
                                    marginTop: 13,

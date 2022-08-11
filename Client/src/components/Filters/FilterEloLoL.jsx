@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { filterByEloLoL } from '../../redux/actions/create';
+import { filterByEloLoL } from '../../redux/actions';
 import { connect } from 'react-redux';
 
 const FilterElo = () => {
@@ -60,7 +60,8 @@ const FilterElo = () => {
                     }}
                >
                     <Picker.Item label="All" value="All" />
-                    {elo.length > 0 && elo.map((data) => <Picker.Item label={data} value={data} />)}
+                    {elo.length > 0 &&
+                         elo.map((data) => <Picker.Item key={data} label={data} value={data} />)}
                </Picker>
           </View>
      );

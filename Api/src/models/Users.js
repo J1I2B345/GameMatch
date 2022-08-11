@@ -17,6 +17,8 @@ const schema = new Schema(
       type: String,
       defaul: "not declared Add a name !:)",
       trim: true
+      required: true,
+      unique: true
     },
 
     // rating podría actualizarse cuando se hace el post de reviews de la siguiente manera
@@ -39,25 +41,34 @@ const schema = new Schema(
     //chats podría ser un array de mongoose.Types.ObjectId de los users. cuando se abre la pestaña de chats lo que
     //haría sería ir a buscar a la base de datos los nombres y crear los posibles chats que se puedan elegir.
     // chats_id
-    chats: Array,
+    chats:   {
+        type: [{
+            type: Schema.Types.ObjectId,
+            referece: 'Users'
+        }]
+    }, 
     //reviews pasarlo por referencia para que sea más rápida la carga _id de las reviews
     reviews: Array,
     givenReviews: Array,
     img: {
       type: String,
       //default: buscar una imagen que sea tipo la de facebook
+        type: String,
+        default: 'https://randomwordgenerator.com/img/picture-generator/55e1d4414e51aa14f1dc8460962e33791c3ad6e04e507749772f78d69f4acc_640.jpg'
     },
+    description: String,
     socialNetworks: {
-      steam: String,
-      riot: String,
-      ig: String,
-      discord: String,
-      twitter: String,
-  },
-  ban: {
-      type: Boolean,
-      default: false
-  },
+        steam: String,
+        riot: String,
+        ig: String,
+        discord: String,
+        twitter: String,
+    },
+    ban: {
+        type: Boolean,
+        default: false
+    },
+
     tenant: String,
     connection: String,
     debug: Boolean,

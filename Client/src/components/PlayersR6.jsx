@@ -7,6 +7,9 @@ import { useSelector } from 'react-redux';
 
 const PlayerLoLCard = ({ id, img, name, elo, position, rating }) => {
      const players = useSelector((state) => state.playersR6);
+     let user = useSelector(state => state.games.user)
+
+     console.log(user)
      return (
           <View key={id} style={{ margin: 5 }}>
                <Link to="/" activeOpacity={1} underlayColor={''}>
