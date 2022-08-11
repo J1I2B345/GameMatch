@@ -3,12 +3,13 @@ import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 import createReducer from "../reducers/createReducer";
+import newsReducer from "../reducers/newsReducer";
 
 const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware));
 
 const rootReducer = combineReducers({
-  createReducer,
-  newsReducer,
+  game: createReducer,
+  news: newsReducer,
 });
 
 const configureStore = () => {

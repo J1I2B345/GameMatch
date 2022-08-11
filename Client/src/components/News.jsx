@@ -2,7 +2,7 @@ import { View, StyleSheet, Text } from "react-native";
 import moment from "moment";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllNews } from "./actions/news.js";
+import { getAllNews } from "../redux/actions/news";
 import { connect } from "react-redux";
 
 export default function News() {
@@ -12,6 +12,7 @@ export default function News() {
   useEffect(() => {
     dispatch(getAllNews());
   }, []);
+  console.log({ news });
 
   if (!news.news) return <Text>Cargando</Text>;
   return (
