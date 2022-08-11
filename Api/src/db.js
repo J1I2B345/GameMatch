@@ -5,7 +5,9 @@ module.exports= connectDB =  () => {
 
     try{
         connect(process.env.MONGODB_URI)
-        console.log('funcionando Mongo')
+     //   console.log('funcionando, Mongo')
+     console.log('☆*: .｡. o .｡.:*☆')
+        console.log('%s database connection established')
     }
     catch(e){
         console.log(e)
