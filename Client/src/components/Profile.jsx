@@ -113,62 +113,66 @@ const Profile = () => {
                          ) : (
                               <View></View>
                          )}
+                         <Text>
 
+                         
+                         {User.socialNetworks?
                          <View
                               style={
-                                   User.socialNetworks? Object.keys(User.socialNetworks).length > 0
+                                    Object.keys(User.socialNetworks).length > 0
                                         ? User.description
                                              ? { ...styles.info_container, marginTop: -5 }
                                              : styles.info_container
-                                        : { display: 'none' } : ''
+                                        : { display: 'none' } 
                               }
                          >
                               <Text style={styles.Users_title}>
-                                   {User.socialNetworks? Object.keys(User.socialNetworks).length > 1 ? 'Users:' : 'User:': ''}
+                                   {Object.keys(User.socialNetworks).length > 1 ? 'Users:' : 'User:'}
                               </Text>
                               <Text
                                    style={
-                                        User.socialNetworks? User.socialNetworks.steam
+                                        User.socialNetworks.steam
                                              ? styles.Users_item
-                                             : { display: 'none' }: ''
+                                             : { display: 'none' }
                                    }
                               >
-                                   Steam: { User.socialNetworks? User.socialNetworks.steam:''}
+                                   Steam: {User.socialNetworks.steam}
                               </Text>
                               <Text
                                    style={
-                                        User.socialNetworks? User.socialNetworks.riot ? styles.Users_item : { display: 'none' }: ''
+                                        User.socialNetworks.riot ? styles.Users_item : { display: 'none' }
                                    }
                               >
-                                   Riot: {User.socialNetworks? User.socialNetworks.riot? User.socialNetworks.riot: '': ''}
+                                   Riot: {User.socialNetworks.riot? User.socialNetworks.riot: ''}
                               </Text>
                               <Text
                                    style={
-                                        User.socialNetworks?
                                         User.socialNetworks.discord?
                                               styles.Users_item
+                                             : { display: 'none' }
+                                   }
+                              >
+                                   Discord: {User.socialNetworks.discord? User.socialNetworks.discord: ''}
+                              </Text>
+                              <Text
+                                   style={
+                                       User.socialNetworks.ig ? styles.Users_item : { display: 'none' }
+                                   }
+                              >
+                                   Instagram: {User.socialNetworks.ig? User.socialNetworks.ig : ''}
+                              </Text>
+                              <Text
+                                   style={
+                                       User.socialNetworks.twitter? User.socialNetworks.twitter
+                                             ? styles.Users_item
                                              : { display: 'none' }: ''
                                    }
                               >
-                                   Discord: {User.socialNetworks? User.socialNetworks.discord? User.socialNetworks.discord: '': ''}
-                              </Text>
-                              <Text
-                                   style={
-                                        User.socialNetworks? User.socialNetworks.ig ? styles.Users_item : { display: 'none' }: ''
-                                   }
-                              >
-                                   Instagram: {User.socialNetworks? User.socialNetworks.ig? User.socialNetworks.ig : '' :''}
-                              </Text>
-                              <Text
-                                   style={
-                                        User.socialNetworks? User.socialNetworks.twitter? User.socialNetworks.twitter
-                                             ? styles.Users_item
-                                             : { display: 'none' }: '': ''
-                                   }
-                              >
-                                   Twitter: {User.socialNetworks? User.socialNetworks.twitter? User.socialNetworks.twitter : '' : ''}
+                                   Twitter: {User.socialNetworks.twitter? User.socialNetworks.twitter : ''}
                               </Text>
                          </View>
+                         : ''}
+                         </Text>    
                     </ScrollView>
                </SafeAreaView>
                <Link
