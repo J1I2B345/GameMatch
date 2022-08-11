@@ -2,6 +2,11 @@ const {Router} = require("express")
 const router = Router()
 const Chat = require("../models/Chats.js")
 const User = require("../models/Users.js")
+
+
+
+
+
 // get all chats. used for testing and keep track of mocked data
 router.get('/all', async(req,res)=>{
     try{
@@ -11,6 +16,8 @@ router.get('/all', async(req,res)=>{
         res.status(400).json({"error": e.message})
     }
 })
+
+
 
 //get a chat from two users
 // body = {
@@ -44,8 +51,6 @@ router.get('/', async (req, res)=>{
 //     sender: _id1
 // }
 
-
-
 router.post('/', async(req, res)=>{
     try {
         const {message, users, sender} = req.body
@@ -57,12 +62,27 @@ router.post('/', async(req, res)=>{
         if (chatSaved) {
             const addUser1ToChatOfUser0 = await User.findByIdAndUpdate(users[0], {
                 $addToSet: {chats: users[1]}})
-            console.log(addUser1ToChatOfUser0)
+            
             const addUser0ToChatOfUser1= await User.findByIdAndUpdate(users[1], {
                 $addToSet: {chats: users[0]}})
-            console.log(addUser0ToChatOfUser1)    
+              
             res.status(201).send('Message send')
         }
+    } catch(e){
+        res.status(400).json({"error": e.message})
+    }
+})
+
+
+router.post('/addUserToChat', async(req,res)=>{
+    try {
+        const {users} = req.body
+        const addUser1ToChatOfUser0 = await User.findByIdAndUpdate(users[0], {
+            $addToSet: {chats: users[1]}})
+       
+        const addUser0ToChatOfUser1= await User.findByIdAndUpdate(users[1], {
+            $addToSet: {chats: users[0]}})
+        console.log(addUser0ToChatOfUser1)    
     } catch(e){
         res.status(400).json({"error": e.message})
     }
