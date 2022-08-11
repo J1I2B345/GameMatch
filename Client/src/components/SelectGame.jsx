@@ -17,7 +17,8 @@ export default function SelectGame() {
      const userGlobal = useSelector((state) => state.games.user);
 
      function onPress(game) {
-          dispatch(updateUser({ ...userGlobal, game }));
+          let user = {username: userGlobal.username, _id:userGlobal._id, img: userGlobal.img, rating: userGlobal.rating, game}
+          dispatch(updateUser(user));
      }
 
      const fetchGames = async () => {
