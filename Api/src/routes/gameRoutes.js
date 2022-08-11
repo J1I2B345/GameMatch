@@ -2,6 +2,13 @@ const { Router } = require("express");
 const router = Router();
 const GameSchema = require("../models/Games");
 
+
+//authentication methods
+const jwt = require("jsonwebtoken");
+const Role = require("../models/Role.js");
+const auth = require("../middlewares/auth")
+//*----------------GET ALL USER------------------------
+
 //*----------------GET GAMES------------------------
 
 //solicitud Tipo GET: localhost:3001/games
@@ -36,7 +43,7 @@ router.get("/:id", async (req, res) => {
 
 //solicitud Tipo  POST: localhost:3001/games/id
 
-router.post("/", async (req, res) => {
+router.post("/",[auth.verifyToken,auth.isAdmin], async (req, res) => {
   const { name, image, gender, elo, position } = req.body;
   try {
     const game = await GameSchema.create({
@@ -57,7 +64,7 @@ router.post("/", async (req, res) => {
 
 //*----------------UPDATE GAMES------------------------
 
-router.put("/:id", async (req, res) => {
+router.put("/:id",[auth.verifyToken,auth.isAdmin], async (req, res) => {
 
   //solicitud Tipo GET: localhost:3001/games/id
 
@@ -73,10 +80,10 @@ router.put("/:id", async (req, res) => {
 
  //solicitud Tipo DELETE: localhost:3001/games/id
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id",[auth.verifyToken,auth.isAdmin], async (req, res) => {
   try {
 
-    const deleteGame = await GameSchema.findOneAndDelete({ _id: req.params.id }, req.body);
+    const deleteGame = await GameSchema.findByIdAndDelete({ _id: req.params.id }, req.body);
     if(deleteGame) res.status(200).json(deleteGame);
     else throw new Error('There is no game with that _id')
 

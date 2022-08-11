@@ -2,7 +2,10 @@ const {Router} = require("express")
 const router = Router()
 const News = require("../models/News.js")
 
-
+//authentication methods
+const jwt = require("jsonwebtoken");
+const Role = require("../models/Role.js");
+const auth = require("../middlewares/auth")
 router.get('/', async(req,res) =>{
     try{
         const news = await News.find().sort({createdAt: "desc"}).limit(5)
@@ -63,7 +66,7 @@ router.post('/', async(req, res)=>{
     }
 })
 
-router.delete('/delete/:id', async(req, res) =>{
+router.delete('/delete/:id',[auth.verifyToken,auth.isAdmin], async(req, res) =>{
     try{
         const messageDeleted = await News.findByIdAndDelete(req.params.id)
         if (messageDeleted) res.json({message: 'message deleted', messageDeleted})
@@ -73,7 +76,7 @@ router.delete('/delete/:id', async(req, res) =>{
     }
 })
 
-router.put('/edit', async (req, res)=>{
+router.put('/edit',[auth.verifyToken,auth.isAdmin], async (req, res)=>{
     try{
         const {_id, title, description, editedBy} = req.body
         if ((!_id || !description || !editedBy) && (!_id || !title || !editedBy)) 
