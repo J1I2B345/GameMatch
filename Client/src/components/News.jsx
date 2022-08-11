@@ -17,6 +17,16 @@ const News = () => {
           dispatch(getAllNews());
      }, [dispatch]);
 
+     const imgDefecto = (
+          <Image
+               source={require('../../assets/iconMenssage.png')}
+               style={{
+                    width: 30,
+                    height: 30,
+               }}
+          />
+     );
+
      return (
           <View>
                {news.length > 0 ? (
@@ -66,17 +76,28 @@ const News = () => {
                                                                  height: 45,
                                                             }}
                                                        >
-                                                            <Image
-                                                                 source={require('../../assets/iconMenssage.png')}
-                                                                 style={{
-                                                                      width: 30,
-                                                                      height: 30,
-                                                                 }}
-                                                            />
+                                                            {data.author &&
+                                                            data.author.length > 0 &&
+                                                            data.author[0].img ? (
+                                                                 <Image
+                                                                      source={{
+                                                                           uri: data.author[0].img,
+                                                                      }}
+                                                                      style={{
+                                                                           width: 45,
+                                                                           height: 45,
+                                                                           borderRadius: 50,
+                                                                      }}
+                                                                 />
+                                                            ) : (
+                                                                 imgDefecto
+                                                            )}
                                                        </View>
                                                        <View style={{ marginLeft: 10 }}>
                                                             <Text style={styles.user}>
-                                                                 Developers
+                                                                 {data.author.length > 0
+                                                                      ? data.author[0].username
+                                                                      : 'Developers'}
                                                             </Text>
                                                             <Text style={styles.date}>
                                                                  {moment(data.createdAt).format(
