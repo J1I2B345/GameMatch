@@ -15,31 +15,6 @@ export const createGame = (game) => (dispatch) => {
           });
 };
 
-export const getUsers = () => {
-     return async (dispatch) => {
-          let json = allUsers;
-          return dispatch({
-               type: 'GET_USERS',
-               payload: json,
-          });
-     };
-};
-
-export const getUserByName = (name) => {
-     return async (dispatch) => {
-          try {
-               // let json = await axios.get(`/user?name=${name}`);
-               return dispatch({
-                    type: 'GET_USER_BY_NAME',
-                    // payload: json.data,
-                    payload: name,
-               });
-          } catch (error) {
-               console.log(error);
-          }
-     };
-};
-
 export const orderByRating = (payload) => {
      return {
           type: 'ORDER_BY_RATING',
