@@ -38,7 +38,12 @@ const schema = new Schema({
     //chats podría ser un array de mongoose.Types.ObjectId de los users. cuando se abre la pestaña de chats lo que 
     //haría sería ir a buscar a la base de datos los nombres y crear los posibles chats que se puedan elegir.
     // chats_id
-    chats: Array,
+    chats:   {
+        type: [{
+            type: Schema.Types.ObjectId,
+            referece: 'Users'
+        }]
+    }, 
     //reviews pasarlo por referencia para que sea más rápida la carga _id de las reviews
     reviews: Array, 
     givenReviews: Array,
