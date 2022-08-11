@@ -19,6 +19,11 @@ let preference = {
     payer: {
       email: email
     },
+    back_urls:{
+      failure: "https://www.respuestadelback.com/failure",
+      pending: "https://www.respuestadelback.com/pending",
+      success: "https://www.respuestadelback.com/success"
+    },
     payment_methods: {
         installments: 3
     }
