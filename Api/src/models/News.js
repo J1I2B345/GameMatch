@@ -12,13 +12,13 @@ const schema = new Schema({
     },
     author: {
         type: Schema.Types.ObjectId,
-        reference: 'Users2',
+        reference: 'Users',
         required: true,
 
     },
     editedBy: {
         type: Schema.Types.ObjectId,
-        reference: 'Users2',
+        reference: 'Users',
     }
 },{
     timestamps: true
