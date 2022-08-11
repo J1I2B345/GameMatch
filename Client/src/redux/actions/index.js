@@ -85,8 +85,8 @@ export const getUser = (username) => (dispatch) =>{
      return fetch(`https://backend-gamematch.herokuapp.com/users/username/${username}`)
           .then((response) => response.json())
           .then((json) => {
-               const {username, rating, _id, img} = json
-               let user = {username, rating, _id, img}
+               const {username, rating, _id, img, email, premium, chats, description, socialNetworks, rol} = json
+               let user = {username, rating, _id, img, email, premium, chats, description, socialNetworks, rol}
                dispatch({ type: GET_USERNAME, payload: user});
           });
 }
