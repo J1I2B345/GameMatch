@@ -11,7 +11,7 @@ const Login = () => {
      const dispatch = useDispatch();
 
      function handleChange(value){
-          setUser(value)
+          setUser(value.trim())
      }
 
      function onSubmit(e){

@@ -10,7 +10,7 @@ const Profile = () => {
 
      let arrayStars = [];
      (() => {
-          let ratingCont = User[0].rating;
+          let ratingCont = User.rating.$numberDecimal;
           while (ratingCont > 0) {
                ratingCont = ratingCont - 1;
                arrayStars.push(arrayStars.length + 1);
@@ -23,14 +23,14 @@ const Profile = () => {
                <View style={styles.portada_container}>
                     <Image
                          source={{
-                              uri: User[0].img
-                                   ? User[0].img
-                                   : 'https://www.pinpng.com/pngs/m/402-4020060_random-image-from-user-smash-ball-pixel-art.png',
+                              uri: User.img
+                                   ? User.img
+                                   : 'https://www.pinpng.com/pngs/m/402-4020060_random-image-from-User-smash-ball-pixel-art.png',
                          }}
                          style={styles.img_perfil}
                     />
                     <View style={styles.portada}>
-                         <Text style={styles.text_name}>{User[0].name}</Text>
+                         <Text style={styles.text_name}>{User.name}</Text>
                          <View style={styles.stars_container}>
                               {arrayStars.map((item) => (
                                    <View key={item}>
@@ -46,13 +46,13 @@ const Profile = () => {
 
                <View
                     style={
-                         User[0].premium == false
+                         User.premium == false
                               ? { ...styles.separador, marginBottom: 10 }
                               : styles.separador
                     }
                ></View>
 
-               {User[0].premium == false ? (
+               {User.premium == false ? (
                     <View style={{ paddingBottom: 5 }}>
                          <Link
                               to="/buypremium"
@@ -85,10 +85,10 @@ const Profile = () => {
                     <View></View>
                )}
                <SafeAreaView
-                    style={User[0].premium == false ? { marginBottom: 310 } : { marginBottom: 260 }}
+                    style={User.premium == false ? { marginBottom: 310 } : { marginBottom: 260 }}
                >
                     <ScrollView>
-                         {User[0].description ? (
+                         {User.description ? (
                               <View
                                    style={{
                                         ...styles.info_container,
@@ -102,12 +102,12 @@ const Profile = () => {
                                              fontSize: 18,
                                         }}
                                    >
-                                        {User[0].description}
-                                        {User[0].description}
-                                        {User[0].description}
-                                        {User[0].description}
-                                        {User[0].description}
-                                        {User[0].description}
+                                        {User.description}
+                                        {User.description}
+                                        {User.description}
+                                        {User.description}
+                                        {User.description}
+                                        {User.description}
                                    </Text>
                               </View>
                          ) : (
@@ -116,56 +116,57 @@ const Profile = () => {
 
                          <View
                               style={
-                                   Object.keys(User[0].redes).length > 0
-                                        ? User[0].description
+                                   User.socialNetworks? Object.keys(User.socialNetworks).length > 0
+                                        ? User.description
                                              ? { ...styles.info_container, marginTop: -5 }
                                              : styles.info_container
-                                        : { display: 'none' }
+                                        : { display: 'none' } : ''
                               }
                          >
-                              <Text style={styles.users_title}>
-                                   {Object.keys(User[0].redes).length > 1 ? 'Users:' : 'User:'}
+                              <Text style={styles.Users_title}>
+                                   {User.socialNetworks? Object.keys(User.socialNetworks).length > 1 ? 'Users:' : 'User:': ''}
                               </Text>
                               <Text
                                    style={
-                                        User[0].redes.steam
-                                             ? styles.users_item
-                                             : { display: 'none' }
+                                        User.socialNetworks? User.socialNetworks.steam
+                                             ? styles.Users_item
+                                             : { display: 'none' }: ''
                                    }
                               >
-                                   Steam: {User[0].redes.steam}
+                                   Steam: { User.socialNetworks? User.socialNetworks.steam:''}
                               </Text>
                               <Text
                                    style={
-                                        User[0].redes.riot ? styles.users_item : { display: 'none' }
+                                        User.socialNetworks? User.socialNetworks.riot ? styles.Users_item : { display: 'none' }: ''
                                    }
                               >
-                                   Riot: {User[0].redes.riot}
+                                   Riot: {User.socialNetworks? User.socialNetworks.riot? User.socialNetworks.riot: '': ''}
                               </Text>
                               <Text
                                    style={
-                                        User[0].redes.discord
-                                             ? styles.users_item
-                                             : { display: 'none' }
+                                        User.socialNetworks?
+                                        User.socialNetworks.discord?
+                                              styles.Users_item
+                                             : { display: 'none' }: ''
                                    }
                               >
-                                   Discord: {User[0].redes.discord}
+                                   Discord: {User.socialNetworks? User.socialNetworks.discord? User.socialNetworks.discord: '': ''}
                               </Text>
                               <Text
                                    style={
-                                        User[0].redes.ig ? styles.users_item : { display: 'none' }
+                                        User.socialNetworks? User.socialNetworks.ig ? styles.Users_item : { display: 'none' }: ''
                                    }
                               >
-                                   Instagram: {User[0].redes.ig}
+                                   Instagram: {User.socialNetworks? User.socialNetworks.ig? User.socialNetworks.ig : '' :''}
                               </Text>
                               <Text
                                    style={
-                                        User[0].redes.twitter
-                                             ? styles.users_item
-                                             : { display: 'none' }
+                                        User.socialNetworks? User.socialNetworks.twitter? User.socialNetworks.twitter
+                                             ? styles.Users_item
+                                             : { display: 'none' }: '': ''
                                    }
                               >
-                                   Twitter: {User[0].redes.twitter}
+                                   Twitter: {User.socialNetworks? User.socialNetworks.twitter? User.socialNetworks.twitter : '' : ''}
                               </Text>
                          </View>
                     </ScrollView>
@@ -247,13 +248,13 @@ const styles = StyleSheet.create({
           borderRadius: 20,
           backgroundColor: '#443ABB',
      },
-     users_title: {
+     Users_title: {
           width: '100%',
           color: '#fff',
           fontSize: 30,
           paddingBottom: 10,
      },
-     users_item: {
+     Users_item: {
           color: '#fff',
           fontSize: 18,
           padding: 20,

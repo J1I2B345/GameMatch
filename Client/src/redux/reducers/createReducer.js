@@ -212,8 +212,10 @@ const createReducer = (state = initialState, action) => {
                };
 
           case GET_USERNAME:
-               return { ...state, user: payload,
-               userProfile: payload };
+               return { ...state, 
+                    user: payload,
+                    userProfile: payload 
+               };
 
           case UPDATE_USER:
                return { ...state, user: payload };
