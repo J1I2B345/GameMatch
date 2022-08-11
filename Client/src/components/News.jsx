@@ -1,9 +1,10 @@
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, FlatList } from "react-native";
 import moment from "moment";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllNews } from "../redux/actions/news";
 import { connect } from "react-redux";
+import { TouchableWithoutFeedback } from "react-native-web";
 
 export default function News() {
   const dispatch = useDispatch();
@@ -12,46 +13,43 @@ export default function News() {
   useEffect(() => {
     dispatch(getAllNews());
   }, []);
-  console.log({ news });
 
   if (!news.news) return <Text>Cargando</Text>;
   return (
-    <View style={styles.container}>
-      <View style={{ alignItems: "center", height: "100%" }}>
-        {news.news.map((t) => (
-          <Text style={styles.title} key={t.title}>
-            {t.title}
-          </Text>
-        ))}
-        {news.news.map((t) => (
-          <Text style={styles.description} key={t.description}>
-            {t.description}
-          </Text>
-        ))}
-
-        {news.news.map((t) => (
-          <Text style={styles.createdAt} key={t.createdAt}>
-            {moment(t.createdAt).format("MMM Do YY")}
-          </Text>
-        ))}
-      </View>
+    <View>
+      <Text style={styles.News}>News</Text>
+      <FlatList
+        style={{ marginBottom: 600 }}
+        data={news.news}
+        renderItem={({ item: news }) => (
+          <View key={news._id} style={styles.container}>
+            <Text style={styles.title}>{news.title}</Text>
+            <Text style={styles.description}>{news.description}</Text>
+            <Text style={styles.date}>
+              {moment(news.createdAt).format("ddd-mm-yyyy")}
+            </Text>
+          </View>
+        )}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: "90%",
-    alignSelf: "center",
-    borderRadius: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+
+    borderRadius: 20,
     shadowOpacity: 0.5,
     shadowColor: "#000",
     shadowOffset: {
-      height: 5,
+      height: 10,
       width: 5,
     },
     backgroundColor: "#fff",
-    marginTop: 20,
+    marginTop: 30,
   },
   image: {
     height: 200,
@@ -69,10 +67,15 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     marginTop: 10,
   },
-  data: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 10,
+  News: {
+    height: 100,
+    width: "100%",
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+    fontSize: 18,
+    fontWeight: "600",
+    marginTop: 30,
+    color: "#fff",
   },
   heading: {},
   author: {
