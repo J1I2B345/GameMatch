@@ -17,7 +17,13 @@ export default function SelectGame() {
      const userGlobal = useSelector((state) => state.games.user);
 
      function onPress(game) {
-          let user = {username: userGlobal.username, _id:userGlobal._id, img: userGlobal.img, rating: userGlobal.rating, game}
+          let user = {
+               username: userGlobal.username,
+               _id: userGlobal._id,
+               img: userGlobal.img,
+               rating: userGlobal.rating,
+               game,
+          };
           dispatch(updateUser(user));
      }
 
@@ -48,50 +54,56 @@ export default function SelectGame() {
                          <ScrollView
                               style={{
                                    marginBottom: 45,
+                                   width: '100%',
                               }}
                          >
-                              <View
-                                   style={{
-                                        marginLeft: '5%',
-                                   }}
-                              >
-                                   <Text
+                              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                   <View
                                         style={{
-                                             marginTop: Constants.statusBarHeight,
-                                             color: 'white',
-                                             fontSize: 45,
+                                             marginLeft: '13%',
+                                             width: '100%',
                                         }}
                                    >
-                                        ¿What
-                                   </Text>
-                                   <Text style={{ marginTop: -5, color: 'white', fontSize: 45 }}>
-                                        do you want
-                                   </Text>
-                                   <Text
-                                        style={{
-                                             marginTop: -5,
-                                             marginBottom: 10,
-                                             color: 'white',
-                                             fontSize: 45,
-                                        }}
-                                   >
-                                        to play today?
-                                   </Text>
+                                        <Text
+                                             style={{
+                                                  marginTop: Constants.statusBarHeight,
+                                                  color: 'white',
+                                                  fontSize: 45,
+                                             }}
+                                        >
+                                             ¿What
+                                        </Text>
+                                        <Text
+                                             style={{ marginTop: -5, color: 'white', fontSize: 45 }}
+                                        >
+                                             do you want
+                                        </Text>
+                                        <Text
+                                             style={{
+                                                  marginTop: -5,
+                                                  marginBottom: 10,
+                                                  color: 'white',
+                                                  fontSize: 45,
+                                             }}
+                                        >
+                                             to play today?
+                                        </Text>
+                                   </View>
+                                   {games.map((game) => {
+                                        return (
+                                             <Game
+                                                  key={game._id}
+                                                  id={game._id}
+                                                  image={game.image}
+                                                  name={game.name}
+                                                  gender={game.gender}
+                                                  positions={game.position}
+                                                  rank={game.elo}
+                                                  onPress={onPress}
+                                             />
+                                        );
+                                   })}
                               </View>
-                              {games.map((game) => {
-                                   return (
-                                        <Game
-                                             key={game._id}
-                                             id={game._id}
-                                             image={game.image}
-                                             name={game.name}
-                                             gender={game.gender}
-                                             positions={game.position}
-                                             rank={game.elo}
-                                             onPress={onPress}
-                                        />
-                                   );
-                              })}
                          </ScrollView>
 
                          <Link
@@ -111,11 +123,11 @@ export default function SelectGame() {
                               />
                          </Link>
                          <StatusBar style="auto" />
-                         <Nav />
                     </SafeAreaView>
                ) : (
                     <Spinner />
                )}
+               <Nav />
           </View>
      );
 }

@@ -1,30 +1,27 @@
 import { StatusBar } from 'expo-status-bar';
-import {getUser} from '../redux/actions';
+import { getUser } from '../redux/actions';
 import { useEffect, useState } from 'react';
-import {useSelector, connect, useDispatch} from 'react-redux'; 
+import { useSelector, connect, useDispatch } from 'react-redux';
 import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
 import { Link, useNavigate } from 'react-router-native';
 
 const Login = () => {
-
-     const [user, setUser] = useState('')
+     const [user, setUser] = useState('');
      const dispatch = useDispatch();
 
      function handleChange(value){
           setUser(value.trim())
      }
 
-     function onSubmit(e){
-          dispatch(getUser(user)) 
+     function onSubmit(e) {
+          dispatch(getUser(user));
      }
 
-    
      // const navigate = useNavigate();
      // const [userState, setUserState] = useState('');
 
      // const user = useSelector((state) => state.games.user);
      // user.length == 1 ?? user[0].name === userState ?? navigate('/selectgame');
-
 
      return (
           <View style={styles.container}>
@@ -43,14 +40,19 @@ const Login = () => {
                     </View>
                </View>
                <View style={styles.form_container}>
-                    <TextInput placeholder="Username" style={styles.input} value={user} onChangeText={(e)=> handleChange(e)}/>
+                    <TextInput
+                         placeholder="Username"
+                         style={styles.input}
+                         value={user}
+                         onChangeText={(e) => handleChange(e)}
+                    />
                     <TextInput placeholder="Password" style={styles.input} />
                     <Link
                          to="/selectgame"
                          activeOpacity={1}
                          underlayColor={'#9A01E2'}
                          style={styles.button}
-                         onPress={(e)=> onSubmit(e)}
+                         onPress={(e) => onSubmit(e)}
                     >
                          <View>
                               <Text style={styles.button_text}>LOGIN</Text>
