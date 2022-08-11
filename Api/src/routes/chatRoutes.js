@@ -39,7 +39,7 @@ router.get('/getUsersToChat/:_id', async (req, res)=>{
                 _id:  mongoose.Types.ObjectId(_id)
             }}
     ])
-        let chats = user[0].usersToChat.map(e=> {return {_id: e._id, username: e.username, rating: e.rating}})
+        let chats = user[0].usersToChat.map(e=> {return {_id: e._id, username: e.username, rating: e.rating, img:e.img}})
         if(chats.length) return res.send(chats)
         else throw new Error ('no friends to chat')
     }catch(e){
