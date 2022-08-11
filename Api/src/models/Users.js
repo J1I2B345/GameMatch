@@ -15,10 +15,10 @@ const schema = new Schema(
     },
     username: {
       type: String,
-      defaul: "not declared Add a name !:)",
-      trim: true
       required: true,
-      unique: true
+      defaul: "not declared Add a name !:)",
+      unique: true,
+      trim: true
     },
 
     // rating podría actualizarse cuando se hace el post de reviews de la siguiente manera
