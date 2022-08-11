@@ -9,6 +9,7 @@ import Form from './Form.jsx';
 import Chat from './Chat.jsx';
 import CreateGame from './CreateGame.jsx';
 import Profile from './Profile.jsx';
+import WhyPremium from './WhyPremium.jsx';
 import BuyPremium from './BuyPremium.jsx';
 import News from './News.jsx';
 
@@ -25,6 +26,7 @@ const Home = () => {
                     <Route path="/playersR6" element={<RoomR6 />} />
                     <Route path="/chat" element={<Chat />} />
                     <Route path="/profile" element={<Profile />} />
+                    <Route path="/whypremium" element={<WhyPremium />} />
                     <Route path="/buypremium" element={<BuyPremium />} />
                     <Route path="/news" element={<News />} />
                </Routes>
