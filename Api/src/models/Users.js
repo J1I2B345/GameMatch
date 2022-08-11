@@ -35,7 +35,7 @@ const schema = new Schema({
         enum: ['user', 'admin', 'superadmin'],
         default: 'user'
     },
- //chats podría ser un array de mongoose.Types.ObjectId de los users. cuando se abre la pestaña de chats lo que 
+    //chats podría ser un array de mongoose.Types.ObjectId de los users. cuando se abre la pestaña de chats lo que 
     //haría sería ir a buscar a la base de datos los nombres y crear los posibles chats que se puedan elegir.
     // chats_id
     chats: Array,
