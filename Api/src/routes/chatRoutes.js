@@ -2,6 +2,7 @@ const {Router} = require("express")
 const router = Router()
 const Chat = require("../models/Chats.js")
 const User = require("../models/Users.js")
+const mongoose = require("mongoose");
 
 
 
@@ -18,6 +19,36 @@ router.get('/all', async(req,res)=>{
 })
 
 
+//get users who you can talk to
+
+router.get('/getUsersToChat/:_id', async (req, res)=>{
+    let {_id} = req.params
+    try{
+    let user = await User.aggregate([
+       
+       
+        {$lookup: { 
+            from: "users",
+            localField: "chats",
+            foreignField: "_id",
+            as: "usersToChat"
+          }
+        },
+        {
+            $match: {
+                _id:  mongoose.Types.ObjectId(_id)
+            }}
+    ])
+        let chats = user[0].usersToChat.map(e=> {return {_id: e._id, username: e.username, rating: e.rating}})
+        if(chats.length) return res.send(chats)
+        else throw new Error ('no friends to chat')
+    }catch(e){
+        res.status(400).send({"error": e.message})
+    }
+
+})
+
+
 
 //get a chat from two users
 // body = {
@@ -28,7 +59,7 @@ router.get('/', async (req, res)=>{
    try{ 
     const {sender, receiver} = req.body
     const chats = await Chat
-        .find({
+        .find({ 
             users:{
                 $all: [sender, receiver]
             },
@@ -42,6 +73,10 @@ router.get('/', async (req, res)=>{
         res.status(400).json({"error": e.message})
     }
 })
+  
+
+
+
 
 
 //save a message
@@ -61,10 +96,10 @@ router.post('/', async(req, res)=>{
     
         if (chatSaved) {
             const addUser1ToChatOfUser0 = await User.findByIdAndUpdate(users[0], {
-                $addToSet: {chats: users[1]}})
+                $addToSet: {chats: users[1]}}, {new:true})
             
             const addUser0ToChatOfUser1= await User.findByIdAndUpdate(users[1], {
-                $addToSet: {chats: users[0]}})
+                $addToSet: {chats: users[0]}}, {new:true})
               
             res.status(201).send('Message send')
         }
@@ -74,15 +109,21 @@ router.post('/', async(req, res)=>{
 })
 
 
+
+
+//add users to the property chats of the other => would be useful when the match is done
+/// body : "users" : ["_id1", "_id2"]
 router.post('/addUserToChat', async(req,res)=>{
     try {
         const {users} = req.body
+        
         const addUser1ToChatOfUser0 = await User.findByIdAndUpdate(users[0], {
-            $addToSet: {chats: users[1]}})
-       
+            $addToSet: {chats: users[1]}})    
+        
         const addUser0ToChatOfUser1= await User.findByIdAndUpdate(users[1], {
             $addToSet: {chats: users[0]}})
-        console.log(addUser0ToChatOfUser1)    
+        
+        res.send('The users can now chat')   
     } catch(e){
         res.status(400).json({"error": e.message})
     }
