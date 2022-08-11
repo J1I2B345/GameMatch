@@ -56,7 +56,7 @@ export default function SelectGame() {
                               >
                                    <Text
                                         style={{
-                                             marginTop: Constants.statusBarHeight + 10,
+                                             marginTop: Constants.statusBarHeight,
                                              color: 'white',
                                              fontSize: 45,
                                         }}

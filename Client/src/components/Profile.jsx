@@ -44,7 +44,13 @@ const Profile = () => {
                     </View>
                </View>
 
-               <View style={styles.separador}></View>
+               <View
+                    style={
+                         User[0].premium == false
+                              ? { ...styles.separador, marginBottom: 10 }
+                              : styles.separador
+                    }
+               ></View>
 
                {User[0].premium == false ? (
                     <View style={{ paddingBottom: 5 }}>
@@ -79,7 +85,7 @@ const Profile = () => {
                     <View></View>
                )}
                <SafeAreaView
-                    style={User[0].premium == false ? { marginBottom: 315 } : { marginBottom: 260 }}
+                    style={User[0].premium == false ? { marginBottom: 310 } : { marginBottom: 260 }}
                >
                     <ScrollView>
                          {User[0].description ? (
