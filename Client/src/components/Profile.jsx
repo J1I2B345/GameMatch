@@ -7,9 +7,10 @@ import Nav from './Nav';
 import Spinner from './Spinner';
 
 const Profile = () => {
-     const User = useSelector((state) => state.games.user);
+     const User = useSelector((state) => state.games.userProfile);
 
      let arrayStars = [];
+
 
      if (User.rating) {
           if (User.rating.$numberDecimal) {
@@ -295,13 +296,13 @@ const styles = StyleSheet.create({
           backgroundColor: '#443ABB',
           justifyContent: 'center',
      },
-     users_title: {
+     Users_title: {
           width: '100%',
           color: '#fff',
           fontSize: 25,
           paddingBottom: 10,
      },
-     users_item: {
+     Users_item: {
           color: '#fff',
           fontSize: 16,
           padding: 20,
