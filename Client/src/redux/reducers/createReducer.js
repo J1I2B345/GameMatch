@@ -6,6 +6,7 @@ import userProfile from '../../data/UsersInfo';
 
 const initialState = {
      games: null,
+     news: [],
      playersLoL: playersLoL,
      playersCSGO: playersCSGO,
      playersR6: playersR6,
@@ -211,11 +212,18 @@ const createReducer = (state = initialState, action) => {
                     playersIsEmpty: 'There are no players with this elo',
                };
 
+          case 'GET_ALL_NEWS':
+               return {
+                    ...state,
+                    news: payload,
+               };
+
           case GET_USERNAME:
                return { ...state, user: payload };
 
           case UPDATE_USER:
                return { ...state, user: payload };
+
           default:
                return state;
      }

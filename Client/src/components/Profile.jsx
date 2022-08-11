@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView, Linking } from 'react-native';
 import { connect, useSelector } from 'react-redux';
 import { Link } from 'react-router-native';
 import Constants from 'expo-constants';
@@ -85,88 +85,119 @@ const Profile = () => {
                     <View></View>
                )}
                <SafeAreaView
-                    style={User[0].premium == false ? { marginBottom: 310 } : { marginBottom: 260 }}
+                    style={
+                         User[0].premium == false
+                              ? {
+                                     width: '100%',
+                                     marginBottom: 315,
+                                     alignItems: 'center',
+                                     justifyContent: 'center',
+                                }
+                              : {
+                                     width: '100%',
+                                     marginBottom: 260,
+                                     alignItems: 'center',
+                                     justifyContent: 'center',
+                                }
+                    }
                >
                     <ScrollView>
-                         {User[0].description ? (
-                              <View
-                                   style={{
-                                        ...styles.info_container,
-                                        paddingBottom: 20,
-                                        marginTop: 0,
-                                   }}
-                              >
-                                   <Text
+                         <View
+                              style={{
+                                   width: '100%',
+                                   alignItems: 'center',
+                                   justifyContent: 'center',
+                              }}
+                         >
+                              {User[0].description ? (
+                                   <View
                                         style={{
-                                             color: '#fff',
-                                             fontSize: 18,
+                                             ...styles.info_container,
+                                             paddingBottom: 20,
+                                             marginTop: 0,
+                                             alignItems: 'center',
+                                             justifyContent: 'center',
                                         }}
                                    >
-                                        {User[0].description}
-                                        {User[0].description}
-                                        {User[0].description}
-                                        {User[0].description}
-                                        {User[0].description}
-                                        {User[0].description}
+                                        <Text
+                                             style={{
+                                                  color: '#fff',
+                                                  fontSize: 16,
+                                             }}
+                                        >
+                                             {User[0].description}
+                                             {User[0].description}
+                                             {User[0].description}
+                                             {User[0].description}
+                                             {User[0].description}
+                                             {User[0].description}
+                                        </Text>
+                                   </View>
+                              ) : (
+                                   <View></View>
+                              )}
+
+                              <View
+                                   style={
+                                        Object.keys(User[0].redes).length > 0
+                                             ? User[0].description
+                                                  ? { ...styles.info_container, marginTop: -5 }
+                                                  : styles.info_container
+                                             : { display: 'none' }
+                                   }
+                              >
+                                   <Text style={styles.users_title}>
+                                        {Object.keys(User[0].redes).length > 1 ? 'Users:' : 'User:'}
+                                   </Text>
+                                   <Text
+                                        style={
+                                             User[0].redes.steam
+                                                  ? styles.users_item
+                                                  : { display: 'none' }
+                                        }
+                                   >
+                                        ֍ Steam: {User[0].redes.steam}
+                                   </Text>
+                                   <Text
+                                        style={
+                                             User[0].redes.riot
+                                                  ? styles.users_item
+                                                  : { display: 'none' }
+                                        }
+                                   >
+                                        ֍ Riot: {User[0].redes.riot}
+                                   </Text>
+                                   <Text
+                                        style={
+                                             User[0].redes.discord
+                                                  ? styles.users_item
+                                                  : { display: 'none' }
+                                        }
+                                   >
+                                        ֍ Discord: {User[0].redes.discord}
+                                   </Text>
+
+                                   <Text
+                                        style={
+                                             User[0].redes.ig
+                                                  ? styles.users_item
+                                                  : { display: 'none' }
+                                        }
+                                   >
+                                        ֍ Instagram: {User[0].redes.ig}
+                                        {/* {Linking.openURL('https://www.instagram.com/new.affection_/')} */}
+                                   </Text>
+
+                                   <Text
+                                        style={
+                                             User[0].redes.twitter
+                                                  ? styles.users_item
+                                                  : { display: 'none' }
+                                        }
+                                   >
+                                        ֍ Twitter: {User[0].redes.twitter}
                                    </Text>
                               </View>
-                         ) : (
-                              <View></View>
-                         )}
-
-                         <View
-                              style={
-                                   Object.keys(User[0].redes).length > 0
-                                        ? User[0].description
-                                             ? { ...styles.info_container, marginTop: -5 }
-                                             : styles.info_container
-                                        : { display: 'none' }
-                              }
-                         >
-                              <Text style={styles.users_title}>
-                                   {Object.keys(User[0].redes).length > 1 ? 'Users:' : 'User:'}
-                              </Text>
-                              <Text
-                                   style={
-                                        User[0].redes.steam
-                                             ? styles.users_item
-                                             : { display: 'none' }
-                                   }
-                              >
-                                   Steam: {User[0].redes.steam}
-                              </Text>
-                              <Text
-                                   style={
-                                        User[0].redes.riot ? styles.users_item : { display: 'none' }
-                                   }
-                              >
-                                   Riot: {User[0].redes.riot}
-                              </Text>
-                              <Text
-                                   style={
-                                        User[0].redes.discord
-                                             ? styles.users_item
-                                             : { display: 'none' }
-                                   }
-                              >
-                                   Discord: {User[0].redes.discord}
-                              </Text>
-                              <Text
-                                   style={
-                                        User[0].redes.ig ? styles.users_item : { display: 'none' }
-                                   }
-                              >
-                                   Instagram: {User[0].redes.ig}
-                              </Text>
-                              <Text
-                                   style={
-                                        User[0].redes.twitter
-                                             ? styles.users_item
-                                             : { display: 'none' }
-                                   }
-                              >
-                                   Twitter: {User[0].redes.twitter}
-                              </Text>
                          </View>
                     </ScrollView>
                </SafeAreaView>
@@ -245,20 +276,22 @@ const styles = StyleSheet.create({
           padding: 20,
           paddingBottom: 10,
           borderRadius: 20,
+          width: '90%',
           backgroundColor: '#443ABB',
+          justifyContent: 'center',
      },
      users_title: {
           width: '100%',
           color: '#fff',
-          fontSize: 30,
+          fontSize: 25,
           paddingBottom: 10,
      },
      users_item: {
           color: '#fff',
-          fontSize: 18,
+          fontSize: 16,
           padding: 20,
           paddingTop: 0,
-          paddingLeft: 40,
+          paddingLeft: 28,
      },
      button: {
           margin: 20,

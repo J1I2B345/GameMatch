@@ -17,7 +17,7 @@ const Nav = () => {
                               style={{ width: 30, height: 30 }}
                          />
                     </Link>
-                    <Link to="/" underlayColor={'#9A01E2'} style={styles.icon}>
+                    <Link to="/news" underlayColor={'#9A01E2'} style={styles.icon}>
                          <Image
                               source={require('../../assets/iconForo.png')}
                               style={{ marginTop: 2, width: 26, height: 26 }}
