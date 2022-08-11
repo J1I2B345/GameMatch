@@ -10,8 +10,7 @@ const initialState = {
      playersLoL: playersLoL,
      playersCSGO: playersCSGO,
      playersR6: playersR6,
-     user: null,
-     userProfile: userProfile,
+     user: [],
 };
 
 const createReducer = (state = initialState, action) => {
@@ -20,25 +19,6 @@ const createReducer = (state = initialState, action) => {
      switch (type) {
           case CREATE_GAME:
                return { ...state, games: [...state.games, payload] };
-
-          case 'GET_USERS':
-               return {
-                    ...state,
-                    user: [],
-                    users: payload,
-               };
-
-          case 'GET_USER_BY_NAME': {
-               let userFind = users.filter((user) => user === payload);
-
-               if (userFind.length == 1)
-                    return {
-                         ...state,
-                         user: userFind,
-                    };
-
-               return alert('User not found');
-          }
 
           case 'ORDER_BY_RATING': {
                let playersInLoL = initialState.playersLoL;
@@ -219,8 +199,7 @@ const createReducer = (state = initialState, action) => {
                };
 
           case GET_USERNAME:
-               return { ...state, user: payload,
-               userProfile: payload };
+               return { ...state, user: payload };
 
           case UPDATE_USER:
                return { ...state, user: payload };

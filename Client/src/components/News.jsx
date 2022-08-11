@@ -116,12 +116,12 @@ const News = () => {
                                    style={{ width: 50, height: 50 }}
                               />
                          </Link>
-                         <Nav />
                          <StatusBar style="auto" />
                     </View>
                ) : (
                     <Spinner />
                )}
+               <Nav />
           </View>
      );
 };

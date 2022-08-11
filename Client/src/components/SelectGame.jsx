@@ -17,7 +17,13 @@ export default function SelectGame() {
      const userGlobal = useSelector((state) => state.games.user);
 
      function onPress(game) {
-          let user = {username: userGlobal.username, _id:userGlobal._id, img: userGlobal.img, rating: userGlobal.rating, game}
+          let user = {
+               username: userGlobal.username,
+               _id: userGlobal._id,
+               img: userGlobal.img,
+               rating: userGlobal.rating,
+               game,
+          };
           dispatch(updateUser(user));
      }
 
@@ -117,11 +123,11 @@ export default function SelectGame() {
                               />
                          </Link>
                          <StatusBar style="auto" />
-                         <Nav />
                     </SafeAreaView>
                ) : (
                     <Spinner />
                )}
+               <Nav />
           </View>
      );
 }
