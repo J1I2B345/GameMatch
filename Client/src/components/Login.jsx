@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, TextInput, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
 import { Link } from 'react-router-native';
+
 
 const Login = () => {
      return (
@@ -20,11 +21,9 @@ const Login = () => {
                     </View>
                </View>
                <View style={styles.form_container}>
-                    <TextInput placeholder="Ussername" style={styles.input} />
+                    <TextInput placeholder="Username" style={styles.input} />
                     <TextInput placeholder="Password" style={styles.input} />
-
                     <Link
-                         onPress={() => Alert.alert('Logeado Exitosamente')}
                          to="/selectgame"
                          activeOpacity={1}
                          underlayColor={'#9A01E2'}
@@ -35,7 +34,6 @@ const Login = () => {
                          </View>
                     </Link>
                </View>
-
                <View
                     style={{
                          marginTop: 30,

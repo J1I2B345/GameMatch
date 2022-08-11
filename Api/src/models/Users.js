@@ -15,7 +15,8 @@ const schema = new Schema({
     },
     username: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     
     // rating podría actualizarse cuando se hace el post de reviews de la siguiente manera
@@ -43,12 +44,21 @@ const schema = new Schema({
     givenReviews: Array,
     img: {
         type: String,
-        //default: buscar una imagen que sea tipo la de facebook
+        default: 'https://randomwordgenerator.com/img/picture-generator/55e1d4414e51aa14f1dc8460962e33791c3ad6e04e507749772f78d69f4acc_640.jpg'
     },
+
     description: String,
-    steam: String,
-    riot: String,
-    ig: String,
+    socialNetworks: {
+        steam: String,
+        riot: String,
+        ig: String,
+        discord: String,
+        twitter: String,
+    },
+    ban: {
+        type: Boolean,
+        default: false
+    },
     tenant: String,
     connection: String,
     debug: Boolean
