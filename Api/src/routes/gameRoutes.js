@@ -42,8 +42,8 @@ router.get("/:id", async (req, res) => {
 //*----------------POST GAMES------------------------
 
 //solicitud Tipo  POST: localhost:3001/games/id
-
-router.post("/",[auth.verifyToken,auth.isAdmin], async (req, res) => {
+//[auth.verifyToken,auth.isAdmin]
+router.post("/",auth.isAdmin, async (req, res) => {
   const { name, image, gender, elo, position } = req.body;
   try {
     const game = await GameSchema.create({
@@ -63,8 +63,8 @@ router.post("/",[auth.verifyToken,auth.isAdmin], async (req, res) => {
 });
 
 //*----------------UPDATE GAMES------------------------
-
-router.put("/:id",[auth.verifyToken,auth.isAdmin], async (req, res) => {
+//[auth.verifyToken,auth.isAdmin]
+router.put("/:id",auth.isAdmin, async (req, res) => {
 
   //solicitud Tipo GET: localhost:3001/games/id
 
@@ -80,7 +80,9 @@ router.put("/:id",[auth.verifyToken,auth.isAdmin], async (req, res) => {
 
  //solicitud Tipo DELETE: localhost:3001/games/id
 
-router.delete("/:id",[auth.verifyToken,auth.isAdmin], async (req, res) => {
+//[auth.verifyToken,auth.isAdmin]
+
+router.delete("/:id",auth.isAdmin, async (req, res) => {
   try {
 
     const deleteGame = await GameSchema.findByIdAndDelete({ _id: req.params.id }, req.body);
