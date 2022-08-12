@@ -24,6 +24,7 @@ module.exports = (io) => {
         })
         socket.on('client: send message', msg => {
             let receiver = getUser(msg.users[1])
+            console.log(receiver)
             if (receiver) socket.to(receiver.socketid).emit('server: message received', msg)
         })
 
