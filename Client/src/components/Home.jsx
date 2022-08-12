@@ -14,6 +14,8 @@ import BuyPremium from './BuyPremium.jsx';
 import News from './News.jsx';
 import CreateNews from './CreateNews.jsx';
 import SelectChat from './SelectChat.jsx';
+import EditProfile from './EditProfile.jsx';
+
 
 const Home = () => {
      return (
@@ -29,6 +31,7 @@ const Home = () => {
                     <Route path="selectchat" element={<SelectChat />} />
                     <Route path="/chat" element={<Chat />} />
                     <Route path="/profile" element={<Profile />} />
+                    <Route path="/profile/edit" element={<EditProfile />} />
                     <Route path="/whypremium" element={<WhyPremium />} />
                     <Route path="/buypremium" element={<BuyPremium />} />
                     <Route path="/news" element={<News />} />

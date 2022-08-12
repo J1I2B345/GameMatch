@@ -24,6 +24,9 @@ const createReducer = (state = initialState, action) => {
           case 'ADD_NEWS':
                return { ...state, news: [payload, ...state.news] };
 
+          case 'EDIT_PROFILE':
+               return { ...state, userProfile: payload };
+
           case 'ORDER_BY_RATING': {
                let playersInLoL = initialState.playersLoL;
                let playersInCSGO = initialState.playersCSGO;
