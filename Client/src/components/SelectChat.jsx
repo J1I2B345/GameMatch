@@ -5,10 +5,12 @@ import { Image, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-native";
 
+
 export default function SelectChat() {
     let [contacts, setContacts] = useState({});
     let user = useSelector((state) => state.games.user);
     let id = user._id;
+    
 
     async function getChats() {
         let respuesta = await axios.get(
@@ -34,7 +36,8 @@ export default function SelectChat() {
                     contacts.map((contact) => {
                         return (
                             <Link
-                                to="/chat"
+                                key= {contact._id}
+                                to={`/chat/${contact._id}`}
                                 style={{
                                     backgroundColor: "#3519B0",
                                     borderRadius: 10,
@@ -81,6 +84,22 @@ export default function SelectChat() {
                     <Text>Aun no tienes contactos</Text>
                 )}
             </View>
+            <Link
+                to="/selectgame"
+                activeOpacity={1}
+                underlayColor={''}
+                style={{
+                     position: 'absolute',
+                     bottom: 80,
+                     left: 20,
+                     height: 45,
+                }}
+            >
+              <Image
+                   source={require('../../assets/iconBack.png')}
+                   style={{ width: 50, height: 50 }}
+              />
+            </Link>
         </View>
     );
 }

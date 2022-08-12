@@ -1,4 +1,4 @@
-import { CREATE_GAME, GET_USERNAME, UPDATE_USER } from '../constants';
+import { CREATE_GAME, GET_USERNAME, UPDATE_USER, CREATE_SOCKET } from '../constants';
 import axios from 'axios';
 
 export const createGame = (game) => (dispatch) => {

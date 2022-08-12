@@ -57,7 +57,7 @@ router.get('/getUsersToChat/:_id', async (req, res)=>{
 // }
 router.get('/', async (req, res)=>{
    try{ 
-    const {sender, receiver} = req.body
+    const {sender, receiver} = req.query
     const chats = await Chat
         .find({ 
             users:{
@@ -65,10 +65,15 @@ router.get('/', async (req, res)=>{
             },
         })
         .sort ({ createdAt:1 })
+
         if (chats.length === 0) {
             throw new Error('No messages between users')
-        } else return res.json(chats)
-
+        }
+        const projectMessages = chats.map(e =>{ return {
+            fromSelf: e.sender.toString() === sender,
+            message: e.message
+        }})
+        return res.json(projectMessages)
     } catch(e){
         res.status(400).json({"error": e.message})
     }
