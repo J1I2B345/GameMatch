@@ -13,124 +13,45 @@ const verify = require("../middlewares/verifyLogin");
 //*----------------GET ALL USER------------------------
 
 //solicitud Tipo GET: localhost:3001/users
+router.get("/", async(req,res) =>{
+  try{
+    const users = await UserSchema.find()
+    if (users) res.json(users)
+    else throw new Error('no users in the DB')
+  } catch (e){
+    res.status(400).json({error: e.message})
+  }
+})
 
-router.get("/", async (req, res) => {
-  const { username } = req.query;
-  const conditionReviews = {
-    $lookup: {
-      from: "reviews",
-      localField: "username",
-      foreignField: "userRated",
-      as: "reviews",
-    },
-  };
-  const conditionGivenReviews = {
-    $lookup: {
-      from: "reviews",
-      localField: "username",
-      foreignField: "reviewer",
-      as: "givenReviews",
-    },
-  };
+
+//*----------------GET USER DETAIL------------------------
+//*----------------GET BY NAME ------------------------
+router.get("/:id", async (req, res) => {
   try {
-
-    if (username) {
-      const a = await UserSchema.aggregate([
-        conditionReviews,
-        conditionGivenReviews,
-        {
-          $match: {
-            username: username,
-          },
-        },
-      ]);
-      if (a[0].reviews.length === 0) {
-        a[0].rating = "Sin calificar";
-      }
-      if (a[0].reviews.length > 1) {
-        let num = a[0].reviews.map((e) => e.qualification);
-        a[0].rating = num.reduce((a, b) => a + b) / a[0].reviews.length;
-      }
-      if (a[0].reviews.length === 1) {
-        a[0].rating = a[0].reviews[0].qualification;
-      }
-      res.json(a);
-    } else {
-      const a = await UserSchema.aggregate([
-        conditionReviews,
-        conditionGivenReviews,
-      ]);
-      a.map((el) => {
-        if (el.reviews.length === 0) {
-          el.rating = "Sin calificar";
-        }
-        if (el.reviews.length > 1) {
-          let num = el.reviews.map((e) => e.qualification);
-          el.rating = num.reduce((a, b) => a + b) / el.reviews.length;
-        }
-        if (el.reviews.length === 1) {
-          el.rating = el.reviews[0].qualification;
-        }
-      });
-      res.json(a);
-    }
+    const id = req.params.id
+    const userFound = await UserSchema.findById(id);
+    if (userFound) return res.status(200).json(userFound);
+    else throw new Error("user not found");
   } catch (error) {
-    console.log("Error trying to get users");
-    res.status(400).send({ error: error.message });
+    res.status(400).json({ error: error.message });
   }
 });
-//*----------------GET USER DETAIL------------------------
 
-//solicitud Tipo GET: localhost:3001/users/ID
-
-router.get("/:id", async (req, res) => {
-  const { id } = req.params;
-  const conditionReviews = {
-    $lookup: {
-      from: "reviews",
-      localField: "username",
-      foreignField: "userRated",
-      as: "reviews",
-    },
-  };
-  const conditionGivenReviews = {
-    $lookup: {
-      from: "reviews",
-      localField: "username",
-      foreignField: "reviewer",
-      as: "givenReviews",
-    },
-  };
+//*----------------GET USER BY NAME ------------------------
+router.get("/username/:username", async (req, res) => {
   try {
-    
-    const a = await UserSchema.aggregate([
-      conditionReviews,
-      conditionGivenReviews,
-      {
-        $match: {
-          _id: mongoose.Types.ObjectId(id),
-        },
-      },
-    ]);
-
-    // let num = a[0].reviews.map(e => e.qualification)
-    // a[0].rating = num.reduce((a,b) => a + b) / a[0].reviews.length
-    if (a[0].reviews.length === 0) {
-      a[0].rating = "Sin calificar";
-    }
-    if (a[0].reviews.length === 1) {
-      a[0].rating = a[0].reviews[0].qualification;
-    }
-    if (a[0].reviews.length > 1) {
-      let num = a[0].reviews.map((e) => e.qualification);
-      a[0].rating = num.reduce((a, b) => a + b) / a[0].reviews.length;
-    }
-    res.json(a);
+    const username = req.params.username?.trim();
+    const userFound = await UserSchema.findOne({username: username});
+    if (userFound) return res.status(200).json(userFound);
+    else throw new Error("user not found");
   } catch (error) {
-    console.log("Error trying to get user detail");
+    console.log("Error trying to get the user");
     res.status(500).json({ error: error.message });
   }
 });
+
+//solicitud Tipo GET: localhost:3001/users/ID
+
 //*----------------POST USER-----|Register|-------------------
 
 //solicitud Tipo POST: localhost:3001/users/register
@@ -305,18 +226,7 @@ router.delete("/:id",auth.isAdmin, async (req, res) => {
 });
 
 
-//*----------------GET BY NAME ------------------------
-router.get("/username/:username", async (req, res) => {
-  try {
-    const username = req.params.username?.trim();
-    const userFound = await UserSchema.findOne({username: username});
-    if (userFound) return res.status(200).json(userFound);
-    else throw new Error("user not found");
-  } catch (error) {
-    console.log("Error trying to get the user");
-    res.status(500).json({ error: error.message });
-  }
-});
+
 
 
 

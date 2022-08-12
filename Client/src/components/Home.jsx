@@ -18,27 +18,28 @@ import Checkout from './Checkout.jsx';
 
 
 const Home = () => {
-     return (
-          <View>
-               <Routes>
-                    <Route path="/" element={<Login />} />
-                    <Route exact path="/selectgame" element={<SelectGame />} />
-                    <Route path="form/:id" element={<Form />} />
-                    <Route path="/createGame" element={<CreateGame />} />
-                    <Route path="/playersLoL" element={<RoomLoL />} />
-                    <Route path="/playersCS" element={<RoomCS />} />
-                    <Route path="/playersR6" element={<RoomR6 />} />
-                    <Route path="selectchat" element={<SelectChat />} />
-                    <Route path="/chat" element={<Chat />} />
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="/profile/edit" element={<EditProfile />} />
-                    <Route path="/whypremium" element={<WhyPremium />} />
-                    <Route path="/news" element={<News />} />
-                    <Route path="/news/add" element={<CreateNews />} />
-                    <Route path='/checkout' element={<Checkout />} />
-               </Routes>
-          </View>
-     );
+    return (
+        <View>
+            <Routes>
+                <Route path="/" element={<Login />} />
+                <Route exact path="/selectgame" element={<SelectGame />} />
+                <Route path="form/:id" element={<Form />} />
+                <Route path="/createGame" element={<CreateGame />} />
+                <Route path="/playersLoL" element={<RoomLoL />} />
+                <Route path="/playersCS" element={<RoomCS />} />
+                <Route path="/playersR6" element={<RoomR6 />} />
+                <Route path="selectchat" element={<SelectChat />} />
+                <Route path="/chat/:id" element={<Chat />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/profile/edit" element={<EditProfile />} />
+                <Route path="/whypremium" element={<WhyPremium />} />
+                <Route path="/buypremium" element={<BuyPremium />} />
+                <Route path="/news" element={<News />} />
+                <Route path="/news/add" element={<CreateNews />} />
+                <Route path='/checkout' element={<Checkout />} />
+            </Routes>
+        </View>
+    );
 };
 
 export default Home;
