@@ -13,7 +13,7 @@ let preference = {
       {
         title: "Mi producto",
         quantity: 1,
-        unit_price: 100.00
+        unit_price: 499.00
       },
     ],
     payer: {
@@ -25,7 +25,11 @@ let preference = {
       success: "https://www.respuestadelback.com/success"
     },
     payment_methods: {
-        installments: 3
+        installments: 3,
+        excluded_payment_types: [
+          {"id":"ticket"},
+          {"id":"debit_card"}
+      ]
     }
   };
   
