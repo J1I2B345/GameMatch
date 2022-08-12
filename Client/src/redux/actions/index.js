@@ -99,3 +99,10 @@ export const getAllNews = () => {
           }
      };
 };
+
+export const addNews = (news) => {
+     return async (dispatch) => {
+          // await axios.put(`https://backend-gamematch.herokuapp.com/news`, news);
+          return dispatch({ type: 'ADD_NEWS', payload: news });
+     };
+};
