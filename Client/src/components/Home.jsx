@@ -33,7 +33,6 @@ const Home = () => {
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/profile/edit" element={<EditProfile />} />
                 <Route path="/whypremium" element={<WhyPremium />} />
-                <Route path="/buypremium" element={<BuyPremium />} />
                 <Route path="/news" element={<News />} />
                 <Route path="/news/add" element={<CreateNews />} />
                 <Route path='/checkout' element={<Checkout />} />
