@@ -1,35 +1,42 @@
-import React, { Component } from 'react';
 import { TextInput, StyleSheet, Text, View, Image, TouchableWithoutFeedback } from 'react-native';
 import Constants from 'expo-constants';
 import io from 'socket.io-client';
 import Nav from './Nav';
 import { useEffect, useState, useRef} from 'react';
-import { useLayoutEffect } from 'react';
+import { useSelector } from "react-redux";
 import { useParams } from 'react-router-native';
+import axios from 'axios';
+
 
 const Chat= ()=> {
    const [chatMessage, setChatMessage] = useState('')
    const [chatMessages, setChatMessages] = useState(['Hola', 'adios'])
+   const user = useSelector(state => state.games.user)
    const socket = useRef();
    const {id} = useParams()
    
        
      useEffect(()=>{
           socket.current = io('https://backend-gamematch.herokuapp.com')
-          
+          socket.current.emit('joinChat', user)
      }, [])
 
      useEffect(()=>{
-          socket.current.on('server: chat message', msg => console.log(msg))
-     }, [socket.current, chatMessages])
+          socket.current.on('server: send message', msg => setChatMessages([...chatMessages, msg.msg]))
+     }, [])
 
      function handleChange(e){
           setChatMessage(e)
      }
 
-     function submitChatMessage(e) {
+     async function submitChatMessage(e) {
           console.log(chatMessage)
-          socket.current.emit('client: chat message', chatMessage);
+          //formatea el mensaje
+          let msg = {message: chatMessage, users: [user._id, id], sender: user._id}
+          //envía mensaje a la DB
+          let msgInDb = await axios.post('https://backend-gamematch.herokuapp.com/chats', msg)
+          //si se mandó el mensaje a la DB envía al otro usuario
+          if (msgInDb) socket.current.emit('client: send message', msg);
           setChatMessage('');
      }
      return (
@@ -59,9 +66,9 @@ const Chat= ()=> {
                     </View>
                     <View style={{ margin: 10 }}>
                          {
-                              chatMessages && chatMessages.map((chatMessage) => (
+                              chatMessages && chatMessages.map((chatMessage, i) => (
                                    <Text
-                                        key={chatMessage}
+                                        key={i}
                                         style={{
                                              margin: 5,
                                              padding: 13,

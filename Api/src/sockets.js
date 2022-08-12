@@ -22,7 +22,7 @@ module.exports = (io) => {
             global[socket.id] = userFull
             joinChat(userFull._id)
         })
-        socket.on('client: send message', console.log(msg))
+        socket.on('client: send message', msg => console.log(msg))
 
         //
         

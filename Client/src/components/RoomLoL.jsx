@@ -36,7 +36,6 @@ export default function RoomLoL() {
         //agregado para el user global con socketid
         socket.current.on("socketid", socketid =>{
             dispatch(updateUser({...user, socketid}))
-        
         })
 
         //agregado para el user global con socketid
