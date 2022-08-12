@@ -48,21 +48,14 @@ export default function RoomLoL() {
 
     useEffect(() => {
         socket.current.on("gameUsers", (data) => {
-            console.log("soy data", data);
             let playersList = data.filter((e) => e._id !== user._id);
             setPlayers(playersList);
-            console.log("soy playerlist", playersList);
-        });
-        socket.current.on("message", (data) => {
-            console.log(data);
         });
         return () => {
             socket.current.off("gameUsers");
-            socket.current.off("message");
         };
     }, [socket.current, players]);
 
-    console.log("soy players", players);
 
     return (
         <View style={styles.container}>
@@ -107,14 +100,25 @@ export default function RoomLoL() {
                     </View>
                     {players.length > 0 ? (
                         players.map((player) => {
-                            return (
+                            if (player.rating) return (
                                 <PlayersLoLCard
                                     key={player._id}
+                                    img={player.img}
                                     id={player._id}
                                     name={player.username}
                                     elo={player.elo}
                                     position={player.position}
                                     rating={player.rating.$numberDecimal}
+                                />
+                            );
+                            else return (
+                                <PlayersLoLCard
+                                    key={player._id}
+                                    id={player._id}
+                                    name={player.username}
+                                    elo={player.elo}
+                                    img={player.img}
+                                    position={player.position}
                                 />
                             );
                         })

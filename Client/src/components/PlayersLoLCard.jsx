@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 
 const PlayerLoLCard = ({ id, img, name, elo, position, rating }) => {
 
-   console.log(id, img, name, elo, position, rating )
 
      return (
           <View key={id} style={{ margin: 5 }}>
@@ -18,12 +17,12 @@ const PlayerLoLCard = ({ id, img, name, elo, position, rating }) => {
                               borderRadius: 20,
                               backgroundColor: '#3519B0',
                               flexDirection: 'row',
+                              alignItems: "center",
                          }}
                     >
                          {img && <Image
                               source={{ uri: img }}
                               style={{
-                                   marginTop: 10,
                                    marginLeft: 20,
                                    width: 60,
                                    height: 60,
@@ -32,7 +31,6 @@ const PlayerLoLCard = ({ id, img, name, elo, position, rating }) => {
                          />}
                          <View
                               style={{
-                                   marginTop: 13,
                                    marginLeft: 10,
                                    width: '75%',
                                    flexDirection: 'row',
@@ -66,14 +64,14 @@ const PlayerLoLCard = ({ id, img, name, elo, position, rating }) => {
                                    >
                                         Position: {position}
                                    </Text>
-                                   <Text
+                                   {rating && <Text
                                         style={{
                                              fontSize: 13,
                                              color: '#fff',
                                         }}
                                    >
                                         Calification: {rating}
-                                   </Text>
+                                   </Text>}
                               </View>
                          </View>
                     </View>

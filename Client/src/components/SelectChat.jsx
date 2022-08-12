@@ -9,6 +9,7 @@ export default function SelectChat() {
     let [contacts, setContacts] = useState({});
     let user = useSelector((state) => state.games.user);
     let id = user._id;
+    console.log(user)
 
     async function getChats() {
         let respuesta = await axios.get(
@@ -20,6 +21,7 @@ export default function SelectChat() {
 
     useEffect(() => {
         getChats();
+        
     }, []);
 
     console.log(contacts);
@@ -81,6 +83,22 @@ export default function SelectChat() {
                     <Text>Aun no tienes contactos</Text>
                 )}
             </View>
+            <Link
+                to="/selectgame"
+                activeOpacity={1}
+                underlayColor={''}
+                style={{
+                     position: 'absolute',
+                     bottom: 80,
+                     left: 20,
+                     height: 45,
+                }}
+            >
+              <Image
+                   source={require('../../assets/iconBack.png')}
+                   style={{ width: 50, height: 50 }}
+              />
+            </Link>
         </View>
     );
 }
