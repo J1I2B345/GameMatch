@@ -106,7 +106,31 @@ const Chat= ()=> {
                                              textAlign: 'center',
                                              backgroundColor: '#655EBE',
                                         }}
-                                   >
+                                   >  
+
+
+
+
+
+
+
+
+
+
+
+                                   {/* tiene una propiedad que es fromSelf => si es true, es del mismo que envía y debería estar a la derecha el mensaje, si es false es del otro y debería estar a la izquierda. no se como hacerlo */}
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
                                         {chatMessage.message}
                                    </Text>
                          ))}
