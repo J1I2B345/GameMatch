@@ -65,8 +65,8 @@ router.post('/', async(req, res)=>{
         res.status(400).json({"error": e.message})
     }
 })
-
-router.delete('/delete/:id',[auth.verifyToken,auth.isAdmin], async(req, res) =>{
+//[auth.verifyToken,auth.isAdmin]
+router.delete('/delete/:id',auth.isAdmin, async(req, res) =>{
     try{
         const messageDeleted = await News.findByIdAndDelete(req.params.id)
         if (messageDeleted) res.json({message: 'message deleted', messageDeleted})
@@ -75,8 +75,8 @@ router.delete('/delete/:id',[auth.verifyToken,auth.isAdmin], async(req, res) =>{
         res.status(400).json(e.message)
     }
 })
-
-router.put('/edit',[auth.verifyToken,auth.isAdmin], async (req, res)=>{
+//[auth.verifyToken,auth.isAdmin]
+router.put('/edit',auth.isAdmin, async (req, res)=>{
     try{
         const {_id, title, description, editedBy} = req.body
         if ((!_id || !description || !editedBy) && (!_id || !title || !editedBy)) 
