@@ -1,4 +1,4 @@
-import { CREATE_GAME, GET_USERNAME, UPDATE_USER } from '../constants';
+import { CREATE_GAME, GET_USERNAME, UPDATE_USER, CREATE_SOCKET } from '../constants';
 import playersLoL from '../../data/usersLOL';
 import playersCSGO from '../../data/usersCSGO';
 import playersR6 from '../../data/usersR6';
@@ -11,7 +11,8 @@ const initialState = {
      playersCSGO: [],
      playersR6: [],
      user: [],
-     userProfile: []
+     userProfile: [],
+     socket:''
 };
 
 const createReducer = (state = initialState, action) => {
@@ -20,6 +21,12 @@ const createReducer = (state = initialState, action) => {
      switch (type) {
           case CREATE_GAME:
                return { ...state, games: [...state.games, payload] };
+          
+          case CREATE_SOCKET:
+               return {
+                    ...state, 
+                    socket: payload
+               }
 
           case 'ORDER_BY_RATING': {
                let playersInLoL = initialState.playersLoL;

@@ -2,13 +2,16 @@ import axios from "axios";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { Image, Text, View } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-native";
+import { createSocket } from "../redux/actions";
+import io from 'socket.io-client'
 
 export default function SelectChat() {
     let [contacts, setContacts] = useState({});
     let user = useSelector((state) => state.games.user);
     let id = user._id;
+    const dispatch = useDispatch()
 
     async function getChats() {
         let respuesta = await axios.get(
@@ -20,6 +23,7 @@ export default function SelectChat() {
 
     useEffect(() => {
         getChats();
+        dispatch(createSocket(io('https://backend-gamematch.herokuapp.com')))
     }, []);
 
     console.log(contacts);

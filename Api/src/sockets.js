@@ -2,9 +2,7 @@ const {userJoin, getGameUsers, leaveRoom} = require('./utilsSockets/rooms')
 
 
 module.exports = (io) => {
-    io.on('connection', (socket) => {
-        console.log('entró socket.id', socket.id)
-        
+    io.on('connection', (socket) => {        
         
         //funcionalidad sala y match
         socket.on('joinRoom', (user)=>{
@@ -14,6 +12,10 @@ module.exports = (io) => {
             socket.join(userFull.game)
             io.to(userFull.game).emit('gameUsers', getGameUsers(userFull.game))
         }})
+
+        //conectado al chat
+        socket.on('msj', msg => console.log(msg))
+
 
 
 

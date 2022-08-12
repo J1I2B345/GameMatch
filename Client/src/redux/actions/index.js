@@ -1,4 +1,4 @@
-import { CREATE_GAME, GET_USERNAME, UPDATE_USER } from '../constants';
+import { CREATE_GAME, GET_USERNAME, UPDATE_USER, CREATE_SOCKET } from '../constants';
 import axios from 'axios';
 
 export const createGame = (game) => (dispatch) => {
@@ -14,6 +14,10 @@ export const createGame = (game) => (dispatch) => {
                dispatch({ type: CREATE_GAME, payload: json });
           });
 };
+
+export const createSocket = (payload) => {
+     return {type: CREATE_SOCKET, payload}
+}
 
 export const orderByRating = (payload) => {
      return {
