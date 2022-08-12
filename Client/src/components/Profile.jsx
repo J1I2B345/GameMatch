@@ -1,152 +1,239 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView, Linking } from 'react-native';
 import { connect, useSelector } from 'react-redux';
 import { Link } from 'react-router-native';
 import Constants from 'expo-constants';
 import Nav from './Nav';
+import Spinner from './Spinner';
 
 const Profile = () => {
-     const User = useSelector((state) => state.games.userProfile);
+     const User = useSelector((state) => state.games.user);
 
      let arrayStars = [];
-     (() => {
-          let ratingCont = User[0].rating;
-          while (ratingCont > 0) {
-               ratingCont = ratingCont - 1;
-               arrayStars.push(arrayStars.length + 1);
+
+     if (User.rating) {
+          if (User.rating.$numberDecimal) {
+               (() => {
+                    let ratingCont = User.rating.$numberDecimal;
+                    while (ratingCont > 0) {
+                         ratingCont = ratingCont - 1;
+                         arrayStars.push(arrayStars.length + 1);
+                    }
+                    return arrayStars;
+               })();
           }
-          return arrayStars;
-     })();
+     }
 
      return (
-          <View style={styles.container}>
-               <View style={styles.portada_container}>
-                    <Image
-                         source={{
-                              uri: User[0].img
-                                   ? User[0].img
-                                   : 'https://www.pinpng.com/pngs/m/402-4020060_random-image-from-user-smash-ball-pixel-art.png',
-                         }}
-                         style={styles.img_perfil}
-                    />
-                    <View style={styles.portada}>
-                         <Text style={styles.text_name}>{User[0].name}</Text>
-                         <View style={styles.stars_container}>
-                              {arrayStars.map((item) => (
-                                   <View key={item}>
-                                        <Image
-                                             source={require('../../assets/Star.png')}
-                                             style={styles.stars}
-                                        />
+          <View>
+               {User._id && User.username ? (
+                    <View style={styles.container}>
+                         <View style={styles.portada_container}>
+                              <Image
+                                   source={{
+                                        uri: User.img
+                                             ? User.img
+                                             : 'https://www.pinpng.com/pngs/m/402-4020060_random-image-from-user-smash-ball-pixel-art.png',
+                                   }}
+                                   style={styles.img_perfil}
+                              />
+                              <View style={styles.portada}>
+                                   <Text style={styles.text_name}>{User.username}</Text>
+                                   <View style={styles.stars_container}>
+                                        {arrayStars.map((item) => (
+                                             <View key={item}>
+                                                  <Image
+                                                       source={require('../../assets/Star.png')}
+                                                       style={styles.stars}
+                                                  />
+                                             </View>
+                                        ))}
                                    </View>
-                              ))}
+                              </View>
                          </View>
-                    </View>
-               </View>
 
-               <View style={styles.separador}></View>
-               <SafeAreaView style={{ marginBottom: 263 }}>
-                    <ScrollView>
-                         <View>
-                              <Link
-                                   to="/buypremium"
-                                   activeOpacity={1}
-                                   underlayColor={'#9A01E2'}
-                                   style={styles.button}
-                              >
-                                   <View>
-                                        <Text style={styles.button_text}>Pasate a Premium</Text>
-                                   </View>
-                              </Link>
-                         </View>
-                         {User[0].description ? (
-                              <View style={{ ...styles.info_container, paddingBottom: 20 }}>
-                                   <Text
-                                        style={{
-                                             color: '#fff',
-                                             fontSize: 18,
-                                        }}
+                         <View
+                              style={
+                                   User.premium == false
+                                        ? { ...styles.separador, marginBottom: 10 }
+                                        : styles.separador
+                              }
+                         ></View>
+
+                         {User.premium == false ? (
+                              <View style={{ paddingBottom: 5 }}>
+                                   <Link
+                                        to="/buypremium"
+                                        activeOpacity={1}
+                                        underlayColor={'#9A01E2'}
+                                        style={styles.button}
                                    >
-                                        {User[0].description}
-                                        {User[0].description}
-                                   </Text>
+                                        <View style={{ flexDirection: 'row' }}>
+                                             <Text style={styles.button_text}>
+                                                  <Image
+                                                       source={require('../../assets/starPremium.png')}
+                                                       style={{
+                                                            width: 20,
+                                                            height: 20,
+                                                       }}
+                                                  />
+                                                  BE PREMIUM
+                                                  <Image
+                                                       source={require('../../assets/starPremium.png')}
+                                                       style={{
+                                                            width: 20,
+                                                            height: 20,
+                                                       }}
+                                                  />
+                                             </Text>
+                                        </View>
+                                   </Link>
                               </View>
                          ) : (
                               <View></View>
                          )}
-
-                         <View
+                         <SafeAreaView
                               style={
-                                   Object.keys(User[0].redes).length > 0
-                                        ? styles.info_container
-                                        : { display: 'none' }
+                                   User.premium == false
+                                        ? {
+                                               width: '100%',
+                                               marginBottom: 315,
+                                               alignItems: 'center',
+                                               justifyContent: 'center',
+                                          }
+                                        : {
+                                               width: '100%',
+                                               marginBottom: 260,
+                                               alignItems: 'center',
+                                               justifyContent: 'center',
+                                          }
                               }
                          >
-                              <Text style={styles.users_title}>
-                                   {Object.keys(User[0].redes).length > 1 ? 'Users:' : 'User:'}
-                              </Text>
-                              <Text
-                                   style={
-                                        User[0].redes.steam
-                                             ? styles.users_item
-                                             : { display: 'none' }
-                                   }
-                              >
-                                   Steam: {User[0].redes.steam}
-                              </Text>
-                              <Text
-                                   style={
-                                        User[0].redes.riot ? styles.users_item : { display: 'none' }
-                                   }
-                              >
-                                   Riot: {User[0].redes.riot}
-                              </Text>
-                              <Text
-                                   style={
-                                        User[0].redes.discord
-                                             ? styles.users_item
-                                             : { display: 'none' }
-                                   }
-                              >
-                                   Discord: {User[0].redes.discord}
-                              </Text>
-                              <Text
-                                   style={
-                                        User[0].redes.ig ? styles.users_item : { display: 'none' }
-                                   }
-                              >
-                                   Instagram: {User[0].redes.ig}
-                              </Text>
-                              <Text
-                                   style={
-                                        User[0].redes.twitter
-                                             ? styles.users_item
-                                             : { display: 'none' }
-                                   }
-                              >
-                                   Twitter: {User[0].redes.twitter}
-                              </Text>
-                         </View>
-                    </ScrollView>
-               </SafeAreaView>
-               <Link
-                    to="/profile"
-                    activeOpacity={1}
-                    underlayColor={''}
-                    style={{
-                         position: 'absolute',
-                         bottom: 80,
-                         left: 20,
-                         height: 45,
-                    }}
-               >
-                    <Image
-                         source={require('../../assets/editProfile.png')}
-                         style={{ width: 50, height: 50 }}
-                    />
-               </Link>
+                              <ScrollView>
+                                   <View
+                                        style={{
+                                             width: '100%',
+                                             alignItems: 'center',
+                                             justifyContent: 'center',
+                                        }}
+                                   >
+                                        {User.description ? (
+                                             <View
+                                                  style={{
+                                                       ...styles.info_container,
+                                                       paddingBottom: 20,
+                                                       marginTop: 0,
+                                                       alignItems: 'center',
+                                                       justifyContent: 'center',
+                                                  }}
+                                             >
+                                                  <Text
+                                                       style={{
+                                                            color: '#fff',
+                                                            fontSize: 16,
+                                                       }}
+                                                  >
+                                                       {User.description}
+                                                  </Text>
+                                             </View>
+                                        ) : (
+                                             <View></View>
+                                        )}
+                                        {User.socialNetworks ? (
+                                             <View
+                                                  style={
+                                                       Object.keys(User.socialNetworks).length > 0
+                                                            ? User.description
+                                                                 ? {
+                                                                        ...styles.info_container,
+                                                                        marginTop: -5,
+                                                                   }
+                                                                 : styles.info_container
+                                                            : { display: 'none' }
+                                                  }
+                                             >
+                                                  <Text style={styles.users_title}>
+                                                       {Object.keys(User.socialNetworks).length > 1
+                                                            ? 'Users:'
+                                                            : 'User:'}
+                                                  </Text>
+                                                  <Text
+                                                       style={
+                                                            User.socialNetworks.steam
+                                                                 ? styles.users_item
+                                                                 : { display: 'none' }
+                                                       }
+                                                  >
+                                                       ֍ Steam: {User.socialNetworks.steam}
+                                                  </Text>
+                                                  <Text
+                                                       style={
+                                                            User.socialNetworks.riot
+                                                                 ? styles.users_item
+                                                                 : { display: 'none' }
+                                                       }
+                                                  >
+                                                       ֍ Riot: {User.socialNetworks.riot}
+                                                  </Text>
+                                                  <Text
+                                                       style={
+                                                            User.socialNetworks.discord
+                                                                 ? styles.users_item
+                                                                 : { display: 'none' }
+                                                       }
+                                                  >
+                                                       ֍ Discord: {User.socialNetworks.discord}
+                                                  </Text>
+
+                                                  <Text
+                                                       style={
+                                                            User.socialNetworks.ig
+                                                                 ? styles.users_item
+                                                                 : { display: 'none' }
+                                                       }
+                                                  >
+                                                       ֍ Instagram: {User.socialNetworks.ig}
+                                                       {/* {Linking.openURL('https://www.instagram.com/new.affection_/')} */}
+                                                  </Text>
+
+                                                  <Text
+                                                       style={
+                                                            User.socialNetworks.twitter
+                                                                 ? styles.users_item
+                                                                 : { display: 'none' }
+                                                       }
+                                                  >
+                                                       ֍ Twitter: {User.socialNetworks.twitter}
+                                                  </Text>
+                                             </View>
+                                        ) : (
+                                             <View></View>
+                                        )}
+                                   </View>
+                              </ScrollView>
+                         </SafeAreaView>
+                         <Link
+                              to="/profile"
+                              activeOpacity={1}
+                              underlayColor={''}
+                              style={{
+                                   position: 'absolute',
+                                   bottom: 80,
+                                   left: 20,
+                                   height: 45,
+                              }}
+                         >
+                              <Image
+                                   source={require('../../assets/editProfile.png')}
+                                   style={{ width: 50, height: 50 }}
+                              />
+                         </Link>
+                         <StatusBar style="auto" />
+                    </View>
+               ) : (
+                    <Spinner />
+               )}
                <Nav />
-               <StatusBar style="auto" />
           </View>
      );
 };
@@ -193,32 +280,33 @@ const styles = StyleSheet.create({
           borderRadius: 100,
      },
      separador: {
-          marginBottom: 10,
+          marginBottom: 15,
           height: 2,
           width: '90%',
           backgroundColor: '#98228C',
      },
      info_container: {
           margin: 20,
-          marginTop: 5,
-          marginBottom: 10,
+          marginTop: 0,
           padding: 20,
-          paddingBottom: 13,
+          paddingBottom: 10,
           borderRadius: 20,
+          width: '90%',
           backgroundColor: '#443ABB',
+          justifyContent: 'center',
      },
      users_title: {
           width: '100%',
           color: '#fff',
-          fontSize: 30,
+          fontSize: 25,
           paddingBottom: 10,
      },
      users_item: {
           color: '#fff',
-          fontSize: 18,
+          fontSize: 16,
           padding: 20,
           paddingTop: 0,
-          paddingLeft: 40,
+          paddingLeft: 28,
      },
      button: {
           margin: 20,
@@ -236,6 +324,8 @@ const styles = StyleSheet.create({
           fontSize: 20,
           width: '100%',
           textAlign: 'center',
+          alignItems: 'center',
+          justifyContent: 'center',
           color: 'white',
      },
 });

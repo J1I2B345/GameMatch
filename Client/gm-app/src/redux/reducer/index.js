@@ -11,18 +11,13 @@ const rootReducer = (state = initialState, action) => {
   switch (type) {
     case CREATE_GAME:
       return { ...state, games: [...state.games, payload] };
-
-    case "GET_USERS":
-      return {
-        ...state,
-        user: [],
-        users: payload,
-      };
     case GET_USERNAME:
+      console.log({ e: action.payload });
       return { ...state, user: payload };
 
     case UPDATE_USER:
       return { ...state, user: payload };
+
     default:
       return state;
   }
