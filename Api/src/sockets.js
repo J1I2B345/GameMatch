@@ -9,6 +9,8 @@ module.exports = (io) => {
             global[socket.id] = userFull
             userJoin(userFull)
             socket.join(userFull.game)
+
+            //agregué este evento para agregar en el user global el socketid
             socket.emit('socketid', socket.id)
             // socket.broadcast.to(userFull.game).emit('message', `${userFull.username} has joined the chat`)
             io.to(userFull.game).emit('gameUsers', getGameUsers(userFull.game))

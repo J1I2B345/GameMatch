@@ -19,6 +19,7 @@ import { useSelector } from "react-redux";
 import { connect } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
+//agregaado para el user global con socketid
 import { updateUser } from '../redux/actions';
 
 export default function RoomLoL() {
@@ -31,9 +32,14 @@ export default function RoomLoL() {
     useEffect(() => {
         socket.current = io("https://backend-gamematch.herokuapp.com/");
         socket.current.emit("joinRoom", user);
+
+        //agregado para el user global con socketid
         socket.current.on("socketid", socketid =>{
             dispatch(updateUser({...user, socketid}))
+        
         })
+
+        //agregado para el user global con socketid
         return ()=>{
             socket.current.off("socketid")
         }
