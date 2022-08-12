@@ -27,7 +27,7 @@ export default function RoomLoL() {
     const [players, setPlayers] = useState([]);
     const user = useSelector((state) => state.games.user);
     const socket = useRef();
-    console.log(user)
+
 
     useEffect(() => {
         socket.current = io("https://backend-gamematch.herokuapp.com/");
@@ -43,6 +43,7 @@ export default function RoomLoL() {
         return ()=>{
             socket.current.off("socketid")
         }
+
     }, []);
 
     useEffect(() => {
