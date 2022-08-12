@@ -180,9 +180,9 @@ router.post("/login", async (req, res) => {
 
 //*----------------UPDATE USER------------------------
 
-//solicitud Tipo POST: localhost:3001/users
+//auth.isAdmin,solicitud Tipo POST: localhost:3001/users
 //[auth.verifyToken,auth.isAdmin]
-router.put("/:id",auth.isAdmin, async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
 
     req.body.username = req.body.username?.trim()
