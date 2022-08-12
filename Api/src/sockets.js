@@ -2,7 +2,8 @@ const {userJoin, getGameUsers, leaveRoom} = require('./utilsSockets/rooms')
 
 
 module.exports = (io) => {
-    io.on('connection', (socket) => {        
+    io.on('connection', (socket) => {   
+        console.log('conectado', socket.id)     
         
         //funcionalidad sala y match
         socket.on('joinRoom', (user)=>{

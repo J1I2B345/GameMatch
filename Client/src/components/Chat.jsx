@@ -11,13 +11,14 @@ import { useSelector } from 'react-redux';
 const Chat= ()=> {
    const [chatMessage, setChatMessage] = useState('')
    const [chatMessages, setChatMessages] = useState(['Hola', 'adios'])
-   const socket = useSelector(state => state.socket);
+   const socket = useSelector(state => state.socket)
+   console.log (socket);
    const {id} = useParams()
        
-     useEffect(()=>{
-          socket.emit('msj', {msg: 'i am here'})
+     // useEffect(()=>{
+     //      // socket.emit('msj', {msg: 'i am here'})
           
-     }, [])
+     // }, [])
 
      // useEffect(()=>{
      //      socket.current.on('server: chat message', msg => console.log(msg))
