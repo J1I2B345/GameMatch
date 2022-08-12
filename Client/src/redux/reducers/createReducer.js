@@ -21,6 +21,9 @@ const createReducer = (state = initialState, action) => {
           case CREATE_GAME:
                return { ...state, games: [...state.games, payload] };
 
+          case 'ADD_NEWS':
+               return { ...state, news: [payload, ...state.news] };
+
           case 'EDIT_PROFILE':
                return { ...state, userProfile: payload };
 

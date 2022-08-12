@@ -1,5 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView } from 'react-native';
+import {
+     StyleSheet,
+     Text,
+     View,
+     Image,
+     SafeAreaView,
+     ScrollView,
+     TouchableOpacity,
+} from 'react-native';
 import moment from 'moment';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector, connect } from 'react-redux';
@@ -60,6 +68,21 @@ const News = () => {
                                    <View style={{ alignItems: 'center' }}>
                                         {news.map((data) => (
                                              <View key={data._id} style={styles.card_container}>
+                                                  <TouchableOpacity
+                                                       style={{
+                                                            position: 'absolute',
+                                                            top: 12,
+                                                            right: 10,
+                                                       }}
+                                                  >
+                                                       <Image
+                                                            source={require('../../assets/iconTrash.png')}
+                                                            style={{
+                                                                 width: 20,
+                                                                 height: 20,
+                                                            }}
+                                                       />
+                                                  </TouchableOpacity>
                                                   <View
                                                        style={{
                                                             flexDirection: 'row',
@@ -110,10 +133,25 @@ const News = () => {
                                                             </Text>
                                                        </View>
                                                   </View>
-                                                  <Text style={styles.card_title}>
+                                                  <Text
+                                                       style={
+                                                            data.title
+                                                                 ? styles.card_title
+                                                                 : { display: 'none' }
+                                                       }
+                                                  >
                                                        {data.title}
                                                   </Text>
-                                                  <Text style={styles.description}>
+                                                  <Text
+                                                       style={
+                                                            data.title
+                                                                 ? styles.description
+                                                                 : {
+                                                                        ...styles.description,
+                                                                        marginTop: 5,
+                                                                   }
+                                                       }
+                                                  >
                                                        {data.description}
                                                   </Text>
                                              </View>
@@ -122,7 +160,7 @@ const News = () => {
                               </ScrollView>
                          </SafeAreaView>
                          <Link
-                              to="/news"
+                              to="/news/add"
                               activeOpacity={1}
                               underlayColor={''}
                               style={{
