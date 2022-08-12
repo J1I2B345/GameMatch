@@ -57,7 +57,7 @@ router.get('/getUsersToChat/:_id', async (req, res)=>{
 // }
 router.get('/', async (req, res)=>{
    try{ 
-    const {sender, receiver} = req.body
+    const {sender, receiver} = req.query
     const chats = await Chat
         .find({ 
             users:{

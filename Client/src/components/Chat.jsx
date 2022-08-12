@@ -10,11 +10,17 @@ import axios from 'axios';
 
 const Chat= ()=> {
    const [chatMessage, setChatMessage] = useState('')
-   const [chatMessages, setChatMessages] = useState(['Hola', 'adios'])
+   const [chatMessages, setChatMessages] = useState([])
    const user = useSelector(state => state.games.user)
    const socket = useRef();
    const {id} = useParams()
    
+  
+   async function getChats(){
+     let msgs = await axios.get(`https://backend-gamematch.herokuapp.com/chats/?sender=${user._id}&receiver=${id}` )
+     console.log (msgs.data)
+     return msgs.data
+     }
        
      useEffect(()=>{
           socket.current = io('https://backend-gamematch.herokuapp.com')
@@ -22,7 +28,12 @@ const Chat= ()=> {
      }, [])
 
      useEffect(()=>{
-          socket.current.on('server: received message', msg => setChatMessages([...chatMessages, msg.message]))
+          let msg = getChats()
+          console.log('info traida de la DB', msg)
+     },[])
+     
+     useEffect(async ()=>{ 
+          socket.current.on('server: received message', (msg) => setChatMessages([...chatMessages, msg.message]))
      }, [])
 
      function handleChange(e){
