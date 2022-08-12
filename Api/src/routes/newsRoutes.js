@@ -76,7 +76,7 @@ router.delete('/delete/:id',auth.isAdmin, async(req, res) =>{
     }
 })
 //[auth.verifyToken,auth.isAdmin]
-router.put('/edit',auth.isAdmin, async (req, res)=>{
+router.put('/edit/:id',auth.isAdmin, async (req, res)=>{
     try{
         const {_id, title, description, editedBy} = req.body
         if ((!_id || !description || !editedBy) && (!_id || !title || !editedBy)) 
