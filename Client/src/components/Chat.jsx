@@ -15,14 +15,16 @@ const Chat= ()=> {
    const socket = useRef();
    const {id} = useParams()
    
-   useEffect(async()=>{
+     useEffect(()=>{
          try{
-               const response = await axios.get(`https://backend-gamematch.herokuapp.com/chats/?sender=${user._id}&receiver=${id}`);
-               setChatMessages(response.data)
+               const getMessages = async ()=>{
+                    const response = await axios.get(`https://backend-gamematch.herokuapp.com/chats/?sender=${user._id}&receiver=${id}`);
+                    setChatMessages(response.data)
+               }
+               getMessages()
           }catch(e){
                console.log(e.message)
           }
-
      }, [])
      
      useEffect(()=>{
@@ -33,11 +35,11 @@ const Chat= ()=> {
      useEffect(()=>{ 
 
           socket.current.on('server: received message', (msg) => {
-               console.log('pre mapearlo', msg)
+              
                let newMessage = {
                     fromSelf: msg.sender.toString() === user._id.toString(),
                     message: msg.message}
-               console.log('post mapeo', newMessage)
+            
                setChatMessages([...chatMessages, newMessage])
                })
           return()=>{
