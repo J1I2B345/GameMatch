@@ -5,7 +5,9 @@ const morgan = require('morgan')
 const routes = require('./routes/index.js')
 
 const serverExpress = express()
-
+//*----------------config ROLES --------------------------------
+const  config = require('./data/initialSetup')
+//*----------------
 require('./db.js');
 
 serverExpress.use(morgan('dev'));
@@ -22,7 +24,8 @@ serverExpress.use((req, res, next) => {
 
 //lo que esta mostrando en sockets
 serverExpress.use(express.static(path.join(__dirname, 'public')))
-
+//*cuando inicia express
+config.createRole()
 
 
 // si modularizamos rutas
