@@ -17,8 +17,13 @@ const Chat= ()=> {
    
    
    useEffect(async()=>{
+         try{
           const response = await axios.get(`https://backend-gamematch.herokuapp.com/chats/?sender=${user._id}&receiver=${id}`);
-          console.log (response)
+          setChatMessages(response)
+     }catch(e){
+          console.log(e.message)
+     }
+
      }, [])
      
      useEffect(()=>{
@@ -28,7 +33,6 @@ const Chat= ()=> {
      
      useEffect(()=>{ 
           socket.current.on('server: received message', (msg) => setChatMessages([...chatMessages, msg.message]))
-          
           return()=>{
                socket.current.off('server: received message')
           }
