@@ -15,14 +15,13 @@ const Chat= ()=> {
    const socket = useRef();
    const {id} = useParams()
    
-   
    useEffect(async()=>{
          try{
-          const response = await axios.get(`https://backend-gamematch.herokuapp.com/chats/?sender=${user._id}&receiver=${id}`);
-          setChatMessages(response)
-     }catch(e){
-          console.log(e.message)
-     }
+               const response = await axios.get(`https://backend-gamematch.herokuapp.com/chats/?sender=${user._id}&receiver=${id}`);
+               setChatMessages(response.data)
+          }catch(e){
+               console.log(e.message)
+          }
 
      }, [])
      
@@ -32,11 +31,22 @@ const Chat= ()=> {
      }, [])
      
      useEffect(()=>{ 
-          socket.current.on('server: received message', (msg) => setChatMessages([...chatMessages, msg.message]))
+
+          socket.current.on('server: received message', (msg) => {
+               console.log('pre mapearlo', msg)
+               let newMessage = {
+                    fromSelf: msg.sender.toString() === user._id.toString(),
+                    message: msg.message}
+               console.log('post mapeo', newMessage)
+               setChatMessages([...chatMessages, newMessage])
+               })
           return()=>{
                socket.current.off('server: received message')
           }
      }, [socket.current, chatMessages])
+
+
+
 
      async function submitChatMessage(e) {
           //formatea el mensaje
@@ -45,7 +55,10 @@ const Chat= ()=> {
           let msgInDb = await axios.post('https://backend-gamematch.herokuapp.com/chats', msg)
           //si se mandó el mensaje a la DB envía al otro usuario
           socket.current.emit('client: send message', msg);
-          setChatMessages([...chatMessages, chatMessage])
+          let msgSent=  {
+               fromSelf: msg.sender.toString() === user._id.toString(),
+               message: msg.message}
+          setChatMessages([...chatMessages, msgSent])
           setChatMessage('');
      }
      
