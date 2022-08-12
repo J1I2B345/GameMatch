@@ -113,3 +113,44 @@ export const addNews = (news) => {
           return dispatch({ type: 'ADD_NEWS', payload: news });
      };
 };
+export const login = (data) => (dispatch) => {
+     return fetch('https://backend-gamematch.herokuapp.com/users/login', {
+          method: 'POST',
+          headers: { Accept: 'applcation/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+     })
+          .then((response) => {
+               return response.json();
+          })
+          .then((json) => {
+               dispatch({ type: "LOGIN", payload: json });
+          });
+};
+export const register = (data) => (dispatch) => {
+     return fetch('https://backend-gamematch.herokuapp.com/users/login', {
+          method: 'POST',
+          headers: { Accept: 'applcation/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+     })
+          .then((response) => {
+               return response.json();
+          })
+          .then((json) => {
+               dispatch({ type: "REGISTER", payload: json });
+          });
+};
+export const allUser = () => (dispatch) => {
+     return fetch(`https://backend-gamematch.herokuapp.com/users`)
+          .then((response) => response.json())
+          .then((json) => {
+               const {
+                    username,
+                    _id,
+                    img,
+                    email,
+
+               } = json;
+
+               dispatch({ type: 'USER', payload: json });
+          });
+};

@@ -14,9 +14,8 @@ import News from './News.jsx';
 import CreateNews from './CreateNews.jsx';
 import SelectChat from './SelectChat.jsx';
 import EditProfile from './EditProfile.jsx';
+import Register from './Register.jsx';
 import Checkout from './Checkout.jsx';
-
-
 const Home = () => {
     return (
         <View>
@@ -36,6 +35,7 @@ const Home = () => {
                 <Route path="/news" element={<News />} />
                 <Route path="/news/add" element={<CreateNews />} />
                 <Route path='/checkout' element={<Checkout />} />
+                <Route path="/register" element={<Register />} />
             </Routes>
         </View>
     );
