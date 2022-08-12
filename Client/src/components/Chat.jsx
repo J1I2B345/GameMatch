@@ -6,23 +6,22 @@ import Nav from './Nav';
 import { useEffect, useState, useRef} from 'react';
 import { useLayoutEffect } from 'react';
 import { useParams } from 'react-router-native';
-import { useSelector } from 'react-redux';
 
 const Chat= ()=> {
    const [chatMessage, setChatMessage] = useState('')
    const [chatMessages, setChatMessages] = useState(['Hola', 'adios'])
-   const socket = useSelector(state => state.socket)
-   console.log (socket);
+   const socket = useRef();
    const {id} = useParams()
+   
        
-     // useEffect(()=>{
-     //      // socket.emit('msj', {msg: 'i am here'})
+     useEffect(()=>{
+          socket.current = io('https://backend-gamematch.herokuapp.com')
           
-     // }, [])
+     }, [])
 
-     // useEffect(()=>{
-     //      socket.current.on('server: chat message', msg => console.log(msg))
-     // }, [socket.current, chatMessages])
+     useEffect(()=>{
+          socket.current.on('server: chat message', msg => console.log(msg))
+     }, [socket.current, chatMessages])
 
      function handleChange(e){
           setChatMessage(e)
@@ -30,7 +29,7 @@ const Chat= ()=> {
 
      function submitChatMessage(e) {
           console.log(chatMessage)
-          // socket.current.emit('client: chat message', chatMessage);
+          socket.current.emit('client: chat message', chatMessage);
           setChatMessage('');
      }
      return (

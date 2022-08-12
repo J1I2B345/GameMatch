@@ -15,7 +15,11 @@ module.exports = (io) => {
         }})
 
         //conectado al chat
-        socket.on('msj', msg => console.log(msg))
+        
+        socket.on('client: chat message', msg => {
+            console.log(msg)
+            socket.emit('server: chat message', msg)
+        })
 
 
 
