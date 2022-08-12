@@ -15,23 +15,12 @@ const Chat= ()=> {
    const socket = useRef();
    const {id} = useParams()
    
-  
-
-     function handleChange(e){
-          setChatMessage(e)
-     }
+   
+   useEffect(async()=>{
+          const response = await axios.get(`https://backend-gamematch.herokuapp.com/chats/?sender=${user._id}&receiver=${id}`);
+          console.log (response)
+     }, [])
      
-     async function submitChatMessage(e) {
-     //formatea el mensaje
-     let msg = {message: chatMessage, users: [user._id, id], sender: user._id}
-     //envía mensaje a la DB
-     let msgInDb = await axios.post('https://backend-gamematch.herokuapp.com/chats', msg)
-     //si se mandó el mensaje a la DB envía al otro usuario
-     socket.current.emit('client: send message', msg);
-     setChatMessages([...chatMessages, chatMessage])
-     setChatMessage('');
-}
-       
      useEffect(()=>{
           socket.current = io('https://backend-gamematch.herokuapp.com')
           socket.current.emit('joinChat', user)
@@ -39,13 +28,28 @@ const Chat= ()=> {
      
      useEffect(()=>{ 
           socket.current.on('server: received message', (msg) => setChatMessages([...chatMessages, msg.message]))
-
+          
           return()=>{
                socket.current.off('server: received message')
           }
      }, [socket.current, chatMessages])
 
-  
+     async function submitChatMessage(e) {
+          //formatea el mensaje
+          let msg = {message: chatMessage, users: [user._id, id], sender: user._id}
+          //envía mensaje a la DB
+          let msgInDb = await axios.post('https://backend-gamematch.herokuapp.com/chats', msg)
+          //si se mandó el mensaje a la DB envía al otro usuario
+          socket.current.emit('client: send message', msg);
+          setChatMessages([...chatMessages, chatMessage])
+          setChatMessage('');
+     }
+     
+     function handleChange(e){
+        setChatMessage(e)
+     }
+     
+     
      return (
           <View>
              
@@ -86,7 +90,7 @@ const Chat= ()=> {
                                              backgroundColor: '#655EBE',
                                         }}
                                    >
-                                        {chatMessage}
+                                        {chatMessage.message}
                                    </Text>
                          ))}
                     </View>
