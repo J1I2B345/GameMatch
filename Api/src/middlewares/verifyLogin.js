@@ -22,7 +22,7 @@ const roles = ["User", "Admin"];
     //if (!req.body.roles) return res.status(400).json({ message: "No roles" });
   if(req.body.roles){
     for (let i = 0; i < req.body.roles.length; i++) {
-      if (!roles.includes(req.body.roles[i])) {
+      if (!roles.includes(req.body.roles)) {
         return res.status(400).json({
           message: `Role ${req.body.roles} does not exist :o!`,
         });
