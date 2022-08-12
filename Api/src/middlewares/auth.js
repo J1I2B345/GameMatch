@@ -46,7 +46,7 @@ const isAdmin = async (req, res, next) => {
     const roles = await Role.find({ _id: { $in: user.roles } });
 
     for (let i = 0; i < roles.length; i++) {
-      if (roles[i].name === "admin") {
+      if (roles[i].name === "Admin") {
         next();
         return;
       }

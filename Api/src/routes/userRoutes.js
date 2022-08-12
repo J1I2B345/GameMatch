@@ -205,7 +205,7 @@ router.post("/register",[verify.checkExistingRole,verify.checkExistingUser], asy
 // let examplePOST = {
 //   "username":"Common User ",
 //   "email":"common.user@gmail.com",
-//   "password":"claveComunEncriptada",
+//   "password":"claveComun",
 //   "img":"https://cdn.onlinewebfonts.com/svg/img_574041.png",
 //   "description":"Soy un jugador experto en jungla mi main es..",
 //   "steam":"Common",
@@ -215,9 +215,9 @@ router.post("/register",[verify.checkExistingRole,verify.checkExistingUser], asy
 
 // }
 // let examplePOST2 = {
-//   "username":"John ",
+//   "username":"John",
 //   "email":"jhon.theBestAdmin@gmail.com",
-//   "password":"claveAdminEncriptada",
+//   "password":"claveAdmin",
 //   "img":"https://i.pinimg.com/originals/94/09/7e/94097e458fbb22184941be57aaab2c8f.png",
 //   "description":"Soy un buen administrador, experto en farme World of warcraft y me gusta pescar",
 //   "steam":"JhonnyFisher",
@@ -267,8 +267,8 @@ router.post("/login", async (req, res) => {
 //*----------------UPDATE USER------------------------
 
 //solicitud Tipo POST: localhost:3001/users
-
-router.put("/:id",[auth.verifyToken,auth.isAdmin], async (req, res) => {
+//[auth.verifyToken,auth.isAdmin]
+router.put("/:id",auth.isAdmin, async (req, res) => {
   try {
 
     req.body.username = req.body.username?.trim()
@@ -299,8 +299,8 @@ router.put("/:id",[auth.verifyToken,auth.isAdmin], async (req, res) => {
 //*----------------DELETE USER------------------------
 
 //solicitud Tipo DELETE: localhost:3001/users/ID
-
-router.delete("/:id",[auth.verifyToken,auth.isAdmin], async (req, res) => {
+//[auth.verifyToken,auth.isAdmin]
+router.delete("/:id",auth.isAdmin, async (req, res) => {
   try {
     const user = await UserSchema.findByIdAndDelete(req.params.id);
     console.log("DELETED  :" + user.username);
