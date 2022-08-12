@@ -9,7 +9,8 @@ module.exports = (io) => {
             global[socket.id] = userFull
             userJoin(userFull)
             socket.join(userFull.game)
-            socket.broadcast.to(userFull.game).emit('message', `${userFull.username} has joined the chat`)
+            socket.emit('socketid', socket.id)
+            // socket.broadcast.to(userFull.game).emit('message', `${userFull.username} has joined the chat`)
             io.to(userFull.game).emit('gameUsers', getGameUsers(userFull.game))
         }
         })
