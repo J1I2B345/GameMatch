@@ -1,12 +1,12 @@
 var chat = []
 
 function joinChat(user){
-    chat = chat.filter(e => e._id !== user_id)
+    if (chat.length) {chat = chat.filter(e => e._id !== user._id)}
     chat.push(user)
 }
 
 function leaveChat(_id){
-    chat = chat.filter(e => e._id !== _id)
+    if (chat.length){ chat = chat.filter(e => e._id !== _id)}
     return chat
 }
 
