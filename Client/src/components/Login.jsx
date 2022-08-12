@@ -19,6 +19,7 @@ import { login } from "../redux/actions";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { allUser } from "../redux/actions";
+import axios from "axios";
 const reviewSchema = yup.object({
   email: yup.string().required().min(3).email(),
   password: yup.string().required().min(3),
@@ -32,19 +33,30 @@ const Login = () => {
   useEffect(() => {
     dispatch(allUser());
 }, []);
-  const submit = (values, actions) => {
+  const submit =async (values, actions) => {
     //console.log(values);
     if (!user.map((d)=>d.email).includes((values.email))) {
       Alert.alert('The email not found') 
       return;}
-      if (!user.map((d)=>d.password).includes((values.password))) {
-       Alert.alert('The password are incorrect')   
-       return;}
-    if(values){
+     if( values.email ){
+      try {               
+        let res = await axios.post("https://backend-gamematch.herokuapp.com/users/login",values)
      
-    }
-    dispatch(login(values));
-    navigation("/selectgame");
+        console.log(res.data)
+        dispatch(login(values));
+        navigation("/selectgame")
+      } catch (error) {
+        Alert.alert('password  incorrect')
+       console.log({message: error.message})
+      }
+     }
+      // if (!user.map((d)=>console.log(d.password)))  {
+      //  Alert.alert('The password are incorrect')   
+      //  return;}
+
+  //  dispatch(login(values));
+   // navigation("/selectgame");
+
   };
 
   return (
