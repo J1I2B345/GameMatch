@@ -10,11 +10,11 @@ import Chat from './Chat.jsx';
 import CreateGame from './CreateGame.jsx';
 import Profile from './Profile.jsx';
 import WhyPremium from './WhyPremium.jsx';
-import BuyPremium from './BuyPremium.jsx';
 import News from './News.jsx';
 import CreateNews from './CreateNews.jsx';
 import SelectChat from './SelectChat.jsx';
 import EditProfile from './EditProfile.jsx';
+import Checkout from './Checkout.jsx';
 
 
 const Home = () => {
@@ -36,6 +36,7 @@ const Home = () => {
                 <Route path="/buypremium" element={<BuyPremium />} />
                 <Route path="/news" element={<News />} />
                 <Route path="/news/add" element={<CreateNews />} />
+                <Route path='/checkout' element={<Checkout />} />
             </Routes>
         </View>
     );

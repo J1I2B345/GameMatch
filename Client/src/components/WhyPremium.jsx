@@ -25,7 +25,7 @@ const WhyPremium = () => {
                          </View>
                          <View>
                               <Link
-                                   to="/buypremium"
+                                   to="/checkout"
                                    activeOpacity={1}
                                    underlayColor={'#9A01E2'}
                                    style={styles.button}
@@ -39,7 +39,7 @@ const WhyPremium = () => {
                                                        height: 20,
                                                   }}
                                              />
-                                             BE PREMIUM RIGHT NOW
+                                             GET PREMIUM RIGHT NOW FOR $499.00
                                              <Image
                                                   source={require('../../assets/starPremium.png')}
                                                   style={{
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
      },
      title: {
           textAlign: 'center',
-          fontSize: 40,
+          fontSize: 30,
           color: '#fff',
      },
      subTitle: {
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
      },
      button_text: {
           marginTop: 6,
-          fontSize: 20,
+          fontSize: 17,
           width: '100%',
           textAlign: 'center',
           alignItems: 'center',
