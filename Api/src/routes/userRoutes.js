@@ -191,7 +191,8 @@ router.post("/register",[verify.checkExistingRole,verify.checkExistingUser], asy
     });
 
    
-    if (savedUser)  return res.status(200).json({ token });
+    //if (savedUser)  return res.status(200).json({ token });
+    if (savedUser)  return res.status(200).json(savedUser);
     //*CON ESTO EVIO AL FRONT TODO ME PIDEN LOS DATOS POR ESTE TOKEN
     else throw new Error("This user has already been created. Login!");
 
@@ -247,7 +248,8 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign({ id: userFound._id },CONFIG.SECRET, {
       expiresIn: 86400, // 24 hs
     });
-    res.json({ token }).status(201);
+    //res.json({ token }).status(201);
+    res.json(userFound ).status(201);
   } catch (error) {
     console.log("Error trying to sigIn");
 
