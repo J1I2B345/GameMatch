@@ -205,14 +205,14 @@ router.post("/register",[verify.checkExistingRole,verify.checkExistingUser], asy
 // let examplePOST = {
 //   "username":"Common User ",
 //   "email":"common.user@gmail.com",
-//   "password":"claveComunEncriptada",
+//   "password":"claveComun",
 //   "img":"https://cdn.onlinewebfonts.com/svg/img_574041.png",
 //   "description":"Soy un jugador experto en jungla mi main es..",
 // }
 // let examplePOST2 = {
 //   "username":"John",
 //   "email":"jhon.theBestAdmin@gmail.com",
-//   "password":"claveAdminEncriptada",
+//   "password":"claveAdmin",
 //   "img":"https://i.pinimg.com/originals/94/09/7e/94097e458fbb22184941be57aaab2c8f.png",
 //   "description":"Soy un buen administrador, experto en farme World of warcraft y me gusta pescar",
 //      "roles":"Admin"
