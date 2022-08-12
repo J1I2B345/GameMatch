@@ -18,7 +18,6 @@ const roles = ["User", "Admin"];
   
  const checkExistingRole = (req, res, next) => {
     //req.body.roles;
-
     //if (!req.body.roles) return res.status(400).json({ message: "No roles" });
   if(req.body.roles){
     for (let i = 0; i < req.body.roles.length; i++) {
@@ -29,7 +28,7 @@ const roles = ["User", "Admin"];
       }
     }
   }
-  
+
     next();
   };
 
