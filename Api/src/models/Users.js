@@ -27,6 +27,7 @@ const schema = new Schema(
     // esto se puede hacer con un middleware antes de que se actualice el reviews.
     rating: {
       type: Schema.Types.Decimal128,
+      default: 0
     },
     premium: {
       type: Boolean,

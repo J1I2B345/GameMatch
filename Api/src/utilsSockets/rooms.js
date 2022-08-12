@@ -2,16 +2,11 @@ var usersLol = []
 var usersCS = []
 var usersR6 = []
 
-//join user to chat
-
 
 function userJoin(user){
-    console.log('user que entra', user)
     if (user.game === "League of Legends"){
-        console.log ('users en LOL pre joinear el user', usersLol)
         usersLol = usersLol.filter(e => e._id !== user._id)
         usersLol.push(user)
-        console.log('users que hay luego del join', usersLol)
     }      
 
     if (user.game === "Tom Clancy's Rainbow Six Siege"){

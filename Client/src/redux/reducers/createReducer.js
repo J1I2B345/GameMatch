@@ -1,7 +1,8 @@
-import { CREATE_GAME, GET_USERNAME, UPDATE_USER } from "../constants";
-import playersLoL from "../../data/usersLOL";
-import playersCSGO from "../../data/usersCSGO";
-import playersR6 from "../../data/usersR6";
+
+import { CREATE_GAME, GET_USERNAME, UPDATE_USER, CREATE_SOCKET } from '../constants';
+import playersLoL from '../../data/usersLOL';
+import playersCSGO from '../../data/usersCSGO';
+import playersR6 from '../../data/usersR6';
 // import userProfile from '../../data/UsersInfo';
 
 const initialState = {

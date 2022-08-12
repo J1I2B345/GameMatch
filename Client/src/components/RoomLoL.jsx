@@ -19,6 +19,8 @@ import { useSelector } from "react-redux";
 import { connect } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
+//agregaado para el user global con socketid
+import { updateUser } from '../redux/actions';
 
 export default function RoomLoL() {
     // const playersGlobal = useSelector((state) => state.games.playersLoL);
@@ -26,28 +28,33 @@ export default function RoomLoL() {
     const user = useSelector((state) => state.games.user);
     const socket = useRef();
 
+
     useEffect(() => {
         socket.current = io("https://backend-gamematch.herokuapp.com/");
         socket.current.emit("joinRoom", user);
+
+        //agregado para el user global con socketid
+        socket.current.on("socketid", socketid =>{
+            dispatch(updateUser({...user, socketid}))
+        })
+
+        //agregado para el user global con socketid
+        return ()=>{
+            socket.current.off("socketid")
+        }
+
     }, []);
 
     useEffect(() => {
         socket.current.on("gameUsers", (data) => {
-            console.log("soy data", data);
             let playersList = data.filter((e) => e._id !== user._id);
             setPlayers(playersList);
-            console.log("soy playerlist", playersList);
-        });
-        socket.current.on("message", (data) => {
-            console.log(data);
         });
         return () => {
             socket.current.off("gameUsers");
-            socket.current.off("message");
         };
     }, [socket.current, players]);
 
-    console.log("soy players", players);
 
     return (
         <View style={styles.container}>
@@ -92,14 +99,25 @@ export default function RoomLoL() {
                     </View>
                     {players.length > 0 ? (
                         players.map((player) => {
-                            return (
+                            if (player.rating) return (
                                 <PlayersLoLCard
                                     key={player._id}
+                                    img={player.img}
                                     id={player._id}
                                     name={player.username}
                                     elo={player.elo}
                                     position={player.position}
                                     rating={player.rating.$numberDecimal}
+                                />
+                            );
+                            else return (
+                                <PlayersLoLCard
+                                    key={player._id}
+                                    id={player._id}
+                                    name={player.username}
+                                    elo={player.elo}
+                                    img={player.img}
+                                    position={player.position}
                                 />
                             );
                         })
