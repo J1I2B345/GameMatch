@@ -1,4 +1,4 @@
-import { addNews } from "../redux/actions/index.js";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-native";
 import { connect } from "react-redux";
 import {
@@ -11,64 +11,69 @@ import {
   Keyboard,
   SafeAreaView,
   ScrollView,
-  Image,  Alert
+  Image,
+  Alert
 } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from 'react';
-import { login } from "../redux/actions";
+import { register, allUser } from "../redux/actions";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { allUser } from "../redux/actions";
+import { useState, useEffect } from 'react';
+
+//*----------------
 const reviewSchema = yup.object({
   email: yup.string().required().min(3).email(),
+  username: yup.string().required().min(3),
   password: yup.string().required().min(3),
 });
-//const userGlobal = useSelector((state) => state.games.user);
-const Login = () => {
-  const user= useSelector((state) => state.games.aux);
-
+//-----
+// console.log('allUser');
+// console.log(allUser());
+const Register = () => {
   const dispatch = useDispatch();
   const navigation = useNavigate();
   useEffect(() => {
     dispatch(allUser());
 }, []);
+
+  const user= useSelector((state) => state.games.aux);
+ // console.log(user[0])
+
   const submit = (values, actions) => {
     //console.log(values);
-    if (!user.map((d)=>d.email).includes((values.email))) {
-      Alert.alert('The email not found') 
-      return;}
-      if (!user.map((d)=>d.password).includes((values.password))) {
-       Alert.alert('The password are incorrect')   
-       return;}
-    if(values){
-     
-    }
-    dispatch(login(values));
-    navigation("/selectgame");
+   // console.log(   user.map((d)=>d.email).includes((values.email)) )
+  if (values) {
+   if (user.map((d)=>d.email).includes((values.email))) {
+   Alert.alert('The email already exists') 
+   return;}
+   if (user.map((d)=>d.username).includes((values.username))) {
+    Alert.alert('The username already exists, try again') 
+    return;}
+
+    
+    dispatch(register(values));
+     navigation("/");
+  }
+  
+
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.portada}>
-          <View style={styles.portada_text}>
-            <Image
-              source={require("../../assets/GameMatch.png")}
-              style={{ width: 130, height: 100 }}
-            />
-          </View>
-          <View style={styles.portada_img}>
-            <Image
-              source={require("../../assets/iconApp.png")}
-              style={{ width: 110, height: 110 }}
-            />
-          </View>
+          <Image
+            source={require("../../assets/GameMatch.png")}
+            style={{ width: 130, height: 100 }}
+          />
+          <View style={styles.portada_text}></View>
         </View>
         <View style={styles.form_container}>
           <Formik
             initialValues={{
               email: "",
+              username: "",
               password: "",
+             
             }}
             validationSchema={reviewSchema}
             onSubmit={submit}
@@ -76,6 +81,20 @@ const Login = () => {
             {(formikProps) => (
               <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.form_container}>
+                 
+                <TextInput
+                    placeholder="Nick name"
+                    onChangeText={formikProps.handleChange("username")}
+                    value={formikProps.values.username}
+                    onBlur={formikProps.handleBlur("username")}
+                    style={styles.input}
+                  />
+                  <View style={styles.relleno}></View>
+                  <Text style={{ color: "red", fontSize: 10 }}>
+                    {formikProps.touched.username && formikProps.errors.username}
+                  
+                  </Text>
+
                   <TextInput
                     placeholder="Email Address"
                     onChangeText={formikProps.handleChange("email")}
@@ -89,7 +108,7 @@ const Login = () => {
                     {formikProps.touched.email && formikProps.errors.email}
                     {/* {console.log(formikProps.values.email) } */}
                   </Text>
-                    
+
                   <TextInput
                     placeholder="Password"
                     type="password"
@@ -101,6 +120,17 @@ const Login = () => {
                   <Text style={{ color: "red", fontSize: 10 }}>
                     {formikProps.touched.password &&
                       formikProps.errors.password}
+                  </Text>
+                  {/* <TextInput
+                    placeholder="Repeat Password"
+                    style={styles.input}
+                    onChangeText={formikProps.handleChange("confirm")}
+                    value={confirm}
+                    secureTextEntry={true}
+                  /> */}
+                  <Text style={{ color: "red", fontSize: 10 }}>
+                    {formikProps.touched.confirm &&
+                      formikProps.errors.confirm}
                   </Text>
                   <View style={styles.relleno}></View>
                   <View
@@ -115,7 +145,9 @@ const Login = () => {
                       style={styles.button}
                       title="LOGIN"
                       onPress={formikProps.handleSubmit}
-                    ><Text style={styles.button_text}>LOGIN</Text></Text>
+                    >
+                      <Text style={styles.button_text}>Register</Text>
+                    </Text>
                   </View>
                 </View>
               </TouchableWithoutFeedback>
@@ -124,7 +156,7 @@ const Login = () => {
         </View>
         <View
           style={{
-            marginTop: 120,
+            marginTop: 30,
             fontSize: 15,
             height: "auto",
           }}
@@ -135,16 +167,17 @@ const Login = () => {
               fontSize: 20,
             }}
           >
-            Don't have account?
-            <Link to="/register">
-            <Text
-              style={{
-                color: "violet",
-                fontSize: 20,
-              }}
-            >
-               {'  '} ✔ Register
-            </Text></Link>
+            Alredy have account?
+            <Link to="/">
+              <Text
+                style={{
+                  color: "violet",
+                  fontSize: 20,
+                }}
+              >
+                🟢 Login!
+              </Text>
+            </Link>
           </Text>
         </View>
       </ScrollView>
@@ -159,11 +192,11 @@ const styles = StyleSheet.create({
   },
   portada: {
     marginTop: 120,
-    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 20,
   },
   portada_text: {
-    marginRight: 30,
+    marginLeft: 20,
   },
   form_container: {
     width: "100%",
@@ -203,4 +236,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default Register;
