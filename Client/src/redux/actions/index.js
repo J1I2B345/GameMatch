@@ -15,6 +15,13 @@ export const createGame = (game) => (dispatch) => {
           });
 };
 
+export const editProfile = (user) => {
+     return async (dispatch) => {
+          // await axios.put(`https://backend-gamematch.herokuapp.com/users/${user._id}`, user);
+          return dispatch({ type: 'EDIT_PROFILE', payload: user });
+     };
+};
+
 export const orderByRating = (payload) => {
      return {
           type: 'ORDER_BY_RATING',
