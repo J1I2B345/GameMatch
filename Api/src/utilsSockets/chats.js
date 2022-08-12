@@ -1,7 +1,7 @@
 var chat = []
 
-function joinChat(_id){
-    chat = chat.filter(e => e._id !== _id)
+function joinChat(user){
+    chat = chat.filter(e => e._id !== user_id)
     chat.push(user)
 }
 
@@ -11,7 +11,13 @@ function leaveChat(_id){
 }
 
 
+function getUser(_id){
+    return chat.find(e => e._id === _id)
+
+}
+
+
 
 module.exports = {
-    joinChat, leaveChat
+    joinChat, leaveChat, getUser
 }

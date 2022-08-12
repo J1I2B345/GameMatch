@@ -1,5 +1,5 @@
 const {userJoin, getGameUsers, leaveRoom} = require('./utilsSockets/rooms')
-const {joinChat, leaveChat} = require('./utilsSockets/chats.js')
+const {joinChat, leaveChat, getUser} = require('./utilsSockets/chats.js')
 
 
 module.exports = (io) => {
@@ -20,9 +20,13 @@ module.exports = (io) => {
         socket.on('joinChat', user=> {
             let userFull = {...user, socketid: socket.id}
             global[socket.id] = userFull
-            joinChat(userFull._id)
+            joinChat(userFull)
         })
-        socket.on('client: send message', msg => console.log(msg))
+        socket.on('client: send message', msg => {
+            let receiver = getUser(msg.users[1])
+            socket.to(receiver.socketid).emit('server: message received', msg)
+            
+        })
 
         //
         

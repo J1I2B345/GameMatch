@@ -22,7 +22,8 @@ const Chat= ()=> {
      }, [])
 
      useEffect(()=>{
-          socket.current.on('server: send message', msg => setChatMessages([...chatMessages, msg.msg]))
+          socket.current.on('server: received message', msg => console.log(msg))
+
      }, [])
 
      function handleChange(e){
@@ -30,13 +31,13 @@ const Chat= ()=> {
      }
 
      async function submitChatMessage(e) {
-          console.log(chatMessage)
           //formatea el mensaje
           let msg = {message: chatMessage, users: [user._id, id], sender: user._id}
           //envía mensaje a la DB
           let msgInDb = await axios.post('https://backend-gamematch.herokuapp.com/chats', msg)
           //si se mandó el mensaje a la DB envía al otro usuario
           if (msgInDb) socket.current.emit('client: send message', msg);
+          setChatMessages([...chatMessages, msg.msg])
           setChatMessage('');
      }
      return (
