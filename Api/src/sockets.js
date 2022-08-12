@@ -17,7 +17,7 @@ module.exports = (io) => {
         //conectado al chat
         
         socket.on('client: chat message', msg => {
-            console.log(msg)
+            console.log('mensaje recibido del socket', msg)
             socket.emit('server: chat message', msg)
         })
 
