@@ -1,5 +1,5 @@
 const User = require("../models/Users.js");
-const roles = ["user", "admin", "moderator"];
+const roles = ["User", "Admin"];
  const checkExistingUser = async (req, res, next) => {
     try {
       const userFound = await User.findOne({ username: req.body.username });
