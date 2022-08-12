@@ -11,7 +11,7 @@ const initialState = {
      playersCSGO: [],
      playersR6: [],
      user: [],
-     userProfile: []
+     userProfile: [],
 };
 
 const createReducer = (state = initialState, action) => {
@@ -20,6 +20,9 @@ const createReducer = (state = initialState, action) => {
      switch (type) {
           case CREATE_GAME:
                return { ...state, games: [...state.games, payload] };
+
+          case 'EDIT_PROFILE':
+               return { ...state, userProfile: payload };
 
           case 'ORDER_BY_RATING': {
                let playersInLoL = initialState.playersLoL;
@@ -200,12 +203,7 @@ const createReducer = (state = initialState, action) => {
                };
 
           case GET_USERNAME:
-
-               return { ...state, 
-                    user: payload,
-                    userProfile: payload 
-               };
-
+               return { ...state, user: payload, userProfile: payload };
 
           case UPDATE_USER:
                return { ...state, user: payload };
