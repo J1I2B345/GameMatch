@@ -23,10 +23,10 @@ module.exports = (io) => {
             joinChat(userFull)
         })
         socket.on('client: send message', msg => {
-            console.log('client send message', msg)
+            
             let receiver = getUser(msg.users[1])
-            console.log('quien recibe', receiver)
-            if (receiver) {console.log('sale mensaje para el receptor', receiver.socketid), socket.to(receiver.socketid).emit('server: message received', msg)}
+            console.log('quien recibe', receiver.socketid)
+            if (receiver) { socket.to(receiver.socketid).emit('server: received message', msg)}
         })
 
         //
