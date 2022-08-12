@@ -25,7 +25,7 @@ module.exports = (io) => {
         socket.on('client: send message', msg => {
             
             let receiver = getUser(msg.users[1])
-            if (receiver) { socket.to(receiver.socketid).emit('server: message received', msg)}
+            if (receiver) { socket.to(receiver.socketid).emit('server: received message', msg)}
         })
 
         //
