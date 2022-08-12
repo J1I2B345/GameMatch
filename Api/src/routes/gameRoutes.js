@@ -80,6 +80,8 @@ router.put("/:id",auth.isAdmin, async (req, res) => {
 
  //solicitud Tipo DELETE: localhost:3001/games/id
 
+//[auth.verifyToken,auth.isAdmin]
+
 router.delete("/:id",auth.isAdmin, async (req, res) => {
   try {
 

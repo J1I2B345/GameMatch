@@ -208,11 +208,6 @@ router.post("/register",[verify.checkExistingRole,verify.checkExistingUser], asy
 //   "password":"claveComun",
 //   "img":"https://cdn.onlinewebfonts.com/svg/img_574041.png",
 //   "description":"Soy un jugador experto en jungla mi main es..",
-//   "steam":"Common",
-//   "riot":"CommonS2",
-//   "ig":"@CommonJungle",
-//     "epicgames":"@CommonS2"
-
 // }
 // let examplePOST2 = {
 //   "username":"John",
@@ -220,10 +215,6 @@ router.post("/register",[verify.checkExistingRole,verify.checkExistingUser], asy
 //   "password":"claveAdmin",
 //   "img":"https://i.pinimg.com/originals/94/09/7e/94097e458fbb22184941be57aaab2c8f.png",
 //   "description":"Soy un buen administrador, experto en farme World of warcraft y me gusta pescar",
-//   "steam":"JhonnyFisher",
-//   "riot":"JhonnyTheBestFisher",
-//   "ig":"@JhonnyFisher",
-//     "epicgames":"Jhonny.Fisher"
 //      "roles":"Admin"
 // }
 

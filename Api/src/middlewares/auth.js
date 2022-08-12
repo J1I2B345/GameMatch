@@ -16,7 +16,7 @@ const verifyToken = async (req, res, next) => {
 
     //    console.log(decoded);
     const user = await User.findById(req.userId, { password: 0 });//para que no me devuelva la contraseña
-    if (!user) return res.status(404).json({ message: "user not found" });
+    if (!user) return res.status(404).json({ message: "User not found" });
 
     next();
   } catch (error) {
@@ -29,7 +29,7 @@ const isModerator = async (req, res, next) => {
     const user = await User.findById(req.userId);
     const roles = await Role.find({ _id: { $in: user.roles } });
     for (let i = 0; i < roles.length; i++) {
-      if (roles[i].name === "moderator") {
+      if (roles[i].name === "Moderator") {
         next();
         return;
       }
