@@ -19,7 +19,6 @@ const rootReducer = (state = initialState, action) => {
     case CREATE_GAME:
       return { ...state, games: [...state.games, payload] };
     case GET_USERNAME:
-      console.log({ e: action.payload });
       return { ...state, user: payload };
 
     case UPDATE_USER:
@@ -27,10 +26,9 @@ const rootReducer = (state = initialState, action) => {
     case CREATE_NEWS:
       return { ...state, news: [...state.news, payload] };
     case GET_ALL_NEWS:
-      console.log({ payload });
       return {
         ...state,
-        news: payload,
+        news: [...action.payload],
       };
 
     default:

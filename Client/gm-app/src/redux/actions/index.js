@@ -1,4 +1,3 @@
-import axios from "axios";
 export const CREATE_GAME = "CREATE_GAME";
 export const GET_USERNAME = "GET_USERNAME";
 export const UPDATE_USER = "UPDATE_USER";
@@ -69,18 +68,12 @@ export const getUser = (username) => (dispatch) => {
       dispatch({ type: GET_USERNAME, payload: user });
     });
 };
-export const getAllNews = () => {
-  return async (dispatch) => {
-    try {
-      let json = await axios.get(
-        `https://backend-gamematch.herokuapp.com/News`
-      );
-      return dispatch({
-        type: GET_ALL_NEWS,
-        payload: json.data,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+export const getAllNews = () => (dispatch) => {
+  return fetch("https://backend-gamematch.herokuapp.com/News")
+    .then((response) => {
+      return response.json();
+    })
+    .then((json) => {
+      dispatch({ type: GET_ALL_NEWS, payload: json });
+    });
 };
