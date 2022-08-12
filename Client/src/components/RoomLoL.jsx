@@ -19,16 +19,24 @@ import { useSelector } from "react-redux";
 import { connect } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
+import { updateUser } from '../redux/actions';
 
 export default function RoomLoL() {
     // const playersGlobal = useSelector((state) => state.games.playersLoL);
     const [players, setPlayers] = useState([]);
     const user = useSelector((state) => state.games.user);
     const socket = useRef();
+    console.log(user)
 
     useEffect(() => {
         socket.current = io("https://backend-gamematch.herokuapp.com/");
         socket.current.emit("joinRoom", user);
+        socket.current.on("socketid", socketid =>{
+            dispatch(updateUser({...user, socketid}))
+        })
+        return ()=>{
+            socket.current.off("socketid")
+        }
     }, []);
 
     useEffect(() => {
