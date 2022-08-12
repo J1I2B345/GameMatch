@@ -12,7 +12,6 @@ const initialState = {
      playersR6: [],
      user: [],
      userProfile: [],
-     socket:''
 };
 
 const createReducer = (state = initialState, action) => {
@@ -21,6 +20,12 @@ const createReducer = (state = initialState, action) => {
      switch (type) {
           case CREATE_GAME:
                return { ...state, games: [...state.games, payload] };
+
+          case 'ADD_NEWS':
+               return { ...state, news: [payload, ...state.news] };
+
+          case 'EDIT_PROFILE':
+               return { ...state, userProfile: payload };
 
           case 'ORDER_BY_RATING': {
                let playersInLoL = initialState.playersLoL;
@@ -201,12 +206,7 @@ const createReducer = (state = initialState, action) => {
                };
 
           case GET_USERNAME:
-
-               return { ...state, 
-                    user: payload,
-                    userProfile: payload 
-               };
-
+               return { ...state, user: payload, userProfile: payload };
 
           case UPDATE_USER:
                return { ...state, user: payload };

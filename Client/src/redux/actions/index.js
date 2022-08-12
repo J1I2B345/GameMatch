@@ -15,6 +15,13 @@ export const createGame = (game) => (dispatch) => {
           });
 };
 
+export const editProfile = (user) => {
+     return async (dispatch) => {
+          // await axios.put(`https://backend-gamematch.herokuapp.com/users/${user._id}`, user);
+          return dispatch({ type: 'EDIT_PROFILE', payload: user });
+     };
+};
+
 export const orderByRating = (payload) => {
      return {
           type: 'ORDER_BY_RATING',
@@ -97,5 +104,12 @@ export const getAllNews = () => {
           } catch (error) {
                console.log(error);
           }
+     };
+};
+
+export const addNews = (news) => {
+     return async (dispatch) => {
+          // await axios.put(`https://backend-gamematch.herokuapp.com/news`, news);
+          return dispatch({ type: 'ADD_NEWS', payload: news });
      };
 };
