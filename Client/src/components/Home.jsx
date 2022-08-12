@@ -26,7 +26,7 @@ const Home = () => {
                 <Route path="/playersCS" element={<RoomCS />} />
                 <Route path="/playersR6" element={<RoomR6 />} />
                 <Route path="selectchat" element={<SelectChat />} />
-                <Route path="/chat" element={<Chat />} />
+                <Route path="/chat/:id" element={<Chat />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/whypremium" element={<WhyPremium />} />
                 <Route path="/buypremium" element={<BuyPremium />} />

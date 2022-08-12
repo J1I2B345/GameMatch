@@ -34,7 +34,7 @@ export default function SelectChat() {
                     contacts.map((contact) => {
                         return (
                             <Link
-                                to="/chat"
+                                to={`/chat/${contact._id}`}
                                 style={{
                                     backgroundColor: "#3519B0",
                                     borderRadius: 10,

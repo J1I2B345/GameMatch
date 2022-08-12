@@ -1,24 +1,37 @@
 import React, { Component } from 'react';
-import { TextInput, StyleSheet, Text, View, Image } from 'react-native';
+import { TextInput, StyleSheet, Text, View, Image, TouchableWithoutFeedback } from 'react-native';
 import Constants from 'expo-constants';
 import io from 'socket.io-client';
 import Nav from './Nav';
-import { useEffect, useState} from 'react';
+import { useEffect, useState, useRef} from 'react';
+import { useLayoutEffect } from 'react';
+import { useParams } from 'react-router-native';
 
 const Chat= ()=> {
    const [chatMessage, setChatMessage] = useState('')
    const [chatMessages, setChatMessages] = useState(['Hola', 'adios'])
+   const socket = useRef();
+   const {id} = useParams()
    
        
      useEffect(()=>{
-          const socket = io('https://backend-gamematch.herokuapp.com')
-          socket.on('chat message', (msg) => {
+          socket.current = io('https://backend-gamematch.herokuapp.com')
+          socket.current.on('chat message', (msg) => {
                setChatMessages([...chatMessages, msg]);
           });
      }, [])
 
-     function submitChatMessage() {
-          socket.emit('chat message', chatMessage);
+     useEffect(()=>{
+          socket.current.on('server: chat message', msg => console.log(msg))
+     }, [socket.current, chatMessages])
+
+     function handleChange(e){
+          setChatMessage(e)
+     }
+
+     function submitChatMessage(e) {
+          console.log(chatMessage)
+          socket.current.emit('client: chat message', chatMessage);
           setChatMessage('');
      }
      return (
@@ -85,10 +98,7 @@ const Chat= ()=> {
                               placeholder="Message"
                               autoCorrect={false}
                               value={chatMessage}
-                              onSubmitEditing={() => submitChatMessage()}
-                              onChangeText={(chatMessage) => {
-                                   setState({ chatMessage });
-                              }}
+                              onChangeText={(e) => handleChange(e)}
                          />
                     </View>
                     <View
@@ -104,10 +114,14 @@ const Chat= ()=> {
                               justifyContent: 'center',
                          }}
                          >
-                         <Image
-                              source={require('../../assets/iconSend.png')}
-                              style={{ width: '100%', height: '100%' }}
+                         <TouchableWithoutFeedback
+                              onPress= {(e) => submitChatMessage(e)}
+                         >
+                              <Image
+                                   	source={require('../../assets/iconSend.png')}
+                                   	style={{ width: '100%', height: '100%' }}
                               />
+                         </TouchableWithoutFeedback>
                     </View>
                     <Nav />
                </View>
