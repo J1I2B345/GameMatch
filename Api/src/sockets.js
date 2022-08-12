@@ -3,7 +3,6 @@ const {userJoin, getGameUsers, leaveRoom} = require('./utilsSockets/rooms')
 
 module.exports = (io) => {
     io.on('connection', (socket) => {
-
         //funcionalidad sala y match
         socket.on('joinRoom', (user)=>{
             if(user.username){
@@ -11,8 +10,10 @@ module.exports = (io) => {
             userJoin(userFull)
             socket.join(userFull.game)
             io.to(userFull.game).emit('gameUsers', getGameUsers(userFull.game))
-        }
-        })
+        }})
+
+        
+
         
         socket.on('disconnect', () =>{
 
@@ -21,8 +22,7 @@ module.exports = (io) => {
                 leaveRoom(global[socket.id].game, global[socket.id]._id)
                 io.to(global[socket.id].game).emit('gameUsers', getGameUsers(global[socket.id].game))
                 global[socket.id]= null
-                delete global[socket.id]
-               
+                delete global[socket.id] 
             }
         })
     }

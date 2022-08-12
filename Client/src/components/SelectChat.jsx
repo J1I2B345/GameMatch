@@ -9,7 +9,6 @@ export default function SelectChat() {
     let [contacts, setContacts] = useState({});
     let user = useSelector((state) => state.games.user);
     let id = user._id;
-    console.log(user)
 
     async function getChats() {
         let respuesta = await axios.get(
@@ -21,7 +20,6 @@ export default function SelectChat() {
 
     useEffect(() => {
         getChats();
-        
     }, []);
 
     console.log(contacts);

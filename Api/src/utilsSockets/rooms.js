@@ -2,6 +2,7 @@ var usersLol = []
 var usersCS = []
 var usersR6 = []
 
+
 function userJoin(user){
     if (user.game === "League of Legends"){
         usersLol = usersLol.filter(e => e._id !== user._id)

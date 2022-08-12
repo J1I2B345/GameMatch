@@ -3,46 +3,27 @@ import { TextInput, StyleSheet, Text, View, Image } from 'react-native';
 import Constants from 'expo-constants';
 import io from 'socket.io-client';
 import Nav from './Nav';
+import { useEffect, useState} from 'react';
 
-export default class Chat extends Component {
-     constructor(props) {
-          super(props);
-          this.state = {
-               chatMessage: '',
-               chatMessages: ['Hola', 'adios'],
-          };
-     }
-
-     componentDidMount() {
-          this.socket = io('https://backend-gamematch.herokuapp.com');
-          this.socket.on('chat message', (msg) => {
-               this.setState({ chatMessages: [...this.state.chatMessages, msg] });
+const Chat= ()=> {
+   const [chatMessage, setChatMessage] = useState('')
+   const [chatMessages, setChatMessages] = useState(['Hola', 'adios'])
+   
+       
+     useEffect(()=>{
+          const socket = io('https://backend-gamematch.herokuapp.com')
+          socket.on('chat message', (msg) => {
+               setChatMessages([...chatMessages, msg]);
           });
-     }
+     }, [])
 
-     submitChatMessage() {
-          this.socket.emit('chat message', this.state.chatMessage);
-          this.setState({ chatMessage: '' });
+     function submitChatMessage() {
+          socket.emit('chat message', chatMessage);
+          setChatMessage('');
      }
-     render() {
-          const chatMessages = this.state.chatMessages.map((chatMessage) => (
-               <Text
-                    key={chatMessage}
-                    style={{
-                         margin: 5,
-                         padding: 13,
-                         borderRadius: 15,
-                         width: 65,
-                         color: '#fff',
-                         textAlign: 'center',
-                         backgroundColor: '#655EBE',
-                    }}
-               >
-                    {chatMessage}
-               </Text>
-          ));
-
-          return (
+     return (
+          <View>
+             
                <View style={styles.container}>
                     <View style={{ alignItems: 'center' }}>
                          <Text
@@ -65,7 +46,25 @@ export default class Chat extends Component {
                               }}
                          ></View>
                     </View>
-                    <View style={{ margin: 10 }}>{chatMessages}</View>
+                    <View style={{ margin: 10 }}>
+                         {
+                              chatMessages && chatMessages.map((chatMessage) => (
+                                   <Text
+                                        key={chatMessage}
+                                        style={{
+                                             margin: 5,
+                                             padding: 13,
+                                             borderRadius: 15,
+                                             width: 65,
+                                             color: '#fff',
+                                             textAlign: 'center',
+                                             backgroundColor: '#655EBE',
+                                        }}
+                                   >
+                                        {chatMessage}
+                                   </Text>
+                         ))}
+                    </View>
                     <View
                          style={{
                               position: 'absolute',
@@ -85,10 +84,10 @@ export default class Chat extends Component {
                               }}
                               placeholder="Message"
                               autoCorrect={false}
-                              value={this.state.chatMessage}
-                              onSubmitEditing={() => this.submitChatMessage()}
+                              value={chatMessage}
+                              onSubmitEditing={() => submitChatMessage()}
                               onChangeText={(chatMessage) => {
-                                   this.setState({ chatMessage });
+                                   setState({ chatMessage });
                               }}
                          />
                     </View>
@@ -104,19 +103,22 @@ export default class Chat extends Component {
                               backgroundColor: '#443ABB',
                               justifyContent: 'center',
                          }}
-                    >
+                         >
                          <Image
                               source={require('../../assets/iconSend.png')}
                               style={{ width: '100%', height: '100%' }}
-                         />
+                              />
                     </View>
                     <Nav />
                </View>
+          </View>
           );
      }
-}
+
 const styles = StyleSheet.create({
      container: {
           height: '100%',
      },
 });
+
+export default Chat
