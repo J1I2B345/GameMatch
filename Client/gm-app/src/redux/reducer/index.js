@@ -1,8 +1,14 @@
-import { CREATE_GAME, GET_USERNAME, UPDATE_USER } from "../actions";
+import {
+  CREATE_GAME,
+  GET_USERNAME,
+  UPDATE_USER,
+  CREATE_NEWS,
+} from "../actions";
 
 const initialState = {
   games: null,
   user: null,
+  news: null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -17,6 +23,8 @@ const rootReducer = (state = initialState, action) => {
 
     case UPDATE_USER:
       return { ...state, user: payload };
+    case CREATE_NEWS:
+      return { ...state, news: [...state.news, payload] };
 
     default:
       return state;

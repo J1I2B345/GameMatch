@@ -2,6 +2,7 @@ import axios from "axios";
 export const CREATE_GAME = "CREATE_GAME";
 export const GET_USERNAME = "GET_USERNAME";
 export const UPDATE_USER = "UPDATE_USER";
+export const CREATE_NEWS = "CREATE_NEWS";
 
 export const createGame = (game) => (dispatch) => {
   return fetch("https://backend-gamematch.herokuapp.com/games", {
@@ -14,6 +15,19 @@ export const createGame = (game) => (dispatch) => {
     })
     .then((json) => {
       dispatch({ type: CREATE_GAME, payload: json });
+    });
+};
+export const createNews = (report) => (dispatch) => {
+  return fetch("https://backend-gamematch.herokuapp.com/News", {
+    method: "POST",
+    headers: { Accept: "applcation/json", "Content-Type": "application/json" },
+    body: JSON.stringify(report),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((json) => {
+      dispatch({ type: CREATE_NEWS, payload: json });
     });
 };
 
