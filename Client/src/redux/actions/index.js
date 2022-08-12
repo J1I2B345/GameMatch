@@ -15,10 +15,6 @@ export const createGame = (game) => (dispatch) => {
           });
 };
 
-export const createSocket = (payload) => {
-     return {type: CREATE_SOCKET, payload}
-}
-
 export const orderByRating = (payload) => {
      return {
           type: 'ORDER_BY_RATING',

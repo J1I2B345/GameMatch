@@ -16,40 +16,36 @@ const Chat= ()=> {
    const {id} = useParams()
    
   
-   async function getChats(){
-     let msgs = await axios.get(`https://backend-gamematch.herokuapp.com/chats/?sender=${user._id}&receiver=${id}` )
-     console.log (msgs.data)
-     return msgs.data
+
+     function handleChange(e){
+          setChatMessage(e)
      }
+     
+     async function submitChatMessage(e) {
+     //formatea el mensaje
+     let msg = {message: chatMessage, users: [user._id, id], sender: user._id}
+     //envía mensaje a la DB
+     let msgInDb = await axios.post('https://backend-gamematch.herokuapp.com/chats', msg)
+     //si se mandó el mensaje a la DB envía al otro usuario
+     socket.current.emit('client: send message', msg);
+     setChatMessages([...chatMessages, chatMessage])
+     setChatMessage('');
+}
        
      useEffect(()=>{
           socket.current = io('https://backend-gamematch.herokuapp.com')
           socket.current.emit('joinChat', user)
      }, [])
-
-     useEffect(()=>{
-          let msg = getChats()
-          console.log('info traida de la DB', msg)
-     },[])
      
-     useEffect(async ()=>{ 
+     useEffect(()=>{ 
           socket.current.on('server: received message', (msg) => setChatMessages([...chatMessages, msg.message]))
-     }, [])
 
-     function handleChange(e){
-          setChatMessage(e)
-     }
+          return()=>{
+               socket.current.off('server: received message')
+          }
+     }, [socket.current, chatMessages])
 
-     async function submitChatMessage(e) {
-          //formatea el mensaje
-          let msg = {message: chatMessage, users: [user._id, id], sender: user._id}
-          //envía mensaje a la DB
-          let msgInDb = await axios.post('https://backend-gamematch.herokuapp.com/chats', msg)
-          //si se mandó el mensaje a la DB envía al otro usuario
-          socket.current.emit('client: send message', msg);
-          setChatMessages([...chatMessages, msg.message])
-          setChatMessage('');
-     }
+  
      return (
           <View>
              

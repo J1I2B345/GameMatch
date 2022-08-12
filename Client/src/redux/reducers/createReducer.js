@@ -21,12 +21,6 @@ const createReducer = (state = initialState, action) => {
      switch (type) {
           case CREATE_GAME:
                return { ...state, games: [...state.games, payload] };
-          
-          case CREATE_SOCKET:
-               return {
-                    ...state, 
-                    socket: payload
-               }
 
           case 'ORDER_BY_RATING': {
                let playersInLoL = initialState.playersLoL;
