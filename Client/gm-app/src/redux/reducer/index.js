@@ -3,6 +3,7 @@ import {
   GET_USERNAME,
   UPDATE_USER,
   CREATE_NEWS,
+  GET_ALL_NEWS,
 } from "../actions";
 
 const initialState = {
@@ -25,6 +26,12 @@ const rootReducer = (state = initialState, action) => {
       return { ...state, user: payload };
     case CREATE_NEWS:
       return { ...state, news: [...state.news, payload] };
+    case GET_ALL_NEWS:
+      console.log({ payload });
+      return {
+        ...state,
+        news: payload,
+      };
 
     default:
       return state;

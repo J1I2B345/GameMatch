@@ -3,6 +3,7 @@ export const CREATE_GAME = "CREATE_GAME";
 export const GET_USERNAME = "GET_USERNAME";
 export const UPDATE_USER = "UPDATE_USER";
 export const CREATE_NEWS = "CREATE_NEWS";
+export const GET_ALL_NEWS = "GET_ALL_NEWS";
 
 export const createGame = (game) => (dispatch) => {
   return fetch("https://backend-gamematch.herokuapp.com/games", {
@@ -75,7 +76,7 @@ export const getAllNews = () => {
         `https://backend-gamematch.herokuapp.com/News`
       );
       return dispatch({
-        type: "GET_ALL_NEWS",
+        type: GET_ALL_NEWS,
         payload: json.data,
       });
     } catch (error) {

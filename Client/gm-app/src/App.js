@@ -5,6 +5,7 @@ import CreateGame from "./Components/CreateGame/CreateGame";
 import Login from "./Components/Login/Login";
 import GameHome from "./Components/GameHome/GameHome";
 import CreateNews from "./Components/CreateNews/CreateNews";
+import News from "./Components/News/News";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/createnews" element={<CreateNews />} />
         <Route path="/login" element={<Login />} />
         <Route path="/gamehome" element={<GameHome />} />
+        <Route path="/news" element={<News />} />
       </Routes>
     </div>
   );

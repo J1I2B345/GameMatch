@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+
 import axios from "axios";
 
 const GameCard = () => {
@@ -22,13 +22,33 @@ const GameCard = () => {
     fetchGames();
   }, []);
 
-  console.log({ fetchGames });
-  console.log({ gamesDB });
+  const deleteButton = async (game) => {
+    try {
+      console.log({ game });
+      await axios
+        .delete(`https://backend-gamematch.herokuapp.com/games/${game}`)
+        .then(() => {
+          let newData = gamesDB.filter((el) => el.game !== game);
+
+          setGames(newData);
+        });
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
   return (
     <div>
       {gamesDB.map((data) => (
-        <img className="img-game" src={data.image} alt="" key={data.id} />
+        <div key={data.name}>
+          <img className="img-game" src={data.image} alt="" key={data._id} />
+          <button
+            className="delete-btn"
+            onClick={(e) => deleteButton(data._id)}
+          >
+            Eliminar
+          </button>
+        </div>
       ))}
     </div>
   );
