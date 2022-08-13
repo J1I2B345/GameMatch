@@ -8,7 +8,6 @@ import { updateUser } from '../redux/actions';
 import Constants from 'expo-constants';
 import Spinner from './Spinner';
 import Nav from './Nav';
-import axios from 'axios';
 
 export default function Form() {
      let [game, setGame] = useState({ position: false });
@@ -17,21 +16,16 @@ export default function Form() {
      let { id } = useParams();
      let dispatch = useDispatch();
      let user = useSelector((state) => state.games.user);
+     const games = useSelector( state => state.games.games)
+     
 
-     const fetchGame = async () => {
-          try {
-               const response = await axios.get(
-                    `https://backend-gamematch.herokuapp.com/games/${id}`
-               );
-               const respuesta = response.data;
+     const fetchGame = () => {
+          let respuesta = games.find(e => e._id === id)
                setGame(respuesta);
-          } catch (error) {
-               console.error(error.message);
-          }
      };
 
      useEffect(() => {
-          fetchGame();
+          if(!game.name){fetchGame();}
      }, []);
 
      function handleClickPosition(valor) {
@@ -156,11 +150,10 @@ export default function Form() {
                               ) : (
                                    <></>
                               )}
-
                               {playerRank !== '--' ? (
                                    <View style={{ alignItems: 'center' }}>
                                         <Link
-                                             to="/PlayersLoL"
+                                             to={`/room/${id}`}
                                              onPress={handleSubmit}
                                              style={{
                                                   margin: 'auto',

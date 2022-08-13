@@ -3,17 +3,17 @@ import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView } from 'react-n
 import { Link } from 'react-router-native';
 import Constants from 'expo-constants';
 import Nav from './Nav';
-import PlayersCSCard from './PlayersCSCard.jsx';
+import PlayerCard from './PlayerCard.jsx';
 import OrderRating from './Filters/OrderRating';
 import FilterPosition from './Filters/FilterPositionCSGO';
 import FilterElo from './Filters/FilterEloCSGO';
-// import Players from '../data/usersCSGO.js';
+import Players from '../data/usersCSGO.js';
 import { useSelector } from 'react-redux';
 import { connect } from 'react-redux';
 
 const RoomCS = () => {
-     const Players = useSelector((state) => state.games.playersCSGO);
-
+     // const Players = useSelector((state) => state.games.playersCSGO);
+     console.log('esto es playersCS: ',  Players)
      return (
           <View style={styles.container}>
                <Text
@@ -56,9 +56,9 @@ const RoomCS = () => {
                               <FilterElo />
                          </View>
                          {Players.length > 0 ? (
-                              Players.map((player) => (
-                                   <PlayersCSCard
-                                        key={player.id}
+                              Players.map((player, i) => (
+                                   <PlayerCard
+                                        key={i}
                                         id={player.id}
                                         img={player.img}
                                         name={player.name}
