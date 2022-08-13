@@ -11,7 +11,7 @@ import {
 import moment from 'moment';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector, connect } from 'react-redux';
-import { getAllNews } from '../redux/actions/index.js';
+import { deleteNews, getAllNews } from '../redux/actions/index.js';
 import { Link } from 'react-router-native';
 import Constants from 'expo-constants';
 import Nav from './Nav';
@@ -23,7 +23,11 @@ const News = () => {
 
      useEffect(() => {
           dispatch(getAllNews());
-     }, [dispatch]);
+     });
+
+     function handleDelete(idNew) {
+          dispatch(deleteNews(idNew));
+     }
 
      const imgDefecto = (
           <Image
@@ -74,6 +78,7 @@ const News = () => {
                                                             top: 12,
                                                             right: 10,
                                                        }}
+                                                       onPress={(e) => handleDelete(data._id)}
                                                   >
                                                        <Image
                                                             source={require('../../assets/iconTrash.png')}
