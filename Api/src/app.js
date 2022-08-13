@@ -22,8 +22,6 @@ serverExpress.use((req, res, next) => {
 });
 
 
-//lo que esta mostrando en sockets
-serverExpress.use(express.static(path.join(__dirname, 'public')))
 //*cuando inicia express
 config.createRole()
 

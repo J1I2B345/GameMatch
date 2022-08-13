@@ -22,7 +22,11 @@ let httpServer = server.listen(process.env.PORT, () => {
  
    // eslint-disable-line no-console
 });
-let io = new Server(httpServer)
+let io = new Server(httpServer, {
+    cors: {
+        origin: "http://localhost:19006",
+    }
+})
 sockets(io)
 
 
