@@ -55,7 +55,7 @@ const schema = new Schema(
       type: String,
       //default: buscar una imagen que sea tipo la de facebook
         type: String,
-        default: 'https://randomwordgenerator.com/img/picture-generator/55e1d4414e51aa14f1dc8460962e33791c3ad6e04e507749772f78d69f4acc_640.jpg'
+        default: 'https://www.pngplay.com/wp-content/uploads/13/Gamer-Aesthetic-PNG-Photo-Image.png'
     },
     description: String,
     socialNetworks: {
