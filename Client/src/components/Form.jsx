@@ -1,5 +1,5 @@
 import { Picker } from '@react-native-picker/picker';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Text, View, Image } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Link, useParams } from 'react-router-native';
@@ -16,8 +16,8 @@ export default function Form() {
      let { id } = useParams();
      let dispatch = useDispatch();
      let user = useSelector((state) => state.games.user);
-
      const games = useSelector( state => state.games.games)
+     
 
      const fetchGame = () => {
           let respuesta = games.find(e => e._id === id)
@@ -25,7 +25,7 @@ export default function Form() {
      };
 
      useEffect(() => {
-          fetchGame();
+          if(!game.name){fetchGame();}
      }, []);
 
      function handleClickPosition(valor) {
@@ -150,7 +150,6 @@ export default function Form() {
                               ) : (
                                    <></>
                               )}
-
                               {playerRank !== '--' ? (
                                    <View style={{ alignItems: 'center' }}>
                                         <Link

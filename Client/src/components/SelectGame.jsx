@@ -18,9 +18,9 @@ export default function SelectGame() {
      const userGlobal = useSelector((state) => state.games.user);
     
 
-     
+
      useEffect(() => {
-          dispatch(getGames());
+          if(!games){dispatch(getGames())}
      }, []);
 
      
@@ -41,7 +41,7 @@ export default function SelectGame() {
      return (
           <View>
                {games && games.length >= 1 ? 
-               (
+               (    
                     <SafeAreaView
                          style={{
                               alignItems: 'center',
