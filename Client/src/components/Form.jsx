@@ -1,5 +1,5 @@
 import { Picker } from '@react-native-picker/picker';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { Text, View, Image } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Link, useParams } from 'react-router-native';
@@ -8,7 +8,6 @@ import { updateUser } from '../redux/actions';
 import Constants from 'expo-constants';
 import Spinner from './Spinner';
 import Nav from './Nav';
-import axios from 'axios';
 
 export default function Form() {
      let [game, setGame] = useState({ position: false });
@@ -18,16 +17,11 @@ export default function Form() {
      let dispatch = useDispatch();
      let user = useSelector((state) => state.games.user);
 
-     const fetchGame = async () => {
-          try {
-               const response = await axios.get(
-                    `https://backend-gamematch.herokuapp.com/games/${id}`
-               );
-               const respuesta = response.data;
+     const games = useSelector( state => state.games.games)
+
+     const fetchGame = () => {
+          let respuesta = games.find(e => e._id === id)
                setGame(respuesta);
-          } catch (error) {
-               console.error(error.message);
-          }
      };
 
      useEffect(() => {

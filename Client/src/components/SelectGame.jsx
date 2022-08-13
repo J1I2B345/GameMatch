@@ -14,12 +14,17 @@ export default function SelectGame() {
    
      const dispatch = useDispatch()
      const games = useSelector( state => state.games.games)
-     console.log(games)
 
+     const userGlobal = useSelector((state) => state.games.user);
+    
+
+     
+     useEffect(() => {
+          dispatch(getGames());
+     }, []);
 
      
 
-     const userGlobal = useSelector((state) => state.games.user);
 
      function onPress(game) {
           let user = {
@@ -32,14 +37,11 @@ export default function SelectGame() {
           dispatch(updateUser(user));
      }
 
-     useEffect(() => {
-          getGames('ke pasa acá');
-          console.log('getgames llamado')
-     }, [games]);
 
      return (
           <View>
-               {games ? (
+               {games && games.length >= 1 ? 
+               (
                     <SafeAreaView
                          style={{
                               alignItems: 'center',
@@ -85,7 +87,7 @@ export default function SelectGame() {
                                              to play today?
                                         </Text>
                                    </View>
-                                   {games.lengt && games.map((game) => {
+                                   {games && games.length > 0 && games.map((game) => {
                                         return (
                                              <Game
                                                   key={game._id}
@@ -120,7 +122,8 @@ export default function SelectGame() {
                          </Link>
                          <StatusBar style="auto" />
                     </SafeAreaView>
-               ) : (
+               ) 
+               : (
                     <Spinner />
                )}
                <Nav />

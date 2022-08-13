@@ -155,15 +155,10 @@ export const allUser = () => (dispatch) => {
           });
 };
 
-// export const getGames = () => (dispatch) =>{
-//      return axios.get(`https://backend-gamematch.herokuapp.com/games`)
-//                     .then (info => dispatch({type: GET_GAMES, payload: info.data}))
-//                     .catch(error => console.log(error.message))
-// }
-
-
-export const getGames = (payload) =>{
-     return {type: GET_GAMES, payload}
+export const getGames = () => (dispatch) =>{
+     return axios.get(`https://backend-gamematch.herokuapp.com/games`)
+                    .then (info => dispatch({type: GET_GAMES, payload: info.data}))
+                    .catch(error => console.log(error.message))
 }
 
 

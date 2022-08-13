@@ -23,6 +23,8 @@ import { updateUser } from '../redux/actions';
 
 export default function Room() {
     // const playersGlobal = useSelector((state) => state.games.playersLoL);
+    const games = useSelector( state => state.games.games)
+    
     const [players, setPlayers] = useState([]);
     const user = useSelector((state) => state.games.user);
     const socket = useRef();

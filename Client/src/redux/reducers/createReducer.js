@@ -5,7 +5,7 @@ import playersR6 from '../../data/usersR6';
 // import userProfile from '../../data/UsersInfo';
 
 const initialState = {
-  games: 'pedrito',
+  games: false,
   news: [],
   playersLoL: [],
   playersCSGO: playersCSGO,
