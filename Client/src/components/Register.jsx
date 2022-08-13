@@ -12,50 +12,63 @@ import {
   SafeAreaView,
   ScrollView,
   Image,
-  Alert
+  Alert,
 } from "react-native";
 import { register, allUser } from "../redux/actions";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { useState, useEffect } from 'react';
-
+import { useState, useEffect } from "react";
+import axios from "axios";
 //*----------------
 const reviewSchema = yup.object({
   email: yup.string().required().min(3).email(),
   username: yup.string().required().min(3),
-  password: yup.string().required().min(3),
+  password: yup.string().required().min(8),
 });
 //-----
 // console.log('allUser');
 // console.log(allUser());
+//*---------------------------------
 const Register = () => {
   const dispatch = useDispatch();
   const navigation = useNavigate();
   useEffect(() => {
     dispatch(allUser());
-}, []);
+  }, []);
 
-  const user= useSelector((state) => state.games.aux);
- // console.log(user[0])
-
-  const submit = (values, actions) => {
-    //console.log(values);
-   // console.log(   user.map((d)=>d.email).includes((values.email)) )
-  if (values) {
-   if (user.map((d)=>d.email).includes((values.email))) {
-   Alert.alert('The email already exists') 
-   return;}
-   if (user.map((d)=>d.username).includes((values.username))) {
-    Alert.alert('The username already exists, try again') 
-    return;}
-
-    
-    dispatch(register(values));
-     navigation("/");
+  const user = useSelector((state) => state.games.aux);
+  // console.log(user[0])
+  const setpassword = (value)=>{
+    setConfirm(value)
   }
-  
+  const [ confirm, setConfirm ] = useState("");
+  const submit = async(values, actions) => {
+    //console.log(values);
+    try {               
+      if (values) {
+        if (user.map((d) => d.email).includes(values.email)) {
+          Alert.alert("The email already exists");
+          return;
+        }
+        if (user.map((d) => d.username).includes(values.username)) {
+          Alert.alert("The username already exists, try again");
+          return;
+        }
+        let res = await axios.post("https://backend-gamematch.herokuapp.com/users/register",values)
+        if (confirm !== values.password) {
+          Alert.alert("The password dont match, try again");
+          return;
+        } } 
+      }catch (error) {
+        Alert.alert(error.message)
+     console.log({message: error.message})
+    }
 
-  };
+
+    //  dispatch(register(values));
+     // navigation("/");
+    }
+  
 
   return (
     <SafeAreaView style={styles.container}>
@@ -73,7 +86,6 @@ const Register = () => {
               email: "",
               username: "",
               password: "",
-             
             }}
             validationSchema={reviewSchema}
             onSubmit={submit}
@@ -81,8 +93,7 @@ const Register = () => {
             {(formikProps) => (
               <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.form_container}>
-                 
-                <TextInput
+                  <TextInput
                     placeholder="Nick name"
                     onChangeText={formikProps.handleChange("username")}
                     value={formikProps.values.username}
@@ -91,8 +102,8 @@ const Register = () => {
                   />
                   <View style={styles.relleno}></View>
                   <Text style={{ color: "red", fontSize: 10 }}>
-                    {formikProps.touched.username && formikProps.errors.username}
-                  
+                    {formikProps.touched.username &&
+                      formikProps.errors.username}
                   </Text>
 
                   <TextInput
@@ -124,13 +135,18 @@ const Register = () => {
                   {/* <TextInput
                     placeholder="Repeat Password"
                     style={styles.input}
+                    onChangeText={(text) => setpassword(text)}
+                    value={confirm}
+                  /> */}
+                  <TextInput
+                    placeholder="Repeat Password"
+                    style={styles.input}
                     onChangeText={formikProps.handleChange("confirm")}
                     value={confirm}
                     secureTextEntry={true}
-                  /> */}
+                  />
                   <Text style={{ color: "red", fontSize: 10 }}>
-                    {formikProps.touched.confirm &&
-                      formikProps.errors.confirm}
+                    {formikProps.touched.confirm && formikProps.errors.confirm}
                   </Text>
                   <View style={styles.relleno}></View>
                   <View
@@ -205,7 +221,7 @@ const styles = StyleSheet.create({
   input: {
     marginTop: 35,
     marginBottom: 20,
-   color: "white",
+    color: "white",
     borderWidth: 1,
     backgroundColor: "#5F0f99",
     height: 38,
