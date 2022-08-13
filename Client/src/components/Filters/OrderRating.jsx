@@ -4,6 +4,15 @@ import { useState } from 'react';
 import { connect } from 'react-redux';
 
 const OrderRating = ({handleOrder}) => {
+     const [option, setOption] = useState('Any');
+
+     const handleAll = (e)=> {
+          setOption(e);
+          handleOrder(e);
+     }
+
+   
+
      return (
           <View
                style={{
@@ -24,7 +33,8 @@ const OrderRating = ({handleOrder}) => {
                     Order By Rating
                </Text>
                <Picker
-                    onValueChange={(e) => handleOrder(e)}
+                    selectedValue={option}
+                    onValueChange={(e) => handleAll(e)}
                     style={{
                          marginBottom: 10,
                          width: '100%',

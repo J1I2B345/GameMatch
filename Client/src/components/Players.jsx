@@ -14,7 +14,7 @@ export default function Players ({players}) {
                                 name={player.username}
                                 elo={player.elo}
                                 position={player.position}
-                                rating={player.rating.$numberDecimal}
+                                rating={player.rating}
                                 />
                                 })
                                 ) : (

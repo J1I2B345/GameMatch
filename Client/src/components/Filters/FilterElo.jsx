@@ -1,8 +1,16 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { connect } from 'react-redux';
+import { useState } from 'react';
 
 const FilterElo = ({elo, handleElo}) => {
+     const [option, setOption] = useState('Any');
+
+     function handleAll(e) {
+          setOption(e);
+          handleElo(e);
+     }
+
 
      return (
           <View
@@ -24,7 +32,8 @@ const FilterElo = ({elo, handleElo}) => {
                     Filter By Elo
                </Text>
                <Picker
-                    onValueChange={e => handleElo(e)}
+                    selectedValue={option}
+                    onValueChange={(e) => handleAll(e)}
                     style={{
                          marginBottom: 10,
                          width: '100%',

@@ -66,8 +66,16 @@ const PlayerCard = ({ id, img, name, elo, position, rating }) => {
                                         Position: {position}
                                    </Text>
                                 }
-                                {rating && 
+                                {rating && rating.$numberDecimal? 
                                     <Text
+                                        style={{
+                                             fontSize: 13,
+                                             color: '#fff',
+                                        }}
+                                   >
+                                        Calification: {rating.$numberDecimal}
+                                   </Text> :
+                                   <Text
                                         style={{
                                              fontSize: 13,
                                              color: '#fff',
