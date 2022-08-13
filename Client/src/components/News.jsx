@@ -22,6 +22,7 @@ const News = () => {
      const dispatch = useDispatch();
      const navigate = useNavigate();
      const news = useSelector((state) => state.games.news);
+     const user = useSelector((state) => state.games.userProfile);
 
      useEffect(() => {
           dispatch(getAllNews());
@@ -79,22 +80,27 @@ const News = () => {
                                    <View style={{ alignItems: 'center' }}>
                                         {news.map((data) => (
                                              <View key={data._id} style={styles.card_container}>
-                                                  <TouchableOpacity
-                                                       style={{
-                                                            position: 'absolute',
-                                                            top: 15,
-                                                            right: 12,
-                                                       }}
-                                                       onPress={(e) => handleEdit(data)}
-                                                  >
-                                                       <Image
-                                                            source={require('../../assets/editNews.png')}
+                                                  {data.author.length > 0 &&
+                                                  user._id == data.author[0]._id ? (
+                                                       <TouchableOpacity
                                                             style={{
-                                                                 width: 17,
-                                                                 height: 17,
+                                                                 position: 'absolute',
+                                                                 top: 15,
+                                                                 right: 12,
                                                             }}
-                                                       />
-                                                  </TouchableOpacity>
+                                                            onPress={(e) => handleEdit(data)}
+                                                       >
+                                                            <Image
+                                                                 source={require('../../assets/editNews.png')}
+                                                                 style={{
+                                                                      width: 17,
+                                                                      height: 17,
+                                                                 }}
+                                                            />
+                                                       </TouchableOpacity>
+                                                  ) : (
+                                                       <View></View>
+                                                  )}
                                                   <View
                                                        style={{
                                                             flexDirection: 'row',
