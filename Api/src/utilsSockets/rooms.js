@@ -130,7 +130,6 @@ function userJoin(user){
 }
 
 function getGameUsers(game){
-    console.log ('cuando va a mandar los users', game, usersLol)
     if (game === "League of Legends") {
         return usersLol        
     }
