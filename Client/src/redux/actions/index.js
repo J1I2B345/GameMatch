@@ -53,7 +53,16 @@ export const getAllNews = () => {
 export const addNews = (news) => {
 	return async () => {
 		return await axios.post(
-			`https://backend-gamematch.herokuapp.com/News`,
+			`https://backend-gamematch.herokuapp.com/news`,
+			news
+		);
+	};
+};
+
+export const editNews = (news) => {
+	return async () => {
+		return await axios.put(
+			`https://backend-gamematch.herokuapp.com/news/edit/${news._id}`,
 			news
 		);
 	};

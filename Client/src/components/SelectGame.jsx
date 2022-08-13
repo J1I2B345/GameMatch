@@ -52,32 +52,49 @@ export default function SelectGame() {
 						<View style={{ alignItems: "center", justifyContent: "center" }}>
 							<View
 								style={{
-									marginLeft: "13%",
 									width: "100%",
+									borderWidth: 1,
+									borderColor: "#fff",
+									alignItems: "center",
 								}}
 							>
 								<Text
 									style={{
-										marginTop: Constants.statusBarHeight,
+										marginTop: 5,
 										color: "white",
 										fontSize: 45,
 									}}
+								></Text>
+								<Text
+									style={{
+										marginTop: 5,
+										color: "white",
+										fontSize: 35,
+										fontWeight: "bold",
+									}}
 								>
-									¿What
+									⭐ Select your
 								</Text>
-								<Text style={{ marginTop: -5, color: "white", fontSize: 45 }}>
-									do you want
+								<Text
+									style={{
+										marginTop: -5,
+										marginBottom: 5,
+										color: "white",
+										fontSize: 35,
+										fontStyle: "italic",
+									}}
+								>
+									Favourite Game!
 								</Text>
 								<Text
 									style={{
 										marginTop: -5,
 										marginBottom: 10,
 										color: "white",
-										fontSize: 45,
+										fontSize: 25,
+										fontWeight: "bold",
 									}}
-								>
-									to play today?
-								</Text>
+								></Text>
 							</View>
 							{games &&
 								games.length > 0 &&
@@ -97,23 +114,27 @@ export default function SelectGame() {
 								})}
 						</View>
 					</ScrollView>
-
-					<Link
-						to="/createGame"
-						activeOpacity={1}
-						underlayColor={""}
-						style={{
-							position: "absolute",
-							bottom: 80,
-							left: 20,
-							height: 45,
-						}}
-					>
-						<Image
-							source={require("../../assets/addGame.png")}
-							style={{ width: 50, height: 50 }}
-						/>
-					</Link>
+					{/* {console.log(userGlobal.roles.map(role => role.name).includes('Admin'))} */}
+					{userGlobal?.roles?.map((role) => role.name).includes("Admin") ? (
+						<Link
+							to="/createGame"
+							activeOpacity={1}
+							underlayColor={""}
+							style={{
+								position: "absolute",
+								bottom: 80,
+								left: 20,
+								height: 45,
+							}}
+						>
+							<Image
+								source={require("../../assets/addGame.png")}
+								style={{ width: 50, height: 50 }}
+							/>
+						</Link>
+					) : (
+						<Text></Text>
+					)}
 					<StatusBar style="auto" />
 				</SafeAreaView>
 			) : (

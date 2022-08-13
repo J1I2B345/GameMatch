@@ -1,45 +1,48 @@
-import { useDispatch, useSelector } from "react-redux";
-import { addNews } from "../redux/actions/index.js";
-import { Link, useNavigate } from "react-router-native";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteNews, editNews } from '../redux/actions/index.js';
+import { Link, useNavigate } from 'react-router-native';
+import { connect } from 'react-redux';
 import {
      StyleSheet,
-     Button,
      TextInput,
      View,
      Text,
      TouchableWithoutFeedback,
      Keyboard,
-     SafeAreaView,
-     ScrollView,
      TouchableOpacity,
+     Image,
 } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
-
 const reviewSchema = yup.object({
-	description: yup.string().required().min(1),
+     description: yup.string().required().min(1),
 });
 
-const CreateNews = () => {
-	const dispatch = useDispatch();
-	const navigation = useNavigate();
-	const user = useSelector((state) => state.games.userProfile);
+const EditNews = ({ _id, title, description }) => {
+     const dispatch = useDispatch();
+     const navigation = useNavigate();
+     const user = useSelector((state) => state.games.userProfile);
 
-	const submit = (values, actions) => {
-		dispatch(addNews(values));
-		navigation("/news");
-	};
+     function handleDelete(idNew) {
+          dispatch(deleteNews(idNew));
+          navigation('/news');
+     }
+
+     const submit = (values, actions) => {
+          dispatch(editNews(values));
+          navigation('/news');
+     };
 
      return (
           <View style={styles.container}>
                <View style={styles.portada}>
                     <Formik
                          initialValues={{
+                              _id: _id,
                               author: user._id,
-                              title: '',
-                              description: '',
+                              title: title,
+                              description: description,
                          }}
                          validationSchema={reviewSchema}
                          onSubmit={submit}
@@ -47,7 +50,7 @@ const CreateNews = () => {
                          {(formikProps) => (
                               <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                                    <View style={styles.form_container}>
-                                        <Text style={styles.portada_text}>New Post</Text>
+                                        <Text style={styles.portada_text}>Edit Post</Text>
                                         <TextInput
                                              style={styles.input}
                                              placeholder="Title"
@@ -72,7 +75,7 @@ const CreateNews = () => {
                                                   flexDirection: 'row',
                                                   width: '100%',
                                                   alignItems: 'center',
-                                                  justifyContent: 'center',
+                                                  justifyContent: 'space-around',
                                              }}
                                         >
                                              <Link
@@ -80,7 +83,6 @@ const CreateNews = () => {
                                                   activeOpacity={1}
                                                   underlayColor={''}
                                                   style={{
-                                                       marginRight: '50%',
                                                        padding: 10,
                                                        width: 'auto',
                                                        height: 'auto',
@@ -98,6 +100,24 @@ const CreateNews = () => {
                                                        cancel
                                                   </Text>
                                              </Link>
+                                             <TouchableOpacity
+                                                  style={{
+                                                       marginRight: -4.5,
+                                                       width: 'auto',
+                                                       height: 'auto',
+                                                       alignItems: 'center',
+                                                       borderRadius: 15,
+                                                  }}
+                                                  onPress={() => handleDelete(_id)}
+                                             >
+                                                  <Image
+                                                       source={require('../../assets/iconTrash.png')}
+                                                       style={{
+                                                            width: 22,
+                                                            height: 22,
+                                                       }}
+                                                  />
+                                             </TouchableOpacity>
                                              <TouchableOpacity
                                                   style={{
                                                        padding: 10,
@@ -175,4 +195,4 @@ const styles = StyleSheet.create({
      },
 });
 
-export default CreateNews;
+export default EditNews;

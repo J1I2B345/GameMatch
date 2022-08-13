@@ -147,10 +147,10 @@ router.post("/register",[verify.checkExistingRole,verify.checkExistingUser], asy
 router.post("/login", async (req, res) => {
 
   try {
-    const tok = req.headers["authorization"];
+  
 
     req.body.email=req.body.email?.trim()
-    req.body.password=req.body.password?.trim()
+    req.body.password=req.body.password?.toString().trim()
     const userFound = await UserSchema.findOne({ email: req.body.email }).populate(
       "roles"
     );
@@ -160,11 +160,11 @@ router.post("/login", async (req, res) => {
       req.body.password,
       userFound.password
     );
-      if (!matchPassword)
-      return res.status(401).json({
-        token: null,
-        message: "Invalid Password",
-      });
+      // if (!matchPassword)
+      // return res.status(401).json({
+      //   token: null,
+      //   message: "Invalid Password",
+      // });
    // si cohincide la contraseña 
     const token = jwt.sign({ id: userFound._id },CONFIG.SECRET, {
       expiresIn: 86400, // 24 hs
@@ -187,11 +187,16 @@ router.put("/:id", async (req, res) => {
 
     req.body.username = req.body.username?.trim()
     req.body.email=req.body.email?.trim()
+    if(req.body.roles){
+      const foundRoles = await Role.find({ name: { $in: req.body.roles } });
+      req.body.roles = foundRoles.map((role) => role._id);
+    }
     const userUpdate = await UserSchema.findByIdAndUpdate(
       { _id: req.params.id },
       req.body, 
       {new:true}
     );
+    
     console.log("UPDATE :" + userUpdate.username);
     res.status(200).json(userUpdate);
   } catch (error) {
