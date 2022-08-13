@@ -1,16 +1,15 @@
-
-import { CREATE_GAME, GET_USERNAME, UPDATE_USER, CREATE_SOCKET } from '../constants';
+import { CREATE_GAME, GET_USERNAME, UPDATE_USER, CREATE_SOCKET, GET_GAMES } from '../constants';
 import playersLoL from '../../data/usersLOL';
 import playersCSGO from '../../data/usersCSGO';
 import playersR6 from '../../data/usersR6';
 // import userProfile from '../../data/UsersInfo';
 
 const initialState = {
-  games: null,
+  games: 'pedrito',
   news: [],
   playersLoL: [],
-  playersCSGO: [],
-  playersR6: [],
+  playersCSGO: playersCSGO,
+  playersR6: playersR6,
   user: [],
   userProfile: [],
   aux: [],
@@ -18,7 +17,6 @@ const initialState = {
 
 const createReducer = (state = initialState, action) => {
   const { type, payload } = action;
-
   switch (type) {
     case CREATE_GAME:
       return { ...state, games: [...state.games, payload] };
@@ -224,6 +222,12 @@ const createReducer = (state = initialState, action) => {
         ...state,
         aux: payload,
       };
+
+    case GET_GAMES:
+        return {
+          ...state, 
+          games: payload
+        };
     default:
       return state;
   }

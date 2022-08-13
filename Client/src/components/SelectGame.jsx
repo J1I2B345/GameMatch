@@ -1,18 +1,23 @@
 import { View, Text, Image, SafeAreaView, ScrollView } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
 import Constants from 'expo-constants';
 import { Link } from 'react-router-native';
 import Nav from './Nav';
-import axios from 'axios';
 import Game from './Game';
 import Spinner from './Spinner';
-import { updateUser } from '../redux/actions';
+import { updateUser, getGames } from '../redux/actions';
+// import axios from 'axios';
 
 export default function SelectGame() {
-     const dispatch = useDispatch();
-     let [games, setGames] = useState([]);
+   
+     const dispatch = useDispatch()
+     const games = useSelector( state => state.games.games)
+     console.log(games)
+
+
+     
 
      const userGlobal = useSelector((state) => state.games.user);
 
@@ -27,23 +32,14 @@ export default function SelectGame() {
           dispatch(updateUser(user));
      }
 
-     const fetchGames = async () => {
-          try {
-               const response = await axios.get('https://backend-gamematch.herokuapp.com/games');
-               const respuesta = response.data;
-               setGames(respuesta);
-          } catch (error) {
-               console.error(error.message);
-          }
-     };
-
      useEffect(() => {
-          fetchGames();
-     }, []);
+          getGames('ke pasa acá');
+          console.log('getgames llamado')
+     }, [games]);
 
      return (
           <View>
-               {games.length > 0 ? (
+               {games ? (
                     <SafeAreaView
                          style={{
                               alignItems: 'center',
@@ -89,7 +85,7 @@ export default function SelectGame() {
                                              to play today?
                                         </Text>
                                    </View>
-                                   {games.map((game) => {
+                                   {games.lengt && games.map((game) => {
                                         return (
                                              <Game
                                                   key={game._id}

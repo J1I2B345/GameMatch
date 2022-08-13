@@ -160,7 +160,7 @@ export default function Form() {
                               {playerRank !== '--' ? (
                                    <View style={{ alignItems: 'center' }}>
                                         <Link
-                                             to="/PlayersLoL"
+                                             to={`/room/${id}`}
                                              onPress={handleSubmit}
                                              style={{
                                                   margin: 'auto',

@@ -3,14 +3,14 @@ import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView } from 'react-n
 import { Link } from 'react-router-native';
 import Constants from 'expo-constants';
 import Nav from './Nav';
-import PlayersR6 from './PlayersR6.jsx';
+import PlayerCard from './PlayerCard.jsx';
 import FilterElo from './Filters/FilterEloR6';
 import OrderRating from './Filters/OrderRating';
 import { connect, useSelector } from 'react-redux';
-// import Players from '../data/usersR6.js';
+import Players from '../data/usersR6.js';
 
 const RoomCS = () => {
-     const Players = useSelector((state) => state.games.playersR6);
+     // const Players = useSelector((state) => state.games.playersR6);
 
      return (
           <View style={styles.container}>
@@ -48,7 +48,7 @@ const RoomCS = () => {
                          </View>
                          {Players.length > 0 ? (
                               Players.map((player) => (
-                                   <PlayersR6
+                                   <PlayerCard
                                         key={player.id}
                                         id={player.id}
                                         img={player.img}
