@@ -12,21 +12,28 @@ import moment from 'moment';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector, connect } from 'react-redux';
 import { deleteNews, getAllNews } from '../redux/actions/index.js';
-import { Link } from 'react-router-native';
+import { Link, useNavigate } from 'react-router-native';
 import Constants from 'expo-constants';
 import Nav from './Nav';
 import Spinner from './Spinner';
+import EditNews from './EditNews.jsx';
 
 const News = () => {
      const dispatch = useDispatch();
+     const navigate = useNavigate();
      const news = useSelector((state) => state.games.news);
 
      useEffect(() => {
           dispatch(getAllNews());
      });
 
-     function handleDelete(idNew) {
-          dispatch(deleteNews(idNew));
+     function handlePost(news) {
+          navigate('/news/add');
+     }
+
+     function handleEdit(news) {
+          navigate('/news/edit');
+          // return <EditNews _id={news._id} title={news.title} description={news.description} />;
      }
 
      const imgDefecto = (
@@ -75,16 +82,16 @@ const News = () => {
                                                   <TouchableOpacity
                                                        style={{
                                                             position: 'absolute',
-                                                            top: 12,
-                                                            right: 10,
+                                                            top: 15,
+                                                            right: 12,
                                                        }}
-                                                       onPress={(e) => handleDelete(data._id)}
+                                                       onPress={(e) => handleEdit(data)}
                                                   >
                                                        <Image
-                                                            source={require('../../assets/iconTrash.png')}
+                                                            source={require('../../assets/editNews.png')}
                                                             style={{
-                                                                 width: 20,
-                                                                 height: 20,
+                                                                 width: 17,
+                                                                 height: 17,
                                                             }}
                                                        />
                                                   </TouchableOpacity>
@@ -164,22 +171,20 @@ const News = () => {
                                    </View>
                               </ScrollView>
                          </SafeAreaView>
-                         <Link
-                              to="/news/add"
-                              activeOpacity={1}
-                              underlayColor={''}
+                         <TouchableOpacity
                               style={{
                                    position: 'absolute',
                                    bottom: 80,
                                    left: 20,
                                    height: 45,
                               }}
+                              onPress={() => handlePost()}
                          >
                               <Image
-                                   source={require('../../assets/editProfile.png')}
+                                   source={require('../../assets/addGame.png')}
                                    style={{ width: 50, height: 50 }}
                               />
-                         </Link>
+                         </TouchableOpacity>
                          <StatusBar style="auto" />
                     </View>
                ) : (
