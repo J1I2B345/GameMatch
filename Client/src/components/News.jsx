@@ -180,7 +180,7 @@ const News = () => {
             }}
             onPress={() => handlePost()}
           >
-            {user.roles.map((role) => role.name).includes("Admin") ? (
+            {user?.roles?.map((role) => role.name).includes("Admin") ? (
               <Image
                 source={require("../../assets/addGame.png")}
                 style={{ width: 50, height: 50 }}

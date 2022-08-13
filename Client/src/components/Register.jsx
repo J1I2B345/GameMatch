@@ -38,13 +38,13 @@ const Register = () => {
 
   const user = useSelector((state) => state.games.aux);
   // console.log(user[0])
-  const setpassword = (value)=>{
-    setConfirm(value)
-  }
-  const [ confirm, setConfirm ] = useState("");
-  const submit = async(values, actions) => {
+  const setpassword = (value) => {
+    setConfirm(value);
+  };
+  const [confirm, setConfirm] = useState("");
+  const submit = async (values, actions) => {
     //console.log(values);
-    try {               
+    try {
       if (values) {
         if (user.map((d) => d.email).includes(values.email)) {
           Alert.alert("The email already exists");
@@ -54,21 +54,24 @@ const Register = () => {
           Alert.alert("The username already exists, try again");
           return;
         }
-        let res = await axios.post("https://backend-gamematch.herokuapp.com/users/register",values)
+
         if (confirm !== values.password) {
           Alert.alert("The password dont match, try again");
           return;
-        } } 
-      }catch (error) {
-        Alert.alert(error.message)
-     console.log({message: error.message})
+        }
+        dispatch(register(values));
+        await axios.post(
+          "https://backend-gamematch.herokuapp.com/users/register",
+          values
+        );
+        navigation("/");
+        Alert.alert("💖Welcome to GameMatch!!🎮");
+      }
+    } catch (error) {
+      Alert.alert(error.message);
+      console.log({ message: error.message });
     }
-
-
-    //  dispatch(register(values));
-     // navigation("/");
-    }
-  
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -132,13 +135,13 @@ const Register = () => {
                     {formikProps.touched.password &&
                       formikProps.errors.password}
                   </Text>
-                  {/* <TextInput
+                  <TextInput
                     placeholder="Repeat Password"
                     style={styles.input}
                     onChangeText={(text) => setpassword(text)}
                     value={confirm}
-                  /> */}
-                  <TextInput
+                  />
+                  {/* <TextInput
                     placeholder="Repeat Password"
                     style={styles.input}
                     onChangeText={formikProps.handleChange("confirm")}
@@ -147,7 +150,7 @@ const Register = () => {
                   />
                   <Text style={{ color: "red", fontSize: 10 }}>
                     {formikProps.touched.confirm && formikProps.errors.confirm}
-                  </Text>
+                  </Text> */}
                   <View style={styles.relleno}></View>
                   <View
                     style={{
