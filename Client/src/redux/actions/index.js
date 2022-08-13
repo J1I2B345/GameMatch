@@ -1,4 +1,4 @@
-import { CREATE_GAME, GET_USERNAME, UPDATE_USER, CREATE_SOCKET } from '../constants';
+import { CREATE_GAME, GET_USERNAME, UPDATE_USER, GET_GAMES } from '../constants';
 import axios from 'axios';
 
 export const createGame = (game) => (dispatch) => {
@@ -154,3 +154,18 @@ export const allUser = () => (dispatch) => {
                dispatch({ type: 'USER', payload: json });
           });
 };
+
+
+export const getGames = () => (dispatch) =>{
+     return axios.get(`https://backend-gamematch.herokuapp.com/games`)
+                    .then (info => dispatch({
+                         type: GET_GAMES, 
+                         payload: info.data
+                    }))
+                    .catch(error => console.log(error.message))
+}
+
+
+
+
+

@@ -1,20 +1,30 @@
 import { View, Text, Image, SafeAreaView, ScrollView } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
 import Constants from 'expo-constants';
 import { Link } from 'react-router-native';
 import Nav from './Nav';
-import axios from 'axios';
 import Game from './Game';
 import Spinner from './Spinner';
-import { updateUser } from '../redux/actions';
+import { updateUser, getGames } from '../redux/actions';
+// import axios from 'axios';
 
 export default function SelectGame() {
-     const dispatch = useDispatch();
-     let [games, setGames] = useState([]);
+   
+     const dispatch = useDispatch()
+     const games = useSelector( state => state.games.games)
 
      const userGlobal = useSelector((state) => state.games.user);
+    
+
+
+     useEffect(() => {
+          if(!games){dispatch(getGames())}
+     }, []);
+
+     
+
 
      function onPress(game) {
           let user = {
@@ -27,23 +37,11 @@ export default function SelectGame() {
           dispatch(updateUser(user));
      }
 
-     const fetchGames = async () => {
-          try {
-               const response = await axios.get('https://backend-gamematch.herokuapp.com/games');
-               const respuesta = response.data;
-               setGames(respuesta);
-          } catch (error) {
-               console.error(error.message);
-          }
-     };
-
-     useEffect(() => {
-          fetchGames();
-     }, []);
 
      return (
           <View>
-               {games.length > 0 ? (
+               {games && games.length >= 1 ? 
+               (    
                     <SafeAreaView
                          style={{
                               alignItems: 'center',
@@ -89,7 +87,7 @@ export default function SelectGame() {
                                              to play today?
                                         </Text>
                                    </View>
-                                   {games.map((game) => {
+                                   {games && games.length > 0 && games.map((game) => {
                                         return (
                                              <Game
                                                   key={game._id}
@@ -124,7 +122,8 @@ export default function SelectGame() {
                          </Link>
                          <StatusBar style="auto" />
                     </SafeAreaView>
-               ) : (
+               ) 
+               : (
                     <Spinner />
                )}
                <Nav />

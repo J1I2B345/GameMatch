@@ -2,9 +2,10 @@ import { Routes, Route } from 'react-router-native';
 import { View } from 'react-native';
 import Login from './Login.jsx';
 import SelectGame from './SelectGame.jsx';
-import RoomLoL from './RoomLoL.jsx';
-import RoomCS from './RoomCS.jsx';
-import RoomR6 from './RoomR6.jsx';
+// import RoomLoL from './RoomLoL.jsx';
+// import RoomCS from './RoomCS.jsx';
+// import RoomR6 from './RoomR6.jsx';
+import Room from './Room.jsx'
 import Form from './Form.jsx';
 import Chat from './Chat.jsx';
 import CreateGame from './CreateGame.jsx';
@@ -24,9 +25,10 @@ const Home = () => {
                 <Route exact path="/selectgame" element={<SelectGame />} />
                 <Route path="form/:id" element={<Form />} />
                 <Route path="/createGame" element={<CreateGame />} />
-                <Route path="/playersLoL" element={<RoomLoL />} />
+                {/* <Route path="/playersLoL" element={<RoomLoL />} />
                 <Route path="/playersCS" element={<RoomCS />} />
-                <Route path="/playersR6" element={<RoomR6 />} />
+                <Route path="/playersR6" element={<RoomR6 />} /> */}
+                <Route path="/room/:id" element={<Room/>} />
                 <Route path="selectchat" element={<SelectChat />} />
                 <Route path="/chat/:id" element={<Chat />} />
                 <Route path="/profile" element={<Profile />} />
