@@ -17,7 +17,7 @@ export const createGame = (game) => (dispatch) => {
 
 export const editProfile = (user) => {
      return async (dispatch) => {
-          // await axios.put(`https://backend-gamematch.herokuapp.com/users/${user._id}`, user);
+          await axios.put(`https://backend-gamematch.herokuapp.com/users/${user._id}`, user);
           return dispatch({ type: 'EDIT_PROFILE', payload: user });
      };
 };
@@ -108,11 +108,17 @@ export const getAllNews = () => {
 };
 
 export const addNews = (news) => {
-     return async (dispatch) => {
-          // await axios.put(`https://backend-gamematch.herokuapp.com/news`, news);
-          return dispatch({ type: 'ADD_NEWS', payload: news });
+     return async () => {
+          return await axios.post(`https://backend-gamematch.herokuapp.com/News`, news);
      };
 };
+
+export const deleteNews = (idNew) => {
+     return async () => {
+          return await axios.delete(`https://backend-gamematch.herokuapp.com/news/delete/${idNew}`);
+     };
+};
+
 export const login = (data) => (dispatch) => {
      return fetch('https://backend-gamematch.herokuapp.com/users/login', {
           method: 'POST',
@@ -123,7 +129,7 @@ export const login = (data) => (dispatch) => {
                return response.json();
           })
           .then((json) => {
-               dispatch({ type: "LOGIN", payload: json });
+               dispatch({ type: 'LOGIN', payload: json });
           });
 };
 export const register = (data) => (dispatch) => {
@@ -136,24 +142,19 @@ export const register = (data) => (dispatch) => {
                return response.json();
           })
           .then((json) => {
-               dispatch({ type: "REGISTER", payload: json });
+               dispatch({ type: 'REGISTER', payload: json });
           });
 };
 export const allUser = () => (dispatch) => {
      return fetch(`https://backend-gamematch.herokuapp.com/users`)
           .then((response) => response.json())
           .then((json) => {
-               const {
-                    username,
-                    _id,
-                    img,
-                    email,
-
-               } = json;
+               const { username, _id, img, email } = json;
 
                dispatch({ type: 'USER', payload: json });
           });
 };
+
 
 export const getGames = () => (dispatch) =>{
      return axios.get(`https://backend-gamematch.herokuapp.com/games`)
@@ -163,6 +164,7 @@ export const getGames = () => (dispatch) =>{
                     }))
                     .catch(error => console.log(error.message))
 }
+
 
 
 

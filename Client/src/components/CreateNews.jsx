@@ -12,7 +12,6 @@ import {
      Keyboard,
      SafeAreaView,
      ScrollView,
-     Image,
 } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -27,7 +26,6 @@ const CreateNews = () => {
      const user = useSelector((state) => state.games.userProfile);
 
      const submit = (values, actions) => {
-          console.log(values);
           dispatch(addNews(values));
           navigation('/news');
      };
@@ -38,14 +36,9 @@ const CreateNews = () => {
                     <View style={styles.portada}>
                          <Formik
                               initialValues={{
+                                   author: user._id,
                                    title: '',
                                    description: '',
-                                   author: [
-                                        {
-                                             img: user.img,
-                                             username: user.username,
-                                        },
-                                   ],
                               }}
                               validationSchema={reviewSchema}
                               onSubmit={submit}
@@ -100,6 +93,7 @@ const CreateNews = () => {
                                                             style={{
                                                                  paddingTop: 6.5,
                                                                  fontSize: 16,
+                                                                 color: '#fff',
                                                             }}
                                                        >
                                                             ✘

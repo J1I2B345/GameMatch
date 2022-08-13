@@ -23,14 +23,14 @@ const WhyPremium = () => {
                                    </Text>
                               </View>
                          </View>
-                         <View>
+                         <View style={{ width: '100%', alignItems: 'center' }}>
                               <Link
                                    to="/checkout"
                                    activeOpacity={1}
                                    underlayColor={'#9A01E2'}
                                    style={styles.button}
                               >
-                                   <View style={{ flexDirection: 'row' }}>
+                                   <View>
                                         <Text style={styles.button_text}>
                                              <Image
                                                   source={require('../../assets/starPremium.png')}
@@ -39,7 +39,7 @@ const WhyPremium = () => {
                                                        height: 20,
                                                   }}
                                              />
-                                             GET PREMIUM RIGHT NOW FOR $499.00
+                                             GET PREMIUM RIGHT NOW
                                              <Image
                                                   source={require('../../assets/starPremium.png')}
                                                   style={{
@@ -48,6 +48,7 @@ const WhyPremium = () => {
                                                   }}
                                              />
                                         </Text>
+                                        <Text style={styles.button_text}>FOR $499.99</Text>
                                    </View>
                               </Link>
                          </View>
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
           alignItems: 'center',
      },
      info_container: {
-          width: '90%',
+          width: '100%',
           backgroundColor: '#443ABB',
           borderRadius: 20,
           padding: 20,
@@ -107,20 +108,18 @@ const styles = StyleSheet.create({
           margin: 20,
           marginTop: 20,
           marginBottom: 10,
-          height: 40,
-          width: '90%',
+          height: 86,
+          width: '80%',
           alignItems: 'center',
+          justifyContent: 'center',
           borderRadius: 10,
           border: 'none',
           backgroundColor: '#98228C',
      },
      button_text: {
-          marginTop: 6,
           fontSize: 17,
-          width: '100%',
           textAlign: 'center',
           alignItems: 'center',
-          justifyContent: 'center',
           color: 'white',
      },
 });
