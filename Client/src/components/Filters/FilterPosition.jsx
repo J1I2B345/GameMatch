@@ -6,14 +6,8 @@ import { filterByPosition } from "../../redux/actions";
 import { connect } from "react-redux";
 
 
-const FilterPosition = ({position}) => {
-    const dispatch = useDispatch();
-    const [option, setOption] = useState("All");
+const FilterPosition = ({position, handlePosition}) => {
 
-    function handleClick(e) {
-        setOption(e);
-        dispatch(filterByPosition(e));
-    }
 
     return (
         <View
@@ -36,8 +30,7 @@ const FilterPosition = ({position}) => {
                 Filter By Position
             </Text>
             <Picker
-                selectedValue={option}
-                onValueChange={(value, index) => handleClick(value)}
+                onValueChange={ (e)=> handlePosition(e)}
                 style={{
                     marginBottom: 10,
                     width: "100%",

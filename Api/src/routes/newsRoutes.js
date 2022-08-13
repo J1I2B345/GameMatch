@@ -36,10 +36,10 @@ router.get('/', async (req, res) => {
                if (newsWithAuthorAggregation) {
                     const newsWithAuthor = newsWithAuthorAggregation.map((e) => {
                          e.author = e.author.map((e) => {
-                              return { username: e.username, img: e.img };
+                              return { _id: e._id, username: e.username, img: e.img };
                          });
                          e.editedBy = e.editedBy.map((e) => {
-                              return { username: e.username, img: e.img };
+                              return { _id: e._id, username: e.username, img: e.img };
                          });
                          return e;
                     });

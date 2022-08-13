@@ -1,19 +1,8 @@
-import { useDispatch } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { filterByEloLoL } from '../../redux/actions';
 import { connect } from 'react-redux';
 
-const FilterElo = ({elo}) => {
-     const dispatch = useDispatch();
-     const [option, setOption] = useState('All');
-
-     function handleClick(e) {
-          setOption(e);
-          dispatch(filterByEloLoL(e));
-     }
+const FilterElo = ({elo, handleElo}) => {
 
      return (
           <View
@@ -35,8 +24,7 @@ const FilterElo = ({elo}) => {
                     Filter By Elo
                </Text>
                <Picker
-                    selectedValue={option}
-                    onValueChange={(value, index) => handleClick(value)}
+                    onValueChange={e => handleElo(e)}
                     style={{
                          marginBottom: 10,
                          width: '100%',

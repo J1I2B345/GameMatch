@@ -20,11 +20,10 @@ import { useSelector } from "react-redux";
 import { connect } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
-
-
-
+import { higherRating, lowerRating, selectPosition, selectElo } from "../utils";
 import { updateUser } from '../redux/actions';
 import Spinner from '../components/Spinner';
+
 
 
 
@@ -32,12 +31,45 @@ export default function Room() {
     // const playersGlobal = useSelector((state) => state.games.playersLoL);
     const games = useSelector( state => state.games.games)
     const [players, setPlayers] = useState([]);
+    const [order, setOrder] = useState('any')
+    const [position, setPosition] = useState('any')
+    const [elo, setElo] = useState('any')
     const user = useSelector((state) => state.games.user);
     const socket = useRef();
     const{id} = useParams()
     let game = games.find(e => e._id === id)
+    let playersOrder
+    
+    function setStateOrder(order){
+        setOrder(order.toLowerCase())
+    }
+
+    function setStatePosition(position){
+        setPosition(position.toLowerCase())
+    }
+
+    function setStateElo(elo){
+        setElo(elo.toLowerCase())
+    }
+
+    function orderPlayers(){
+        playersOrder = players
+        if(order !== 'any'){
+            order === 'max-min'?  higherRating(playersOrder) : lowerRating(playersOrder)
+        }
+        if(position !== 'any') selectPosition(playersOrder)
+        if(elo) selectElo(playersOrder)
+        return playersOrder
+    }
+
+    useEffect(()=>{
+        orderPlayers
+    })
+
+
 
     useEffect(() => {
+        console.log('se conectó al io')
         socket.current = io("https://backend-gamematch.herokuapp.com/");
         socket.current.emit("joinRoom", user);
         //agregado para el user global con socketid
@@ -100,8 +132,8 @@ export default function Room() {
                                 justifyContent: "center",
                             }}
                             >
-                            <OrderRating />
-                          {game.position.length>1 && <FilterPosition position={game.position}/>}  
+                            <OrderRating handleOrder={setStateOrder}/>
+                          {game.position.length>1 && <FilterPosition position={game.position} handlePosition={setStatePosition}/>}  
                         </View>
 
                         {game.elo &&
@@ -111,10 +143,19 @@ export default function Room() {
                             justifyContent: "center",
                         }}
                         >
-                            {game.elo&& <FilterElo elo={game.elo} />}
+                            {game.elo&& <FilterElo elo={game.elo} handleElo={setStateElo} />}
                         </View>
                         }
+
+
+                    {/* componente presentacional 
+                    
+                           ||
+                           \/
+                           \/ 
+                    */}
                     <Players players={players}/>
+
                     </ScrollView>
                 </SafeAreaView>
                 </View>
