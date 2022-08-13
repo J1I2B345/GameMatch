@@ -39,32 +39,39 @@ export default function Room() {
     const{id} = useParams()
     let game = games.find(e => e._id === id)
     let playersOrder
-    
+   
+   
+
     function setStateOrder(order){
-        setOrder(order.toLowerCase())
+        // setOrder(() => {order})
+        console.log(order)
     }
 
     function setStatePosition(position){
-        setPosition(position.toLowerCase())
+        // setPosition(()=> {position})
+        console.log(position)
     }
 
     function setStateElo(elo){
-        setElo(elo.toLowerCase())
+        // setElo(() => elo)
+        console.log(elo)
     }
 
-    function orderPlayers(){
-        playersOrder = players
-        if(order !== 'any'){
-            order === 'max-min'?  higherRating(playersOrder) : lowerRating(playersOrder)
-        }
-        if(position !== 'any') selectPosition(playersOrder)
-        if(elo) selectElo(playersOrder)
-        return playersOrder
-    }
+    // function orderPlayers(){
+    //     if(players.length){
+    //     playersOrder = players
+    //     if( order && order !== 'any'){
+    //         order === 'max-min'?  higherRating(playersOrder) : lowerRating(playersOrder)
+    //     }
+    //     if(position && position !== 'any' && position!=='--' && position!=='all') selectPosition(playersOrder, position)
+    //     if(elo && elo!=='any' && elo!=='--' && elo!=='all')  selectElo(playersOrder, elo)}
+    // }
 
-    useEffect(()=>{
-        orderPlayers
-    })
+    // useEffect(()=>{
+    //     console.log('pre order', players[0])
+    //     orderPlayers(playersOrder)
+    //     console.log('post order', players[0])
+    // },[order, position, elo])
 
 
 
@@ -86,8 +93,8 @@ export default function Room() {
 
     useEffect(() => {
         socket.current.on("gameUsers", (data) => {
-            let playersList = data.filter((e) => e._id !== user._id);
-            setPlayers(playersList);
+            if (data) {let playersList = data.filter((e) => e._id !== user._id);
+            setPlayers(playersList)}
         });
         return () => {
             socket.current.off("gameUsers");

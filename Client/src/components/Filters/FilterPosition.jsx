@@ -2,11 +2,16 @@ import { useDispatch } from "react-redux";
 import { View, Text, StyleSheet } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useState } from "react";
-import { filterByPosition } from "../../redux/actions";
 import { connect } from "react-redux";
 
 
 const FilterPosition = ({position, handlePosition}) => {
+    const [option, setOption] = useState('Any');
+
+    function handleAll(e) {
+         setOption(e);
+         handlePosition(e);
+    }
 
 
     return (
@@ -30,7 +35,8 @@ const FilterPosition = ({position, handlePosition}) => {
                 Filter By Position
             </Text>
             <Picker
-                onValueChange={ (e)=> handlePosition(e)}
+                selectedValue={option}
+                onValueChange={(e)=> handleAll(e)}
                 style={{
                     marginBottom: 10,
                     width: "100%",
