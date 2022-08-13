@@ -10,7 +10,7 @@ import {
 import { Link, useParams } from "react-router-native";
 import Constants from "expo-constants";
 import Nav from "./Nav";
-import PlayerCard from "./PlayerCard.jsx";
+import Players from "./Players.jsx";
 import OrderRating from "./Filters/OrderRating";
 //filtros deberían ser para todos igual. pasar por props lo que tiene que presentar en el select
 //y una función para ir sumando al array de filtrado
@@ -36,7 +36,6 @@ export default function Room() {
     const socket = useRef();
     const{id} = useParams()
     let game = games.find(e => e._id === id)
-    console.log(game)
 
     useEffect(() => {
         socket.current = io("https://backend-gamematch.herokuapp.com/");
@@ -115,42 +114,7 @@ export default function Room() {
                             {game.elo&& <FilterElo elo={game.elo} />}
                         </View>
                         }
-                        
-                        {players.length > 0 ? (
-                            players.map((player, i) => {
-                                // if (player.rating) return (
-                                    return <PlayerCard
-                                    key={i}
-                                    img={player.img}
-                                    id={player._id}
-                                        name={player.username}
-                                        elo={player.elo}
-                                        position={player.position}
-                                        rating={player.rating.$numberDecimal}
-                                        />
-                                        // );
-                                        // else return (
-                                            // <PlayerCard
-                                            //     key={i}
-                                            //     id={player._id}
-                                            //     name={player.username}
-                                            //     elo={player.elo}
-                                            //     img={player.img}
-                                            //     position={player.position}
-                                            // />
-                                            // );
-                                        })
-                                        ) : (
-                                            <Text
-                                            style={{
-                                                textAlign: "center",
-                                                color: "white",
-                                                fontSize: 20,
-                                }}
-                            >
-                                Waiting for players...
-                            </Text>
-                        )}
+                    <Players players={players}/>
                     </ScrollView>
                 </SafeAreaView>
                 </View>
