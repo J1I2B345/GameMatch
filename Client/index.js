@@ -9,9 +9,9 @@ import configureStore from "./store";
 const store = configureStore();
 
 const RNRedux = () => (
-  <Provider store={store}>
-    <App />
-  </Provider>
+	<Provider store={store}>
+		<App />
+	</Provider>
 );
 
 AppRegistry.registerComponent(appName, () => RNRedux);
