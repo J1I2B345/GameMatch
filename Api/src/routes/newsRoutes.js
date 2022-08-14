@@ -52,11 +52,23 @@ router.get("/", async (req, res) => {
 	}
 });
 
-router.post("/", async (req, res) => {
-	try {
-		if (req.body.editedBy)
-			throw new Error(`edit user should be added just to update a news`);
-		const { title, description, author } = req.body;
+
+router.get("/:id", async (req, res) => {
+  try {
+    let { id } = req.params;
+    const newById = await News.findById(id);
+    if (newById) return res.json(newById);
+    else throw new Error("News not found with ID provided");
+  } catch (e) {
+    return res.status(400).json(e.message);
+  }
+});
+
+router.post('/', async (req, res) => {
+     try {
+          if (req.body.editedBy) throw new Error(`edit user should be added just to update a news`);
+          const { title, description, author } = req.body;
+
 
 		if (!title || !description || !author)
 			throw new Error("enter title, description and author");
