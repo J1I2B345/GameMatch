@@ -9,21 +9,21 @@ import configureStore from "./src/redux/store/configureStore";
 const store = configureStore();
 
 export default function App() {
-  return (
-    <NativeRouter>
-      <ImageBackground source={Fondo} resizeMode="cover" style={styles.fondo}>
-        <Provider store={store}>
-          <Home />
-        </Provider>
-      </ImageBackground>
-    </NativeRouter>
-  );
+	return (
+		<NativeRouter>
+			<ImageBackground source={Fondo} resizeMode="cover" style={styles.fondo}>
+				<Provider store={store}>
+					<Home />
+				</Provider>
+			</ImageBackground>
+		</NativeRouter>
+	);
 }
 
 const styles = StyleSheet.create({
-  fondo: {
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
-    backgroundSize: "cover",
-  },
+	fondo: {
+		backgroundRepeat: "no-repeat",
+		backgroundPosition: "center",
+		backgroundSize: "cover",
+	},
 });
