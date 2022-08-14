@@ -1,16 +1,16 @@
-require('dotenv').config()
-const serverExpress = require ('./src/app');
-const connectDB = require ('./src/db');
-const {Server} = require ("socket.io");
-const http = require ('http');
-const sockets = require ('./src/sockets')
+require("dotenv").config();
+const serverExpress = require("./src/app");
+const connectDB = require("./src/db");
+const { Server } = require("socket.io");
+const http = require("http");
+const sockets = require("./src/sockets");
 // let httpServer
 // let io
-connectDB()
+connectDB();
 
-const server= http.createServer(serverExpress)
+const server = http.createServer(serverExpress);
 let httpServer = server.listen(process.env.PORT, () => {
-    console.log(`
+	console.log(`
     ∵*.•´¸.•*´✶´♡
     ° ☆ °˛*˛☆_Π______*˚☆*
     ˚ ˛★˛•˚*/______/ ~⧹。˚˚
@@ -18,18 +18,12 @@ let httpServer = server.listen(process.env.PORT, () => {
         🌷╬╬🌷╬╬🌷╬╬🌷╬╬🌷   
          Runing on ${process.env.PORT}
          ☆*: .｡. .｡.:*☆  `);
-    
- 
-   // eslint-disable-line no-console
+
+	// eslint-disable-line no-console
 });
 let io = new Server(httpServer, {
-    cors: {
-        origin: "http://localhost:19006",
-    }
-})
-sockets(io)
-
-
-
-    
-
+	cors: {
+		origin: "http://localhost:19006",
+	},
+});
+sockets(io);

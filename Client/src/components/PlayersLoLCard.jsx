@@ -3,9 +3,7 @@
 
 // import { Link } from 'react-router-native';
 
-
 // const PlayerLoLCard = ({ id, img, name, elo, position, rating }) => {
-
 
 //      return (
 //           <View key={id} style={{ margin: 5 }}>

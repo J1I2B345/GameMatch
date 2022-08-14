@@ -1,34 +1,15 @@
-const {connect} = require ('mongoose')
+const { connect } = require("mongoose");
 
-
-module.exports= connectDB =  () => {
-
-    try{
-        connect(process.env.MONGODB_URI)
-     //   console.log('funcionando, Mongo')
-     console.log('☆*: .｡. o .｡.:*☆')
-        console.log('%s database connection established')
-    }
-    catch(e){
-        console.log(e)
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+module.exports = connectDB = () => {
+	try {
+		connect(process.env.MONGODB_URI);
+		//   console.log('funcionando, Mongo')
+		console.log("☆*: .｡. o .｡.:*☆");
+		console.log("%s database connection established");
+	} catch (e) {
+		console.log(e);
+	}
+};
 
 // require('dotenv').config();
 // const fs = require('fs');
@@ -71,7 +52,6 @@ module.exports= connectDB =  () => {
 //   // En sequelize.models están todos los modelos importados como propiedades
 // // Para relacionarlos hacemos un destructuring
 
-
 // const basename = path.basename(__filename);
 
 // const modelDefiners = [];
@@ -90,22 +70,14 @@ module.exports= connectDB =  () => {
 // let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
 // sequelize.models = Object.fromEntries(capsEntries);
 
-
-
-
-
-
-
 // //EJ
 // // const { Pokemon, Tipo } = sequelize.models;
-
 
 // // Aca vendrian las relaciones
 
 // //EJ
 // // Pokemon.belongsToMany(Tipo, {through: 'PokemonTypes'});
 // // Tipo.belongsToMany(Pokemon, {through: 'PokemonTypes'});
-
 
 // module.exports = {
 //   //...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

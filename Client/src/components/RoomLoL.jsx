@@ -27,7 +27,6 @@
 //     const user = useSelector((state) => state.games.user);
 //     const socket = useRef();
 
-
 //     useEffect(() => {
 //         socket.current = io("https://backend-gamematch.herokuapp.com/");
 //         socket.current.emit("joinRoom", user);
@@ -53,7 +52,6 @@
 //             socket.current.off("gameUsers");
 //         };
 //     }, [socket.current, players]);
-
 
 //     return (
 //         <View style={styles.container}>
