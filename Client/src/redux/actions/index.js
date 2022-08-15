@@ -119,6 +119,12 @@ export const getAllNews = () => {
 	};
 };
 
+export const sendStateNewsInfo = (newsInfo) => {
+     return async (dispatch) => {
+          return dispatch({ type: 'NEW_INFO', payload: newsInfo });
+     };
+};
+
 export const addNews = (news) => {
 	return async () => {
 		return await axios.post(
@@ -158,6 +164,7 @@ export const login = (data) => (dispatch) => {
 			dispatch({ type: "LOGIN", payload: json });
 		});
 };
+
 export const register = (data) => (dispatch) => {
 	return fetch("https://backend-gamematch.herokuapp.com/users/login", {
 		method: "POST",
@@ -171,6 +178,7 @@ export const register = (data) => (dispatch) => {
 			dispatch({ type: "REGISTER", payload: json });
 		});
 };
+
 export const allUser = () => (dispatch) => {
 	return fetch(`https://backend-gamematch.herokuapp.com/users`)
 		.then((response) => response.json())
@@ -192,3 +200,16 @@ export const getGames = () => (dispatch) => {
 		)
 		.catch((error) => console.log(error.message));
 };
+
+export const getGames = () => (dispatch) => {
+     return axios
+          .get(`https://backend-gamematch.herokuapp.com/games`)
+          .then((info) =>
+               dispatch({
+                    type: GET_GAMES,
+                    payload: info.data,
+               })
+          )
+          .catch((error) => console.log(error.message));
+};
+

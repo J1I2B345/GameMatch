@@ -14,6 +14,7 @@ import playersR6 from "../../data/usersR6";
 const initialState = {
 	games: false,
 	news: [],
+  newsInfo: [],
 	playersLoL: [],
 	playersCSGO: playersCSGO,
 	playersR6: playersR6,
@@ -211,20 +212,29 @@ const createReducer = (state = initialState, action) => {
 				...state,
 				news: payload,
 			};
+      
+    case 'NEW_INFO':
+             return {
+                  ...state,
+                  newsInfo: payload,
+               };
 
 		case GET_USERNAME:
 			return { ...state, user: payload, userProfile: payload };
 
 		case UPDATE_USER:
 			return { ...state, user: payload };
+      
 		case "LOGIN":
 			return {
 				...state,
 				user: payload,
 				userProfile: payload,
 			};
+      
 		case "REGISTER":
 			return { ...state };
+      
 		case "USER":
 			return {
 				...state,
@@ -236,9 +246,11 @@ const createReducer = (state = initialState, action) => {
 				...state,
 				games: payload,
 			};
+      
 		default:
 			return state;
 	}
+
 };
 
 export default createReducer;

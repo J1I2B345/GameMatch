@@ -1,23 +1,22 @@
 import { StatusBar } from "expo-status-bar";
 import {
-	StyleSheet,
-	Text,
-	View,
-	Image,
-	SafeAreaView,
-	ScrollView,
-	TouchableOpacity,
-	TextInput,
-} from "react-native";
-import moment from "moment";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector, connect } from "react-redux";
-import { deleteNews, getAllNews } from "../redux/actions/index.js";
-import { Link, useNavigate } from "react-router-native";
-import Constants from "expo-constants";
-import Nav from "./Nav";
-import Spinner from "./Spinner";
-import EditNews from "./EditNews.jsx";
+     StyleSheet,
+     Text,
+     View,
+     Image,
+     SafeAreaView,
+     ScrollView,
+     TouchableOpacity,
+} from 'react-native';
+import moment from 'moment';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector, connect } from 'react-redux';
+import { getAllNews, sendStateNewsInfo } from '../redux/actions/index.js';
+import { Link, useNavigate } from 'react-router-native';
+import Constants from 'expo-constants';
+import Nav from './Nav';
+import Spinner from './Spinner';
+// import EditNews from './EditNews.jsx';
 
 const News = () => {
 	const dispatch = useDispatch();
@@ -33,10 +32,11 @@ const News = () => {
 		navigate("/news/add");
 	}
 
-	function handleEdit(news) {
-		navigate("/news/edit");
-		// return <EditNews _id={news._id} title={news.title} description={news.description} />;
-	}
+  function handleEdit(news) {
+    dispatch(sendStateNewsInfo(news));
+    navigate('/news/edit');
+  }
+
 
 	const imgDefecto = (
 		<Image
