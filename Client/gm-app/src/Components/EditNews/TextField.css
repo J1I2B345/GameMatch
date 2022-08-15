@@ -1,21 +1,20 @@
-input{
-    margin-top: 2rem;
-    border-width: 1px;
-    background-color:#fff ;
-    height: 20px;
-    width: 60%;
-    font-size: 15;
-    border-radius: 20;
-    text-align: center;
+input {
+	margin-top: 2rem;
+	border-width: 1px;
+	background-color: #fff;
+	height: 20px;
+	width: 60%;
+	font-size: 15;
+	border-radius: 20;
+	text-align: center;
 }
-.title{
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    flex-direction: "row";
-
+.title {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	flex-direction: "row";
 }
 .container {
-    height: 100%;
-    width: 100%;
-    align-items: center;
+	height: 100%;
+	width: 100%;
+	align-items: center;
 }
