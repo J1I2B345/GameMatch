@@ -10,7 +10,7 @@ export const TextField = ({ label, ...props }) => {
         {label}
       </label>
       <input
-        className={`form-control shadow-none ${
+        className={`input-textfield ${
           meta.touched && meta.error && "is-invalid"
         }`}
         {...field}
