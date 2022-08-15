@@ -1,17 +1,17 @@
 export function higherRating(array) {
-	return array.sort((a, b) => {
+	return (array = array.sort((a, b) => {
 		if (a.rating.$numberDecimal < b.rating.$numberDecimal) {
 			return 1;
 		} else return -1;
-	});
+	}));
 }
 
 export function lowerRating(array) {
-	return array.sort((a, b) => {
+	return (array = array.sort((a, b) => {
 		if (a.rating.$numberDecimal > b.rating.$numberDecimal) {
 			return 1;
 		} else return -1;
-	});
+	}));
 }
 
 export function selectPosition(array, position) {

@@ -28,8 +28,9 @@ export default function Room() {
 	// const playersGlobal = useSelector((state) => state.games.playersLoL);
 	const games = useSelector((state) => state.games.games);
 	const [players, setPlayers] = useState([]);
+	const [playersInOrder, setPlayersInOrder] = useState([]);
 	const [filters, setFilters] = useState({
-		order: "all",
+		order: "Max-Min",
 		position: "all",
 		elo: "all",
 	});
@@ -37,7 +38,8 @@ export default function Room() {
 	const socket = useRef();
 	const { id } = useParams();
 	let game = games.find((e) => e._id === id);
-	let playersInOrder = [];
+
+	console.log("players", players, "playersInOrder", playersInOrder);
 
 	function setStateOrder(order) {
 		setFilters(() => {
@@ -60,31 +62,31 @@ export default function Room() {
 	useEffect(() => {
 		if (players.length) {
 			let playersOrder = players;
-			if (filters.order && filters.order !== "any") {
-				if (filters.order === "max-min") {
-					playersOrder = higherRating(playersOrder);
-				}
-				if (filters.order === "min-max")
-					playersOrder = lowerRating(playersOrder);
+			if (filters.order === "max-min") {
+				playersOrder = higherRating(playersOrder);
+			}
+			if (filters.order === "min-max") {
+				playersOrder = lowerRating(playersOrder);
 			}
 			if (
 				filters.position &&
 				filters.position !== "any" &&
 				filters.position !== "--" &&
 				filters.position !== "all"
-			)
+			) {
 				playersOrder = selectPosition(playersOrder, filters.position);
+			}
 			if (
 				filters.elo &&
 				filters.elo !== "any" &&
 				filters.elo !== "--" &&
 				filters.elo !== "all"
-			)
+			) {
 				playersOrder = selectElo(playersOrder, filters.elo);
-
-			console.log(playersOrder);
+			}
+			setPlayersInOrder(playersOrder);
 		}
-	}, [filters]);
+	}, [filters, players]);
 
 	useEffect(() => {
 		console.log("se conectó al io");
@@ -174,8 +176,9 @@ export default function Room() {
                            \/
                            \/ 
                     	*/}
+							{/* { players && <Players players={players} />} */}
 							{players.length ? (
-								playersInOrder.length > 1 ? (
+								playersInOrder.length > 0 ? (
 									<Players players={playersInOrder} />
 								) : (
 									<Text
@@ -190,7 +193,6 @@ export default function Room() {
 									</Text>
 								)
 							) : (
-								// <Players players={players} />
 								<Text
 									style={{
 										marginTop: 5,
