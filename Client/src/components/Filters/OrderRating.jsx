@@ -1,15 +1,22 @@
 import { View, Text, StyleSheet } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import { useState } from "react";
-import { connect } from "react-redux";
+import { useState, useEffect } from "react";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { orderByRating } from "../../redux/actions";
 
-const OrderRating = ({ handleOrder }) => {
+const OrderRating = () => {
 	const [option, setOption] = useState("Any");
+	const dispatch = useDispatch();
+	const state = useSelector((state) => state.games.rating);
 
 	const handleAll = (e) => {
 		setOption(e);
-		handleOrder(e);
+		dispatch(orderByRating(e));
 	};
+
+	useEffect(() => {
+		setOption(state);
+	}, [option]);
 
 	return (
 		<View
