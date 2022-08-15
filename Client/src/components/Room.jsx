@@ -20,7 +20,12 @@ import { useSelector } from "react-redux";
 import { connect } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
-import { higherRating, lowerRating, selectPosition, selectElo } from "../utils";
+import {
+	higherRating,
+	lowerRating,
+	selectPosition,
+	selectElo,
+} from "../utils/utils";
 import { updateUser } from "../redux/actions";
 import Spinner from "../components/Spinner";
 
@@ -30,7 +35,7 @@ export default function Room() {
 	const [players, setPlayers] = useState([]);
 	const [playersInOrder, setPlayersInOrder] = useState([]);
 	const [filters, setFilters] = useState({
-		order: "Max-Min",
+		order: "all",
 		position: "all",
 		elo: "all",
 	});
@@ -63,10 +68,14 @@ export default function Room() {
 		if (players.length) {
 			let playersOrder = players;
 			if (filters.order === "max-min") {
-				playersOrder = higherRating(playersOrder);
+				// let playersOrder1 = higherRating(playersOrder);
+				// playersOrder = playersOrder1;
+				higherRating(playersOrder);
 			}
 			if (filters.order === "min-max") {
-				playersOrder = lowerRating(playersOrder);
+				// let playersOrder2 = lowerRating(playersOrder);
+				// playersOrder = playersOrder2;
+				lowerRating(playersOrder);
 			}
 			if (
 				filters.position &&
@@ -86,7 +95,7 @@ export default function Room() {
 			}
 			setPlayersInOrder(playersOrder);
 		}
-	}, [filters, players]);
+	}, [filters]);
 
 	useEffect(() => {
 		console.log("se conectó al io");
@@ -108,6 +117,35 @@ export default function Room() {
 			if (data) {
 				let playersList = data.filter((e) => e._id !== user._id);
 				setPlayers(playersList);
+
+				let playersOrder = data;
+				if (filters.order === "max-min") {
+					// let playersOrder1 = higherRating(playersOrder);
+					// playersOrder = playersOrder1;
+					higherRating(playersOrder);
+				}
+				if (filters.order === "min-max") {
+					// let playersOrder2 = lowerRating(playersOrder);
+					// playersOrder = playersOrder2;
+					lowerRating(playersOrder);
+				}
+				if (
+					filters.position &&
+					filters.position !== "any" &&
+					filters.position !== "--" &&
+					filters.position !== "all"
+				) {
+					playersOrder = selectPosition(playersOrder, filters.position);
+				}
+				if (
+					filters.elo &&
+					filters.elo !== "any" &&
+					filters.elo !== "--" &&
+					filters.elo !== "all"
+				) {
+					playersOrder = selectElo(playersOrder, filters.elo);
+				}
+				setPlayersInOrder(playersOrder);
 			}
 		});
 		return () => {
