@@ -39,7 +39,7 @@ const OrderRating = ({ handleOrder }) => {
 					backgroundColor: "#fff",
 				}}
 			>
-				<Picker.Item label="--" value="--" disabled />
+				<Picker.Item label="any" value="any" disabled />
 				<Picker.Item label="Max-Min" value="Max-Min" />
 				<Picker.Item label="Min-Max" value="Min-Max" />
 			</Picker>

@@ -35,7 +35,7 @@ export default function Room() {
 	const [players, setPlayers] = useState([]);
 	const [playersInOrder, setPlayersInOrder] = useState([]);
 	const [filters, setFilters] = useState({
-		order: "all",
+		order: "any",
 		position: "all",
 		elo: "all",
 	});
@@ -68,14 +68,10 @@ export default function Room() {
 		if (players.length) {
 			let playersOrder = players;
 			if (filters.order === "max-min") {
-				// let playersOrder1 = higherRating(playersOrder);
-				// playersOrder = playersOrder1;
-				higherRating(playersOrder);
+				playersOrder = higherRating(playersOrder);
 			}
 			if (filters.order === "min-max") {
-				// let playersOrder2 = lowerRating(playersOrder);
-				// playersOrder = playersOrder2;
-				lowerRating(playersOrder);
+				playersOrder = lowerRating(playersOrder);
 			}
 			if (
 				filters.position &&
