@@ -24,11 +24,9 @@ export default function EditGame() {
 	const game = useSelector((state) => state.gameSelect);
 	const userActive = useSelector((state) => state.userProfile);
 
-	// console.log(game);
-
 	useEffect(() => {
 		dispatch(getGame(params.id));
-	}, []);
+	}, [game]);
 
 	const submit = (values) => {
 		dispatch(editGame(values));
