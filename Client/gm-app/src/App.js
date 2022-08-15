@@ -26,7 +26,7 @@ function App() {
 				<Route path="/profilehome" element={<ProfileHome />} />
 				<Route path="Users/username/:username" element={<EditProfile />} />
 				<Route path="/gamehome/Games/:id" element={<EditGame />} />
-				<Route path="/News/:id" element={<EditNews />} />
+				<Route path="/News/:_id" element={<EditNews />} />
 				<Route path="/panel" element={<PanelHome />} />
 			</Routes>
 		</div>
