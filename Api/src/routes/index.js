@@ -6,7 +6,7 @@ const chats = require("./chatRoutes");
 const news = require("./newsRoutes");
 const review = require("./reviewsRutes");
 const auth = require("./authRoute");
-const pago =require("./mercadoPago");
+const pago = require("./mercadoPago");
 
 //-------------------------------
 router.use("/games", games);

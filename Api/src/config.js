@@ -1,3 +1,3 @@
-module.exports= {
-    SECRET:'GameMatch-api'
-}
+module.exports = {
+	SECRET: "GameMatch-api",
+};

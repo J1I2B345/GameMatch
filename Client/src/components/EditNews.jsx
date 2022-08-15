@@ -1,22 +1,22 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteNews, editNews } from '../redux/actions/index.js';
-import { Link, useNavigate } from 'react-router-native';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
+import { deleteNews, editNews } from "../redux/actions/index.js";
+import { Link, useNavigate } from "react-router-native";
+import { connect } from "react-redux";
 import {
-     StyleSheet,
-     TextInput,
-     View,
-     Text,
-     TouchableWithoutFeedback,
-     Keyboard,
-     TouchableOpacity,
-     Image,
-} from 'react-native';
-import { Formik } from 'formik';
-import * as yup from 'yup';
+	StyleSheet,
+	TextInput,
+	View,
+	Text,
+	TouchableWithoutFeedback,
+	Keyboard,
+	TouchableOpacity,
+	Image,
+} from "react-native";
+import { Formik } from "formik";
+import * as yup from "yup";
 
 const reviewSchema = yup.object({
-     description: yup.string().required().min(1),
+	description: yup.string().required().min(1),
 });
 
 const EditNews = () =>
@@ -154,51 +154,51 @@ const EditNews = () =>
           );
      };
 const styles = StyleSheet.create({
-     container: {
-          width: '100%',
-          height: '100%',
-          alignItems: 'center',
-          justifyContent: 'center',
-     },
-     portada: {
-          padding: 20,
-          width: '90%',
-          alignItems: 'center',
-          backgroundColor: '#3019bf',
-          borderRadius: 20,
-     },
-     portada_text: {
-          marginBottom: 15,
-          width: '100%',
-          color: 'white',
-          textAlign: 'center',
-          fontSize: 35,
-     },
-     form_container: {
-          width: '100%',
-          alignItems: 'center',
-     },
-     input: {
-          borderWidth: 1,
-          backgroundColor: '#fff',
-          height: 38,
-          width: '100%',
-          fontSize: 15,
-          borderRadius: 20,
-          textAlign: 'center',
-          padding: 4,
-     },
-     errorText: {
-          color: 'crimson',
-          fontWeight: 'bold',
-          marginBottom: 10,
-          marginTop: 6,
-     },
-     relleno: {
-          color: 'crimson',
-          fontWeight: 'bold',
-          marginTop: 15,
-     },
+	container: {
+		width: "100%",
+		height: "100%",
+		alignItems: "center",
+		justifyContent: "center",
+	},
+	portada: {
+		padding: 20,
+		width: "90%",
+		alignItems: "center",
+		backgroundColor: "#3019bf",
+		borderRadius: 20,
+	},
+	portada_text: {
+		marginBottom: 15,
+		width: "100%",
+		color: "white",
+		textAlign: "center",
+		fontSize: 35,
+	},
+	form_container: {
+		width: "100%",
+		alignItems: "center",
+	},
+	input: {
+		borderWidth: 1,
+		backgroundColor: "#fff",
+		height: 38,
+		width: "100%",
+		fontSize: 15,
+		borderRadius: 20,
+		textAlign: "center",
+		padding: 4,
+	},
+	errorText: {
+		color: "crimson",
+		fontWeight: "bold",
+		marginBottom: 10,
+		marginTop: 6,
+	},
+	relleno: {
+		color: "crimson",
+		fontWeight: "bold",
+		marginTop: 15,
+	},
 });
 
 export default EditNews;
