@@ -11,12 +11,12 @@ import {
 import moment from 'moment';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector, connect } from 'react-redux';
-import { deleteNews, getAllNews } from '../redux/actions/index.js';
+import { getAllNews, sendStateNewsInfo } from '../redux/actions/index.js';
 import { Link, useNavigate } from 'react-router-native';
 import Constants from 'expo-constants';
 import Nav from './Nav';
 import Spinner from './Spinner';
-import EditNews from './EditNews.jsx';
+// import EditNews from './EditNews.jsx';
 
 const News = () => {
      const dispatch = useDispatch();
@@ -33,8 +33,8 @@ const News = () => {
      }
 
      function handleEdit(news) {
+          dispatch(sendStateNewsInfo(news));
           navigate('/news/edit');
-          // return <EditNews _id={news._id} title={news.title} description={news.description} />;
      }
 
      const imgDefecto = (
