@@ -28,45 +28,63 @@ export default function Room() {
 	// const playersGlobal = useSelector((state) => state.games.playersLoL);
 	const games = useSelector((state) => state.games.games);
 	const [players, setPlayers] = useState([]);
-	const [order, setOrder] = useState("any");
-	const [position, setPosition] = useState("any");
-	const [elo, setElo] = useState("any");
+	const [filters, setFilters] = useState({
+		order: "all",
+		position: "all",
+		elo: "all",
+	});
 	const user = useSelector((state) => state.games.user);
 	const socket = useRef();
 	const { id } = useParams();
 	let game = games.find((e) => e._id === id);
-	let playersOrder;
+	let playersInOrder = [];
 
 	function setStateOrder(order) {
-		// setOrder(() => {order})
-		console.log(order);
+		setFilters(() => {
+			return { ...filters, order: order.toLowerCase() };
+		});
 	}
 
 	function setStatePosition(position) {
-		// setPosition(()=> {position})
-		console.log(position);
+		setFilters(() => {
+			return { ...filters, position: position.toLowerCase() };
+		});
 	}
 
 	function setStateElo(elo) {
-		// setElo(() => elo)
-		console.log(elo);
+		setFilters(() => {
+			return { ...filters, elo: elo.toLowerCase() };
+		});
 	}
 
-	// function orderPlayers(){
-	//     if(players.length){
-	//     playersOrder = players
-	//     if( order && order !== 'any'){
-	//         order === 'max-min'?  higherRating(playersOrder) : lowerRating(playersOrder)
-	//     }
-	//     if(position && position !== 'any' && position!=='--' && position!=='all') selectPosition(playersOrder, position)
-	//     if(elo && elo!=='any' && elo!=='--' && elo!=='all')  selectElo(playersOrder, elo)}
-	// }
+	useEffect(() => {
+		if (players.length) {
+			let playersOrder = players;
+			if (filters.order && filters.order !== "any") {
+				if (filters.order === "max-min") {
+					playersOrder = higherRating(playersOrder);
+				}
+				if (filters.order === "min-max")
+					playersOrder = lowerRating(playersOrder);
+			}
+			if (
+				filters.position &&
+				filters.position !== "any" &&
+				filters.position !== "--" &&
+				filters.position !== "all"
+			)
+				playersOrder = selectPosition(playersOrder, filters.position);
+			if (
+				filters.elo &&
+				filters.elo !== "any" &&
+				filters.elo !== "--" &&
+				filters.elo !== "all"
+			)
+				playersOrder = selectElo(playersOrder, filters.elo);
 
-	// useEffect(()=>{
-	//     console.log('pre order', players[0])
-	//     orderPlayers(playersOrder)
-	//     console.log('post order', players[0])
-	// },[order, position, elo])
+			console.log(playersOrder);
+		}
+	}, [filters]);
 
 	useEffect(() => {
 		console.log("se conectó al io");
@@ -155,8 +173,35 @@ export default function Room() {
                            ||
                            \/
                            \/ 
-                    */}
-							<Players players={players} />
+                    	*/}
+							{players.length ? (
+								playersInOrder.length > 1 ? (
+									<Players players={playersInOrder} />
+								) : (
+									<Text
+										style={{
+											marginTop: 5,
+											color: "white",
+											fontSize: 35,
+											fontWeight: "bold",
+										}}
+									>
+										No players with those characteristics
+									</Text>
+								)
+							) : (
+								// <Players players={players} />
+								<Text
+									style={{
+										marginTop: 5,
+										color: "white",
+										fontSize: 35,
+										fontWeight: "bold",
+									}}
+								>
+									Waiting for players..
+								</Text>
+							)}
 						</ScrollView>
 					</SafeAreaView>
 				</View>
