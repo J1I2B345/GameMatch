@@ -1,24 +1,45 @@
-import React from "react";
-import GameCard from "../GamesCard/GameCard";
-
 import styled from "styled-components";
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import GameMatch from "../../assets/GameMatch.png";
+import iconApp from "../../assets/iconApp.png";
+import { useSelector } from "react-redux";
 
-const GameHome = () => {
+export default function PanelHome() {
   const navigate = useNavigate();
+  const user = useSelector((state) => state.userProfile);
+
+  if (!user) return <div>Loading...</div>;
   return (
     <Container>
-      <div>
-        <h1>Seleciona tu juego</h1>
-        <button onClick={(e) => navigate("/panel")}>Ir a Panel</button>
-        <button onClick={(e) => navigate("/creategame")}>Crear Juego</button>
-      </div>
-      <GameCard />
+      {!user.roles[0].name === "Admin" ||
+      !user.roles[0].name === "SuperAdmin" ? (
+        <div>Debes ser al menos admin</div>
+      ) : (
+        <div className="portada">
+          <div className="portada_text">
+            <img src={GameMatch} className="image-game" alt="" />
+          </div>
+          <div className="portada_img">
+            <img src={iconApp} className="image-icon" alt="" />
+          </div>
+          <button className="modify-btn" onClick={(e) => navigate(`/News`)}>
+            Noticias
+          </button>
+          <button className="modify-btn" onClick={(e) => navigate(`/gamehome`)}>
+            Juegos
+          </button>
+          <button
+            className="modify-btn"
+            onClick={(e) => navigate(`/profilehome`)}
+          >
+            Usuarios
+          </button>
+        </div>
+      )}
     </Container>
   );
-};
-
-export default GameHome;
+}
 
 const Container = styled.div`
   height: 100%;
@@ -39,7 +60,7 @@ const Container = styled.div`
     min-height: 100%;
     max-height: 100%;
   }
-  .image {
+  .image-icon {
     margin-top: 2rem;
     height: 3rem;
   }

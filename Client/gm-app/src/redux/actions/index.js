@@ -27,17 +27,24 @@ export const createGame = (game) => (dispatch) => {
     });
 };
 export const createNews = (report) => (dispatch) => {
-  return fetch("https://backend-gamematch.herokuapp.com/News", {
-    method: "POST",
-    headers: { Accept: "applcation/json", "Content-Type": "application/json" },
-    body: JSON.stringify(report),
-  })
-    .then((response) => {
-      return response.json();
+  try {
+    return fetch("https://backend-gamematch.herokuapp.com/News", {
+      method: "POST",
+      headers: {
+        Accept: "applcation/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(report),
     })
-    .then((json) => {
-      dispatch({ type: CREATE_NEWS, payload: json });
-    });
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        dispatch({ type: CREATE_NEWS, payload: json });
+      });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const updateUser = (payload) => {
@@ -65,7 +72,7 @@ export const getGame = (id) => (dispatch) => {
     });
 };
 export const getNew = (id) => (dispatch) => {
-  return fetch(`https://backend-gamematch.herokuapp.com/edit/${id}`)
+  return fetch(`https://backend-gamematch.herokuapp.com/News/${id}`)
     .then((response) => {
       return response.json();
     })
@@ -84,15 +91,19 @@ export const getAllNews = () => (dispatch) => {
 };
 
 export const editGame = (game) => {
+  console.log({ game });
   return async (dispatch) => {
-    // await axios.put(`https://backend-gamematch.herokuapp.com/games/${game._id}`);
+    await axios.put(`https://backend-gamematch.herokuapp.com/games/${game.id}`);
     return dispatch({ type: EDIT_GAME, payload: game });
   };
 };
 
 export const editNews = (news) => {
+  console.log({ news });
   return async (dispatch) => {
-    // await axios.put(`https://backend-gamematch.herokuapp.com/News/${news._id}`);
+    await axios.put(
+      `https://backend-gamematch.herokuapp.com/News/edit/${news._id}`
+    );
     return dispatch({ type: EDIT_NEWS, payload: news });
   };
 };

@@ -10,6 +10,7 @@ import {
   USER,
   GET_GAME,
   GET_NEW,
+  EDIT_NEWS,
 } from "../actions";
 
 const initialState = {
@@ -60,6 +61,8 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         aux: payload,
       };
+    case EDIT_NEWS:
+      return { ...state, news: payload };
 
     default:
       return state;
