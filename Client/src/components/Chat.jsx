@@ -64,10 +64,7 @@ const Chat = () => {
 			sender: user._id,
 		};
 		//envía mensaje a la DB
-		let msgInDb = await axios.post(
-			"https://backend-gamematch.herokuapp.com/chats",
-			msg
-		);
+		let msgInDb = await axios.post("https://backend-gamematch.herokuapp.com/chats", msg);
 		//si se mandó el mensaje a la DB envía al otro usuario
 		socket.current.emit("client: send message", msg);
 		let msgSent = {
@@ -97,9 +94,7 @@ const Chat = () => {
 			</View>
 			<ScrollView
 				ref={scrollViewRef}
-				onContentSizeChange={() =>
-					scrollViewRef.current.scrollToEnd({ animated: true })
-				}
+				onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}
 			>
 				<View style={{ margin: 10 }}>
 					{chatMessages &&
