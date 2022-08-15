@@ -14,6 +14,7 @@ export const GET_GAME = "GET_GAME";
 export const GET_NEW = "GET_NEW";
 
 export const createGame = (game) => (dispatch) => {
+  console.log({ game });
   return fetch("https://backend-gamematch.herokuapp.com/games", {
     method: "POST",
     headers: { Accept: "applcation/json", "Content-Type": "application/json" },
@@ -23,9 +24,10 @@ export const createGame = (game) => (dispatch) => {
       return response.json();
     })
     .then((json) => {
-      dispatch({ type: CREATE_GAME, payload: json });
+      dispatch({ type: CREATE_GAME, payload: game });
     });
 };
+
 export const createNews = (report) => (dispatch) => {
   try {
     return fetch("https://backend-gamematch.herokuapp.com/News", {
@@ -91,27 +93,34 @@ export const getAllNews = () => (dispatch) => {
 };
 
 export const editGame = (game) => {
+  let { id } = game;
   console.log({ game });
   return async (dispatch) => {
-    await axios.put(`https://backend-gamematch.herokuapp.com/games/${game.id}`);
+    await axios.put(
+      `https://backend-gamematch.herokuapp.com/games/${id}`,
+      game
+    );
     return dispatch({ type: EDIT_GAME, payload: game });
   };
 };
 
 export const editNews = (news) => {
-  console.log({ news });
+  let { _id } = news;
+  console.log({ news, _id });
   return async (dispatch) => {
     await axios.put(
-      `https://backend-gamematch.herokuapp.com/News/edit/${news._id}`
+      `https://backend-gamematch.herokuapp.com/News/edit/${_id}`,
+      news
     );
     return dispatch({ type: EDIT_NEWS, payload: news });
   };
 };
 
 export const editProfile = (user) => {
+  let { _id } = user;
   return async (dispatch) => {
     await axios.put(
-      `https://backend-gamematch.herokuapp.com/users/${user._id}`,
+      `https://backend-gamematch.herokuapp.com/users/${_id}`,
       user
     );
     return dispatch({ type: EDIT_PROFILE, payload: user });

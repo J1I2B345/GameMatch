@@ -22,6 +22,7 @@ const initialState = {
   aux: null,
   gameSelect: null,
   newSelect: null,
+  game: null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -29,7 +30,8 @@ const rootReducer = (state = initialState, action) => {
 
   switch (type) {
     case CREATE_GAME:
-      return { ...state, games: [...state.games, payload] };
+      console.log({ e: state });
+      return { ...state, games: action.payload };
     case GET_USERNAME:
       return { ...state, userSelect: action.payload };
     case GET_GAME:

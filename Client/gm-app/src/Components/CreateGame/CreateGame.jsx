@@ -19,11 +19,12 @@ export default function CreateGame() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const submit = (values) => {
+  const submit = (values, actions) => {
+    console.log({ values });
     dispatch(createGame(values));
     alert("Juego creado");
+    actions.resetForm();
   };
-
   return (
     <Container>
       <div className="portada">
