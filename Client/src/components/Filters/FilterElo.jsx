@@ -1,15 +1,22 @@
 import { View, Text, StyleSheet } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import { connect } from "react-redux";
-import { useState } from "react";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { orderByElo } from "../../redux/actions";
 
-const FilterElo = ({ elo, handleElo }) => {
-	const [option, setOption] = useState("Any");
+const FilterElo = ({ elo }) => {
+	const [option, setOption] = useState("All");
+	const dispatch = useDispatch();
+	const state = useSelector((state) => state.games.elo);
 
 	function handleAll(e) {
 		setOption(e);
-		handleElo(e);
+		dispatch(orderByElo(e));
 	}
+
+	useEffect(() => {
+		setOption(state);
+	}, [option]);
 
 	return (
 		<View

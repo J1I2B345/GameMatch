@@ -3,6 +3,9 @@ import {
 	GET_USERNAME,
 	UPDATE_USER,
 	GET_GAMES,
+	ELO,
+	POSITION,
+	ORDER,
 } from "../constants";
 import axios from "axios";
 
@@ -27,41 +30,6 @@ export const editProfile = (user) => {
 			user
 		);
 		return dispatch({ type: "EDIT_PROFILE", payload: user });
-	};
-};
-
-export const orderByRating = (payload) => {
-	return {
-		type: "ORDER_BY_RATING",
-		payload,
-	};
-};
-
-export const filterByPosition = (payload) => {
-	return {
-		type: "FILTER_BY_POSITION",
-		payload,
-	};
-};
-
-export const filterByEloLoL = (payload) => {
-	return {
-		type: "FILTER_BY_ELO_LOL",
-		payload,
-	};
-};
-
-export const filterByEloCSGO = (payload) => {
-	return {
-		type: "FILTER_BY_ELO_CSGO",
-		payload,
-	};
-};
-
-export const filterByEloR6 = (payload) => {
-	return {
-		type: "FILTER_BY_ELO_R6",
-		payload,
 	};
 };
 
@@ -120,9 +88,9 @@ export const getAllNews = () => {
 };
 
 export const sendStateNewsInfo = (newsInfo) => {
-     return async (dispatch) => {
-          return dispatch({ type: 'NEW_INFO', payload: newsInfo });
-     };
+	return async (dispatch) => {
+		return dispatch({ type: "NEW_INFO", payload: newsInfo });
+	};
 };
 
 export const addNews = (news) => {
@@ -201,15 +169,23 @@ export const getGames = () => (dispatch) => {
 		.catch((error) => console.log(error.message));
 };
 
-export const getGames = () => (dispatch) => {
-     return axios
-          .get(`https://backend-gamematch.herokuapp.com/games`)
-          .then((info) =>
-               dispatch({
-                    type: GET_GAMES,
-                    payload: info.data,
-               })
-          )
-          .catch((error) => console.log(error.message));
+export const orderByRating = (payload) => {
+	return {
+		type: ORDER,
+		payload,
+	};
 };
 
+export const orderByElo = (payload) => {
+	return {
+		type: ELO,
+		payload,
+	};
+};
+
+export const orderByPosition = (payload) => {
+	return {
+		type: POSITION,
+		payload,
+	};
+};
