@@ -1,16 +1,22 @@
-import { useDispatch } from "react-redux";
 import { View, Text, StyleSheet } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import { useState } from "react";
-import { connect } from "react-redux";
+import { useState, useEffect } from "react";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { orderByPosition } from "../../redux/actions";
 
-const FilterPosition = ({ position, handlePosition }) => {
-	const [option, setOption] = useState("Any");
+const FilterPosition = ({ position }) => {
+	const [option, setOption] = useState("All");
+	const dispatch = useDispatch();
+	const state = useSelector((state) => state.games.position);
 
 	function handleAll(e) {
 		setOption(e);
-		handlePosition(e);
+		dispatch(orderByPosition(e));
 	}
+
+	useEffect(() => {
+		setOption(state);
+	}, [option]);
 
 	return (
 		<View

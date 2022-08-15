@@ -12,75 +12,65 @@ import Constants from "expo-constants";
 import Nav from "./Nav";
 import Players from "./Players.jsx";
 import OrderRating from "./Filters/OrderRating";
-//filtros deberían ser para todos igual. pasar por props lo que tiene que presentar en el select
-//y una función para ir sumando al array de filtrado
 import FilterElo from "./Filters/FilterElo";
 import FilterPosition from "./Filters/FilterPosition";
 import { useSelector } from "react-redux";
 import { connect } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
-import { higherRating, lowerRating, selectPosition, selectElo } from "../utils";
-import { updateUser } from "../redux/actions";
+import {
+	higherRating,
+	lowerRating,
+	selectPosition,
+	selectElo,
+} from "../utils/utils";
 import Spinner from "../components/Spinner";
 
 export default function Room() {
-	// const playersGlobal = useSelector((state) => state.games.playersLoL);
 	const games = useSelector((state) => state.games.games);
 	const [players, setPlayers] = useState([]);
-	const [order, setOrder] = useState("any");
-	const [position, setPosition] = useState("any");
-	const [elo, setElo] = useState("any");
+	const [playersInOrder, setPlayersInOrder] = useState([]);
 	const user = useSelector((state) => state.games.user);
+	const elo = useSelector((state) => state.games.elo);
+	const position = useSelector((state) => state.games.position);
+	const order = useSelector((state) => state.games.order);
+
 	const socket = useRef();
 	const { id } = useParams();
 	let game = games.find((e) => e._id === id);
-	let playersOrder;
-
-	function setStateOrder(order) {
-		// setOrder(() => {order})
-		console.log(order);
-	}
-
-	function setStatePosition(position) {
-		// setPosition(()=> {position})
-		console.log(position);
-	}
-
-	function setStateElo(elo) {
-		// setElo(() => elo)
-		console.log(elo);
-	}
-
-	// function orderPlayers(){
-	//     if(players.length){
-	//     playersOrder = players
-	//     if( order && order !== 'any'){
-	//         order === 'max-min'?  higherRating(playersOrder) : lowerRating(playersOrder)
-	//     }
-	//     if(position && position !== 'any' && position!=='--' && position!=='all') selectPosition(playersOrder, position)
-	//     if(elo && elo!=='any' && elo!=='--' && elo!=='all')  selectElo(playersOrder, elo)}
-	// }
-
-	// useEffect(()=>{
-	//     console.log('pre order', players[0])
-	//     orderPlayers(playersOrder)
-	//     console.log('post order', players[0])
-	// },[order, position, elo])
 
 	useEffect(() => {
-		console.log("se conectó al io");
+		if (players.length) {
+			let playersOrder = players;
+			if (order.toLowerCase() === "max-min") {
+				playersOrder = higherRating(playersOrder);
+			}
+			if (order.toLowerCase() === "min-max") {
+				playersOrder = lowerRating(playersOrder);
+			}
+			if (
+				position &&
+				position.toLowerCase() !== "any" &&
+				position.toLowerCase() !== "--" &&
+				position.toLowerCase() !== "all"
+			) {
+				playersOrder = selectPosition(playersOrder, position);
+			}
+			if (
+				elo &&
+				elo.toLowerCase() !== "any" &&
+				elo !== "--" &&
+				elo.toLowerCase() !== "all"
+			) {
+				playersOrder = selectElo(playersOrder, elo);
+			}
+			setPlayersInOrder(playersOrder);
+		}
+	}, [elo, order, position, players]);
+
+	useEffect(() => {
 		socket.current = io("https://backend-gamematch.herokuapp.com/");
 		socket.current.emit("joinRoom", user);
-		//agregado para el user global con socketid
-		socket.current.on("socketid", (socketid) => {
-			dispatch(updateUser({ ...user, socketid }));
-		});
-
-		//agregado para el user global con socketid
-		return () => {
-			socket.current.off("socketid");
-		};
 	}, []);
 
 	useEffect(() => {
@@ -88,6 +78,31 @@ export default function Room() {
 			if (data) {
 				let playersList = data.filter((e) => e._id !== user._id);
 				setPlayers(playersList);
+
+				let playersOrder = playersList;
+				if (order.toLowerCase() === "max-min") {
+					playersOrder = higherRating(playersOrder);
+				}
+				if (order.toLowerCase() === "min-max") {
+					playersOrder = lowerRating(playersOrder);
+				}
+				if (
+					position &&
+					position.toLowerCase() !== "any" &&
+					position.toLowerCase() !== "--" &&
+					position.toLowerCase() !== "all"
+				) {
+					playersOrder = selectPosition(playersOrder, position);
+				}
+				if (
+					elo &&
+					elo.toLowerCase() !== "any" &&
+					elo !== "--" &&
+					elo.toLowerCase() !== "all"
+				) {
+					playersOrder = selectElo(playersOrder, elo);
+				}
+				setPlayersInOrder(playersOrder);
 			}
 		});
 		return () => {
@@ -128,12 +143,9 @@ export default function Room() {
 									justifyContent: "center",
 								}}
 							>
-								<OrderRating handleOrder={setStateOrder} />
+								<OrderRating />
 								{game.position.length > 1 && (
-									<FilterPosition
-										position={game.position}
-										handlePosition={setStatePosition}
-									/>
+									<FilterPosition position={game.position} />
 								)}
 							</View>
 
@@ -144,9 +156,7 @@ export default function Room() {
 										justifyContent: "center",
 									}}
 								>
-									{game.elo && (
-										<FilterElo elo={game.elo} handleElo={setStateElo} />
-									)}
+									{game.elo && <FilterElo elo={game.elo} />}
 								</View>
 							)}
 
@@ -155,8 +165,35 @@ export default function Room() {
                            ||
                            \/
                            \/ 
-                    */}
-							<Players players={players} />
+                    	*/}
+							{/* { players && <Players players={players} />} */}
+							{players.length ? (
+								playersInOrder.length > 0 ? (
+									<Players players={playersInOrder} />
+								) : (
+									<Text
+										style={{
+											marginTop: 5,
+											color: "white",
+											fontSize: 35,
+											fontWeight: "bold",
+										}}
+									>
+										No players with those characteristics
+									</Text>
+								)
+							) : (
+								<Text
+									style={{
+										marginTop: 5,
+										color: "white",
+										fontSize: 35,
+										fontWeight: "bold",
+									}}
+								>
+									Waiting for players..
+								</Text>
+							)}
 						</ScrollView>
 					</SafeAreaView>
 				</View>
