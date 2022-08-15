@@ -12,8 +12,6 @@ import Constants from "expo-constants";
 import Nav from "./Nav";
 import Players from "./Players.jsx";
 import OrderRating from "./Filters/OrderRating";
-//filtros deberían ser para todos igual. pasar por props lo que tiene que presentar en el select
-//y una función para ir sumando al array de filtrado
 import FilterElo from "./Filters/FilterElo";
 import FilterPosition from "./Filters/FilterPosition";
 import { useSelector } from "react-redux";
@@ -26,86 +24,53 @@ import {
 	selectPosition,
 	selectElo,
 } from "../utils/utils";
-import { updateUser } from "../redux/actions";
 import Spinner from "../components/Spinner";
 
 export default function Room() {
-	// const playersGlobal = useSelector((state) => state.games.playersLoL);
 	const games = useSelector((state) => state.games.games);
 	const [players, setPlayers] = useState([]);
 	const [playersInOrder, setPlayersInOrder] = useState([]);
-	const [filters, setFilters] = useState({
-		order: "any",
-		position: "all",
-		elo: "all",
-	});
 	const user = useSelector((state) => state.games.user);
+	const elo = useSelector((state) => state.games.elo);
+	const position = useSelector((state) => state.games.position);
+	const order = useSelector((state) => state.games.order);
+
 	const socket = useRef();
 	const { id } = useParams();
 	let game = games.find((e) => e._id === id);
 
-	console.log("players", players, "playersInOrder", playersInOrder);
-
-	function setStateOrder(order) {
-		setFilters(() => {
-			return { ...filters, order: order.toLowerCase() };
-		});
-	}
-
-	function setStatePosition(position) {
-		setFilters(() => {
-			return { ...filters, position: position.toLowerCase() };
-		});
-	}
-
-	function setStateElo(elo) {
-		setFilters(() => {
-			return { ...filters, elo: elo.toLowerCase() };
-		});
-	}
-
 	useEffect(() => {
 		if (players.length) {
 			let playersOrder = players;
-			if (filters.order === "max-min") {
+			if (order.toLowerCase() === "max-min") {
 				playersOrder = higherRating(playersOrder);
 			}
-			if (filters.order === "min-max") {
+			if (order.toLowerCase() === "min-max") {
 				playersOrder = lowerRating(playersOrder);
 			}
 			if (
-				filters.position &&
-				filters.position !== "any" &&
-				filters.position !== "--" &&
-				filters.position !== "all"
+				position &&
+				position.toLowerCase() !== "any" &&
+				position.toLowerCase() !== "--" &&
+				position.toLowerCase() !== "all"
 			) {
-				playersOrder = selectPosition(playersOrder, filters.position);
+				playersOrder = selectPosition(playersOrder, position);
 			}
 			if (
-				filters.elo &&
-				filters.elo !== "any" &&
-				filters.elo !== "--" &&
-				filters.elo !== "all"
+				elo &&
+				elo.toLowerCase() !== "any" &&
+				elo !== "--" &&
+				elo.toLowerCase() !== "all"
 			) {
-				playersOrder = selectElo(playersOrder, filters.elo);
+				playersOrder = selectElo(playersOrder, elo);
 			}
 			setPlayersInOrder(playersOrder);
 		}
-	}, [filters]);
+	}, [elo, order, position, players]);
 
 	useEffect(() => {
-		console.log("se conectó al io");
 		socket.current = io("https://backend-gamematch.herokuapp.com/");
 		socket.current.emit("joinRoom", user);
-		//agregado para el user global con socketid
-		socket.current.on("socketid", (socketid) => {
-			dispatch(updateUser({ ...user, socketid }));
-		});
-
-		//agregado para el user global con socketid
-		return () => {
-			socket.current.off("socketid");
-		};
 	}, []);
 
 	useEffect(() => {
@@ -114,32 +79,28 @@ export default function Room() {
 				let playersList = data.filter((e) => e._id !== user._id);
 				setPlayers(playersList);
 
-				let playersOrder = data;
-				if (filters.order === "max-min") {
-					// let playersOrder1 = higherRating(playersOrder);
-					// playersOrder = playersOrder1;
-					higherRating(playersOrder);
+				let playersOrder = playersList;
+				if (order.toLowerCase() === "max-min") {
+					playersOrder = higherRating(playersOrder);
 				}
-				if (filters.order === "min-max") {
-					// let playersOrder2 = lowerRating(playersOrder);
-					// playersOrder = playersOrder2;
-					lowerRating(playersOrder);
+				if (order.toLowerCase() === "min-max") {
+					playersOrder = lowerRating(playersOrder);
 				}
 				if (
-					filters.position &&
-					filters.position !== "any" &&
-					filters.position !== "--" &&
-					filters.position !== "all"
+					position &&
+					position.toLowerCase() !== "any" &&
+					position.toLowerCase() !== "--" &&
+					position.toLowerCase() !== "all"
 				) {
-					playersOrder = selectPosition(playersOrder, filters.position);
+					playersOrder = selectPosition(playersOrder, position);
 				}
 				if (
-					filters.elo &&
-					filters.elo !== "any" &&
-					filters.elo !== "--" &&
-					filters.elo !== "all"
+					elo &&
+					elo.toLowerCase() !== "any" &&
+					elo !== "--" &&
+					elo.toLowerCase() !== "all"
 				) {
-					playersOrder = selectElo(playersOrder, filters.elo);
+					playersOrder = selectElo(playersOrder, elo);
 				}
 				setPlayersInOrder(playersOrder);
 			}
@@ -182,12 +143,9 @@ export default function Room() {
 									justifyContent: "center",
 								}}
 							>
-								<OrderRating handleOrder={setStateOrder} />
+								<OrderRating />
 								{game.position.length > 1 && (
-									<FilterPosition
-										position={game.position}
-										handlePosition={setStatePosition}
-									/>
+									<FilterPosition position={game.position} />
 								)}
 							</View>
 
@@ -198,9 +156,7 @@ export default function Room() {
 										justifyContent: "center",
 									}}
 								>
-									{game.elo && (
-										<FilterElo elo={game.elo} handleElo={setStateElo} />
-									)}
+									{game.elo && <FilterElo elo={game.elo} />}
 								</View>
 							)}
 
