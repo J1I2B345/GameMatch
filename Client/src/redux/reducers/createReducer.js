@@ -14,6 +14,7 @@ const initialState = {
 	newsInfo: [],
 	user: [],
 	userProfile: [],
+	userNameChat: "",
 	aux: [],
 	order: "Any",
 	position: "All",
@@ -64,6 +65,11 @@ const createReducer = (state = initialState, action) => {
 			return {
 				...state,
 				aux: payload,
+			};
+		case "USER_NAME_CHAT":
+			return {
+				...state,
+				userNameChat: payload,
 			};
 
 		case GET_GAMES:

@@ -20,6 +20,7 @@ const Chat = () => {
 	const [chatMessage, setChatMessage] = useState("");
 	const [chatMessages, setChatMessages] = useState([]);
 	const user = useSelector((state) => state.games.user);
+	const userName = useSelector((state) => state.games.userNameChat);
 	const socket = useRef();
 	const { id } = useParams();
 
@@ -83,34 +84,60 @@ const Chat = () => {
 
 	return (
 		<View style={{ height: "100%" }}>
-			<StatusBar style="auto" />
 			<View
 				style={{
 					marginTop: Constants.statusBarHeight,
 					alignItems: "center",
-                    flexDirection: "row",
+					flexDirection: "row",
 				}}
 			>
-                <Link to="/selectchat" activeOpacity={1} underlayColor={""} style={{marginLeft: "2%"}}>
-                    <Image
-                        source={require("../../assets/iconBack.png")}
-                        style={{ width: 50, height: 50 }}
-                    />
-                </Link>
-				<Text style={{ color: "white", fontSize: 40, marginLeft: "25%" }}> Chat</Text>
+				<Link
+					to="/selectchat"
+					activeOpacity={1}
+					underlayColor={""}
+					style={{ marginLeft: "2%" }}
+				>
+					<Image
+						source={require("../../assets/iconBack.png")}
+						style={{ width: 50, height: 50 }}
+					/>
+				</Link>
+				<Text style={{ color: "white", fontSize: 40, marginLeft: "25%" }}>
+					{" "}
+					{userName}
+				</Text>
 			</View>
 			<ScrollView
 				ref={scrollViewRef}
 				onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}
 			>
-				<View style={{ margin: 10 }}>
+				<View style={{ margin: 5, marginTop: 0, marginBottom: 0 }}>
 					{chatMessages &&
 						chatMessages.map((chatMessage, i) => (
 							<Text
 								key={i}
-                                style={chatMessage.fromSelf === true ? {
-                                    marginLeft: "63%", margin: 5, padding: 13, borderRadius: 15, width: "35%", color: "#fff", textAlign: "center", backgroundColor: "#655EBE",} 
-                                    : {margin: 5, padding: 13, borderRadius: 15, width: "30%", color: "#fff", textAlign: "center", backgroundColor: "#444074",}}
+								style={
+									chatMessage.fromSelf === true
+										? {
+												marginLeft: "63%",
+												margin: 5,
+												padding: 13,
+												borderRadius: 15,
+												width: "35%",
+												color: "#fff",
+												textAlign: "center",
+												backgroundColor: "#655EBE",
+										  }
+										: {
+												margin: 5,
+												padding: 13,
+												borderRadius: 15,
+												width: "30%",
+												color: "#fff",
+												textAlign: "center",
+												backgroundColor: "#444074",
+										  }
+								}
 							>
 								{/* tiene una propiedad que es fromSelf => si es true, es del mismo que envía y debería estar a la derecha el mensaje, si es false es del otro y debería estar a la izquierda. no se como hacerlo */}
 								{chatMessage.message}
@@ -118,11 +145,18 @@ const Chat = () => {
 						))}
 				</View>
 			</ScrollView>
-			<View style={{ flexDirection: "row", alignItems: "center" }}>
+			<View
+				style={{
+					flexDirection: "row",
+					alignItems: "center",
+					margin: 5,
+					backgroundColor: "none",
+				}}
+			>
 				<TextInput
 					style={{
 						height: 45,
-						width: "90%",
+						width: "87%",
 						borderWidth: 1,
 						borderRadius: 50,
 						textAlign: "center",
@@ -136,20 +170,22 @@ const Chat = () => {
 				<TouchableWithoutFeedback
 					onPress={(e) => {
 						submitChatMessage(e);
-                        console.log(chatMessages)
-                        console.log(user)
+						console.log(chatMessages);
+						console.log(user);
 						setChatMessage("");
 					}}
 				>
 					<Image
 						source={require("../../assets/iconSend.png")}
 						style={{
+							marginLeft: 10,
 							width: 30,
 							height: 30,
 						}}
 					/>
 				</TouchableWithoutFeedback>
 			</View>
+			<StatusBar style="auto" />
 		</View>
 	);
 };
@@ -170,6 +206,5 @@ const styles = StyleSheet.create({
 //     textAlign: "center",
 //     backgroundColor: "#655EBE",
 // }}
-
 
 export default Chat;

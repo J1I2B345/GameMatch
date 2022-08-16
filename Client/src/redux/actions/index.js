@@ -25,18 +25,13 @@ export const createGame = (game) => (dispatch) => {
 
 export const editProfile = (user) => {
 	return async (dispatch) => {
-		await axios.put(
-			`https://backend-gamematch.herokuapp.com/users/${user._id}`,
-			user
-		);
+		await axios.put(`https://backend-gamematch.herokuapp.com/users/${user._id}`, user);
 		return dispatch({ type: "EDIT_PROFILE", payload: user });
 	};
 };
 
 export const getUser = (username) => (dispatch) => {
-	return fetch(
-		`https://backend-gamematch.herokuapp.com/users/username/${username}`
-	)
+	return fetch(`https://backend-gamematch.herokuapp.com/users/username/${username}`)
 		.then((response) => response.json())
 		.then((json) => {
 			const {
@@ -67,6 +62,16 @@ export const getUser = (username) => (dispatch) => {
 		});
 };
 
+export const getNameUserChat = (idUser) => (dispatch) => {
+	return fetch(`https://backend-gamematch.herokuapp.com/users/${idUser}`)
+		.then((response) => response.json())
+		.then((json) => {
+			const { username } = json;
+			let userName = username;
+			dispatch({ type: "USER_NAME_CHAT", payload: userName });
+		});
+};
+
 export const updateUser = (payload) => {
 	return { type: UPDATE_USER, payload };
 };
@@ -74,9 +79,7 @@ export const updateUser = (payload) => {
 export const getAllNews = () => {
 	return async (dispatch) => {
 		try {
-			let json = await axios.get(
-				`https://backend-gamematch.herokuapp.com/News`
-			);
+			let json = await axios.get(`https://backend-gamematch.herokuapp.com/News`);
 			return dispatch({
 				type: "GET_ALL_NEWS",
 				payload: json.data,
@@ -95,10 +98,7 @@ export const sendStateNewsInfo = (newsInfo) => {
 
 export const addNews = (news) => {
 	return async () => {
-		return await axios.post(
-			`https://backend-gamematch.herokuapp.com/news`,
-			news
-		);
+		return await axios.post(`https://backend-gamematch.herokuapp.com/news`, news);
 	};
 };
 

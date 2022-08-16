@@ -26,7 +26,6 @@ const EditProfile = () => {
 	const dispatch = useDispatch();
 	const navigation = useNavigate();
 	const User = useSelector((state) => state.games.userProfile);
-	console.log(User);
 
 	const submit = (values, actions) => {
 		dispatch(editProfile(values));
