@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {  useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editGame, getGame } from "../../redux/actions";
 import { Formik, Form } from "formik";
@@ -11,8 +11,8 @@ import { useNavigate, useParams } from "react-router-dom";
 const validate = yup.object({
   name: yup.string().required().min(3),
   gender: yup.string().required().min(3),
-  elo: yup.string().required().min(3),
-  position: yup.string().required().min(3),
+  elo: yup.array().required().min(3),
+  position: yup.array().required().min(3),
   image: yup.string().required().url(),
   id: yup.string().required(),
 });

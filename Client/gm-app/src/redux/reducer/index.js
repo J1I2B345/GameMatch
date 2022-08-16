@@ -14,14 +14,14 @@ import {
 } from "../actions";
 
 const initialState = {
-  games: null,
-  user: null,
-  userSelect: null,
-  news: null,
-  userProfile: null,
-  aux: null,
-  gameSelect: null,
-  newSelect: null,
+	games: [],
+	user: null,
+	userSelect: null,
+	news: [],
+	userProfile: null,
+	aux: null,
+	gameSelect: null,
+	newSelect: null,
 };
 
 const rootReducer = (state = initialState, action) => {
