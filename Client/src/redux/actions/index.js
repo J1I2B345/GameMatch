@@ -20,7 +20,6 @@ export const createGame = (game) => (dispatch) => {
 		})
 		.then((json) => {
 			if (!json.error) {
-				console.log(json);
 				alert("game created!"), dispatch({ type: CREATE_GAME, payload: json });
 			} else alert(json.error);
 		});
@@ -90,8 +89,13 @@ export const sendStateNewsInfo = (newsInfo) => {
 };
 
 export const addNews = (news) => {
+	// return async () => {
+	// 	return await axios.post(`https://backend-gamematch.herokuapp.com/news`, news);
+	// };
 	return async () => {
-		return await axios.post(`https://backend-gamematch.herokuapp.com/news`, news);
+		let response = await axios.post(`https://backend-gamematch.herokuapp.com/news`, news);
+		if (response.data.error) alert("error: ", response.data.error);
+		else return response.data;
 	};
 };
 
