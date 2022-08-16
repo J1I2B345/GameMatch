@@ -12,7 +12,7 @@ import io from "socket.io-client";
 import Nav from "./Nav";
 import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-native";
+import { Link, useParams } from "react-router-native";
 import axios from "axios";
 import { StatusBar } from "expo-status-bar";
 
@@ -88,9 +88,16 @@ const Chat = () => {
 				style={{
 					marginTop: Constants.statusBarHeight,
 					alignItems: "center",
+                    flexDirection: "row",
 				}}
 			>
-				<Text style={{ color: "white", fontSize: 40 }}> Chat</Text>
+                <Link to="/selectchat" activeOpacity={1} underlayColor={""} style={{marginLeft: "2%"}}>
+                    <Image
+                        source={require("../../assets/iconBack.png")}
+                        style={{ width: 50, height: 50 }}
+                    />
+                </Link>
+				<Text style={{ color: "white", fontSize: 40, marginLeft: "25%" }}> Chat</Text>
 			</View>
 			<ScrollView
 				ref={scrollViewRef}
@@ -101,15 +108,9 @@ const Chat = () => {
 						chatMessages.map((chatMessage, i) => (
 							<Text
 								key={i}
-								style={{
-									margin: 5,
-									padding: 13,
-									borderRadius: 15,
-									width: 65,
-									color: "#fff",
-									textAlign: "center",
-									backgroundColor: "#655EBE",
-								}}
+                                style={chatMessage.fromSelf === true ? {
+                                    marginLeft: "63%", margin: 5, padding: 13, borderRadius: 15, width: "35%", color: "#fff", textAlign: "center", backgroundColor: "#655EBE",} 
+                                    : {margin: 5, padding: 13, borderRadius: 15, width: "30%", color: "#fff", textAlign: "center", backgroundColor: "#444074",}}
 							>
 								{/* tiene una propiedad que es fromSelf => si es true, es del mismo que envía y debería estar a la derecha el mensaje, si es false es del otro y debería estar a la izquierda. no se como hacerlo */}
 								{chatMessage.message}
@@ -135,6 +136,8 @@ const Chat = () => {
 				<TouchableWithoutFeedback
 					onPress={(e) => {
 						submitChatMessage(e);
+                        console.log(chatMessages)
+                        console.log(user)
 						setChatMessage("");
 					}}
 				>
@@ -156,5 +159,17 @@ const styles = StyleSheet.create({
 		height: "100%",
 	},
 });
+
+// antiguo style chat
+// style={{
+//     margin: 5,
+//     padding: 13,
+//     borderRadius: 15,
+//     width: 65,
+//     color: "#fff",
+//     textAlign: "center",
+//     backgroundColor: "#655EBE",
+// }}
+
 
 export default Chat;
