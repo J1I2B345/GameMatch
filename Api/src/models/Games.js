@@ -5,7 +5,7 @@ const schema = new Schema(
 		name: {
 			type: String,
 			required: true,
-			trim: true,
+			
 			unique: true,
 		},
 		image: {
@@ -19,6 +19,7 @@ const schema = new Schema(
 		elo: {
 			type: Array,
 			required: true,
+			default: ["Casual"],
 		},
 		position: {
 			type: Array,
@@ -29,13 +30,6 @@ const schema = new Schema(
 		timestamps: true,
 	}
 );
-schema.pre("validate", function (next) {
-	if (typeof this.name === "string") throw new Error("name must be a string");
-	if (typeof this.image === "string")
-		throw new Error("insert a url of a image");
-	if (typeof this.gender === "string")
-		throw new Error("gender must be a string");
-	next();
-});
+
 
 module.exports = model("Game", schema);
