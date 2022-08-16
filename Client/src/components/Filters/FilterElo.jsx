@@ -16,7 +16,7 @@ const FilterElo = ({ elo }) => {
 
 	useEffect(() => {
 		setOption(state);
-	}, [option]);
+	}, []);
 
 	return (
 		<View
@@ -48,9 +48,7 @@ const FilterElo = ({ elo }) => {
 			>
 				<Picker.Item label="All" value="All" />
 				{elo.length > 0 &&
-					elo.map((data) => (
-						<Picker.Item key={data} label={data} value={data} />
-					))}
+					elo.map((data) => <Picker.Item key={data} label={data} value={data} />)}
 			</Picker>
 		</View>
 	);

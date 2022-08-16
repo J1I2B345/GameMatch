@@ -8,7 +8,7 @@ import OrderRating from "./Filters/OrderRating";
 import FilterElo from "./Filters/FilterElo";
 import FilterPosition from "./Filters/FilterPosition";
 import { useSelector } from "react-redux";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 import { higherRating, lowerRating, selectPosition, selectElo } from "../utils/utils";
@@ -22,7 +22,6 @@ export default function Room() {
 	const elo = useSelector((state) => state.games.elo);
 	const position = useSelector((state) => state.games.position);
 	const order = useSelector((state) => state.games.order);
-
 	const socket = useRef();
 	const { id } = useParams();
 	let game = games.find((e) => e._id === id);
@@ -59,6 +58,9 @@ export default function Room() {
 	useEffect(() => {
 		socket.current = io("https://backend-gamematch.herokuapp.com/");
 		socket.current.emit("joinRoom", user);
+		return () => {
+			socket.current.off("gameUsers");
+		};
 	}, []);
 
 	useEffect(() => {
