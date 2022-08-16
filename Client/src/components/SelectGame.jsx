@@ -53,8 +53,6 @@ export default function SelectGame() {
 							<View
 								style={{
 									width: "100%",
-									borderWidth: 1,
-									borderColor: "#fff",
 									alignItems: "center",
 								}}
 							>

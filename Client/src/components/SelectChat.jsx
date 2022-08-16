@@ -2,6 +2,7 @@ import axios from "axios";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { Image, Text, View } from "react-native";
+import Constants from "expo-constants";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-native";
 
@@ -26,7 +27,7 @@ export default function SelectChat() {
 	return (
 		<View style={{ height: "100%", alignItems: "center" }}>
 			<StatusBar style="auto" />
-			<Text style={{ marginTop: "5%", color: "white", fontSize: 40 }}>
+			<Text style={{ marginTop: Constants.statusBarHeight, color: "white", fontSize: 40 }}>
 				Chats
 			</Text>
 			<View style={{ width: "100%", alignItems: "center" }}>
