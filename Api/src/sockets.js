@@ -14,12 +14,20 @@ module.exports = (io) => {
 			}
 		});
 
+		socket.on("leaveRoom", (user) => {
+			if (user.username) {
+				leaveRoom(user.game, user._id);
+				io.to(user.game).emit("gameUsers", getGameUsers(user.game));
+			}
+		});
+
 		//funcionalidad chat
 		socket.on("joinChat", (user) => {
 			let userFull = { ...user, socketid: socket.id };
 			global[socket.id] = userFull;
 			joinChat(userFull);
 		});
+
 		socket.on("client: send message", (msg) => {
 			let receiver = getUser(msg.users[1]);
 			if (receiver) {
