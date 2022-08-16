@@ -1,12 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import {
-	StyleSheet,
-	Text,
-	View,
-	Image,
-	SafeAreaView,
-	ScrollView,
-} from "react-native";
+import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView } from "react-native";
 import { Link, useParams } from "react-router-native";
 import Constants from "expo-constants";
 import Nav from "./Nav";
@@ -18,12 +11,7 @@ import { useSelector } from "react-redux";
 import { connect } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
-import {
-	higherRating,
-	lowerRating,
-	selectPosition,
-	selectElo,
-} from "../utils/utils";
+import { higherRating, lowerRating, selectPosition, selectElo } from "../utils/utils";
 import Spinner from "../components/Spinner";
 
 export default function Room() {
@@ -113,11 +101,10 @@ export default function Room() {
 	return (
 		<View style={styles.container}>
 			{game.name ? (
-				<View style={{height: "93%"}}>
+				<View style={{ height: "93%", alignItems: "center" }}>
 					<Text
 						style={{
 							marginTop: Constants.statusBarHeight + 10,
-							width: "80%",
 							color: "white",
 							textAlign: "center",
 							fontSize: 45,
@@ -132,55 +119,41 @@ export default function Room() {
 							height: 2,
 							width: "90%",
 							backgroundColor: "#98228C",
+							alignItems: "center",
 						}}
-					>
-					</View>
-						<ScrollView style={{}}>
+					></View>
+					<ScrollView>
+						<View
+							style={{
+								flexDirection: "row",
+								justifyContent: "center",
+							}}
+						>
+							<OrderRating />
+							{game.position.length > 1 && <FilterPosition position={game.position} />}
+						</View>
+
+						{game.elo && (
 							<View
 								style={{
 									flexDirection: "row",
 									justifyContent: "center",
 								}}
 							>
-								<OrderRating />
-								{game.position.length > 1 && (
-									<FilterPosition position={game.position} />
-								)}
+								{game.elo && <FilterElo elo={game.elo} />}
 							</View>
+						)}
 
-							{game.elo && (
-								<View
-									style={{
-										flexDirection: "row",
-										justifyContent: "center",
-									}}
-								>
-									{game.elo && <FilterElo elo={game.elo} />}
-								</View>
-							)}
-
-							{/* componente presentacional 
+						{/* componente presentacional 
                     
                            ||
                            \/
                            \/ 
                     	*/}
-							{/* { players && <Players players={players} />} */}
-							{players.length ? (
-								playersInOrder.length > 0 ? (
-									<Players players={playersInOrder} />
-								) : (
-									<Text
-										style={{
-											marginTop: 5,
-											color: "white",
-											fontSize: 35,
-											fontWeight: "bold",
-										}}
-									>
-										No players with those characteristics
-									</Text>
-								)
+						{/* { players && <Players players={players} />} */}
+						{players.length ? (
+							playersInOrder.length > 0 ? (
+								<Players players={playersInOrder} />
 							) : (
 								<Text
 									style={{
@@ -190,10 +163,22 @@ export default function Room() {
 										fontWeight: "bold",
 									}}
 								>
-									Waiting for players..
+									No players with those characteristics
 								</Text>
-							)}
-						</ScrollView>
+							)
+						) : (
+							<Text
+								style={{
+									marginTop: 5,
+									color: "white",
+									fontSize: 35,
+									fontWeight: "bold",
+								}}
+							>
+								Waiting for players..
+							</Text>
+						)}
+					</ScrollView>
 				</View>
 			) : (
 				<Spinner />

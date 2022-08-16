@@ -107,7 +107,7 @@ export default function Form() {
 						</View>
 
 						{game.position.length !== 0 ? (
-							<View>
+							<View style={{ alignItems: "center" }}>
 								<Text
 									style={{
 										marginTop: 50,
@@ -116,7 +116,7 @@ export default function Form() {
 										marginBottom: 10,
 									}}
 								>
-									🕹️Choose your position
+									🕹️ Choose your position
 								</Text>
 								<Picker
 									selectedValue={playerPosition}
@@ -130,11 +130,7 @@ export default function Form() {
 									{game && game.position ? (
 										game.position.map((position) => {
 											return (
-												<Picker.Item
-													key={position}
-													label={position}
-													value={position}
-												/>
+												<Picker.Item key={position} label={position} value={position} />
 											);
 										})
 									) : (

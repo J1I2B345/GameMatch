@@ -8,7 +8,7 @@ const PlayerCard = ({ id, img, name, elo, position, rating }) => {
 			<Link to="" activeOpacity={1} underlayColor={""}>
 				<View
 					style={{
-						width: 340,
+						width: 350,
 						height: 80,
 						borderRadius: 20,
 						backgroundColor: "#3519B0",
