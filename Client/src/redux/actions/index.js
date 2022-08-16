@@ -19,24 +19,22 @@ export const createGame = (game) => (dispatch) => {
 			return response.json();
 		})
 		.then((json) => {
-			dispatch({ type: CREATE_GAME, payload: json });
+			if (!json.error) {
+				console.log(json);
+				alert("game created!"), dispatch({ type: CREATE_GAME, payload: json });
+			} else alert(json.error);
 		});
 };
 
 export const editProfile = (user) => {
 	return async (dispatch) => {
-		await axios.put(
-			`https://backend-gamematch.herokuapp.com/users/${user._id}`,
-			user
-		);
+		await axios.put(`https://backend-gamematch.herokuapp.com/users/${user._id}`, user);
 		return dispatch({ type: "EDIT_PROFILE", payload: user });
 	};
 };
 
 export const getUser = (username) => (dispatch) => {
-	return fetch(
-		`https://backend-gamematch.herokuapp.com/users/username/${username}`
-	)
+	return fetch(`https://backend-gamematch.herokuapp.com/users/username/${username}`)
 		.then((response) => response.json())
 		.then((json) => {
 			const {
@@ -74,15 +72,13 @@ export const updateUser = (payload) => {
 export const getAllNews = () => {
 	return async (dispatch) => {
 		try {
-			let json = await axios.get(
-				`https://backend-gamematch.herokuapp.com/News`
-			);
+			let json = await axios.get(`https://backend-gamematch.herokuapp.com/News`);
 			return dispatch({
 				type: "GET_ALL_NEWS",
 				payload: json.data,
 			});
 		} catch (error) {
-			console.log(error);
+			alter(error.message);
 		}
 	};
 };
@@ -95,10 +91,7 @@ export const sendStateNewsInfo = (newsInfo) => {
 
 export const addNews = (news) => {
 	return async () => {
-		return await axios.post(
-			`https://backend-gamematch.herokuapp.com/news`,
-			news
-		);
+		return await axios.post(`https://backend-gamematch.herokuapp.com/news`, news);
 	};
 };
 
