@@ -42,6 +42,7 @@ router.get("/:id", async (req, res) => {
 
 //solicitud Tipo  POST: localhost:3001/games/id
 //[auth.verifyToken,auth.isAdmin] auth.isAdmin,
+
 router.post(
 	"/",
 	// auth.isAdmin,
@@ -63,11 +64,13 @@ router.post(
 		} catch (error) {
 			res.status(500).json({ error: error.message });
 		}
+
 	}
 );
 
 //*----------------UPDATE GAMES------------------------
 //[auth.verifyToken,auth.isAdmin]auth.isAdmin,
+
 router.put(
 	"/:id",
 	//  auth.isAdmin,
@@ -84,6 +87,7 @@ router.put(
 		} catch (error) {
 			res.status(500).json({ error: error.message });
 		}
+
 	}
 );
 
@@ -92,6 +96,7 @@ router.put(
 //solicitud Tipo DELETE: localhost:3001/games/id
 
 //[auth.verifyToken,auth.isAdmin]auth.isAdmin,
+
 
 router.delete(
 	"/:id",
@@ -107,6 +112,7 @@ router.delete(
 		} catch (error) {
 			res.status(500).json({ message: error.message });
 		}
+
 	}
 );
 

@@ -34,34 +34,45 @@ const Login = () => {
 	useEffect(() => {
 		dispatch(allUser());
 	}, []);
+	const _id=''
 	const submit = async (values, actions) => {
-		//console.log(values);
+
+	
 		if (!user.map((d) => d.email).includes(values.email)) {
-			Alert.alert("The email not found");
+			Alert.alert("💌Email not found,try againヾ(≧▽≦*)o ");
 			return;
 		}
-		if (values.email) {
+	
+		if (!user.map((d) => d.email &&d.password).includes(values.email&& values.password)) {
+			Alert.alert("❔Password invalid,try againヾ(≧▽≦*)o");
+			return;
+		}
+		 
+	
+		//  for(let i = 0; i < user.length; i++) {if( user[i].email ===values.email)
+		// 	{return	_id=user.id}}
+		
+			
+		
+		
 			try {
-				let res = await axios.post(
+						let res = await axios.post(
 					"https://backend-gamematch.herokuapp.com/users/login",
 					values
 				);
 
-				console.log(res.data);
-				dispatch(login(values));
+				 console.log(values);
+				dispatch(login(values,));
 				navigation("/selectgame");
 			} catch (error) {
 				Alert.alert("password  incorrect");
 				console.log({ message: error.message });
 			}
 		}
-		// if (!user.map((d)=>console.log(d.password)))  {
-		//  Alert.alert('The password are incorrect')
-		//  return;}
 
 		//  dispatch(login(values));
 		// navigation("/selectgame");
-	};
+	
 
 	return (
 		<SafeAreaView style={styles.container}>

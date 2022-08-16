@@ -20,7 +20,6 @@ export default function CreateNews() {
 
 	const submit = (values, actions) => {
 		dispatch(createNews(values));
-		alert("Noticia creada");
 		actions.resetForm();
 	};
 

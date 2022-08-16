@@ -91,7 +91,9 @@ router.post("/", async (req, res) => {
 //[auth.verifyToken,auth.isAdmin]
 router.delete(
 	"/delete/:id",
+
 	//  auth.isAdmin,
+
 	async (req, res) => {
 		try {
 			const messageDeleted = await News.findByIdAndDelete(req.params.id);

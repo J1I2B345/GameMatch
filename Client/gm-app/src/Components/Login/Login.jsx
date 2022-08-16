@@ -19,8 +19,7 @@ export default function Login() {
 	const dispatch = useDispatch();
 	const navigation = useNavigate();
 	const user = useSelector((state) => state.aux);
-
-	// console.log({ user });
+	console.log(user);
 
 	useEffect(() => {
 		dispatch(allUser());
@@ -29,27 +28,30 @@ export default function Login() {
 	const submit = async (values, actions) => {
 		//console.log(values);
 		if (!user.map((d) => d.email).includes(values.email)) {
-			alert("The email not found");
+			alert("💌Email not found,try againヾ(≧▽≦*)o ");
 			return;
 		}
-		if (values.email) {
-			try {
-				let res = await axios.post(
-					"https://backend-gamematch.herokuapp.com/users/login",
-					values
-				);
 
-				// console.log(res.data);
-				dispatch(login(values));
-				navigation("/panel");
-			} catch (error) {
-				alert("password  incorrect");
-				console.log({ message: error.message });
-			}
+		if (
+			!user.map((d) => d.email && d.password).includes(values.email && values.password)
+		) {
+			alert("❔Password invalid,try againヾ(≧▽≦*)o");
+			return;
 		}
-		// if (!user.map((d)=>console.log(d.password)))  {
-		//  Alert.alert('The password are incorrect')
-		//  return;}
+
+		try {
+			let res = await axios.post(
+				"https://backend-gamematch.herokuapp.com/users/login",
+				values
+			);
+
+			console.log(res.data);
+			dispatch(login(values));
+			navigation("/panel");
+		} catch (error) {
+			alert({ message: error.message });
+			console.log({ message: error.message });
+		}
 
 		//  dispatch(login(values));
 		// navigation("/selectgame");
@@ -61,23 +63,23 @@ export default function Login() {
 					<img src={GameMatch} className="image-game" alt="" />
 				</div>
 				<div className="container-img-icon">
-					<img src={iconApp} className="image-icon" alt="" />
+					{/* <img src={iconApp} className="image-icon" alt="" /> */}
 				</div>
 			</div>
 			<div className="form-container">
 				{
 					<Formik
 						initialValues={{
-							email: "admin@gmail.com",
-							password: "123",
+							email: "",
+							password: "",
 						}}
 						validationSchema={validate}
 						onSubmit={submit}
 					>
 						{(formik) => (
 							<div>
-								<h1>Logeate</h1>
 								<Form>
+									{/* <label className="se"><h1>Hi!, Welcome Back</h1></label> */}
 									<TextField
 										className="input"
 										label="Email Address"
@@ -100,12 +102,18 @@ export default function Login() {
 					</Formik>
 				}
 			</div>
-			<div>
+			{/* <div>
 				Don't have account?
 				<Link to="/register">
 					<div className="register-link">Register</div>
+					<div className="container-img-game">
+						<h1></h1>
+					</div>
+					<div className="container-img-game">
+						<h1></h1>
+					</div>
 				</Link>
-			</div>
+			</div> */}
 		</Container>
 	);
 }

@@ -19,7 +19,9 @@ export const createGame = (game) => (dispatch) => {
 			return response.json();
 		})
 		.then((json) => {
-			dispatch({ type: CREATE_GAME, payload: json });
+			if (!json.error) {
+				alert("game created!"), dispatch({ type: CREATE_GAME, payload: json });
+			} else alert(json.error);
 		});
 };
 
@@ -85,7 +87,7 @@ export const getAllNews = () => {
 				payload: json.data,
 			});
 		} catch (error) {
-			console.log(error);
+			alter(error.message);
 		}
 	};
 };
@@ -97,8 +99,16 @@ export const sendStateNewsInfo = (newsInfo) => {
 };
 
 export const addNews = (news) => {
+	// return async () => {
+	// 	return await axios.post(`https://backend-gamematch.herokuapp.com/news`, news);
+	// };
 	return async () => {
-		return await axios.post(`https://backend-gamematch.herokuapp.com/news`, news);
+		let response = await axios.post(`https://backend-gamematch.herokuapp.com/news`, news);
+		if (response.data.error) alert("error: ", response.data.error);
+		else {
+			alert("Noticia creada exitosamente");
+			return response.data;
+		}
 	};
 };
 
