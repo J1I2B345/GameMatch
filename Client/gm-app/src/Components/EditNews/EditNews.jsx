@@ -14,19 +14,20 @@ const validate = yup.object({
 });
 
 export default function EditNews() {
-  const params = useParams();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const review = useSelector((state) => state.newSelect);
-  const userActive = useSelector((state) => state.userProfile);
+	const params = useParams();
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const review = useSelector((state) => state.newSelect);
+	const userActive = useSelector((state) => state.userProfile);
 
-  // console.log(review);
+	// console.log(review);
 
-  useEffect(() => {
-    dispatch(getNew(params.id));
-  }, []);
+	useEffect(() => {
+		dispatch(getNew(params._id));
+	}, []);
 
 	const submit = (values) => {
+		console.log(values);
 		dispatch(editNews(values));
 		navigate("/news");
 	};
@@ -53,7 +54,7 @@ export default function EditNews() {
 							<div>
 								<h1>Modificar noticia</h1>
 
-                <h2>Noticia a modificar: {review.title} </h2>
+								<h2>Noticia a modificar: {review.title} </h2>
 
 								<Form>
 									<TextField
