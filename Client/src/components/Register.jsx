@@ -105,8 +105,7 @@ const Register = () => {
 									/>
 									<View style={styles.relleno}></View>
 									<Text style={{ color: "red", fontSize: 10 }}>
-										{formikProps.touched.username &&
-											formikProps.errors.username}
+										{formikProps.touched.username && formikProps.errors.username}
 									</Text>
 
 									<TextInput
@@ -132,12 +131,12 @@ const Register = () => {
 										secureTextEntry={true}
 									/>
 									<Text style={{ color: "red", fontSize: 10 }}>
-										{formikProps.touched.password &&
-											formikProps.errors.password}
+										{formikProps.touched.password && formikProps.errors.password}
 									</Text>
 									<TextInput
 										placeholder="Repeat Password"
 										style={styles.input}
+										secureTextEntry={true}
 										onChangeText={(text) => setpassword(text)}
 										value={confirm}
 									/>

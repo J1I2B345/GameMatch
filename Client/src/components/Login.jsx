@@ -115,8 +115,7 @@ const Login = () => {
 										secureTextEntry={true}
 									/>
 									<Text style={{ color: "red", fontSize: 10 }}>
-										{formikProps.touched.password &&
-											formikProps.errors.password}
+										{formikProps.touched.password && formikProps.errors.password}
 									</Text>
 									<View style={styles.relleno}></View>
 									<View
@@ -154,7 +153,7 @@ const Login = () => {
 						}}
 					>
 						Don't have account?
-						<Link to="/register">
+						<Link to="/register" activeOpacity={1} underlayColor={""}>
 							<Text
 								style={{
 									color: "violet",
