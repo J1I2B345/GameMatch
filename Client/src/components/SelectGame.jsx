@@ -8,7 +8,6 @@ import Nav from "./Nav";
 import Game from "./Game";
 import Spinner from "./Spinner";
 import { updateUser, getGames } from "../redux/actions";
-// import axios from 'axios';
 
 export default function SelectGame() {
 	const dispatch = useDispatch();

@@ -64,6 +64,16 @@ export const getUser = (username) => (dispatch) => {
 		});
 };
 
+export const getNameUserChat = (idUser) => (dispatch) => {
+	return fetch(`https://backend-gamematch.herokuapp.com/users/${idUser}`)
+		.then((response) => response.json())
+		.then((json) => {
+			const { username } = json;
+			let userName = username;
+			dispatch({ type: "USER_NAME_CHAT", payload: userName });
+		});
+};
+
 export const updateUser = (payload) => {
 	return { type: UPDATE_USER, payload };
 };

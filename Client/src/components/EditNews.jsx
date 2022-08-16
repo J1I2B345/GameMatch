@@ -20,139 +20,137 @@ const reviewSchema = yup.object({
 	description: yup.string().required().min(1),
 });
 
-const EditNews = () =>
-	// { _id, title, description }
-	{
-		const dispatch = useDispatch();
-		const navigation = useNavigate();
-		const user = useSelector((state) => state.games.userProfile);
-		const New = useSelector((state) => state.games.newsInfo);
-		console.log(New);
+const EditNews = () => {
+	const dispatch = useDispatch();
+	const navigation = useNavigate();
+	const user = useSelector((state) => state.games.userProfile);
+	const New = useSelector((state) => state.games.newsInfo);
+	console.log(New);
 
-		function handleDelete(idNew) {
-			dispatch(deleteNews(idNew));
-			navigation("/news");
-		}
+	function handleDelete(idNew) {
+		dispatch(deleteNews(idNew));
+		navigation("/news");
+	}
 
-		const submit = (values, actions) => {
-			dispatch(editNews(values));
-			navigation("/news");
-		};
+	const submit = (values, actions) => {
+		dispatch(editNews(values));
+		navigation("/news");
+	};
 
-		return (
-			<View style={styles.container}>
-				<StatusBar style="auto" />
-				<View style={styles.portada}>
-					<Formik
-						initialValues={{
-							_id: New._id,
-							editedBy: user._id,
-							title: New.title,
-							description: New.description,
-						}}
-						validationSchema={reviewSchema}
-						onSubmit={submit}
-					>
-						{(formikProps) => (
-							<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-								<View style={styles.form_container}>
-									<Text style={styles.portada_text}>Edit Post</Text>
-									<TextInput
-										style={styles.input}
-										placeholder="Title"
-										onChangeText={formikProps.handleChange("title")}
-										value={formikProps.values.title}
-										onBlur={formikProps.handleBlur("title")}
-									/>
-									<View style={styles.relleno}></View>
-									<TextInput
+	return (
+		<View style={styles.container}>
+			<StatusBar style="auto" />
+			<View style={styles.portada}>
+				<Formik
+					initialValues={{
+						_id: New._id,
+						editedBy: user._id,
+						title: New.title,
+						description: New.description,
+					}}
+					validationSchema={reviewSchema}
+					onSubmit={submit}
+				>
+					{(formikProps) => (
+						<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+							<View style={styles.form_container}>
+								<Text style={styles.portada_text}>Edit Post</Text>
+								<TextInput
+									style={styles.input}
+									placeholder="Title"
+									onChangeText={formikProps.handleChange("title")}
+									value={formikProps.values.title}
+									onBlur={formikProps.handleBlur("title")}
+								/>
+								<View style={styles.relleno}></View>
+								<TextInput
+									style={{
+										...styles.input,
+										height: 90,
+									}}
+									placeholder="Description"
+									onChangeText={formikProps.handleChange("description")}
+									value={formikProps.values.description}
+									onBlur={formikProps.handleBlur("description")}
+								/>
+								<View style={styles.relleno}></View>
+								<View
+									style={{
+										flexDirection: "row",
+										width: "100%",
+										alignItems: "center",
+										justifyContent: "space-around",
+									}}
+								>
+									<Link
+										to="/news"
+										activeOpacity={1}
+										underlayColor={""}
 										style={{
-											...styles.input,
-											height: 90,
-										}}
-										placeholder="Description"
-										onChangeText={formikProps.handleChange("description")}
-										value={formikProps.values.description}
-										onBlur={formikProps.handleBlur("description")}
-									/>
-									<View style={styles.relleno}></View>
-									<View
-										style={{
-											flexDirection: "row",
-											width: "100%",
+											padding: 10,
+											width: "auto",
+											height: "auto",
 											alignItems: "center",
-											justifyContent: "space-around",
+											backgroundColor: "#cf1500",
+											borderRadius: 15,
 										}}
 									>
-										<Link
-											to="/news"
-											activeOpacity={1}
-											underlayColor={""}
+										<Text
 											style={{
-												padding: 10,
-												width: "auto",
-												height: "auto",
-												alignItems: "center",
-												backgroundColor: "#cf1500",
-												borderRadius: 15,
+												fontSize: 16,
+												color: "#fff",
 											}}
 										>
-											<Text
-												style={{
-													fontSize: 16,
-													color: "#fff",
-												}}
-											>
-												cancel
-											</Text>
-										</Link>
-										<TouchableOpacity
+											cancel
+										</Text>
+									</Link>
+									<TouchableOpacity
+										style={{
+											marginRight: -4.5,
+											width: "auto",
+											height: "auto",
+											alignItems: "center",
+											borderRadius: 15,
+										}}
+										onPress={() => handleDelete(New._id)}
+									>
+										<Image
+											source={require("../../assets/iconTrash.png")}
 											style={{
-												marginRight: -4.5,
-												width: "auto",
-												height: "auto",
-												alignItems: "center",
-												borderRadius: 15,
+												width: 22,
+												height: 22,
 											}}
-											onPress={() => handleDelete(New._id)}
-										>
-											<Image
-												source={require("../../assets/iconTrash.png")}
-												style={{
-													width: 22,
-													height: 22,
-												}}
-											/>
-										</TouchableOpacity>
-										<TouchableOpacity
+										/>
+									</TouchableOpacity>
+									<TouchableOpacity
+										style={{
+											padding: 10,
+											width: "auto",
+											height: "auto",
+											alignItems: "center",
+											backgroundColor: "#2089DC",
+											borderRadius: 15,
+										}}
+										onPress={formikProps.handleSubmit}
+									>
+										<Text
 											style={{
-												padding: 10,
-												width: "auto",
-												height: "auto",
-												alignItems: "center",
-												backgroundColor: "#2089DC",
-												borderRadius: 15,
+												fontSize: 16,
+												color: "#fff",
 											}}
-											onPress={formikProps.handleSubmit}
 										>
-											<Text
-												style={{
-													fontSize: 16,
-													color: "#fff",
-												}}
-											>
-												accept
-											</Text>
-										</TouchableOpacity>
-									</View>
+											accept
+										</Text>
+									</TouchableOpacity>
 								</View>
-							</TouchableWithoutFeedback>
-						)}
-					</Formik>
-				</View>
+							</View>
+						</TouchableWithoutFeedback>
+					)}
+				</Formik>
 			</View>
-		);
-	};
+		</View>
+	);
+};
 const styles = StyleSheet.create({
 	container: {
 		width: "100%",
