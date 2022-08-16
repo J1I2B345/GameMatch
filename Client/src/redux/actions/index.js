@@ -95,7 +95,10 @@ export const addNews = (news) => {
 	return async () => {
 		let response = await axios.post(`https://backend-gamematch.herokuapp.com/news`, news);
 		if (response.data.error) alert("error: ", response.data.error);
-		else return response.data;
+		else {
+			alert("Noticia creada exitosamente");
+			return response.data;
+		}
 	};
 };
 
