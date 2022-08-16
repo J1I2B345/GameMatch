@@ -16,7 +16,7 @@ const FilterPosition = ({ position }) => {
 
 	useEffect(() => {
 		setOption(state);
-	}, [option]);
+	}, []);
 
 	return (
 		<View
@@ -49,9 +49,7 @@ const FilterPosition = ({ position }) => {
 			>
 				<Picker.Item label="All" value="All" />
 				{position.length > 0 &&
-					position.map((data) => (
-						<Picker.Item key={data} label={data} value={data} />
-					))}
+					position.map((data) => <Picker.Item key={data} label={data} value={data} />)}
 			</Picker>
 		</View>
 	);
