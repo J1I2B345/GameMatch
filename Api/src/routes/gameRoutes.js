@@ -70,8 +70,7 @@ router.post(
 
 //*----------------UPDATE GAMES------------------------
 //[auth.verifyToken,auth.isAdmin]auth.isAdmin,
-us(500).json({ error: error.message });
-=======
+
 router.put(
 	"/:id",
 	//  auth.isAdmin,
