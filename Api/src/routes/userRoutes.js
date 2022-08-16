@@ -57,7 +57,8 @@ router.get("/username/:username", async (req, res) => {
 
 router.post(
 	"/register",
-	[verify.checkExistingRole, verify.checkExistingUser],
+	[verify.checkExistingRole, 
+		verify.checkExistingUser],
 	async (req, res) => {
 		const {
 			email,
@@ -107,9 +108,9 @@ router.post(
 			/*JSON WEB TOKEN <- sign permite crear el token*/
 			// jwt.sign({dato guardado en el token}, "palabra secreta",{objeto configuraicon})
 
-			const token = jwt.sign({ id: savedUser._id }, CONFIG.SECRET, {
-				expiresIn: 86400, // 24 hours
-			});
+			//const token = jwt.sign({ id: savedUser._id }, CONFIG.SECRET, {
+		//		expiresIn: 86400, // 24 hours
+		//	});
 
 			//if (savedUser)  return res.status(200).json({ token });
 			if (savedUser) return res.status(200).json(savedUser);
@@ -146,25 +147,23 @@ router.post(
 router.post("/login", async (req, res) => {
 	try {
 		req.body.email = req.body.email?.trim().toLowerCase();
-		req.body.password = req.body.password?.toString().trim();
+		req.body.password = req.body.password?.toString();
 		const userFound = await UserSchema.findOne({
 			email: req.body.email,
 		}).populate("roles");
 		if (!userFound) return res.status(400).json({ message: "User not found" });
 
-		const matchPassword = await UserSchema.comparePassword(
-			req.body.password,
-			userFound.password
-		);
-		// if (!matchPassword)
-		// return res.status(401).json({
-		//   token: null,
-		//   message: "Invalid Password",
-		// });
-		// si cohincide la contraseña
-		const token = jwt.sign({ id: userFound._id }, CONFIG.SECRET, {
-			expiresIn: 86400, // 24 hs
+		const pass = await UserSchema.findOne({email: req.body.email, password: req.body.password})
+
+		if (!pass)
+		return res.status(401).json({
+		  token: null,
+		  message: "Invalid Password",
 		});
+		// si cohincide la contraseña
+		// const token = jwt.sign({ id: userFound._id }, CONFIG.SECRET, {
+		// 	expiresIn: 86400, // 24 hs
+		// });
 		//res.json({ token }).status(201);
 		res.json(userFound).status(201);
 	} catch (error) {
@@ -214,7 +213,9 @@ router.put("/:id", async (req, res) => {
 
 //solicitud Tipo DELETE: localhost:3001/users/ID
 //[auth.verifyToken,auth.isAdmin]
-router.delete("/:id", auth.isAdmin, async (req, res) => {
+router.delete("/:id",
+// auth.isAdmin,
+  async (req, res) => {
 	try {
 		const user = await UserSchema.findByIdAndDelete(req.params.id);
 		console.log("DELETED  :" + user.username);
