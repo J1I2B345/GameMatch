@@ -63,7 +63,7 @@ const rootReducer = (state = initialState, action) => {
 			};
 		case EDIT_NEWS:
 			return { ...state, news: payload };
->>>>>>> 34aa2891824f19cd3b842138378ef1608970f9ca
+
 
 		default:
 			return state;
