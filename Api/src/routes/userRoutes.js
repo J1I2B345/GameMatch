@@ -79,7 +79,7 @@ router.post(
 			const alredyCreated = await UserSchema.find({ email });
 			//: await UserSchema.encryptPassword(password)
 			const newUser = new UserSchema({
-				email: email?.trim(),
+				email: email?.trim().toLowerCase(),
 				password: password?.trim(),
 				username: username?.trim(),
 				rating,
@@ -145,7 +145,7 @@ router.post(
 
 router.post("/login", async (req, res) => {
 	try {
-		req.body.email = req.body.email?.trim();
+		req.body.email = req.body.email?.trim().toLowerCase();
 		req.body.password = req.body.password?.toString().trim();
 		const userFound = await UserSchema.findOne({
 			email: req.body.email,

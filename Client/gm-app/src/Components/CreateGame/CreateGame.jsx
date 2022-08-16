@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { createGame } from "../../redux/actions";
 import { Formik, Form } from "formik";
 import { TextField } from "./TextField";
@@ -19,11 +19,12 @@ export default function CreateGame() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const submit = (values) => {
+  const submit = (values, actions) => {
+    console.log({ values });
     dispatch(createGame(values));
     alert("Juego creado");
+    actions.resetForm();
   };
-
   return (
     <Container>
       <div className="portada">

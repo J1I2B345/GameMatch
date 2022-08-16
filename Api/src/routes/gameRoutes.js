@@ -41,19 +41,22 @@ router.get("/:id", async (req, res) => {
 //*----------------POST GAMES------------------------
 
 //solicitud Tipo  POST: localhost:3001/games/id
-//[auth.verifyToken,auth.isAdmin]
-router.post("/", auth.isAdmin, async (req, res) => {
-	const { name, image, gender, elo, position } = req.body;
+//[auth.verifyToken,auth.isAdmin] auth.isAdmin,
+router.post("/",auth.isAdmin, async (req, res) => {
+	const {  image, gender, elo, position ,name} = req.body;
+
+
 	try {
-		const game = await GameSchema.create({
+		const game = new GameSchema({
 			name,
 			image,
 			gender,
 			elo,
 			position,
 		});
-		console.log(typeof image);
-		if (game) res.status(201).json(game);
+		//console.log(typeof image);
+		const savedGame = await game.save()
+		if (game) res.status(201).json(savedGame);
 		else throw new Error("the game already exists");
 	} catch (error) {
 		res.status(500).json({ error: error.message });
@@ -61,8 +64,8 @@ router.post("/", auth.isAdmin, async (req, res) => {
 });
 
 //*----------------UPDATE GAMES------------------------
-//[auth.verifyToken,auth.isAdmin]
-router.put("/:id", auth.isAdmin, async (req, res) => {
+//[auth.verifyToken,auth.isAdmin]auth.isAdmin,
+router.put("/:id",auth.isAdmin,  async (req, res) => {
 	//solicitud Tipo GET: localhost:3001/games/id
 
 	try {
@@ -81,9 +84,9 @@ router.put("/:id", auth.isAdmin, async (req, res) => {
 
 //solicitud Tipo DELETE: localhost:3001/games/id
 
-//[auth.verifyToken,auth.isAdmin]
+//[auth.verifyToken,auth.isAdmin]auth.isAdmin,
 
-router.delete("/:id", auth.isAdmin, async (req, res) => {
+router.delete("/:id",auth.isAdmin,  async (req, res) => {
 	try {
 		const deleteGame = await GameSchema.findByIdAndDelete(
 			{ _id: req.params.id },

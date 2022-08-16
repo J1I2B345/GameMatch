@@ -18,12 +18,13 @@ export default function CreateNews() {
 	const navigate = useNavigate();
 	const user = useSelector((state) => state.userProfile);
 
-	const submit = (values, actions) => {
-		// console.log({ values });
-		dispatch(createNews(values));
-		alert("Noticia creada");
-		actions.resetForm();
-	};
+
+  const submit = (values, actions) => {
+    dispatch(createNews(values));
+    alert("Noticia creada");
+    actions.resetForm();
+  };
+
 
 	return (
 		<Container>

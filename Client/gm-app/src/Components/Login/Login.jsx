@@ -68,8 +68,8 @@ export default function Login() {
         {
           <Formik
             initialValues={{
-              email: "",
-              password: "",
+              email: "admin@gmail.com",
+              password: "123",
             }}
             validationSchema={validate}
             onSubmit={submit}

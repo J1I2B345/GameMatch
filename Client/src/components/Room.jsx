@@ -113,11 +113,10 @@ export default function Room() {
 	return (
 		<View style={styles.container}>
 			{game.name ? (
-				<View>
+				<View style={{height: "93%"}}>
 					<Text
 						style={{
 							marginTop: Constants.statusBarHeight + 10,
-							marginBottom: 10,
 							width: "80%",
 							color: "white",
 							textAlign: "center",
@@ -134,9 +133,9 @@ export default function Room() {
 							width: "90%",
 							backgroundColor: "#98228C",
 						}}
-					></View>
-					<SafeAreaView style={{ marginBottom: 225 }}>
-						<ScrollView>
+					>
+					</View>
+						<ScrollView style={{}}>
 							<View
 								style={{
 									flexDirection: "row",
@@ -195,7 +194,6 @@ export default function Room() {
 								</Text>
 							)}
 						</ScrollView>
-					</SafeAreaView>
 				</View>
 			) : (
 				<Spinner />
