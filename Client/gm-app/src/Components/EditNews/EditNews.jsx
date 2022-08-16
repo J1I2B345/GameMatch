@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editNews, getNew } from "../../redux/actions";
 import { Formik, Form } from "formik";
@@ -14,28 +14,20 @@ const validate = yup.object({
 });
 
 export default function EditNews() {
-	const { _id } = useParams();
+	const params = useParams();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const [review, setReview] = useState("");
+	const review = useSelector((state) => state.newSelect);
 	const userActive = useSelector((state) => state.userProfile);
 
-	console.log(_id);
-
-	async function getNew(_id) {
-		let response = await fetch(
-			`https://backend-gamematch.herokuapp.com/News/${_id}`
-		).then((response) => {
-			return response.json();
-		});
-		setReview(response);
-	}
+	// console.log(review);
 
 	useEffect(() => {
-		getNew(_id);
+		dispatch(getNew(params._id));
 	}, []);
 
 	const submit = (values) => {
+		console.log(values);
 		dispatch(editNews(values));
 		navigate("/news");
 	};

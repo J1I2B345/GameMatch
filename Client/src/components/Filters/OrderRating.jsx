@@ -11,12 +11,13 @@ const OrderRating = () => {
 
 	const handleAll = (e) => {
 		setOption(e);
+		// console.log(e);
 		dispatch(orderByRating(e));
 	};
 
 	useEffect(() => {
 		setOption(state);
-	}, [option]);
+	}, []);
 
 	return (
 		<View

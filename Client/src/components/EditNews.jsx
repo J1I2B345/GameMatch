@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteNews, editNews } from "../redux/actions/index.js";
 import { Link, useNavigate } from "react-router-native";
 import { connect } from "react-redux";
+import { StatusBar } from "expo-status-bar";
 import {
 	StyleSheet,
 	TextInput,
@@ -40,6 +41,7 @@ const EditNews = () =>
 
 		return (
 			<View style={styles.container}>
+				<StatusBar style="auto" />
 				<View style={styles.portada}>
 					<Formik
 						initialValues={{

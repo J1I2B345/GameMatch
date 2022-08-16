@@ -1,12 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import {
-	StyleSheet,
-	Text,
-	View,
-	Image,
-	SafeAreaView,
-	ScrollView,
-} from "react-native";
+import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView } from "react-native";
 import { Link, useParams } from "react-router-native";
 import Constants from "expo-constants";
 import Nav from "./Nav";
@@ -15,16 +8,12 @@ import OrderRating from "./Filters/OrderRating";
 import FilterElo from "./Filters/FilterElo";
 import FilterPosition from "./Filters/FilterPosition";
 import { useSelector } from "react-redux";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
-import {
-	higherRating,
-	lowerRating,
-	selectPosition,
-	selectElo,
-} from "../utils/utils";
+import { higherRating, lowerRating, selectPosition, selectElo } from "../utils/utils";
 import Spinner from "../components/Spinner";
+import { orderByElo, orderByPosition, orderByRating } from "../redux/actions";
 
 export default function Room() {
 	const games = useSelector((state) => state.games.games);
@@ -34,10 +23,10 @@ export default function Room() {
 	const elo = useSelector((state) => state.games.elo);
 	const position = useSelector((state) => state.games.position);
 	const order = useSelector((state) => state.games.order);
-
 	const socket = useRef();
 	const { id } = useParams();
 	let game = games.find((e) => e._id === id);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		if (players.length) {
@@ -71,6 +60,14 @@ export default function Room() {
 	useEffect(() => {
 		socket.current = io("https://backend-gamematch.herokuapp.com/");
 		socket.current.emit("joinRoom", user);
+		return () => {
+			socket.current.off("gameUsers");
+			socket.current.emit("leaveRoom", user);
+			console.log("se desmontó el componente en el socket.on gameusers");
+			dispatch(orderByRating("Any"));
+			dispatch(orderByElo("All"));
+			dispatch(orderByPosition("All"));
+		};
 	}, []);
 
 	useEffect(() => {
@@ -105,19 +102,15 @@ export default function Room() {
 				setPlayersInOrder(playersOrder);
 			}
 		});
-		return () => {
-			socket.current.off("gameUsers");
-		};
 	}, [socket.current, players]);
 
 	return (
 		<View style={styles.container}>
 			{game.name ? (
-				<View style={{height: "93%"}}>
+				<View style={{ height: "93%", alignItems: "center" }}>
 					<Text
 						style={{
 							marginTop: Constants.statusBarHeight + 10,
-							width: "80%",
 							color: "white",
 							textAlign: "center",
 							fontSize: 45,
@@ -132,55 +125,41 @@ export default function Room() {
 							height: 2,
 							width: "90%",
 							backgroundColor: "#98228C",
+							alignItems: "center",
 						}}
-					>
-					</View>
-						<ScrollView style={{}}>
+					></View>
+					<ScrollView>
+						<View
+							style={{
+								flexDirection: "row",
+								justifyContent: "center",
+							}}
+						>
+							<OrderRating />
+							{game.position.length > 1 && <FilterPosition position={game.position} />}
+						</View>
+
+						{game.elo && (
 							<View
 								style={{
 									flexDirection: "row",
 									justifyContent: "center",
 								}}
 							>
-								<OrderRating />
-								{game.position.length > 1 && (
-									<FilterPosition position={game.position} />
-								)}
+								{game.elo && <FilterElo elo={game.elo} />}
 							</View>
+						)}
 
-							{game.elo && (
-								<View
-									style={{
-										flexDirection: "row",
-										justifyContent: "center",
-									}}
-								>
-									{game.elo && <FilterElo elo={game.elo} />}
-								</View>
-							)}
-
-							{/* componente presentacional 
+						{/* componente presentacional 
                     
                            ||
                            \/
                            \/ 
                     	*/}
-							{/* { players && <Players players={players} />} */}
-							{players.length ? (
-								playersInOrder.length > 0 ? (
-									<Players players={playersInOrder} />
-								) : (
-									<Text
-										style={{
-											marginTop: 5,
-											color: "white",
-											fontSize: 35,
-											fontWeight: "bold",
-										}}
-									>
-										No players with those characteristics
-									</Text>
-								)
+						{/* { players && <Players players={players} />} */}
+						{players.length ? (
+							playersInOrder.length > 0 ? (
+								<Players players={playersInOrder} />
 							) : (
 								<Text
 									style={{
@@ -190,10 +169,22 @@ export default function Room() {
 										fontWeight: "bold",
 									}}
 								>
-									Waiting for players..
+									No players with those characteristics
 								</Text>
-							)}
-						</ScrollView>
+							)
+						) : (
+							<Text
+								style={{
+									marginTop: 5,
+									color: "white",
+									fontSize: 35,
+									fontWeight: "bold",
+								}}
+							>
+								Waiting for players..
+							</Text>
+						)}
+					</ScrollView>
 				</View>
 			) : (
 				<Spinner />

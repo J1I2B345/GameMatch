@@ -40,7 +40,21 @@ router.get("/:id", async (req, res) => {
 router.get("/username/:username", async (req, res) => {
 	try {
 		const username = req.params.username?.trim();
-		const userFound = await UserSchema.findOne({ username: username });
+		const userFound = await UserSchema.aggregate([
+			{
+				$lookup: {
+					from: "roles",
+					localField: "roles",
+					foreignField: "_id",
+					as: "RolesString",
+				},
+			},
+			{
+				$match: {
+					username: username,
+				},
+			},
+		]);
 		if (userFound) return res.status(200).json(userFound);
 		else throw new Error("user not found");
 	} catch (error) {

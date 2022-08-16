@@ -29,8 +29,10 @@ export default function CreateGame() {
 	const dispatch = useDispatch();
 
 	const submit = (values, actions) => {
-		console.log({ values });
-		dispatch(createGame(values));
+		let editedGame = { ...values };
+		editedGame.elo = editedGame.elo.split(",").map((e) => e.trim());
+		editedGame.position = editedGame.position.split(",").map((e) => e.trim());
+		dispatch(createGame(editedGame));
 		alert("Juego creado");
 		actions.resetForm();
 	};
@@ -113,8 +115,7 @@ export default function CreateGame() {
 										onBlur={formikProps.handleBlur("position")}
 									/>
 									<Text style={styles.errorText}>
-										{formikProps.touched.position &&
-											formikProps.errors.position}
+										{formikProps.touched.position && formikProps.errors.position}
 									</Text>
 									<TextInput
 										style={{ ...styles.input, marginBottom: 15 }}

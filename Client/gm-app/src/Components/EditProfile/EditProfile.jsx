@@ -18,7 +18,7 @@ export default function EditProfile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userSelect);
-  const userActive = useSelector((state) => state.userProfile);
+  // const userActive = useSelector((state) => state.userProfile);
 
   // console.log(user);
 
