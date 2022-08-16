@@ -30,8 +30,10 @@ const rootReducer = (state = initialState, action) => {
 
   switch (type) {
     case CREATE_GAME:
-      console.log({ e: state });
-      return { ...state, games: action.payload };
+      console.log({ payload });
+      return state;
+    case CREATE_NEWS:
+      return state;
     case GET_USERNAME:
       return { ...state, userSelect: action.payload };
     case GET_GAME:
@@ -41,8 +43,7 @@ const rootReducer = (state = initialState, action) => {
 
     case UPDATE_USER:
       return { ...state, user: payload };
-    case CREATE_NEWS:
-      return { ...state, news: [...state.news, payload] };
+
     case GET_ALL_NEWS:
       return {
         ...state,
@@ -50,6 +51,8 @@ const rootReducer = (state = initialState, action) => {
       };
     case EDIT_PROFILE:
       return { ...state, userSelect: payload };
+    case EDIT_NEWS:
+      return { ...state, newSelect: payload };
     case LOGIN:
       return {
         ...state,
@@ -63,8 +66,6 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         aux: payload,
       };
-    case EDIT_NEWS:
-      return { ...state, news: payload };
 
     default:
       return state;

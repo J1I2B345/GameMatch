@@ -11,8 +11,8 @@ import { useNavigate, useParams } from "react-router-dom";
 const validate = yup.object({
   name: yup.string().required().min(3),
   gender: yup.string().required().min(3),
-  elo: yup.string().required().min(3),
-  position: yup.string().required().min(3),
+  elo: yup.array().required().min(3),
+  position: yup.array().required().min(3),
   image: yup.string().required().url(),
   id: yup.string().required(),
 });
@@ -36,7 +36,6 @@ export default function EditGame() {
   };
 
   if (!game) return <h2>Cargando</h2>;
-  // {!userActive.rol === "superdmin" ? :<h2>Debes ser super admin</h2>;}
 
   return (
     <Container>

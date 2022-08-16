@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { createGame } from "../../redux/actions";
 import { Formik, Form } from "formik";
 import { TextField } from "./TextField";

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editNews, getNew } from "../../redux/actions";
 import { Formik, Form } from "formik";
@@ -18,7 +18,7 @@ export default function EditNews() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const review = useSelector((state) => state.newSelect);
-  const userActive = useSelector((state) => state.userProfile);
+  // const userActive = useSelector((state) => state.userProfile);
 
   // console.log(review);
 
@@ -26,9 +26,9 @@ export default function EditNews() {
     dispatch(getNew(params.id));
   }, []);
 
-  const submit = (values) => {
+  const submit = (values, actions) => {
     dispatch(editNews(values));
-    navigate("/news");
+    // navigate("/news");
   };
 
   if (!review) return <h2>Cargando</h2>;
@@ -64,7 +64,6 @@ export default function EditNews() {
                     placeholder={review.title}
                   />
                   <TextField
-                    multiline
                     className="input"
                     label="Descripcion"
                     name="description"
