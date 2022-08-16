@@ -45,7 +45,7 @@ export default function SelectGame() {
 				>
 					<ScrollView
 						style={{
-							marginBottom: 45,
+							marginBottom: 25,
 							width: "100%",
 						}}
 					>
