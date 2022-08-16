@@ -13,6 +13,7 @@ import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 import { higherRating, lowerRating, selectPosition, selectElo } from "../utils/utils";
 import Spinner from "../components/Spinner";
+import { orderByElo, orderByPosition, orderByRating } from "../redux/actions";
 
 export default function Room() {
 	const games = useSelector((state) => state.games.games);
@@ -25,6 +26,7 @@ export default function Room() {
 	const socket = useRef();
 	const { id } = useParams();
 	let game = games.find((e) => e._id === id);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		if (players.length) {
@@ -60,6 +62,11 @@ export default function Room() {
 		socket.current.emit("joinRoom", user);
 		return () => {
 			socket.current.off("gameUsers");
+			socket.current.emit("leaveRoom", user);
+			console.log("se desmontó el componente en el socket.on gameusers");
+			dispatch(orderByRating("Any"));
+			dispatch(orderByElo("All"));
+			dispatch(orderByPosition("All"));
 		};
 	}, []);
 
@@ -95,9 +102,6 @@ export default function Room() {
 				setPlayersInOrder(playersOrder);
 			}
 		});
-		return () => {
-			socket.current.off("gameUsers");
-		};
 	}, [socket.current, players]);
 
 	return (
