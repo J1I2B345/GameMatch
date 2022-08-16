@@ -14,23 +14,23 @@ import EditNews from "./Components/EditNews/EditNews";
 import PanelHome from "./Components/PanelHome/PanelHome";
 
 function App() {
-  return (
-    <div className="App">
-      <Routes>
-        <Route path="/creategame" element={<CreateGame />} />
-        <Route path="/createnews" element={<CreateNews />} />
-        <Route path="/" element={<Login />} />
-        <Route path="/gamehome" element={<GameHome />} />
-        <Route path="/news" element={<News />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/profilehome" element={<ProfileHome />} />
-        <Route path="Users/username/:username" element={<EditProfile />} />
-        <Route path="/gamehome/Games/:id" element={<EditGame />} />
-        <Route path="/News/:id" element={<EditNews />} />
-        <Route path="/panel" element={<PanelHome />} />
-      </Routes>
-    </div>
-  );
+	return (
+		<div className="App">
+			<Routes>
+				<Route path="/creategame" element={<CreateGame />} />
+				<Route path="/createnews" element={<CreateNews />} />
+				<Route path="/" element={<Login />} />
+				<Route path="/gamehome" element={<GameHome />} />
+				<Route path="/news" element={<News />} />
+				<Route path="/register" element={<Register />} />
+				<Route path="/profilehome" element={<ProfileHome />} />
+				<Route path="Users/username/:username" element={<EditProfile />} />
+				<Route path="/gamehome/Games/:id" element={<EditGame />} />
+				<Route path="/News/:_id" element={<EditNews />} />
+				<Route path="/panel" element={<PanelHome />} />
+			</Routes>
+		</div>
+	);
 }
 
 export default App;
