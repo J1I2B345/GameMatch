@@ -16,113 +16,106 @@ const validate = yup.object({
 });
 
 export default function Login() {
-
-  const dispatch = useDispatch();
-  const navigation = useNavigate();
-  const user = useSelector((state) => state.aux);
- console.log(user);
-
+	const dispatch = useDispatch();
+	const navigation = useNavigate();
+	const user = useSelector((state) => state.aux);
+	console.log(user);
 
 	useEffect(() => {
 		dispatch(allUser());
 	}, []);
 
-
-  const submit = async (values, actions) => {
-    //console.log(values);
-    if (!user.map((d) => d.email).includes(values.email)) {
+	const submit = async (values, actions) => {
+		//console.log(values);
+		if (!user.map((d) => d.email).includes(values.email)) {
 			alert("💌Email not found,try againヾ(≧▽≦*)o ");
 			return;
 		}
-	
-		if (!user.map((d) => d.email &&d.password).includes(values.email&& values.password)) {
+
+		if (
+			!user.map((d) => d.email && d.password).includes(values.email && values.password)
+		) {
 			alert("❔Password invalid,try againヾ(≧▽≦*)o");
 			return;
 		}
-		 
 
-		
-      try {
-        let res = await axios.post(
-           "http://localhost:3001/users/login",
-          values
-        );
+		try {
+			let res = await axios.post(
+				"https://backend-gamematch.herokuapp.com/users/login",
+				values
+			);
 
-         console.log(res.data);
-        dispatch(login(values));
-        navigation("/panel");
-      } catch (error) {
-        alert({message: error.message});
-        console.log({ message: error.message });
-      }
-    
+			console.log(res.data);
+			dispatch(login(values));
+			navigation("/panel");
+		} catch (error) {
+			alert({ message: error.message });
+			console.log({ message: error.message });
+		}
 
-    //  dispatch(login(values));
-    // navigation("/selectgame");
-  };
-  return (
-    <Container className="container">
-      <div className="container-img-game">
-        <div className="portada_text">
-          <img src={GameMatch} className="image-game" alt="" />
-        </div>
-        <div className="container-img-icon">
-          {/* <img src={iconApp} className="image-icon" alt="" /> */}
-        </div>
-      </div>
-      <div className="form-container">
-        {
-          <Formik
-            initialValues={{
-              email: "",
-              password: "",
-            }}
-            validationSchema={validate}
-            onSubmit={submit}
-          >
-            {(formik) => (
-              <div>
-       
-                
-                <Form>
-                {/* <label className="se"><h1>Hi!, Welcome Back</h1></label> */}
-                  <TextField
-                    className="input"
-                    label="Email Address"
-                    name="email"
-                    type="text"
-                    placeholder="Email Address"
-                  />
-                  <TextField
-                    className="input"
-                    label="Password"
-                    name="password"
-                    type="password"
-                    placeholder="Password"
-                  />
+		//  dispatch(login(values));
+		// navigation("/selectgame");
+	};
+	return (
+		<Container className="container">
+			<div className="container-img-game">
+				<div className="portada_text">
+					<img src={GameMatch} className="image-game" alt="" />
+				</div>
+				<div className="container-img-icon">
+					{/* <img src={iconApp} className="image-icon" alt="" /> */}
+				</div>
+			</div>
+			<div className="form-container">
+				{
+					<Formik
+						initialValues={{
+							email: "",
+							password: "",
+						}}
+						validationSchema={validate}
+						onSubmit={submit}
+					>
+						{(formik) => (
+							<div>
+								<Form>
+									{/* <label className="se"><h1>Hi!, Welcome Back</h1></label> */}
+									<TextField
+										className="input"
+										label="Email Address"
+										name="email"
+										type="text"
+										placeholder="Email Address"
+									/>
+									<TextField
+										className="input"
+										label="Password"
+										name="password"
+										type="password"
+										placeholder="Password"
+									/>
 
-                  <button type="submit">Login</button>
-                </Form>
-              </div>
-            )}
-          </Formik>
-        }
-      </div>
-      <div>
-        Don't have account?
-        <Link to="/register">
-          <div className="register-link">Register</div>
-          <div className="container-img-game">
-            <h1></h1>
-          </div>
-          <div className="container-img-game">
-            <h1></h1>
-          </div>
-        </Link>
-      </div>
-    </Container>
-  );
-
+									<button type="submit">Login</button>
+								</Form>
+							</div>
+						)}
+					</Formik>
+				}
+			</div>
+			{/* <div>
+				Don't have account?
+				<Link to="/register">
+					<div className="register-link">Register</div>
+					<div className="container-img-game">
+						<h1></h1>
+					</div>
+					<div className="container-img-game">
+						<h1></h1>
+					</div>
+				</Link>
+			</div> */}
+		</Container>
+	);
 }
 
 const Container = styled.div`

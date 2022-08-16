@@ -24,7 +24,6 @@ export default function CreateGame() {
 		editedGame.elo = editedGame.elo.split(",").map((e) => e.trim());
 		editedGame.position = editedGame.position.split(",").map((e) => e.trim());
 		dispatch(createGame(editedGame));
-		alert("Juego creado");
 		actions.resetForm();
 	};
 	return (
