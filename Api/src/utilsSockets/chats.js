@@ -11,7 +11,6 @@ function leaveChat(_id) {
 	if (chat.length) {
 		chat = chat.filter((e) => e._id !== _id);
 	}
-	console.log("chat después de que se fue el usuario", _id, chat);
 	return chat;
 }
 
