@@ -22,19 +22,11 @@ export const createGame = (game) => (dispatch) => {
 };
 export const createNews = (report) => (dispatch) => {
 	try {
-		return fetch("https://backend-gamematch.herokuapp.com/News", {
-			method: "POST",
-			headers: {
-				Accept: "applcation/json",
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(report),
-		})
-			.then((response) => {
-				return response.json();
-			})
-			.then((json) => {
-				dispatch({ type: CREATE_NEWS, payload: json });
+		return axios
+			.post("https://backend-gamematch.herokuapp.com/News", report)
+			.then((news) => {
+				console.log(news);
+				dispatch({ type: CREATE_NEWS, payload: report });
 			});
 	} catch (error) {
 		console.log(error);
@@ -85,6 +77,7 @@ export const getAllNews = () => (dispatch) => {
 export const editGame = (game) => {
 	return async (dispatch) => {
 		await axios.put(`https://backend-gamematch.herokuapp.com/games/${game.id}`, game);
+
 		return dispatch({ type: EDIT_GAME, payload: game });
 	};
 };

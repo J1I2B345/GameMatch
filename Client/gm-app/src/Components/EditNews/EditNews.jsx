@@ -20,8 +20,6 @@ export default function EditNews() {
 	const [review, setReview] = useState("");
 	const userActive = useSelector((state) => state.userProfile);
 
-	console.log(_id);
-
 	async function getNew(_id) {
 		let response = await fetch(
 			`https://backend-gamematch.herokuapp.com/News/${_id}`
@@ -36,6 +34,7 @@ export default function EditNews() {
 	}, []);
 
 	const submit = (values) => {
+		// console.log(values);
 		dispatch(editNews(values));
 		navigate("/news");
 	};
