@@ -19,7 +19,6 @@ export default function CreateNews() {
   const user = useSelector((state) => state.userProfile);
 
   const submit = (values, actions) => {
-    // console.log({ values });
     dispatch(createNews(values));
     alert("Noticia creada");
     actions.resetForm();
