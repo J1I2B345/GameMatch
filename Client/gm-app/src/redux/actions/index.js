@@ -84,16 +84,7 @@ export const getAllNews = () => (dispatch) => {
 
 export const editGame = (game) => {
 	return async (dispatch) => {
-		await axios.put(
-			`https://backend-gamematch.herokuapp.com/games/edit/${game.id}`,
-			game
-		);
-
-		// await fetch("https://backend-gamematch.herokuapp.com/games/edit/${game.id}", {
-		// 	method: "PUT",
-		// 	headers: { Accept: "applcation/json", "Content-Type": "application/json" },
-		// 	body: JSON.stringify(game),
-		// });
+		await axios.put(`https://backend-gamematch.herokuapp.com/games/${game.id}`, game);
 		return dispatch({ type: EDIT_GAME, payload: game });
 	};
 };
