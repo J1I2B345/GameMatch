@@ -92,7 +92,7 @@ router.post('/', async (req, res) => {
 //[auth.verifyToken,auth.isAdmin]
 router.delete(
 	"/delete/:id",
-	// auth.isAdmin,
+	 auth.isAdmin,
 	async (req, res) => {
 		try {
 			const messageDeleted = await News.findByIdAndDelete(req.params.id);
@@ -107,7 +107,7 @@ router.delete(
 //[auth.verifyToken,auth.isAdmin]
 router.put(
 	"/edit/:id",
-	// auth.isAdmin,
+	 auth.isAdmin,
 	async (req, res) => {
 		try {
 			const { _id, title, description, editedBy } = req.body;
