@@ -1,4 +1,4 @@
-import React, {  useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editGame, getGame } from "../../redux/actions";
 import { Formik, Form } from "formik";
@@ -7,54 +7,63 @@ import * as yup from "yup";
 import styled from "styled-components";
 
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 const validate = yup.object({
-  name: yup.string().required().min(3),
-  gender: yup.string().required().min(3),
-  elo: yup.array().required().min(3),
-  position: yup.array().required().min(3),
-  image: yup.string().required().url(),
-  id: yup.string().required(),
+	name: yup.string().required().min(3),
+	gender: yup.string().required().min(3),
+	elo: yup.string().required().min(3),
+	position: yup.string().required().min(3),
+	image: yup.string().required().url(),
+	id: yup.string().required(),
 });
 
 export default function EditGame() {
 	const params = useParams();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const game = useSelector((state) => state.gameSelect);
+	// const game = useSelector((state) => state.gameSelect);
+	const [game, setGame] = useState("");
 	const userActive = useSelector((state) => state.userProfile);
 
+	async function getGame(id) {
+		let selectedGame = await axios(`https://backend-gamematch.herokuapp.com/Games/${id}`);
+		setGame(selectedGame.data);
+	}
 	useEffect(() => {
-		dispatch(getGame(params.id));
-	}, [game]);
+		getGame(params.id);
+	}, []);
 
 	const submit = (values) => {
-		dispatch(editGame(values));
+		let editedGame = { ...values };
+		editedGame.elo = editedGame.elo.split(",").map((e) => e.trim());
+		editedGame.position = editedGame.position.split(",").map((e) => e.trim());
+		dispatch(editGame(editedGame));
 		navigate("/gamehome");
 	};
 
 	if (!game) return <h2>Cargando</h2>;
 	// {!userActive.rol === "superdmin" ? :<h2>Debes ser super admin</h2>;}
 
-  return (
-    <Container>
-      <div className="portada">
-        {
-          <Formik
-            initialValues={{
-              name: game.name,
-              image: game.image,
-              elo: game.elo,
-              position: game.position,
-              gender: game.gender,
-              id: game._id,
-            }}
-            validationSchema={validate}
-            onSubmit={submit}
-          >
-            {(formik) => (
-              <div>
-                <h1>Modificar Juego</h1>
+	return (
+		<Container>
+			<div className="portada">
+				{
+					<Formik
+						initialValues={{
+							name: game.name,
+							image: game.image,
+							elo: game.elo,
+							position: game.position,
+							gender: game.gender,
+							id: game._id,
+						}}
+						validationSchema={validate}
+						onSubmit={submit}
+					>
+						{(formik) => (
+							<div>
+								<h1>Modificar Juego</h1>
 
 								<h2>Juego a modificar: {game.name} </h2>
 								<img src={game.image} alt="" className="image-game" />
