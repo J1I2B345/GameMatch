@@ -52,23 +52,22 @@ router.get("/", async (req, res) => {
 	}
 });
 
-
 router.get("/:id", async (req, res) => {
-  try {
-    let { id } = req.params;
-    const newById = await News.findById(id);
-    if (newById) return res.json(newById);
-    else throw new Error("News not found with ID provided");
-  } catch (e) {
-    return res.status(400).json(e.message);
-  }
+	try {
+		let { id } = req.params;
+		const newById = await News.findById(id);
+		if (newById) return res.json(newById);
+		else throw new Error("News not found with ID provided");
+	} catch (e) {
+		return res.status(400).json(e.message);
+	}
 });
 
-router.post('/', async (req, res) => {
-     try {
-          if (req.body.editedBy) throw new Error(`edit user should be added just to update a news`);
-          const { title, description, author } = req.body;
-
+router.post("/", async (req, res) => {
+	try {
+		if (req.body.editedBy)
+			throw new Error(`edit user should be added just to update a news`);
+		const { title, description, author } = req.body;
 
 		if (!title || !description || !author)
 			throw new Error("enter title, description and author");
@@ -92,12 +91,11 @@ router.post('/', async (req, res) => {
 //[auth.verifyToken,auth.isAdmin]
 router.delete(
 	"/delete/:id",
-	 auth.isAdmin,
+	//  auth.isAdmin,
 	async (req, res) => {
 		try {
 			const messageDeleted = await News.findByIdAndDelete(req.params.id);
-			if (messageDeleted)
-				res.json({ message: "message deleted", messageDeleted });
+			if (messageDeleted) res.json({ message: "message deleted", messageDeleted });
 			else throw new Error("message not deleted");
 		} catch (e) {
 			res.status(400).json(e.message);
@@ -107,7 +105,7 @@ router.delete(
 //[auth.verifyToken,auth.isAdmin]
 router.put(
 	"/edit/:id",
-	 auth.isAdmin,
+	// auth.isAdmin,
 	async (req, res) => {
 		try {
 			const { _id, title, description, editedBy } = req.body;
@@ -130,8 +128,7 @@ router.put(
 			const messageUpdated = await News.findByIdAndUpdate(_id, updatedNew, {
 				new: true,
 			});
-			if (messageUpdated)
-				res.json({ message: "message updated", messageUpdated });
+			if (messageUpdated) res.json({ message: "message updated", messageUpdated });
 			else throw new Error("message not updated");
 		} catch (e) {
 			res.status(400).json(e.message);
