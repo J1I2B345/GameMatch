@@ -154,7 +154,7 @@ const Container = styled.div`
 		border: 0.1rem solid #4e0eff;
 		border-radius: 0.4rem;
 		color: white;
-		width: 100%;
+		width: 80%;
 		font-size: 1rem;
 		&:focus {
 			border: 0.1rem solid #997af0;
