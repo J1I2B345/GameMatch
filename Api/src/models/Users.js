@@ -89,7 +89,6 @@ schema.statics.encryptPassword = async (password) => {
 schema.statics.comparePassword = async (password, receivedPassword) => {
 	return await bcrypt.compare(password, receivedPassword);
 };
-
 schema.pre("save", async function (next) {
 	const user = this;
 	if (!user.isModified("password")) {

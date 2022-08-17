@@ -1,5 +1,6 @@
 const User = require("../models/Users.js");
 const roles = ["User", "Admin"];
+const bcrypt = require("bcryptjs");
 const checkExistingUser = async (req, res, next) => {
 	try {
 		const userFound = await User.findOne({ username: req.body.username });
@@ -7,8 +8,7 @@ const checkExistingUser = async (req, res, next) => {
 			return res.status(400).json({ message: "The user already exists :o!" });
 
 		const email = await User.findOne({ email: req.body.email });
-		if (email)
-			return res.status(400).json({ message: "The email already exists :o!" });
+		if (email) return res.status(400).json({ message: "The email already exists :o!" });
 
 		next();
 	} catch (error) {
