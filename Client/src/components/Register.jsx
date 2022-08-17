@@ -24,8 +24,8 @@ import axios from "axios";
 
 //*----------------
 const reviewSchema = yup.object({
-	email: yup.string().required().min(3).email(),
-	username: yup.string().required().min(3),
+	email: yup.string().required().email(),
+	username: yup.string().required().min(4),
 	password: yup.string().required().min(8),
 });
 //-----
