@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { editProfile } from "../redux/actions/index.js";
-import { Link, Navigate, useNavigate } from "react-router-native";
+import { useNavigate } from "react-router-native";
 import { connect } from "react-redux";
 import {
 	StyleSheet,
