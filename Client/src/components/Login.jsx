@@ -162,7 +162,7 @@ const Login = () => {
 								marginBottom: 40,
 							}}
 						>
-							Don't have account?
+							Don't have an account?
 						</Text>
 						<Link to="/register" activeOpacity={1} underlayColor={"none"}>
 							<Text
