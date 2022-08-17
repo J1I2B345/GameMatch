@@ -36,86 +36,12 @@ const Profile = () => {
 		<View>
 			{User._id && User.username ? (
 				<View style={styles.container}>
-					<View style={styles.portada_container}>
-						<Image
-							source={{
-								uri: User.img
-									? User.img
-									: "https://www.pinpng.com/pngs/m/402-4020060_random-image-from-user-smash-ball-pixel-art.png",
-							}}
-							style={styles.img_perfil}
-						/>
-						<View style={styles.portada}>
-							{User.premium == true ? (
-								<View>
-									<Text style={{ color: "gold", fontSize: 35, fontWeight: "bold" }}>
-										⭐VIP⭐
-									</Text>
-								</View>
-							) : (
-								<View></View>
-							)}
-							<Text style={styles.text_name}>{User.username}</Text>
-
-							<View style={styles.stars_container}>
-								{arrayStars.map((item) => (
-									<View key={item}>
-										<Image
-											source={require("../../assets/Star.png")}
-											style={styles.stars}
-										/>
-									</View>
-								))}
-							</View>
-						</View>
-					</View>
-
-					<View
-						style={
-							User.premium == false
-								? { ...styles.separador, marginBottom: 10 }
-								: styles.separador
-						}
-					></View>
-
-					{User.premium == false ? (
-						<View style={{ paddingBottom: 5 }}>
-							<Link
-								to="/whypremium"
-								activeOpacity={1}
-								underlayColor={"#f4b04d"}
-								style={styles.button}
-							>
-								<View style={{ flexDirection: "row" }}>
-									<Text style={styles.button_text}>
-										<Image
-											source={require("../../assets/starPremium.png")}
-											style={{
-												width: 20,
-												height: 20,
-											}}
-										/>
-										Become VIP!
-										<Image
-											source={require("../../assets/starPremium.png")}
-											style={{
-												width: 20,
-												height: 20,
-											}}
-										/>
-									</Text>
-								</View>
-							</Link>
-						</View>
-					) : (
-						<View></View>
-					)}
 					<SafeAreaView
 						style={
 							User.premium == false
 								? {
 										width: "100%",
-										marginBottom: 315,
+										marginBottom: 30,
 										alignItems: "center",
 										justifyContent: "center",
 								  }
@@ -127,7 +53,7 @@ const Profile = () => {
 								  }
 						}
 					>
-						<ScrollView>
+						<ScrollView style={{ width: "100%" }}>
 							<View
 								style={{
 									width: "100%",
@@ -135,6 +61,80 @@ const Profile = () => {
 									justifyContent: "center",
 								}}
 							>
+								<View style={styles.portada_container}>
+									<Image
+										source={{
+											uri: User.img
+												? User.img
+												: "https://www.pngplay.com/wp-content/uploads/13/Gamer-Aesthetic-PNG-Photo-Image.png",
+										}}
+										style={styles.img_perfil}
+									/>
+									<View style={styles.portada}>
+										{User.premium == true ? (
+											<View>
+												<Text style={{ color: "gold", fontSize: 35, fontWeight: "bold" }}>
+													⭐VIP⭐
+												</Text>
+											</View>
+										) : (
+											<View></View>
+										)}
+										<Text style={styles.text_name}>{User.username}</Text>
+
+										<View style={styles.stars_container}>
+											{arrayStars.map((item) => (
+												<View key={item}>
+													<Image
+														source={require("../../assets/Star.png")}
+														style={styles.stars}
+													/>
+												</View>
+											))}
+										</View>
+									</View>
+								</View>
+
+								<View
+									style={
+										User.premium == false
+											? { ...styles.separador, marginBottom: 10 }
+											: styles.separador
+									}
+								></View>
+
+								{User.premium == false ? (
+									<View style={{ paddingBottom: 5 }}>
+										<Link
+											to="/whypremium"
+											activeOpacity={1}
+											underlayColor={"#f4b04d"}
+											style={styles.button}
+										>
+											<View style={{ flexDirection: "row" }}>
+												<Text style={styles.button_text}>
+													<Image
+														source={require("../../assets/starPremium.png")}
+														style={{
+															width: 20,
+															height: 20,
+														}}
+													/>
+													Become VIP!
+													<Image
+														source={require("../../assets/starPremium.png")}
+														style={{
+															width: 20,
+															height: 20,
+														}}
+													/>
+												</Text>
+											</View>
+										</Link>
+									</View>
+								) : (
+									<View></View>
+								)}
 								{User.description ? (
 									<View
 										style={{

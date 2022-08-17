@@ -59,7 +59,7 @@ const EditProfile = () => {
 							username: User.username,
 							img: User.img
 								? User.img
-								: "https://www.pinpng.com/pngs/m/402-4020060_random-image-from-user-smash-ball-pixel-art.png",
+								: "https://www.pngplay.com/wp-content/uploads/13/Gamer-Aesthetic-PNG-Photo-Image.png",
 							description: User.description ? User.description : "",
 							socialNetworks: {
 								steam:
@@ -102,7 +102,7 @@ const EditProfile = () => {
 										source={{
 											uri: formikProps.values.img
 												? formikProps.values.img
-												: "https://www.pinpng.com/pngs/m/402-4020060_random-image-from-user-smash-ball-pixel-art.png",
+												: "https://www.pngplay.com/wp-content/uploads/13/Gamer-Aesthetic-PNG-Photo-Image.png",
 										}}
 										style={styles.img_perfil}
 									/>
