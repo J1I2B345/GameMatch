@@ -14,12 +14,14 @@ import {
 	Image,
 	Alert,
 } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
 import { register, allUser } from "../redux/actions";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useState, useEffect } from "react";
 import axios from "axios";
+
 //*----------------
 const reviewSchema = yup.object({
 	email: yup.string().required().min(3).email(),
@@ -191,6 +193,7 @@ const Register = () => {
 						</Link>
 					</View>
 				</View>
+				<StatusBar style="auto" />
 			</ScrollView>
 		</SafeAreaView>
 	);
