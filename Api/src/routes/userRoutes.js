@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const CONFIG = require("../config.js");
 
 //*authentication methods
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Role = require("../models/Role.js");
 const auth = require("../middlewares/auth");
@@ -69,74 +70,66 @@ router.get("/username/:username", async (req, res) => {
 
 //solicitud Tipo POST: localhost:3001/users/register
 
-router.post(
-	"/register",
-	[verify.checkExistingRole, 
-		verify.checkExistingUser],
-	async (req, res) => {
-		const {
-			email,
-			password,
-			username,
+router.post("/register", verify.checkExistingUser, async (req, res) => {
+	const {
+		email,
+		password,
+		username,
+		rating,
+		roles,
+		chats,
+		reviews,
+		img,
+		description,
+		socialNetworks,
+		ban,
+	} = req.body;
+	req.body.password = await UserSchema.encryptPassword(password);
+	try {
+		const alredyCreated = await UserSchema.find({ email });
+		const newUser = new UserSchema({
+			email: email?.trim().toLowerCase(),
+			password: password,
+			username: username?.trim(),
 			rating,
-			roles,
 			chats,
 			reviews,
 			img,
 			description,
+			roles,
 			socialNetworks,
 			ban,
-		} = req.body;
+		});
 
-		try {
-			//  const createdUser = await UserSchema.create(user);
+		if (roles) {
+			//** "admin" or ["Admin, Moderator"] */
+			const foundRoles = await Role.find({ name: { $in: roles } });
+			newUser.roles = foundRoles.map((role) => role._id);
+		} else {
+			const role = await Role.findOne({ name: "User" });
+			newUser.roles = [role._id];
+		}
+		const savedUser = await newUser.save();
 
-			const alredyCreated = await UserSchema.find({ email });
-			//: await UserSchema.encryptPassword(password)
-			const newUser = new UserSchema({
-				email: email?.trim().toLowerCase(),
-				password: password?.trim(),
-				username: username?.trim(),
-				rating,
-				chats,
-				reviews,
-				img,
-				description,
-				roles,
-				socialNetworks,
-				ban,
-			});
+		console.log("Created User: " + newUser.username);
 
-			if (roles) {
-				//** "admin" or ["Admin, Moderator"] */
-				const foundRoles = await Role.find({ name: { $in: roles } });
-				newUser.roles = foundRoles.map((role) => role._id);
-			} else {
-				const role = await Role.findOne({ name: "User" });
-				newUser.roles = [role._id];
-			}
-			const savedUser = await newUser.save();
+		/*JSON WEB TOKEN <- sign permite crear el token*/
+		// jwt.sign({dato guardado en el token}, "palabra secreta",{objeto configuraicon})
 
-			console.log("Created User: " + newUser.username);
-
-			/*JSON WEB TOKEN <- sign permite crear el token*/
-			// jwt.sign({dato guardado en el token}, "palabra secreta",{objeto configuraicon})
-
-			//const token = jwt.sign({ id: savedUser._id }, CONFIG.SECRET, {
+		//const token = jwt.sign({ id: savedUser._id }, CONFIG.SECRET, {
 		//		expiresIn: 86400, // 24 hours
 		//	});
 
-			//if (savedUser)  return res.status(200).json({ token });
-			if (savedUser) return res.status(200).json(savedUser);
-			//*CON ESTO EVIO AL FRONT TODO ME PIDEN LOS DATOS POR ESTE TOKEN
-			else throw new Error("This user has already been created. Login!");
-		} catch (error) {
-			console.log("Error trying to create user");
+		//if (savedUser)  return res.status(200).json({ token });
+		if (savedUser) return res.status(200).json(savedUser);
+		//*CON ESTO EVIO AL FRONT TODO ME PIDEN LOS DATOS POR ESTE TOKEN
+		else throw new Error("This user has already been created. Login!");
+	} catch (error) {
+		console.log("Error trying to create user");
 
-			res.status(500).json({ error: error.message });
-		}
+		res.status(500).json({ error: error.message });
 	}
-);
+});
 
 // let examplePOST = {
 //   "username":"Common User ",
@@ -166,14 +159,17 @@ router.post("/login", async (req, res) => {
 			email: req.body.email,
 		}).populate("roles");
 		if (!userFound) return res.status(400).json({ message: "User not found" });
+		const matchPassword = await UserSchema.comparePassword(
+			req.body.password,
+			userFound.password
+		);
+		// const pass = await UserSchema.findOne({email: req.body.email, password: req.body.password})
 
-		const pass = await UserSchema.findOne({email: req.body.email, password: req.body.password})
-
-		if (!pass)
-		return res.status(401).json({
-		  token: null,
-		  message: "Invalid Password",
-		});
+		if (!matchPassword)
+			return res.status(401).json({
+				token: null,
+				message: "Invalid Password",
+			});
 		// si cohincide la contraseña
 		// const token = jwt.sign({ id: userFound._id }, CONFIG.SECRET, {
 		// 	expiresIn: 86400, // 24 hs
@@ -227,9 +223,7 @@ router.put("/:id", async (req, res) => {
 
 //solicitud Tipo DELETE: localhost:3001/users/ID
 //[auth.verifyToken,auth.isAdmin]
-router.delete("/:id",
-// auth.isAdmin,
-  async (req, res) => {
+router.delete("/:id", auth.isAdmin, async (req, res) => {
 	try {
 		const user = await UserSchema.findByIdAndDelete(req.params.id);
 		console.log("DELETED  :" + user.username);
