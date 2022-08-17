@@ -65,13 +65,10 @@ export const getUser = (username) => (dispatch) => {
 };
 
 export const getNameUserChat = (idUser) => (dispatch) => {
-	return fetch(`https://backend-gamematch.herokuapp.com/users/${idUser}`)
-		.then((response) => response.json())
-		.then((json) => {
-			const { username } = json;
-			let userName = username;
-			dispatch({ type: "USER_NAME_CHAT", payload: userName });
-		});
+	return async (dispatch) => {
+		let json = await axios.get(`https://backend-gamematch.herokuapp.com/users/${idUser}`);
+		dispatch({ type: "USER_NAME_CHAT", payload: json.data });
+	};
 };
 
 export const updateUser = (payload) => {

@@ -34,147 +34,145 @@ const Login = () => {
 	useEffect(() => {
 		dispatch(allUser());
 	}, []);
-	const _id=''
+	const _id = "";
 	const submit = async (values, actions) => {
-
-	
 		if (!user.map((d) => d.email).includes(values.email)) {
 			Alert.alert("💌Email not found,try againヾ(≧▽≦*)o ");
 			return;
 		}
-	
-		if (!user.map((d) => d.email &&d.password).includes(values.email&& values.password)) {
+
+		if (
+			!user.map((d) => d.email && d.password).includes(values.email && values.password)
+		) {
 			Alert.alert("❔Password invalid,try againヾ(≧▽≦*)o");
 			return;
 		}
-		 
-	
+
 		//  for(let i = 0; i < user.length; i++) {if( user[i].email ===values.email)
 		// 	{return	_id=user.id}}
-		
-			
-		
-		
-			try {
-						let res = await axios.post(
-					"https://backend-gamematch.herokuapp.com/users/login",
-					values
-				);
 
-				 console.log(values);
-				dispatch(login(values,));
-				navigation("/selectgame");
-			} catch (error) {
-				Alert.alert("password  incorrect");
-				console.log({ message: error.message });
-			}
+		try {
+			let res = await axios.post(
+				"https://backend-gamematch.herokuapp.com/users/login",
+				values
+			);
+
+			console.log(values);
+			dispatch(login(values));
+			navigation("/selectgame");
+		} catch (error) {
+			Alert.alert("password  incorrect");
+			console.log({ message: error.message });
 		}
+	};
 
-		//  dispatch(login(values));
-		// navigation("/selectgame");
-	
+	//  dispatch(login(values));
+	// navigation("/selectgame");
 
 	return (
 		<SafeAreaView style={styles.container}>
-			<ScrollView>
-				<View style={styles.portada}>
-					<View style={styles.portada_text}>
-						<Image
-							source={require("../../assets/GameMatch.png")}
-							style={{ width: 130, height: 100 }}
-						/>
+			<ScrollView style={{ width: "100%" }}>
+				<View style={{ alignItems: "center" }}>
+					<View style={styles.portada}>
+						<View style={styles.portada_text}>
+							<Image
+								source={require("../../assets/GameMatch.png")}
+								style={{ width: 130, height: 100 }}
+							/>
+						</View>
+						<View style={styles.portada_img}>
+							<Image
+								source={require("../../assets/iconApp.png")}
+								style={{ width: 110, height: 110 }}
+							/>
+						</View>
 					</View>
-					<View style={styles.portada_img}>
-						<Image
-							source={require("../../assets/iconApp.png")}
-							style={{ width: 110, height: 110 }}
-						/>
-					</View>
-				</View>
-				<View style={styles.form_container}>
-					<Formik
-						initialValues={{
-							email: "",
-							password: "",
-						}}
-						validationSchema={reviewSchema}
-						onSubmit={submit}
-					>
-						{(formikProps) => (
-							<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-								<View style={styles.form_container}>
-									<TextInput
-										placeholder="Email Address"
-										onChangeText={formikProps.handleChange("email")}
-										value={formikProps.values.email}
-										onBlur={formikProps.handleBlur("email")}
-										style={styles.input}
-									/>
-									{/* {console.log(formikProps)} */}
-									<View style={styles.relleno}></View>
-									<Text style={{ color: "red", fontSize: 10 }}>
-										{formikProps.touched.email && formikProps.errors.email}
-										{/* {console.log(formikProps.values.email) } */}
-									</Text>
-
-									<TextInput
-										placeholder="Password"
-										type="password"
-										style={styles.input}
-										onChangeText={formikProps.handleChange("password")}
-										value={formikProps.values.password}
-										secureTextEntry={true}
-									/>
-									<Text style={{ color: "red", fontSize: 10 }}>
-										{formikProps.touched.password && formikProps.errors.password}
-									</Text>
-									<View style={styles.relleno}></View>
-									<View
-										style={{
-											flexDirection: "row",
-											width: "100%",
-											alignItems: "center",
-											justifyContent: "center",
-										}}
-									>
-										<Text
-											style={styles.button}
-											title="LOGIN"
-											onPress={formikProps.handleSubmit}
-										>
-											<Text style={styles.button_text}>LOGIN</Text>
+					<View style={styles.form_container}>
+						<Formik
+							initialValues={{
+								email: "",
+								password: "",
+							}}
+							validationSchema={reviewSchema}
+							onSubmit={submit}
+						>
+							{(formikProps) => (
+								<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+									<View style={styles.form_container}>
+										<TextInput
+											placeholder="Email Address"
+											onChangeText={formikProps.handleChange("email")}
+											value={formikProps.values.email}
+											onBlur={formikProps.handleBlur("email")}
+											style={styles.input}
+										/>
+										{/* {console.log(formikProps)} */}
+										<Text style={{ color: "red", fontSize: 15, marginBottom: -10 }}>
+											{formikProps.touched.email && formikProps.errors.email}
+											{/* {console.log(formikProps.values.email) } */}
 										</Text>
+
+										<TextInput
+											placeholder="Password"
+											type="password"
+											style={styles.input}
+											onChangeText={formikProps.handleChange("password")}
+											value={formikProps.values.password}
+											secureTextEntry={true}
+										/>
+										<Text style={{ color: "red", fontSize: 15, marginBottom: -10 }}>
+											{formikProps.touched.password && formikProps.errors.password}
+										</Text>
+										<View
+											style={{
+												flexDirection: "row",
+												width: "100%",
+												alignItems: "center",
+												justifyContent: "center",
+											}}
+										>
+											<Text
+												style={styles.button}
+												title="LOGIN"
+												onPress={formikProps.handleSubmit}
+											>
+												<Text style={styles.button_text}>LOGIN</Text>
+											</Text>
+										</View>
 									</View>
-								</View>
-							</TouchableWithoutFeedback>
-						)}
-					</Formik>
-				</View>
-				<View
-					style={{
-						marginTop: 120,
-						fontSize: 15,
-						height: "auto",
-					}}
-				>
-					<Text
+								</TouchableWithoutFeedback>
+							)}
+						</Formik>
+					</View>
+					<View
 						style={{
-							color: "white",
-							fontSize: 20,
+							marginTop: 45,
+							fontSize: 15,
+							height: "auto",
+							flexDirection: "row",
 						}}
 					>
-						Don't have account?
-						<Link to="/register" activeOpacity={1} underlayColor={""}>
+						<Text
+							style={{
+								color: "white",
+								fontSize: 20,
+								marginBottom: 40,
+							}}
+						>
+							Don't have account?
+						</Text>
+						<Link to="/register" activeOpacity={1} underlayColor={"none"}>
 							<Text
 								style={{
 									color: "violet",
 									fontSize: 20,
 								}}
 							>
-								{"  "} ✔ Register
+								{" "}
+								✔ Register
 							</Text>
 						</Link>
-					</Text>
+					</View>
 				</View>
 			</ScrollView>
 		</SafeAreaView>
@@ -185,6 +183,7 @@ const styles = StyleSheet.create({
 		height: "100%",
 		width: "100%",
 		alignItems: "center",
+		justifyContent: "center",
 	},
 	portada: {
 		marginTop: 120,
@@ -201,15 +200,16 @@ const styles = StyleSheet.create({
 	input: {
 		marginTop: 35,
 		marginBottom: 20,
-		color: "white",
-		borderWidth: 1,
-		backgroundColor: "#5F0f99",
+		padding: 4,
+		width: "65%",
 		height: 38,
-		width: "70%",
+		color: "#fff",
+		borderWidth: 1,
 		fontSize: 25,
-		borderRadius: 20,
 		textAlign: "center",
+		borderRadius: 20,
 		borderColor: "violet",
+		backgroundColor: "#5F0f99",
 	},
 	button: {
 		margin: "auto",

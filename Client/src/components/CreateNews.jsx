@@ -48,22 +48,23 @@ const CreateNews = () => {
 							<View style={styles.form_container}>
 								<Text style={styles.portada_text}>New Post</Text>
 								<TextInput
-									style={styles.input}
 									placeholder="Title"
 									onChangeText={formikProps.handleChange("title")}
 									value={formikProps.values.title}
 									onBlur={formikProps.handleBlur("title")}
+									style={styles.input}
 								/>
 								<View style={styles.relleno}></View>
 								<TextInput
+									placeholder="Description"
+									multiline={true}
+									onChangeText={formikProps.handleChange("description")}
+									value={formikProps.values.description}
+									onBlur={formikProps.handleBlur("description")}
 									style={{
 										...styles.input,
 										height: 90,
 									}}
-									placeholder="Description"
-									onChangeText={formikProps.handleChange("description")}
-									value={formikProps.values.description}
-									onBlur={formikProps.handleBlur("description")}
 								/>
 								<View style={styles.relleno}></View>
 								<View
