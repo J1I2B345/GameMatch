@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { editProfile } from "../redux/actions/index.js";
-import { Link, useNavigate } from "react-router-native";
+import { useNavigate } from "react-router-native";
 import { connect } from "react-redux";
 import {
 	StyleSheet,
@@ -13,9 +13,12 @@ import {
 	SafeAreaView,
 	ScrollView,
 	Image,
+	TouchableOpacity,
 } from "react-native";
 import { Formik } from "formik";
 import * as yup from "yup";
+import { StatusBar } from "expo-status-bar";
+import Constants from "expo-constants";
 
 const reviewSchema = yup.object({
 	img: yup.string(),
@@ -26,6 +29,11 @@ const EditProfile = () => {
 	const dispatch = useDispatch();
 	const navigation = useNavigate();
 	const User = useSelector((state) => state.games.userProfile);
+	const navigate = useNavigate();
+
+	function handleCancel() {
+		navigate("/profile");
+	}
 
 	const submit = (values, actions) => {
 		dispatch(editProfile(values));
@@ -122,11 +130,12 @@ const EditProfile = () => {
 									</Text>
 									<Text style={styles.title_input}>Description</Text>
 									<TextInput
-										style={styles.input}
+										multiline={true}
 										placeholder="Something About You"
 										onChangeText={formikProps.handleChange("description")}
 										value={formikProps.values.description}
 										onBlur={formikProps.handleBlur("description")}
+										style={{ ...styles.input, height: "auto" }}
 									/>
 									<View style={styles.relleno}></View>
 									<Text
@@ -187,18 +196,26 @@ const EditProfile = () => {
 									<View style={styles.relleno}></View>
 									<View
 										style={{
-											bottom: 0,
 											height: 45,
 											width: "100%",
 											alignItems: "center",
+											flexDirection: "row",
+											justifyContent: "space-around",
 											backgroundColor: "#5B146C",
 										}}
 									>
-										<Button
-											style={styles.button}
-											title="✔"
-											onPress={formikProps.handleSubmit}
-										/>
+										<TouchableOpacity onPress={() => handleCancel()}>
+											<Image
+												source={require("../../assets/cancelar.png")}
+												style={{ width: 45, height: 45 }}
+											/>
+										</TouchableOpacity>
+										<TouchableOpacity onPress={formikProps.handleSubmit}>
+											<Image
+												source={require("../../assets/acceptChanges.png")}
+												style={{ width: 50, height: 50 }}
+											/>
+										</TouchableOpacity>
 									</View>
 								</View>
 							</TouchableWithoutFeedback>
@@ -206,22 +223,7 @@ const EditProfile = () => {
 					</Formik>
 				</View>
 			</ScrollView>
-			<Link
-				to="/profile"
-				activeOpacity={1}
-				underlayColor={""}
-				style={{
-					position: "absolute",
-					bottom: 80,
-					left: 20,
-					height: 45,
-				}}
-			>
-				<Image
-					source={require("../../assets/iconBack.png")}
-					style={{ width: 50, height: 50 }}
-				/>
-			</Link>
+			<StatusBar style="auto" />
 		</SafeAreaView>
 	);
 };
@@ -232,6 +234,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 	portada: {
+		marginTop: Constants.statusBarHeight + 20,
 		marginBottom: 50,
 		flexDirection: "row",
 	},
@@ -279,23 +282,6 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		marginBottom: 14,
 		marginTop: 22,
-	},
-	button: {
-		margin: "auto",
-		marginTop: 60,
-		height: 40,
-		width: "60%",
-		alignItems: "center",
-		borderRadius: 10,
-		border: "none",
-		backgroundColor: "#98228C",
-	},
-	button_text: {
-		marginTop: 6,
-		fontSize: 20,
-		width: "100%",
-		textAlign: "center",
-		color: "white",
 	},
 });
 
