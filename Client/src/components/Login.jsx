@@ -41,12 +41,12 @@ const Login = () => {
 			return;
 		}
 
-		if (
-			!user.map((d) => d.email && d.password).includes(values.email && values.password)
-		) {
-			Alert.alert("❔Password invalid,try againヾ(≧▽≦*)o");
-			return;
-		}
+		// if (
+		// 	!user.map((d) => d.email && d.password).includes(values.email && values.password)
+		// ) {
+		// 	Alert.alert("❔Password invalid,try againヾ(≧▽≦*)o");
+		// 	return;
+		// }
 
 		//  for(let i = 0; i < user.length; i++) {if( user[i].email ===values.email)
 		// 	{return	_id=user.id}}
@@ -61,7 +61,8 @@ const Login = () => {
 			dispatch(login(values));
 			navigation("/selectgame");
 		} catch (error) {
-			Alert.alert("password  incorrect");
+			Alert.alert("❔Password invalid,try againヾ(≧▽≦*)o");
+			return;
 			console.log({ message: error.message });
 		}
 	};
