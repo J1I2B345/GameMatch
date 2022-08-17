@@ -15,12 +15,14 @@ import {
 	Alert,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { StatusBar } from "expo-status-bar";
 import { useState, useEffect } from "react";
 import { login } from "../redux/actions";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { allUser } from "../redux/actions";
 import axios from "axios";
+
 const reviewSchema = yup.object({
 	email: yup.string().required().min(3).email(),
 	password: yup.string().required().min(3),
@@ -174,6 +176,7 @@ const Login = () => {
 						</Link>
 					</View>
 				</View>
+				<StatusBar style="auto" />
 			</ScrollView>
 		</SafeAreaView>
 	);
