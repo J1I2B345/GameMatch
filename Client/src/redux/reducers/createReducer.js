@@ -14,7 +14,7 @@ const initialState = {
 	newsInfo: [],
 	user: [],
 	userProfile: [],
-	userNameChat: "",
+	userNameChat: {},
 	aux: [],
 	order: "Any",
 	position: "All",

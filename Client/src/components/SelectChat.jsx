@@ -100,22 +100,6 @@ export default function SelectChat() {
 				<Spinner />
 			)}
 			<StatusBar style="auto" />
-			<Link
-				to="/selectgame"
-				activeOpacity={1}
-				underlayColor={""}
-				style={{
-					position: "absolute",
-					bottom: 80,
-					left: 20,
-					height: 45,
-				}}
-			>
-				<Image
-					source={require("../../assets/iconBack.png")}
-					style={{ width: 50, height: 50 }}
-				/>
-			</Link>
 			<Nav />
 		</View>
 	);

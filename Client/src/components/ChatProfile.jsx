@@ -7,15 +7,17 @@ import {
 	SafeAreaView,
 	ScrollView,
 	Linking,
+	TouchableOpacity,
 } from "react-native";
+import { Link, Navigate, useNavigate } from "react-router-native";
 import { connect, useSelector } from "react-redux";
-import { Link } from "react-router-native";
 import Constants from "expo-constants";
 import Nav from "./Nav";
 import Spinner from "./Spinner";
 
-const Profile = () => {
-	const User = useSelector((state) => state.games.userProfile);
+const ChatProfile = () => {
+	const User = useSelector((state) => state.games.userNameChat);
+	const navigate = useNavigate();
 
 	let arrayStars = [];
 
@@ -30,6 +32,10 @@ const Profile = () => {
 				return arrayStars;
 			})();
 		}
+	}
+
+	function backToChat() {
+		navigate(`/chat/${User._id}`);
 	}
 
 	return (
@@ -77,45 +83,12 @@ const Profile = () => {
 								: styles.separador
 						}
 					></View>
-
-					{User.premium == false ? (
-						<View style={{ paddingBottom: 5 }}>
-							<Link
-								to="/whypremium"
-								activeOpacity={1}
-								underlayColor={"#f4b04d"}
-								style={styles.button}
-							>
-								<View style={{ flexDirection: "row" }}>
-									<Text style={styles.button_text}>
-										<Image
-											source={require("../../assets/starPremium.png")}
-											style={{
-												width: 20,
-												height: 20,
-											}}
-										/>
-										Become VIP!
-										<Image
-											source={require("../../assets/starPremium.png")}
-											style={{
-												width: 20,
-												height: 20,
-											}}
-										/>
-									</Text>
-								</View>
-							</Link>
-						</View>
-					) : (
-						<View></View>
-					)}
 					<SafeAreaView
 						style={
 							User.premium == false
 								? {
 										width: "100%",
-										marginBottom: 315,
+										marginBottom: 500,
 										alignItems: "center",
 										justifyContent: "center",
 								  }
@@ -255,28 +228,25 @@ const Profile = () => {
 							</View>
 						</ScrollView>
 					</SafeAreaView>
-					<Link
-						to="/profile/edit"
-						activeOpacity={1}
-						underlayColor={""}
-						style={{
-							position: "absolute",
-							bottom: 80,
-							left: 20,
-							height: 45,
-						}}
-					>
-						<Image
-							source={require("../../assets/editProfile.png")}
-							style={{ width: 50, height: 50 }}
-						/>
-					</Link>
 					<StatusBar style="auto" />
 				</View>
 			) : (
 				<Spinner />
 			)}
-			<Nav />
+			<TouchableOpacity
+				onPress={() => backToChat()}
+				style={{
+					position: "absolute",
+					bottom: 80,
+					left: 20,
+					height: 45,
+				}}
+			>
+				<Image
+					source={require("../../assets/iconBack.png")}
+					style={{ width: 50, height: 50 }}
+				/>
+			</TouchableOpacity>
 		</View>
 	);
 };
@@ -373,4 +343,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default Profile;
+export default ChatProfile;

@@ -56,22 +56,23 @@ const EditNews = () => {
 							<View style={styles.form_container}>
 								<Text style={styles.portada_text}>Edit Post</Text>
 								<TextInput
-									style={styles.input}
 									placeholder="Title"
 									onChangeText={formikProps.handleChange("title")}
 									value={formikProps.values.title}
 									onBlur={formikProps.handleBlur("title")}
+									style={styles.input}
 								/>
 								<View style={styles.relleno}></View>
 								<TextInput
-									style={{
-										...styles.input,
-										height: 90,
-									}}
+									multiline={true}
 									placeholder="Description"
 									onChangeText={formikProps.handleChange("description")}
 									value={formikProps.values.description}
 									onBlur={formikProps.handleBlur("description")}
+									style={{
+										...styles.input,
+										height: 90,
+									}}
 								/>
 								<View style={styles.relleno}></View>
 								<View

@@ -5,6 +5,7 @@ import SelectGame from "./SelectGame.jsx";
 import Room from "./Room.jsx";
 import Form from "./Form.jsx";
 import Chat from "./Chat.jsx";
+import ChatProfile from "./ChatProfile.jsx";
 import CreateGame from "./CreateGame.jsx";
 import Profile from "./Profile.jsx";
 import WhyPremium from "./WhyPremium.jsx";
@@ -27,6 +28,7 @@ const Home = () => {
 				<Route path="/room/:id" element={<Room />} />
 				<Route path="selectchat" element={<SelectChat />} />
 				<Route path="/chat/:id" element={<Chat />} />
+				<Route path="/chat/profile" element={<ChatProfile />} />
 				<Route path="/profile" element={<Profile />} />
 				<Route path="/profile/edit" element={<EditProfile />} />
 				<Route path="/whypremium" element={<WhyPremium />} />

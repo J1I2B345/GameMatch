@@ -6,13 +6,13 @@ import {
 	Image,
 	TouchableWithoutFeedback,
 	ScrollView,
+	TouchableOpacity,
 } from "react-native";
 import Constants from "expo-constants";
 import io from "socket.io-client";
-import Nav from "./Nav";
 import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-native";
+import { useNavigate, useParams } from "react-router-native";
 import axios from "axios";
 import { StatusBar } from "expo-status-bar";
 
@@ -23,6 +23,7 @@ const Chat = () => {
 	const userName = useSelector((state) => state.games.userNameChat);
 	const socket = useRef();
 	const { id } = useParams();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		try {
@@ -80,32 +81,59 @@ const Chat = () => {
 		setChatMessage(e);
 	}
 
+	function backToSelectChat() {
+		navigate("/selectchat");
+	}
+
+	function seeProfile() {
+		navigate("/chat/profile");
+	}
+
 	const scrollViewRef = useRef();
 
 	return (
 		<View style={{ height: "100%" }}>
 			<View
 				style={{
-					marginTop: Constants.statusBarHeight,
+					height: Constants.statusBarHeight,
+					backgroundColor: "#281883",
+				}}
+			></View>
+			<View
+				style={{
+					backgroundColor: "#281883",
 					alignItems: "center",
 					flexDirection: "row",
 				}}
 			>
-				<Link
-					to="/selectchat"
-					activeOpacity={1}
-					underlayColor={""}
-					style={{ marginLeft: "2%" }}
+				<TouchableOpacity
+					onPress={() => backToSelectChat()}
+					style={{ marginTop: 0, marginLeft: 10 }}
 				>
-					<Image
-						source={require("../../assets/iconBack.png")}
-						style={{ width: 50, height: 50 }}
-					/>
-				</Link>
-				<Text style={{ color: "white", fontSize: 40, marginLeft: "25%" }}>
-					{" "}
-					{userName}
-				</Text>
+					<View style={{ flexDirection: "row" }}>
+						<Text style={{ marginTop: 7, color: "white", fontSize: 20 }}>❮❮</Text>
+						<Image
+							source={{
+								uri: userName.img
+									? userName.img
+									: "https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg",
+							}}
+							style={{ marginLeft: 10, width: 45, height: 45, borderRadius: 50 }}
+						/>
+					</View>
+				</TouchableOpacity>
+				<TouchableOpacity
+					onPress={() => seeProfile()}
+					style={{
+						marginLeft: 15,
+						height: 70,
+						width: "100%",
+						flexDirection: "row",
+						alignItems: "center",
+					}}
+				>
+					<Text style={{ color: "#fff", fontSize: 35 }}>{userName.username}</Text>
+				</TouchableOpacity>
 			</View>
 			<ScrollView
 				ref={scrollViewRef}
@@ -114,34 +142,48 @@ const Chat = () => {
 				<View style={{ margin: 5, marginTop: 0, marginBottom: 0 }}>
 					{chatMessages &&
 						chatMessages.map((chatMessage, i) => (
-							<Text
-								key={i}
+							<View
+								key={chatMessages._id}
 								style={
 									chatMessage.fromSelf === true
 										? {
-												marginLeft: "63%",
-												margin: 5,
-												padding: 13,
-												borderRadius: 15,
-												width: "35%",
-												color: "#fff",
-												textAlign: "center",
-												backgroundColor: "#655EBE",
+												alignItems: "flex-end",
 										  }
 										: {
-												margin: 5,
-												padding: 13,
-												borderRadius: 15,
-												width: "30%",
-												color: "#fff",
-												textAlign: "center",
-												backgroundColor: "#444074",
+												alignItems: "flex-start",
 										  }
 								}
 							>
-								{/* tiene una propiedad que es fromSelf => si es true, es del mismo que envía y debería estar a la derecha el mensaje, si es false es del otro y debería estar a la izquierda. no se como hacerlo */}
-								{chatMessage.message}
-							</Text>
+								<View
+									style={
+										chatMessage.fromSelf === true
+											? {
+													margin: 5,
+													marginLeft: "20%",
+													padding: 13,
+													width: "auto",
+													borderRadius: 15,
+													color: "#fff",
+													textAlign: "left",
+													backgroundColor: "#443abb",
+											  }
+											: {
+													margin: 5,
+													marginRight: "20%",
+													padding: 13,
+													width: "auto",
+													borderRadius: 15,
+													color: "#fff",
+													backgroundColor: "#655ebe",
+											  }
+									}
+								>
+									<Text key={i} style={{ color: "#fff" }}>
+										{/* tiene una propiedad que es fromSelf => si es true, es del mismo que envía y debería estar a la derecha el mensaje, si es false es del otro y debería estar a la izquierda. no se como hacerlo */}
+										{chatMessage.message}
+									</Text>
+								</View>
+							</View>
 						))}
 				</View>
 			</ScrollView>
@@ -154,7 +196,13 @@ const Chat = () => {
 				}}
 			>
 				<TextInput
+					placeholder="Message"
+					autoCorrect={false}
+					value={chatMessage}
+					onChangeText={(e) => handleChange(e)}
+					multiline={true}
 					style={{
+						padding: 4,
 						height: 45,
 						width: "87%",
 						borderWidth: 1,
@@ -162,10 +210,6 @@ const Chat = () => {
 						textAlign: "center",
 						backgroundColor: "#fff",
 					}}
-					placeholder="Message"
-					autoCorrect={false}
-					value={chatMessage}
-					onChangeText={(e) => handleChange(e)}
 				/>
 				<TouchableWithoutFeedback
 					onPress={(e) => {
