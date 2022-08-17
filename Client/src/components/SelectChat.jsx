@@ -29,8 +29,8 @@ export default function SelectChat() {
 	}, []);
 
 	function handleClick(idContact) {
-		navigate(`/chat/${idContact}`);
 		dispatch(getNameUserChat(idContact));
+		navigate(`/chat/${idContact}`);
 	}
 
 	return (

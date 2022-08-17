@@ -64,11 +64,16 @@ export const getUser = (username) => (dispatch) => {
 		});
 };
 
-export const getNameUserChat = (idUser) => (dispatch) => {
+export const getNameUserChat = (idUser) => {
 	return async (dispatch) => {
 		let json = await axios.get(`https://backend-gamematch.herokuapp.com/users/${idUser}`);
 		dispatch({ type: "USER_NAME_CHAT", payload: json.data });
 	};
+};
+
+export const setEmptyUserName = () => {
+	let empty = {};
+	return { type: "SET_EMPTY_USER_NAME_CHAT", payload: empty };
 };
 
 export const updateUser = (payload) => {

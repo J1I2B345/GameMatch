@@ -66,7 +66,14 @@ const createReducer = (state = initialState, action) => {
 				...state,
 				aux: payload,
 			};
+
 		case "USER_NAME_CHAT":
+			return {
+				...state,
+				userNameChat: payload,
+			};
+
+		case "SET_EMPTY_USER_NAME_CHAT":
 			return {
 				...state,
 				userNameChat: payload,
