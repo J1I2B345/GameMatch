@@ -43,10 +43,17 @@ export default function SelectGame() {
 					}}
 				>
 					<ScrollView
-						style={{
-							marginBottom: 25,
-							width: "100%",
-						}}
+						style={
+							userGlobal?.roles?.map((role) => role.name).includes("Admin")
+								? {
+										marginBottom: 45,
+										width: "100%",
+								  }
+								: {
+										marginBottom: 25,
+										width: "100%",
+								  }
+						}
 					>
 						<View style={{ alignItems: "center", justifyContent: "center" }}>
 							<View
