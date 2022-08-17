@@ -32,12 +32,12 @@ export default function Login() {
 			return;
 		}
 
-		if (
-			!user.map((d) => d.email && d.password).includes(values.email && values.password)
-		) {
-			alert("❔Password invalid,try againヾ(≧▽≦*)o");
-			return;
-		}
+		// if (
+		// 	!user.map((d) => d.email && d.password).includes(values.email && values.password)
+		// ) {
+		// 	alert("❔Password invalid,try againヾ(≧▽≦*)o");
+		// 	return;
+		// }
 
 		try {
 			let res = await axios.post(
@@ -49,7 +49,8 @@ export default function Login() {
 			dispatch(login(values));
 			navigation("/panel");
 		} catch (error) {
-			alert({ message: error.message });
+			alert("❔Password invalid,try againヾ(≧▽≦*)o");
+
 			console.log({ message: error.message });
 		}
 
