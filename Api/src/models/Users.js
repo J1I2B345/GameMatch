@@ -72,6 +72,10 @@ const schema = new Schema(
 			type: Boolean,
 			default: false,
 		},
+		reports:{
+			type: String,
+			reference: "ReportUsers",
+		},
 
 		tenant: String,
 		connection: String,
