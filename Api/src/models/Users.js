@@ -54,11 +54,10 @@ const schema = new Schema(
 		reviews: Array,
 		givenReviews: Array,
 		img: {
-			type: String,
-			//default: buscar una imagen que sea tipo la de facebook
-			type: String,
-			default:
-				"https://www.pngplay.com/wp-content/uploads/13/Gamer-Aesthetic-PNG-Photo-Image.png",
+			secure_url: String,
+			public_id: String,
+			// default:
+			// 	"https://dpwhatsapp.xyz/wp-content/uploads/2021/05/Gamers-Image-WhatsApp-DP.jpg",
 		},
 		description: String,
 		socialNetworks: {
