@@ -7,7 +7,7 @@ const UserSchema = require("../models/Users.js");
 //by paramas /:id
 
 router.get("/:id", async (req, res) => {
-	const { id } = req.params;
+	 const { id } = req.params;
 	const conditionReviews = {
 		$lookup: {
 			from: "reviews",
@@ -38,7 +38,7 @@ router.get("/:id", async (req, res) => {
 		// let num = a[0].reviews.map(e => e.qualification)
 		// a[0].rating = num.reduce((a,b) => a + b) / a[0].reviews.length
 		if (a[0].reviews.length === 0) {
-			a[0].rating = "Sin calificar";
+			a[0].rating = "Unrated";
 		}
 		if (a[0].reviews.length === 1) {
 			a[0].rating = a[0].reviews[0].qualification;
@@ -86,7 +86,7 @@ router.get("/", async (req, res) => {
 				},
 			]);
 			if (a[0].reviews.length === 0) {
-				a[0].rating = "Sin calificar";
+				a[0].rating = "Unrated";
 			}
 			if (a[0].reviews.length > 1) {
 				let num = a[0].reviews.map((e) => e.qualification);
@@ -103,7 +103,7 @@ router.get("/", async (req, res) => {
 			]);
 			a.map((el) => {
 				if (el.reviews.length === 0) {
-					el.rating = "Sin calificar";
+					el.rating = "Unrated";
 				}
 				if (el.reviews.length > 1) {
 					let num = el.reviews.map((e) => e.qualification);
@@ -126,13 +126,13 @@ router.post("/", async (req, res) => {
 	const { userRated, reviewer, qualification, comment } = req.body;
 	try {
 		if ((!userRated, !reviewer, !qualification)) {
-			return res.json("te faltan datos pa");
+			return res.json("missing data");
 		}
 		const reviewPost = await ReviewSchema(req.body);
 		reviewPost.save();
-		res.json("creo que malio siel");
+		res.json("was saved successfully");
 	} catch (e) {
-		res.json("Algo Malio Sal :O").status(404);
+		res.json("something went wrong").status(404);
 	}
 });
 
@@ -148,9 +148,9 @@ router.put("/", async (req, res) => {
 			req.body
 		);
 		reviewPut.save();
-		res.json("creo que malio siel");
+		res.json("was saved successfully");
 	} catch (e) {
-		res.json("Algo Malio Sal :O").status(404);
+		res.json("something went wrong").status(404);
 	}
 });
 //----------------DELETE USER REVIEW------------------------
@@ -158,9 +158,9 @@ router.delete("/:id", async (req, res) => {
 	const { id } = req.params;
 	try {
 		const reviewPut = await ReviewSchema.findByIdAndDelete(id);
-		res.json("creo que malio siel");
+		res.json("successfully removed");
 	} catch (e) {
-		res.json("Algo Malio Sal :O").status(404);
+		res.json("something went wrong").status(404);
 	}
 });
 
