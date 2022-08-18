@@ -187,27 +187,48 @@ router.post("/login", async (req, res) => {
 
 //auth.isAdmin,solicitud Tipo POST: localhost:3001/users
 //[auth.verifyToken,auth.isAdmin]
-router.put("/:id", async (req, res) => {
-	try {
-		req.body.username = req.body.username?.trim();
-		req.body.email = req.body.email?.trim();
-		if (req.body.roles) {
-			const foundRoles = await Role.find({ name: { $in: req.body.roles } });
-			req.body.roles = foundRoles.map((role) => role._id);
-		}
-		const userUpdate = await UserSchema.findByIdAndUpdate(
-			{ _id: req.params.id },
-			req.body,
-			{ new: true }
-		);
+const uploadImage = require("../utils/cloudinary");
+const fileUpload = require("express-fileupload");
+//npm install fs-extra
+const fs = require("fs-extra");
+router.put(
+	"/:id",
+	fileUpload({
+		//*-------IMAGES
+		useTempFiles: true,
+		tempFileDir: "./uploads",
+	}), //*------
+	async (req, res) => {
+		try {
+			req.body.username = req.body.username?.trim();
+			req.body.email = req.body.email?.trim();
+			if (req.body.roles) {
+				const foundRoles = await Role.find({ name: { $in: req.body.roles } });
+				req.body.roles = foundRoles.map((role) => role._id);
+			}
 
-		console.log("UPDATE :" + userUpdate.username);
-		res.status(200).json(userUpdate);
-	} catch (error) {
-		console.log("Error trying to update a user");
-		res.status(500).json({ error: error.message });
+			const userUpdate = await UserSchema.findByIdAndUpdate(
+				{ _id: req.params.id },
+				req.body,
+				{ new: true }
+			);
+
+			if (req.files?.img) {
+				const img = await uploadImage(req.files.img.tempFilePath);
+				userUpdate.img = {
+					public_id: img.public_id,
+					secure_url: img.secure_url,
+				};
+				await fs.unlink(req.files.img.tempFilePath);
+			}
+			console.log("UPDATE :" + userUpdate.username);
+			res.status(200).json(userUpdate);
+		} catch (error) {
+			console.log("Error trying to update a user");
+			res.status(500).json({ error: error.message });
+		}
 	}
-});
+);
 
 // let examplePOST = {
 //   "username":"Michus Obesos",
