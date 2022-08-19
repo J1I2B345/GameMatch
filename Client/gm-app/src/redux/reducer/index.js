@@ -1,6 +1,6 @@
 import {
 	CREATE_GAME,
-	GET_USERNAME,
+	GET_USERID,
 	UPDATE_USER,
 	CREATE_NEWS,
 	GET_ALL_NEWS,
@@ -15,8 +15,9 @@ import {
 
 const initialState = {
 	games: [],
+
 	user: null,
-	userSelect: null,
+	userSelect: [],
 	news: [],
 	userProfile: null,
 	aux: null,
@@ -27,15 +28,15 @@ const initialState = {
 const rootReducer = (state = initialState, action) => {
 	const { type, payload } = action;
 
-  switch (type) {
-    case CREATE_GAME:
-      return { ...state, games: [...state.games, payload] };
-    case GET_USERNAME:
-      return { ...state, userSelect: action.payload };
-    case GET_GAME:
-      return { ...state, gameSelect: action.payload };
-    case GET_NEW:
-      return { ...state, newSelect: action.payload };
+	switch (type) {
+		case CREATE_GAME:
+			return { ...state, games: [...state.games, payload] };
+		case GET_USERID:
+			return { ...state, userSelect: action.payload };
+		case GET_GAME:
+			return { ...state, gameSelect: action.payload };
+		case GET_NEW:
+			return { ...state, newSelect: action.payload };
 
 		case UPDATE_USER:
 			return { ...state, user: payload };
@@ -46,8 +47,9 @@ const rootReducer = (state = initialState, action) => {
 				...state,
 				news: [...action.payload],
 			};
+
 		case EDIT_PROFILE:
-			return { ...state, userSelect: payload };
+			return { ...state, aux: payload };
 		case LOGIN:
 			return {
 				...state,
@@ -63,7 +65,6 @@ const rootReducer = (state = initialState, action) => {
 			};
 		case EDIT_NEWS:
 			return { ...state, news: payload };
-
 
 		default:
 			return state;

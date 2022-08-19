@@ -28,9 +28,9 @@ export default function PanelHome() {
 					<button className="modify-btn" onClick={(e) => navigate(`/gamehome`)}>
 						Juegos
 					</button>
-					{/* <button className="modify-btn" onClick={(e) => navigate(`/profilehome`)}>
+					<button className="modify-btn" onClick={(e) => navigate(`/profilehome`)}>
 						Usuarios
-					</button> */}
+					</button>
 				</div>
 			)}
 		</Container>
