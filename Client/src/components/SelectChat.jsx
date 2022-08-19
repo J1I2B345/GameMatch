@@ -10,18 +10,24 @@ import Nav from "./Nav";
 import { getNameUserChat } from "../redux/actions";
 
 export default function SelectChat() {
-	let [contacts, setContacts] = useState({});
+	let [contacts, setContacts] = useState("");
+	const [error, setError] = useState("");
 	let user = useSelector((state) => state.games.user);
 	let id = user._id;
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	console.log(user, contacts, error);
 
 	async function getChats() {
-		let respuesta = await axios.get(
-			`https://backend-gamematch.herokuapp.com/chats/getUsersToChat/${id}`
-		);
-		let contactsResponse = respuesta.data;
-		setContacts(contactsResponse);
+		try {
+			let respuesta = await axios.get(
+				`https://backend-gamematch.herokuapp.com/chats/getUsersToChat/${id}`
+			);
+			let contactsResponse = respuesta.data;
+			setContacts(contactsResponse);
+		} catch (e) {
+			setError(e.message);
+		}
 	}
 
 	useEffect(() => {
@@ -35,15 +41,15 @@ export default function SelectChat() {
 
 	return (
 		<View style={{ height: "100%", alignItems: "center" }}>
-			{contacts.length > 0 ? (
+			<View style={{ width: "100%", alignItems: "center" }}>
+				<Text
+					style={{ marginTop: Constants.statusBarHeight, color: "white", fontSize: 40 }}
+				>
+					Chats
+				</Text>
 				<View style={{ width: "100%", alignItems: "center" }}>
-					<Text
-						style={{ marginTop: Constants.statusBarHeight, color: "white", fontSize: 40 }}
-					>
-						Chats
-					</Text>
-					<View style={{ width: "100%", alignItems: "center" }}>
-						{contacts.length > 0 ? (
+					{contacts || error ? (
+						contacts.length > 0 ? (
 							contacts.map((contact) => {
 								return (
 									<TouchableOpacity
@@ -92,13 +98,21 @@ export default function SelectChat() {
 								);
 							})
 						) : (
-							<Text>Aun no tienes contactos</Text>
-						)}
-					</View>
+							<Text
+								style={{
+									color: "white",
+									fontSize: 25,
+									marginLeft: 10,
+								}}
+							>
+								No friends to chat
+							</Text>
+						)
+					) : (
+						<Spinner />
+					)}
 				</View>
-			) : (
-				<Spinner />
-			)}
+			</View>
 			<StatusBar style="auto" />
 			<Nav />
 		</View>
