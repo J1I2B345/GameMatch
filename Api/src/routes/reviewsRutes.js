@@ -40,7 +40,7 @@ router.post("/", async (req, res) => {
 			);
 			const reviewPost = await ReviewSchema(req.body);
 			reviewPost.save();
-			res.status(200).json("creo que malio siel");
+			res.status(200).json(reviewPost);
 		} else {
 			const put = await ReviewSchema.findOneAndUpdate(
 				{ userRated: userRated, reviewer: reviewer },
@@ -54,7 +54,7 @@ router.post("/", async (req, res) => {
 				{ username: userRated },
 				{ rating: rating }
 			);
-			res.status(200).json("cambiado");
+			res.status(200).json(put);
 		}
 	} catch (e) {
 		res.json("Algo Malio Sal :O").status(404);
