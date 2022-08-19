@@ -30,7 +30,7 @@ export default function Room() {
 
 	function sendInvitation(socketid) {
 		let invitation = { socketid, user };
-		socket.emit("invitation", invitation);
+		socket.current.emit("client: invitation", invitation);
 	}
 
 	useEffect(() => {
@@ -62,6 +62,9 @@ export default function Room() {
 		}
 	}, [elo, order, position, players]);
 
+	useEffect(() => {
+		socket.on("server: invitation", (user) => console.log(user));
+	});
 	useEffect(() => {
 		socket.current = io("https://backend-gamematch.herokuapp.com/");
 		socket.current.emit("joinRoom", user);

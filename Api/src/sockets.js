@@ -21,7 +21,9 @@ module.exports = (io) => {
 			}
 		});
 
-		socket.on("invitation", (invitation) => console.log(invitation));
+		socket.on("client: invitation", (invitation) =>
+			socket.to(invitation.socketid).emit("server: invitation", invitation.user)
+		);
 
 		//funcionalidad chat
 		socket.on("joinChat", (user) => {
