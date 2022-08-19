@@ -28,6 +28,11 @@ export default function Room() {
 	let game = games.find((e) => e._id === id);
 	const dispatch = useDispatch();
 
+	function sendInvitation(socketid) {
+		let invitation = { socketid, user };
+		socket.emit("invitation", invitation);
+	}
+
 	useEffect(() => {
 		if (players.length) {
 			let playersOrder = players;
@@ -159,7 +164,7 @@ export default function Room() {
 						{/* { players && <Players players={players} />} */}
 						{players.length ? (
 							playersInOrder.length > 0 ? (
-								<Players players={playersInOrder} />
+								<Players players={playersInOrder} sendInvitation={sendInvitation} />
 							) : (
 								<Text
 									style={{

@@ -21,6 +21,8 @@ module.exports = (io) => {
 			}
 		});
 
+		socket.on("invitation", (invitation) => console.log(invitation));
+
 		//funcionalidad chat
 		socket.on("joinChat", (user) => {
 			let userFull = { ...user, socketid: socket.id };

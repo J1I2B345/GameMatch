@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableWithoutFeedback, Alert } from "react-native";
 import PlayerCard from "./PlayerCard";
 
-export default function Players({ players }) {
+export default function Players({ players, sendInvitation }) {
 	return (
 		<View>
 			{players.length > 0 ? (
@@ -16,6 +16,8 @@ export default function Players({ players }) {
 							elo={player.elo}
 							position={player.position}
 							rating={player.rating}
+							socketid={player.socketid}
+							sendInvitation={sendInvitation}
 						/>
 					);
 				})

@@ -2,7 +2,16 @@ import React, { useState } from "react";
 import { View, Image, Text, TouchableOpacity, Alert, Modal } from "react-native";
 import { Link } from "react-router-native";
 
-const PlayerCard = ({ id, img, name, elo, position, rating }) => {
+const PlayerCard = ({
+	id,
+	img,
+	name,
+	elo,
+	position,
+	rating,
+	socketid,
+	sendInvitation,
+}) => {
 	const [view, setView] = useState(false);
 	return (
 		<View key={id} style={{ margin: 5 }}>
@@ -69,7 +78,7 @@ const PlayerCard = ({ id, img, name, elo, position, rating }) => {
 										style={{ width: 45, height: 45 }}
 									/>
 								</TouchableOpacity>
-								<TouchableOpacity onPress={() => Alert.alert("matcheaste")}>
+								<TouchableOpacity onPress={() => sendInvitation(socketid)}>
 									<Image
 										source={require("../../assets/acceptChanges.png")}
 										style={{ width: 50, height: 50 }}
