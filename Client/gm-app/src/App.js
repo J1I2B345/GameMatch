@@ -23,8 +23,8 @@ function App() {
 				<Route path="/gamehome" element={<GameHome />} />
 				<Route path="/news" element={<News />} />
 				<Route path="/register" element={<Register />} />
+				<Route path="/Users/:_id" element={<EditProfile />} />
 				<Route path="/profilehome" element={<ProfileHome />} />
-				<Route path="/Users/username/:username" element={<EditProfile />} />
 				<Route path="/gamehome/Games/:id" element={<EditGame />} />
 				<Route path="/News/:_id" element={<EditNews />} />
 				<Route path="/panel" element={<PanelHome />} />

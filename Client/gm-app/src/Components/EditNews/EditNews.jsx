@@ -27,7 +27,7 @@ export default function EditNews() {
 	}, []);
 
 	const submit = (values) => {
-		console.log(values);
+		// console.log(values);
 		dispatch(editNews(values));
 		navigate("/news");
 	};

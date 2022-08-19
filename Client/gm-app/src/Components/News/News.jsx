@@ -65,25 +65,13 @@ const News = () => {
 							</div>
 							<div className="title">{data.title}</div>
 							<div className="description">{data.description}</div>
-							{user.roles[0].name === "Admin" ||
-							user.roles[0].name === "SuperAdmin" ? (
-								<button
-									className="modify-btn"
-									onClick={(e) => navigate(`/News/${data._id}`)}
-								>
-									Modificar
-								</button>
+							{user.roles[0].name === "Admin" || user.roles[0].name === "SuperAdmin" ? (
+								<button onClick={(e) => navigate(`/News/${data._id}`)}>Modificar</button>
 							) : (
 								""
 							)}
-							{user.roles[0].name === "Admin" ||
-							user.roles[0].name === "SuperAdmin" ? (
-								<button
-									className="delete-btn"
-									onClick={(e) => deleteButton(data._id)}
-								>
-									Eliminar
-								</button>
+							{user.roles[0].name === "Admin" || user.roles[0].name === "SuperAdmin" ? (
+								<button onClick={(e) => deleteButton(data._id)}>Eliminar</button>
 							) : (
 								""
 							)}
