@@ -1,6 +1,6 @@
 const { connect } = require("mongoose");
 const cron = require("node-cron");
-const UserSchema = require("../models/Users.js");
+const UserSchema = require("../src/models/Users");
 
 module.exports = connectDB = () => {
 	try {
