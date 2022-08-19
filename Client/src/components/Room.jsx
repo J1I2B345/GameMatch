@@ -40,6 +40,7 @@ export default function Room() {
 	function sendInvitation(socketid) {
 		let invitation = { socketid, user };
 		socket.current.emit("client: invitation", invitation);
+		setView(false);
 	}
 
 	useEffect(() => {
@@ -77,7 +78,6 @@ export default function Room() {
 		return () => {
 			socket.current.off("gameUsers");
 			socket.current.emit("leaveRoom", user);
-			console.log("se desmontó el componente en el socket.on gameusers");
 			dispatch(orderByRating("Any"));
 			dispatch(orderByElo("All"));
 			dispatch(orderByPosition("All"));
@@ -89,7 +89,8 @@ export default function Room() {
 			let users = { users: [user._id, invitationUser._id] };
 			axios
 				.post("https://backend-gamematch.herokuapp.com/chats/addUserToChat/", users)
-				.catch((err) => console.log(error.message));
+				.then((data) => Alert.alert(`you can chat with ${invitationUser.username}`))
+				.catch((error) => console.log(error.message));
 		});
 		return () => {
 			socket.current.off("server: invitation");
