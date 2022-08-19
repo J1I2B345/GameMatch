@@ -42,6 +42,13 @@ const Login = () => {
 			Alert.alert("💌Email not found,try againヾ(≧▽≦*)o ");
 			return;
 		}
+		const users = user.find((d) => d.email === values.email);
+		if (users.ban == true) {
+			Alert.alert(
+				`💚Dear User we sorry 😔 your account is suspended.Do you Believe a Is an error?. contact the support`
+			);
+			return;
+		}
 
 		// if (
 		// 	!user.map((d) => d.email && d.password).includes(values.email && values.password)
@@ -63,9 +70,9 @@ const Login = () => {
 			dispatch(login(values));
 			navigation("/selectgame");
 		} catch (error) {
-			Alert.alert("❔Password invalid,try againヾ(≧▽≦*)o");
+			Alert.alert("Error: " + error.message);
+			console.log({ error });
 			return;
-			console.log({ message: error.message });
 		}
 	};
 
