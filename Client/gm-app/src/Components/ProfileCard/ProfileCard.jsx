@@ -11,6 +11,7 @@ export default function ProfileCard() {
 	const navigate = useNavigate();
 
 	const user = useSelector((state) => state.aux);
+	// console.log({ user });
 
 	useEffect(() => {
 		dispatch(allUser());
@@ -37,8 +38,8 @@ export default function ProfileCard() {
 					<div className="container-profile" key={data.name}>
 						<img className="image-profile" src={data.img} alt="" key={data._id} />
 						<h1 key={data.username}>Usuario: {data.username}</h1>
-						<p key={data.rol}>Rol actual:{data.rol}</p>
-						<p key={data.password}>password: {data.password}</p>
+						<p key={data.rol}>Rol actual:{data.roles}</p>
+						<p key={data.password}>Ban: {data.ban.toString()}</p>
 					</div>
 
 					<button onClick={(e) => deleteButton(data._id)}>Eliminar</button>
