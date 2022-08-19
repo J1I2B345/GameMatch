@@ -16,7 +16,6 @@ export default function SelectChat() {
 	let id = user._id;
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	console.log(user, contacts, error);
 
 	async function getChats() {
 		try {
