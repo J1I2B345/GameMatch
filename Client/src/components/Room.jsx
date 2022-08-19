@@ -1,5 +1,13 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView } from "react-native";
+import {
+	StyleSheet,
+	Text,
+	View,
+	Image,
+	SafeAreaView,
+	ScrollView,
+	Alert,
+} from "react-native";
 import { Link, useParams } from "react-router-native";
 import Constants from "expo-constants";
 import Nav from "./Nav";
@@ -14,6 +22,7 @@ import { io } from "socket.io-client";
 import { higherRating, lowerRating, selectPosition, selectElo } from "../utils/utils";
 import Spinner from "../components/Spinner";
 import { orderByElo, orderByPosition, orderByRating } from "../redux/actions";
+import axios from "axios";
 
 export default function Room() {
 	const games = useSelector((state) => state.games.games);
@@ -63,9 +72,6 @@ export default function Room() {
 	}, [elo, order, position, players]);
 
 	useEffect(() => {
-		socket.on("server: invitation", (user) => console.log(user));
-	});
-	useEffect(() => {
 		socket.current = io("https://backend-gamematch.herokuapp.com/");
 		socket.current.emit("joinRoom", user);
 		return () => {
@@ -75,6 +81,20 @@ export default function Room() {
 			dispatch(orderByRating("Any"));
 			dispatch(orderByElo("All"));
 			dispatch(orderByPosition("All"));
+		};
+	}, []);
+
+	useEffect(() => {
+		socket.current.on("server: invitation", (invitationUser) => {
+			let users = { users: [user._id, invitationUser._id] };
+			console.log("soy users antes de hacer el post", users);
+			axios
+				.post("https://backend-gamematch.herokuapp.com/chats/addUserToChat/", users)
+				.catch((err) => console.log(error.message));
+			Alert.alert(`hola quiero matchear ${invitationUser.username}`);
+		});
+		return () => {
+			socket.current.off("server: invitation");
 		};
 	}, []);
 
