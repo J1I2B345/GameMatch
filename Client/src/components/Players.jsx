@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableWithoutFeedback, Alert } from "react-native";
 import PlayerCard from "./PlayerCard";
 
 export default function Players({ players }) {
