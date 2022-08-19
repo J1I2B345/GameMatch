@@ -19,16 +19,17 @@ export default function EditNews() {
 	const user = useSelector((state) => state.userSelect);
 	const userActive = useSelector((state) => state.userProfile);
 
-	console.log(user.roles);
-	console.log(user.ban);
+	console.log(user);
+	// console.log(user.ban);
 
 	useEffect(() => {
 		dispatch(getUser(params._id));
 	}, [dispatch]);
 
 	const submit = (values) => {
-		// console.log(values);
-		dispatch(editProfile(values));
+		let editUser = { ...values };
+		editUser.roles = [editUser.roles];
+		dispatch(editProfile(editUser));
 		navigate("/profilehome");
 	};
 
@@ -43,6 +44,7 @@ export default function EditNews() {
 						initialValues={{
 							roles: `${user.roles}`,
 							ban: user.ban,
+							_id: user._id,
 						}}
 						validationSchema={validate}
 						onSubmit={submit}
@@ -69,6 +71,13 @@ export default function EditNews() {
 										name="ban"
 										type="boolean"
 										placeholder={user.ban}
+									/>
+									<TextField
+										className="input"
+										label="id"
+										name="_id"
+										type="text"
+										placeholder={user._id}
 									/>
 
 									<button className="button" type="submit">
