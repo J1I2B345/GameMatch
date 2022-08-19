@@ -1,11 +1,84 @@
-import React from "react";
-import { View, Image, Text } from "react-native";
+import React, { useState } from "react";
+import { View, Image, Text, TouchableOpacity, Alert, Modal } from "react-native";
 import { Link } from "react-router-native";
 
 const PlayerCard = ({ id, img, name, elo, position, rating }) => {
+	const [view, setView] = useState(false);
 	return (
 		<View key={id} style={{ margin: 5 }}>
-			<Link to="" activeOpacity={1} underlayColor={""}>
+			<TouchableOpacity
+				activeOpacity={0}
+				underlayColor={""}
+				onPress={() => setView(true)}
+			>
+				<Modal transparent visible={view} animationType="slide">
+					<View
+						style={{
+							flex: 1,
+							// backgroundColor: "rgba(1,1,1, 0.5)",
+							alignItems: "center",
+							justifyContent: "center",
+						}}
+					>
+						<View
+							style={{
+								height: "60%",
+								width: "90%",
+								backgroundColor: "#5F0f99",
+								borderRadius: 10,
+								alignItems: "center",
+							}}
+						>
+							{img && (
+								<Image
+									source={{ uri: img }}
+									style={{
+										marginTop: "5%",
+										width: "32%",
+										height: "30%",
+										borderRadius: 30,
+									}}
+								/>
+							)}
+							<Text style={{ fontSize: 40 }}>{name}</Text>
+							<View
+								style={{
+									marginTop: "5%",
+									width: "100%",
+									flexDirection: "row",
+									justifyContent: "space-around",
+								}}
+							>
+								<Text style={{ fontSize: 25 }}>{elo}</Text>
+								<Text style={{ fontSize: 25 }}>{position}</Text>
+							</View>
+							<Text style={{ fontSize: 33, marginTop: "5%" }}>
+								Rating: {rating.$numberDecimal}
+							</Text>
+							<View
+								style={{
+									marginTop: "5%",
+									width: "100%",
+									flexDirection: "row",
+									justifyContent: "space-around",
+								}}
+							>
+								<TouchableOpacity onPress={() => setView(false)}>
+									<Image
+										source={require("../../assets/cancelar.png")}
+										style={{ width: 45, height: 45 }}
+									/>
+								</TouchableOpacity>
+								<TouchableOpacity onPress={() => Alert.alert("matcheaste")}>
+									<Image
+										source={require("../../assets/acceptChanges.png")}
+										style={{ width: 50, height: 50 }}
+									/>
+								</TouchableOpacity>
+							</View>
+						</View>
+					</View>
+				</Modal>
 				<View
 					style={{
 						width: 350,
@@ -89,7 +162,7 @@ const PlayerCard = ({ id, img, name, elo, position, rating }) => {
 						</View>
 					</View>
 				</View>
-			</Link>
+			</TouchableOpacity>
 		</View>
 	);
 };
