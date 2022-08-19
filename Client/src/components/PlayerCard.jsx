@@ -78,7 +78,11 @@ const PlayerCard = ({
 										style={{ width: 45, height: 45 }}
 									/>
 								</TouchableOpacity>
-								<TouchableOpacity onPress={() => sendInvitation(socketid)}>
+								<TouchableOpacity
+									onPress={() => {
+										sendInvitation(socketid), setView(false);
+									}}
+								>
 									<Image
 										source={require("../../assets/acceptChanges.png")}
 										style={{ width: 50, height: 50 }}

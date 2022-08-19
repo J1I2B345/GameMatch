@@ -40,7 +40,6 @@ export default function Room() {
 	function sendInvitation(socketid) {
 		let invitation = { socketid, user };
 		socket.current.emit("client: invitation", invitation);
-		setView(false);
 	}
 
 	useEffect(() => {
