@@ -164,12 +164,10 @@ router.post("/login", async (req, res) => {
 			userFound.password
 		);
 		if (userFound.ban === true) {
-			return res
-				.status(200)
-				.json({
-					message:
-						"Dear User, your account is suspended you can't login. Do you Believe a Is an error? contact the support",
-				});
+			return res.status(401).json({
+				message:
+					"Dear User, your account is suspended you can't login. Do you Believe a Is an error? contact the support",
+			});
 		}
 		// const pass = await UserSchema.findOne({email: req.body.email, password: req.body.password})
 
