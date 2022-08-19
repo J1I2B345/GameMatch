@@ -55,8 +55,8 @@ export default function Room() {
 				})
 				.catch((err) => Alert.alert(err.message));
 		}
-		let invitation = { socketid, user };
-		socket.current.emit("client: invitation", invitation);
+		// let invitation = { socketid, user };
+		// socket.current.emit("client: invitation", invitation);
 		//axios.post("");
 	}
 
@@ -110,15 +110,6 @@ export default function Room() {
 	useEffect(() => {
 		socket.current.on("server: invitation", (invitationUser) => {
 			//should // set a state?
-		});
-		return () => {
-			socket.current.off("server: invitation");
-		};
-	}, []);
-
-	//invitation accepted -> chat allowed
-	useEffect(() => {
-		socket.current.on("server: acceptedInvitation", (invitationAccepted) => {
 			let users = { users: [user._id, invitationUser._id] };
 			//chat connection
 			axios
@@ -126,7 +117,22 @@ export default function Room() {
 				.then((data) => Alert.alert(`Now you can chat with ${invitationUser.username}`))
 				.catch((error) => console.log(error.message));
 		});
+		return () => {
+			socket.current.off("server: invitation");
+		};
 	}, []);
+
+	//invitation accepted -> chat allowed
+	// useEffect(() => {
+	// 	socket.current.on("server: acceptedInvitation", (invitationAccepted) => {
+	// 		let users = { users: [user._id, invitationUser._id] };
+	// 		//chat connection
+	// 		axios
+	// 			.post("https://backend-gamematch.herokuapp.com/chats/addUserToChat/", users)
+	// 			.then((data) => Alert.alert(`Now you can chat with ${invitationUser.username}`))
+	// 			.catch((error) => console.log(error.message));
+	// 	});
+	// }, []);
 
 	useEffect(() => {
 		socket.current.on("gameUsers", (data) => {
