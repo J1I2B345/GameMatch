@@ -87,11 +87,9 @@ export default function Room() {
 	useEffect(() => {
 		socket.current.on("server: invitation", (invitationUser) => {
 			let users = { users: [user._id, invitationUser._id] };
-			console.log("soy users antes de hacer el post", users);
 			axios
 				.post("https://backend-gamematch.herokuapp.com/chats/addUserToChat/", users)
 				.catch((err) => console.log(error.message));
-			Alert.alert(`hola quiero matchear ${invitationUser.username}`);
 		});
 		return () => {
 			socket.current.off("server: invitation");
