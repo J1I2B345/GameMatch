@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const router = Router();
+
 const UserSchema = require("../models/Users.js");
 const mongoose = require("mongoose");
 const CONFIG = require("../config.js");
@@ -166,7 +167,7 @@ router.post("/login", async (req, res) => {
 		if (userFound.ban === true) {
 			return res.status(401).json({
 				message:
-					"Dear User, your account is suspended you can't login. Do you Believe a Is an error? contact the support",
+					"Dear user, your account is suspended you can't login. Do you believe this is an error? Contact the support",
 			});
 		}
 		// const pass = await UserSchema.findOne({email: req.body.email, password: req.body.password})
@@ -176,7 +177,7 @@ router.post("/login", async (req, res) => {
 				token: null,
 				message: "Invalid Password",
 			});
-		// si cohincide la contraseña
+		// si coincide la contraseña
 		// const token = jwt.sign({ id: userFound._id }, CONFIG.SECRET, {
 		// 	expiresIn: 86400, // 24 hs
 		// });

@@ -71,9 +71,13 @@ const schema = new Schema(
 			type: Boolean,
 			default: false,
 		},
-		reports:{
+		reports: {
 			type: String,
 			reference: "ReportUsers",
+		},
+		matchs: {
+			type: Number,
+			default: 5,
 		},
 
 		tenant: String,

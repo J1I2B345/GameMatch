@@ -38,9 +38,32 @@ export default function Room() {
 	const dispatch = useDispatch();
 
 	function sendInvitation(socketid) {
+		// check if matchs available
+		if (user.premium === false) {
+			axios
+				.get(`https://backend-gamematch.herokuapp.com/users/${user._id}`)
+				.then((data) => {
+					if (data.data.matchs > 0) {
+						let invitation = { socketid, user };
+						socket.current.emit("client: invitation", invitation);
+						axios
+							.put(`https://backend-gamematch.herokuapp.com/users/${user._id}`, {
+								matchs: data.data.matchs - 1,
+							})
+							.catch((err) => Alert.alert(err.message));
+					} else throw new Error("No more matchs today");
+				})
+				.catch((err) => Alert.alert(err.message));
+		}
 		let invitation = { socketid, user };
 		socket.current.emit("client: invitation", invitation);
+		//axios.post("");
 	}
+
+	// function acceptInvitation(socketid) {
+	// 	let acceptedInvitation = { socketid, user };
+	// 	socket.current.emit("client: acceptedInvitation", acceptedInvitation);
+	// }
 
 	useEffect(() => {
 		if (players.length) {
@@ -83,17 +106,26 @@ export default function Room() {
 		};
 	}, []);
 
+	//received invitation
 	useEffect(() => {
 		socket.current.on("server: invitation", (invitationUser) => {
-			let users = { users: [user._id, invitationUser._id] };
-			axios
-				.post("https://backend-gamematch.herokuapp.com/chats/addUserToChat/", users)
-				.then((data) => Alert.alert(`you can chat with ${invitationUser.username}`))
-				.catch((error) => console.log(error.message));
+			//should // set a state?
 		});
 		return () => {
 			socket.current.off("server: invitation");
 		};
+	}, []);
+
+	//invitation accepted -> chat allowed
+	useEffect(() => {
+		socket.current.on("server: acceptedInvitation", (invitationAccepted) => {
+			let users = { users: [user._id, invitationUser._id] };
+			//chat connection
+			axios
+				.post("https://backend-gamematch.herokuapp.com/chats/addUserToChat/", users)
+				.then((data) => Alert.alert(`Now you can chat with ${invitationUser.username}`))
+				.catch((error) => console.log(error.message));
+		});
 	}, []);
 
 	useEffect(() => {
