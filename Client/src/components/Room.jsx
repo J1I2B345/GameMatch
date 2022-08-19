@@ -1,5 +1,13 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView } from "react-native";
+import {
+	StyleSheet,
+	Text,
+	View,
+	Image,
+	SafeAreaView,
+	ScrollView,
+	Alert,
+} from "react-native";
 import { Link, useParams } from "react-router-native";
 import Constants from "expo-constants";
 import Nav from "./Nav";
@@ -14,6 +22,7 @@ import { io } from "socket.io-client";
 import { higherRating, lowerRating, selectPosition, selectElo } from "../utils/utils";
 import Spinner from "../components/Spinner";
 import { orderByElo, orderByPosition, orderByRating } from "../redux/actions";
+import axios from "axios";
 
 export default function Room() {
 	const games = useSelector((state) => state.games.games);
@@ -27,6 +36,11 @@ export default function Room() {
 	const { id } = useParams();
 	let game = games.find((e) => e._id === id);
 	const dispatch = useDispatch();
+
+	function sendInvitation(socketid) {
+		let invitation = { socketid, user };
+		socket.current.emit("client: invitation", invitation);
+	}
 
 	useEffect(() => {
 		if (players.length) {
@@ -67,6 +81,20 @@ export default function Room() {
 			dispatch(orderByRating("Any"));
 			dispatch(orderByElo("All"));
 			dispatch(orderByPosition("All"));
+		};
+	}, []);
+
+	useEffect(() => {
+		socket.current.on("server: invitation", (invitationUser) => {
+			let users = { users: [user._id, invitationUser._id] };
+			console.log("soy users antes de hacer el post", users);
+			axios
+				.post("https://backend-gamematch.herokuapp.com/chats/addUserToChat/", users)
+				.catch((err) => console.log(error.message));
+			Alert.alert(`hola quiero matchear ${invitationUser.username}`);
+		});
+		return () => {
+			socket.current.off("server: invitation");
 		};
 	}, []);
 
@@ -159,7 +187,7 @@ export default function Room() {
 						{/* { players && <Players players={players} />} */}
 						{players.length ? (
 							playersInOrder.length > 0 ? (
-								<Players players={playersInOrder} />
+								<Players players={playersInOrder} sendInvitation={sendInvitation} />
 							) : (
 								<Text
 									style={{

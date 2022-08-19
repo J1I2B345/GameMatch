@@ -69,7 +69,9 @@ const Chat = () => {
 			sender: user._id,
 		};
 		//envía mensaje a la DB
-		let msgInDb = await axios.post("https://backend-gamematch.herokuapp.com/chats", msg);
+		let msgInDb = await axios
+			.post("https://backend-gamematch.herokuapp.com/chats", msg)
+			.catch((error) => console.log(error.message));
 		//si se mandó el mensaje a la DB envía al otro usuario
 		socket.current.emit("client: send message", msg);
 		let msgSent = {
