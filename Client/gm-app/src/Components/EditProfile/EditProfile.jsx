@@ -5,34 +5,35 @@ import { Formik, Form } from "formik";
 import { TextField } from "./TextField";
 import * as yup from "yup";
 import styled from "styled-components";
-
 import { useNavigate, useParams } from "react-router-dom";
 
 const validate = yup.object({
-	roles: yup.string(),
-	ban: yup.string().required(),
+	roles: yup.string().required(),
+	ban: yup.boolean().required(),
 });
 
-export default function EditProfile() {
-	const { _id } = useParams();
+export default function EditNews() {
+	const params = useParams();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.userSelect);
+	const userActive = useSelector((state) => state.userProfile);
 
-	// const userActive = useSelector((state) => state.userProfile);
+	console.log(user.roles);
+	console.log(user.ban);
 
 	useEffect(() => {
-		dispatch(getUser(_id));
-	}, []);
+		dispatch(getUser(params._id));
+	}, [dispatch]);
 
 	const submit = (values) => {
+		// console.log(values);
 		dispatch(editProfile(values));
 		navigate("/profilehome");
 	};
-	console.log({ e: _id });
-	console.log({ a: user });
 
-	if (!user) return <h2>Cargando</h2>;
+	if (!user.roles) return <h2>Cargando</h2>;
+	// {!userActive.rol === "superdmin" ? :<h2>Debes ser super admin</h2>;}
 
 	return (
 		<Container>
@@ -40,48 +41,50 @@ export default function EditProfile() {
 				{
 					<Formik
 						initialValues={{
-							roles: user[0].roles,
-							ban: user[0].ban,
+							roles: `${user.roles}`,
+							ban: user.ban,
 						}}
 						validationSchema={validate}
 						onSubmit={submit}
 					>
 						{(formik) => (
 							<div>
-								<h1>Modificar perfil</h1>
-								<h2>Perfil a modificar: {user[0].username} </h2>
-								<img src={user[0].img} alt="" className="image-user" />
+								<h1>Modificar Usuario</h1>
+
+								<h2>Usuario a modificar: {user.username}</h2>
+								<img className="image" src={user.img} alt="" key={user._id} />
+
 								<Form>
 									<TextField
 										className="input"
 										label="Rol"
-										name="rol"
+										name="roles"
 										type="text"
-										placeholder={user[0].roles}
-									/>
-									<TextField
-										className="input"
-										label="Status"
-										name="ban"
-										type="text"
-										placeholder={user[0].ban}
+										placeholder={user.roles}
 									/>
 
-									<button type="submit">Modificar</button>
+									<TextField
+										className="input"
+										label="Ban"
+										name="ban"
+										type="boolean"
+										placeholder={user.ban}
+									/>
+
+									<button className="button" type="submit">
+										Modificar
+									</button>
 								</Form>
 							</div>
 						)}
 					</Formik>
 				}
-				<div>
-					<button onClick={(e) => navigate("/panel")}>Ir a Panel</button>
-					<button onClick={(e) => navigate("/profilehome")}>Ir a usuarios</button>
-				</div>
+				<button onClick={(e) => navigate("/panel")}>Ir a Panel</button>
+				<button onClick={(e) => navigate("/profilehome")}>Ir a usuarios</button>
 			</div>
 		</Container>
 	);
 }
-
 const Container = styled.div`
 	height: 100%;
 	width: 100%;
@@ -91,11 +94,9 @@ const Container = styled.div`
 	gap: 1rem;
 	align-items: center;
 	background-color: #5f0f99;
-	.image-user {
+	.image-game {
 		margin-top: 2rem;
-		margin-bottom: 2rem;
-		height: 20rem;
-		border-radius: 30px;
+		height: 12rem;
 	}
 	html,
 	body {
@@ -105,7 +106,7 @@ const Container = styled.div`
 	}
 	.image {
 		margin-top: 2rem;
-		height: 3rem;
+		height: 15rem;
 	}
 	.login-link {
 		color: #f0ebf2;
