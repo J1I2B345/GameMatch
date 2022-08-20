@@ -40,21 +40,19 @@ export default function Room() {
 
 	function sendInvitation(socketid) {
 		// check if matchs available
-		if (premium === false) {
-			axios
-				.get(`https://backend-gamematch.herokuapp.com/users/${user._id}`)
-				.then((data) => {
-					if (data.data.matchs > 0) {
-						let invitation = { socketid, user };
-						socket.current.emit("client: invitation", invitation);
-						let newMatchs = { matchs: data.data.matchs - 1 };
-						axios
-							.put(`https://backend-gamematch.herokuapp.com/users/${user._id}`, newMatchs)
-							.catch((err) => Alert.alert(err.message));
-					} else throw new Error("No more matchs today");
-				})
-				.catch((err) => Alert.alert(err.message));
-		}
+		axios
+			.get(`https://backend-gamematch.herokuapp.com/users/${user._id}`)
+			.then((data) => {
+				if (data.data.matchs > 0) {
+					let invitation = { socketid, user };
+					socket.current.emit("client: invitation", invitation);
+					let newMatchs = { matchs: data.data.matchs - 1 };
+					axios
+						.put(`https://backend-gamematch.herokuapp.com/users/${user._id}`, newMatchs)
+						.catch((err) => Alert.alert(err.message));
+				} else throw new Error("No more matchs today");
+			})
+			.catch((err) => Alert.alert(err.message));
 		// let invitation = { socketid, user };
 		// socket.current.emit("client: invitation", invitation);
 		//axios.post("");

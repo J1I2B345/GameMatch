@@ -16,7 +16,7 @@ module.exports = connectDB = () => {
 console.log(process.env.CRON_TIME);
 
 cron.schedule(process.env.CRON_TIME, async () => {
-	let premiumRestartMatch = await UserSchema.update({ premium: true }, { matchs: 999 });
+	let premiumRestartMatch = await UserSchema.update({ premium: true }, { matchs: 200 });
 	let userRestartMatch = await UserSchema.update({ premium: false }, { matchs: 10 });
 });
 

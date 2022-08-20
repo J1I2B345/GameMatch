@@ -77,7 +77,7 @@ const schema = new Schema(
 		},
 		matchs: {
 			type: Number,
-			default: 5,
+			default: 10,
 		},
 
 		tenant: String,
