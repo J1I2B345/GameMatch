@@ -19,7 +19,7 @@ export default function EditNews() {
 	const user = useSelector((state) => state.userSelect);
 	// const userActive = useSelector((state) => state.userProfile);
 
-	console.log(user);
+	// console.log(user);
 	// console.log(user.ban);
 
 	useEffect(() => {

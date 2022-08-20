@@ -11,14 +11,13 @@ export default function ProfileCard() {
 	const navigate = useNavigate();
 
 	const user = useSelector((state) => state.aux);
-	console.log({ c: user.map((t) => t.roles[0]) });
 
 	useEffect(() => {
 		dispatch(allUser());
 	}, [dispatch]);
 
 	const deleteButton = async (_id) => {
-		console.log(_id);
+		// console.log(_id);
 		try {
 			await axios
 				.delete(`https://backend-gamematch.herokuapp.com/Users/${_id}`)
@@ -63,9 +62,9 @@ const Container = styled.div`
 	width: 100%;
 	display: grid;
 	flex-direction: row;
-	grid-template-columns: repeat(3, minmax(280px, 1fr));
+	grid-template-columns: repeat(3, minmax(200px, 1fr));
 	align-items: stretch;
-	gap: 3rem;
+	gap: 3em;
 	align-items: center;
 	background-color: #5f0f99;
 
@@ -79,18 +78,18 @@ const Container = styled.div`
 		background: linear-gradient(90deg, black, #022a3c) fixed;
 		padding: 50px;
 		font-family: "Nunito", sans-serif;
-		font-weight: 400;
+		font-weight: 400em;
 	}
 
 	button {
 		background-color: #9a01e2;
 		color: #f2f0f1;
 		width: 100%;
-		margin-bottom: 1rem;
+		margin-bottom: 1em;
 		border: none;
 		font-weight: bold;
 		cursor: pointer;
-		border-radius: 0.2rem;
+		border-radius: 0.2em;
 		font-size: 1rem;
 		text-transform: uppercase;
 		&:hover {
@@ -114,7 +113,7 @@ const Container = styled.div`
 		flex-wrap: wrap;
 	}
 	.card {
-		width: 300px;
+		width: 25em;
 		height: auto;
 		position: relative;
 		background: #fff;

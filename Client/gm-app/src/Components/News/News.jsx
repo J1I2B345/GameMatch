@@ -14,7 +14,7 @@ const News = () => {
 	const user = useSelector((state) => state.userProfile);
 
 	const news = useSelector((state) => state.news);
-	console.log(news);
+	// console.log(news);
 	useEffect(() => {
 		dispatch(getAllNews());
 	}, [dispatch]);

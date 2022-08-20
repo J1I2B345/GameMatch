@@ -21,19 +21,20 @@ const ProfileHome = () => {
 
 export default ProfileHome;
 const Container = styled.div`
-  height: 100%;
-  width: 100%;
+  min-height: 100%;
+  min-width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 1rem;
   align-items: center;
   background-color: #5f0f99;
+  
   .image-game {
     margin-top: 2rem;
     height: 12rem;
   }
-  html,
+  
   body {
     height: 100%;
     min-height: 100%;
