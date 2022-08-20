@@ -29,6 +29,7 @@ export default function Room() {
 	const [players, setPlayers] = useState([]);
 	const [playersInOrder, setPlayersInOrder] = useState([]);
 	const user = useSelector((state) => state.games.user);
+	const premium = useSelector((state) => state.games.userProfile.premium);
 	const elo = useSelector((state) => state.games.elo);
 	const position = useSelector((state) => state.games.position);
 	const order = useSelector((state) => state.games.order);
@@ -39,17 +40,16 @@ export default function Room() {
 
 	function sendInvitation(socketid) {
 		// check if matchs available
-		if (user.premium === false) {
+		if (premium === false) {
 			axios
 				.get(`https://backend-gamematch.herokuapp.com/users/${user._id}`)
 				.then((data) => {
 					if (data.data.matchs > 0) {
 						let invitation = { socketid, user };
 						socket.current.emit("client: invitation", invitation);
+						let newMatchs = { matchs: data.data.matchs - 1 };
 						axios
-							.put(`https://backend-gamematch.herokuapp.com/users/${user._id}`, {
-								matchs: data.data.matchs - 1,
-							})
+							.put(`https://backend-gamematch.herokuapp.com/users/${user._id}`, newMatchs)
 							.catch((err) => Alert.alert(err.message));
 					} else throw new Error("No more matchs today");
 				})
@@ -110,6 +110,7 @@ export default function Room() {
 	useEffect(() => {
 		socket.current.on("server: invitation", (invitationUser) => {
 			//should // set a state?
+			//this is wrong. just to try
 			let users = { users: [user._id, invitationUser._id] };
 			//chat connection
 			axios
