@@ -5,17 +5,21 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 const GameHome = () => {
-  const navigate = useNavigate();
-  return (
-    <Container>
-      <div>
-        <h1>Seleciona tu juego</h1>
-        <button onClick={(e) => navigate("/panel")}>Ir a Panel</button>
-        <button onClick={(e) => navigate("/creategame")}>Crear Juego</button>
-      </div>
-      <GameCard />
-    </Container>
-  );
+	const navigate = useNavigate();
+	return (
+		<Container>
+			<div className="portada">
+				<button className="head-btn" onClick={(e) => navigate("/panel")}>
+					Ir a Panel
+				</button>
+				<button className="head-btn" onClick={(e) => navigate("/creategame")}>
+					Crear Juego
+				</button>
+				<h1>Seleciona tu juego</h1>
+			</div>
+			<GameCard />
+		</Container>
+	);
 };
 
 export default GameHome;
@@ -100,4 +104,18 @@ const Container = styled.div`
       font-weight: bold;
     }
   }
+  .portada {
+		padding: 30px;
+		text-align: center;
+		background: black;
+		color: white;
+		font-size: 30px;
+		width: 100%;
+
+		.head-btn {
+		min-width: 50%;
+	    margin-top: 1px;
+    	position:relative;
+     	top:-2rem;
+	}
 `;

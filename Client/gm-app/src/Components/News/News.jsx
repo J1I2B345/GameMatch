@@ -14,7 +14,7 @@ const News = () => {
 	const user = useSelector((state) => state.userProfile);
 
 	const news = useSelector((state) => state.news);
-	console.log(news);
+	// console.log(news);
 	useEffect(() => {
 		dispatch(getAllNews());
 	}, [dispatch]);
@@ -39,14 +39,16 @@ const News = () => {
 	return (
 		<Container>
 			<div className="portada">
-				<h1>News</h1>
-				<button className="modify-btn" onClick={(e) => navigate("/createNews")}>
+				<button className="head-btn" onClick={(e) => navigate("/createNews")}>
 					Crear Noticia
 				</button>
-				<button onClick={(e) => navigate("/panel")}>Ir a Panel</button>
+				<button className="head-btn" onClick={(e) => navigate("/panel")}>
+					Ir a Panel
+				</button>
+				<h1>News</h1>
 			</div>
 
-			<div>
+			<div className="content">
 				{news &&
 					news.length &&
 					news.map((data) => (
@@ -163,5 +165,19 @@ const Container = styled.div`
 			text-decoration: none;
 			font-weight: bold;
 		}
+	}
+	.portada {
+		padding: 30px;
+		text-align: center;
+		background: black;
+		color: white;
+		font-size: 30px;
+		width: 100%;
+
+		.head-btn {
+		min-width: 50%;
+	    margin-top: 1px;
+    	position:relative;
+     	top:-2rem;
 	}
 `;
