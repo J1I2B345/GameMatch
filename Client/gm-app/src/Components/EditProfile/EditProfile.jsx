@@ -17,7 +17,7 @@ export default function EditNews() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.userSelect);
-	const userActive = useSelector((state) => state.userProfile);
+	// const userActive = useSelector((state) => state.userProfile);
 
 	console.log(user);
 	// console.log(user.ban);
@@ -26,11 +26,13 @@ export default function EditNews() {
 		dispatch(getUser(params._id));
 	}, [dispatch]);
 
+	//62f39a361fb29b83a353911f:user, 62f39a361fb29b83a3539121 adm
+
 	const submit = (values) => {
 		let editUser = { ...values };
-		editUser.roles = [editUser.roles];
+		editUser.roles = editUser.roles.push(editUser.roles);
 		dispatch(editProfile(editUser));
-		navigate("/profilehome");
+		// navigate("/profilehome");
 	};
 
 	if (!user.roles) return <h2>Cargando</h2>;
@@ -42,7 +44,7 @@ export default function EditNews() {
 				{
 					<Formik
 						initialValues={{
-							roles: `${user.roles}`,
+							roles: `${user.roles[0]}`,
 							ban: user.ban,
 							_id: user._id,
 						}}
@@ -62,7 +64,7 @@ export default function EditNews() {
 										label="Rol"
 										name="roles"
 										type="text"
-										placeholder={user.roles}
+										placeholder={user.roles[0]}
 									/>
 
 									<TextField
