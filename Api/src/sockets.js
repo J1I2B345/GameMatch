@@ -25,6 +25,12 @@ module.exports = (io) => {
 			socket.to(invitation.socketid).emit("server: invitation", invitation.user)
 		);
 
+		socket.on("client: invitationAccepted", (invitationAccepted) => {
+			socket
+				.to(invitationAccepted.socketid)
+				.emit("server: invitationAccepted", invitationAccepted);
+		});
+
 		//funcionalidad chat
 		socket.on("joinChat", (user) => {
 			let userFull = { ...user, socketid: socket.id };
