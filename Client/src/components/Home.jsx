@@ -16,6 +16,7 @@ import SelectChat from "./SelectChat.jsx";
 import EditProfile from "./EditProfile.jsx";
 import Register from "./Register.jsx";
 import Checkout from "./Checkout.jsx";
+import InvitationsRoom from "./InvitationsRoom.jsx";
 
 const Home = () => {
 	return (
@@ -37,6 +38,7 @@ const Home = () => {
 				<Route path="/news/edit" element={<EditNews />} />
 				<Route path="/checkout" element={<Checkout />} />
 				<Route path="/register" element={<Register />} />
+				<Route path="/invitations" element={<InvitationsRoom />} />
 			</Routes>
 		</View>
 	);
