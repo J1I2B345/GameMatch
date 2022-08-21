@@ -247,7 +247,13 @@ const EditProfile = () => {
 											/>
 										</TouchableOpacity>
 										<Modal transparent={true} visible={view} animationType="fade">
-											<View style={styles.modal_container}>
+											<StatusBar backgroundColor="rgba(1,1,1, 0.5)" />
+											<View
+												style={{
+													...styles.modal_container,
+													backgroundColor: "rgba(1,1,1, 0.5)",
+												}}
+											>
 												<View style={styles.modal}>
 													<Text
 														style={{
@@ -352,6 +358,18 @@ const styles = StyleSheet.create({
 		width: "100%",
 		alignItems: "center",
 	},
+	portada: {
+		marginTop: Constants.statusBarHeight + 20,
+		marginBottom: 50,
+		flexDirection: "row",
+	},
+	portada_text: {
+		marginBottom: 30,
+		width: "80%",
+		color: "white",
+		textAlign: "center",
+		fontSize: 45,
+	},
 	modal_container: {
 		width: "100%",
 		height: "100%",
@@ -364,18 +382,6 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		backgroundColor: "#3019bf",
 		borderRadius: 20,
-	},
-	portada: {
-		marginTop: Constants.statusBarHeight + 20,
-		marginBottom: 50,
-		flexDirection: "row",
-	},
-	portada_text: {
-		marginBottom: 30,
-		width: "80%",
-		color: "white",
-		textAlign: "center",
-		fontSize: 45,
 	},
 	img_perfil: {
 		marginTop: 20,
