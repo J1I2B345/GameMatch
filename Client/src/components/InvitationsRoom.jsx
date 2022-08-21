@@ -7,13 +7,11 @@ import { useSelector } from "react-redux";
 export default function InvitationsRoom() {
 	const userGlobal = useSelector((state) => state.games.user);
 	let game = userGlobal.game;
-	console.log("game", game);
 	let games = useSelector((state) => state.games.games);
-	console.log("games", games);
 	let userGame = games.find((element) => element.name === game);
-	console.log(userGame);
 	let id = userGame._id;
-	console.log("el id es", id);
+	console.log(userGlobal);
+
 	return (
 		<View style={{ height: "100%" }}>
 			<StatusBar style="auto" />

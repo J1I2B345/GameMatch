@@ -22,7 +22,7 @@ import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 import { higherRating, lowerRating, selectPosition, selectElo } from "../utils/utils";
 import Spinner from "../components/Spinner";
-import { orderByElo, orderByPosition, orderByRating } from "../redux/actions";
+import { orderByElo, orderByPosition, orderByRating, updateUser } from "../redux/actions";
 import axios from "axios";
 
 export default function Room() {
@@ -100,6 +100,8 @@ export default function Room() {
 	useEffect(() => {
 		socket.current.on("gameUsers", (data) => {
 			if (data) {
+				let player = data.find((e) => e._id === user._id);
+				dispatch(updateUser(player));
 				let playersList = data.filter((e) => e._id !== user._id);
 				setPlayers(playersList);
 
