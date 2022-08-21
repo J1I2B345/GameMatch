@@ -1,28 +1,28 @@
 import { StatusBar } from "expo-status-bar";
 import {
-     StyleSheet,
-     Text,
-     View,
-     Image,
-     SafeAreaView,
-     ScrollView,
-     TouchableOpacity,
-} from 'react-native';
-import moment from 'moment';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector, connect } from 'react-redux';
-import { getAllNews, sendStateNewsInfo } from '../redux/actions/index.js';
-import { Link, useNavigate } from 'react-router-native';
-import Constants from 'expo-constants';
-import Nav from './Nav';
-import Spinner from './Spinner';
+	StyleSheet,
+	Text,
+	View,
+	Image,
+	SafeAreaView,
+	ScrollView,
+	TouchableOpacity,
+} from "react-native";
+import moment from "moment";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector, connect } from "react-redux";
+import { getAllNews, sendStateNewsInfo } from "../redux/actions/index.js";
+import { Link, useNavigate } from "react-router-native";
+import Constants from "expo-constants";
+import Nav from "./Nav";
+import Spinner from "./Spinner";
 // import EditNews from './EditNews.jsx';
 
 const News = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const news = useSelector((state) => state.games.news);
-	const user = useSelector((state) => state.games.userProfile);
+	const user = useSelector((state) => state.games.user);
 
 	useEffect(() => {
 		dispatch(getAllNews());
@@ -32,11 +32,10 @@ const News = () => {
 		navigate("/news/add");
 	}
 
-  function handleEdit(news) {
-    dispatch(sendStateNewsInfo(news));
-    navigate('/news/edit');
-  }
-
+	function handleEdit(news) {
+		dispatch(sendStateNewsInfo(news));
+		navigate("/news/edit");
+	}
 
 	const imgDefecto = (
 		<Image
@@ -81,8 +80,7 @@ const News = () => {
 							<View style={{ alignItems: "center" }}>
 								{news.map((data) => (
 									<View key={data._id} style={styles.card_container}>
-										{data.author.length > 0 &&
-										user._id == data.author[0]._id ? (
+										{data.author.length > 0 && user._id == data.author[0]._id ? (
 											<TouchableOpacity
 												style={{
 													position: "absolute",
@@ -118,9 +116,7 @@ const News = () => {
 													height: 45,
 												}}
 											>
-												{data.author &&
-												data.author.length > 0 &&
-												data.author[0].img ? (
+												{data.author && data.author.length > 0 && data.author[0].img ? (
 													<Image
 														source={{
 															uri: data.author[0].img,
@@ -147,11 +143,7 @@ const News = () => {
 												</Text>
 											</View>
 										</View>
-										<Text
-											style={
-												data.title ? styles.card_title : { display: "none" }
-											}
-										>
+										<Text style={data.title ? styles.card_title : { display: "none" }}>
 											{data.title}
 										</Text>
 										<Text
@@ -178,6 +170,7 @@ const News = () => {
 							left: 20,
 							height: 45,
 						}}
+						activeOpacity={0.7}
 						onPress={() => handlePost()}
 					>
 						{user?.roles?.map((role) => role.name).includes("Admin") ? (

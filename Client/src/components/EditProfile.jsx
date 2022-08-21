@@ -1,10 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { editProfile } from "../redux/actions/index.js";
+import { allUser, editProfile } from "../redux/actions/index.js";
 import { useNavigate } from "react-router-native";
 import { connect } from "react-redux";
 import {
 	StyleSheet,
-	Button,
 	TextInput,
 	View,
 	Text,
@@ -14,11 +13,15 @@ import {
 	ScrollView,
 	Image,
 	TouchableOpacity,
+	Modal,
+	Alert,
 } from "react-native";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const reviewSchema = yup.object({
 	img: yup.string(),
@@ -27,18 +30,57 @@ const reviewSchema = yup.object({
 
 const EditProfile = () => {
 	const dispatch = useDispatch();
-	const navigation = useNavigate();
-	const User = useSelector((state) => state.games.userProfile);
 	const navigate = useNavigate();
 
-	function handleCancel() {
-		navigate("/profile");
-	}
+	useEffect(() => {
+		dispatch(allUser());
+	}, []);
+
+	const users = useSelector((state) => state.games.aux);
+
+	const { _id, premium, username, img, description, socialNetworks } = useSelector(
+		(state) => state.games.userProfile
+	);
+	const User = {
+		_id,
+		premium,
+		username,
+		img,
+		description,
+		socialNetworks,
+	};
+
+	const handleCancel = (values) => {
+		if (
+			User.img === values.img &&
+			User.username === values.username &&
+			User.description === values.description &&
+			User.socialNetworks.discord === values.socialNetworks.discord &&
+			User.socialNetworks.ig === values.socialNetworks.ig &&
+			User.socialNetworks.riot === values.socialNetworks.riot &&
+			User.socialNetworks.steam === values.socialNetworks.steam &&
+			User.socialNetworks.twitter === values.socialNetworks.twitter
+		) {
+			navigate("/profile");
+		} else {
+			setView(true);
+		}
+	};
 
 	const submit = (values, actions) => {
-		dispatch(editProfile(values));
-		navigation("/profile");
+		if (
+			users.map((d) => d.username).includes(values.username) &&
+			values.username != User.username
+		) {
+			Alert.alert("The username already exists, try again");
+			return;
+		} else {
+			dispatch(editProfile(values));
+			navigate("/profile");
+		}
 	};
+
+	const [view, setView] = useState(false);
 
 	return (
 		<SafeAreaView style={styles.container}>
@@ -47,15 +89,7 @@ const EditProfile = () => {
 					<Formik
 						initialValues={{
 							_id: User._id,
-							email: User.email,
 							premium: User.premium,
-							rol: User.rol,
-							chats: User.chats,
-							reviews: User.reviews,
-							givenReviews: User.givenReviews,
-							rating: User.rating,
-							ban: User.ban,
-							// MODIFICANDO
 							username: User.username,
 							img: User.img
 								? User.img
@@ -201,16 +235,101 @@ const EditProfile = () => {
 											alignItems: "center",
 											flexDirection: "row",
 											justifyContent: "space-around",
-											backgroundColor: "#5B146C",
 										}}
 									>
-										<TouchableOpacity onPress={() => handleCancel()}>
+										<TouchableOpacity
+											activeOpacity={0.5}
+											onPress={() => handleCancel(formikProps.values)}
+										>
 											<Image
 												source={require("../../assets/cancelar.png")}
 												style={{ width: 45, height: 45 }}
 											/>
 										</TouchableOpacity>
-										<TouchableOpacity onPress={formikProps.handleSubmit}>
+										<Modal transparent={true} visible={view} animationType="fade">
+											<View style={styles.modal_container}>
+												<View style={styles.modal}>
+													<Text
+														style={{
+															marginBottom: 15,
+															width: "100%",
+															color: "white",
+															textAlign: "center",
+															fontSize: 35,
+														}}
+													>
+														Unsaved Changes
+													</Text>
+													<Text
+														style={{
+															marginBottom: 15,
+															width: "100%",
+															color: "white",
+															textAlign: "center",
+															fontSize: 20,
+														}}
+													>
+														¿Are you sure you want to cancel? Your changes will be lost
+													</Text>
+													<View
+														style={{
+															flexDirection: "row",
+															width: "100%",
+															alignItems: "center",
+															justifyContent: "space-around",
+														}}
+													>
+														<TouchableOpacity
+															activeOpacity={0.5}
+															underlayColor={""}
+															style={{
+																padding: 10,
+																width: "auto",
+																height: "auto",
+																alignItems: "center",
+																backgroundColor: "#cf1500",
+																borderRadius: 15,
+															}}
+															onPress={() => setView(false)}
+														>
+															<Text
+																style={{
+																	fontSize: 16,
+																	color: "#fff",
+																}}
+															>
+																cancel
+															</Text>
+														</TouchableOpacity>
+														<TouchableOpacity
+															activeOpacity={0.5}
+															style={{
+																padding: 10,
+																width: "auto",
+																height: "auto",
+																alignItems: "center",
+																backgroundColor: "#2089DC",
+																borderRadius: 15,
+															}}
+															onPress={() => navigate("/profile")}
+														>
+															<Text
+																style={{
+																	fontSize: 16,
+																	color: "#fff",
+																}}
+															>
+																accept
+															</Text>
+														</TouchableOpacity>
+													</View>
+												</View>
+											</View>
+										</Modal>
+										<TouchableOpacity
+											activeOpacity={0.5}
+											onPress={formikProps.handleSubmit}
+										>
 											<Image
 												source={require("../../assets/acceptChanges.png")}
 												style={{ width: 50, height: 50 }}
@@ -232,6 +351,19 @@ const styles = StyleSheet.create({
 		height: "100%",
 		width: "100%",
 		alignItems: "center",
+	},
+	modal_container: {
+		width: "100%",
+		height: "100%",
+		alignItems: "center",
+		justifyContent: "center",
+	},
+	modal: {
+		padding: 20,
+		width: "90%",
+		alignItems: "center",
+		backgroundColor: "#3019bf",
+		borderRadius: 20,
 	},
 	portada: {
 		marginTop: Constants.statusBarHeight + 20,
