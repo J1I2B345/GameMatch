@@ -6,6 +6,7 @@ import { TextField } from "./TextField";
 import * as yup from "yup";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const validate = yup.object({
 	title: yup.string().required().min(6),
@@ -14,6 +15,7 @@ const validate = yup.object({
 });
 
 export default function EditNews() {
+	const { t, i18n } = useTranslation();
 	const params = useParams();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -52,14 +54,16 @@ export default function EditNews() {
 					>
 						{(formik) => (
 							<div>
-								<h1>Modificar noticia</h1>
+								<h1>{t("edit_new")}</h1>
 
-								<h2>Noticia a modificar: {review.title} </h2>
+								<h2>
+									{t("new_story_to_modify")}: {review.title}{" "}
+								</h2>
 
 								<Form>
 									<TextField
 										className="input"
-										label="Titulo"
+										label={t("title")}
 										name="title"
 										type="text"
 										placeholder={review.title}
@@ -67,21 +71,21 @@ export default function EditNews() {
 									<TextField
 										multiline
 										className="input"
-										label="Descripcion"
+										label={t("description")}
 										name="description"
 										type="text"
 										placeholder={review.description}
 									/>
 									<TextField
 										className="input"
-										label="Autor"
+										label={t("author")}
 										name="author"
 										type="text"
 										placeholder={review.author}
 									/>
 									<TextField
 										className="input"
-										label="Editado por"
+										label={t("edit_by")}
 										name="editedBy"
 										type="text"
 										placeholder={review.author}
@@ -95,15 +99,15 @@ export default function EditNews() {
 									/>
 
 									<button className="button" type="submit">
-										Modificar
+										{t("modify")}
 									</button>
 								</Form>
 							</div>
 						)}
 					</Formik>
 				}
-				<button onClick={(e) => navigate("/panel")}>Ir a Panel</button>
-				<button onClick={(e) => navigate("/news")}>Ir a noticias</button>
+				<button onClick={(e) => navigate("/panel")}>{t("go_to_panel")}</button>
+				<button onClick={(e) => navigate("/news")}>{t("go_to_news")}</button>
 			</div>
 		</Container>
 	);

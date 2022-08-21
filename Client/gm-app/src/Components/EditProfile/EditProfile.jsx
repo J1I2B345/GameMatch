@@ -6,6 +6,7 @@ import { TextField } from "./TextField";
 import * as yup from "yup";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const validate = yup.object({
 	roles: yup.string().required(),
@@ -13,6 +14,7 @@ const validate = yup.object({
 });
 
 export default function EditNews() {
+	const { t, i18n } = useTranslation();
 	const params = useParams();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -53,9 +55,11 @@ export default function EditNews() {
 					>
 						{(formik) => (
 							<div>
-								<h1>Modificar Usuario</h1>
+								<h1>{t("edit_user")}</h1>
 
-								<h2>Usuario a modificar: {user.username}</h2>
+								<h2>
+									{t("user_to_modify")}: {user.username}
+								</h2>
 								<img className="image" src={user.img} alt="" key={user._id} />
 
 								<Form>
@@ -69,7 +73,7 @@ export default function EditNews() {
 
 									<TextField
 										className="input"
-										label="Ban"
+										label={t("ban")}
 										name="ban"
 										type="boolean"
 										placeholder={user.ban}
@@ -83,15 +87,15 @@ export default function EditNews() {
 									/>
 
 									<button className="button" type="submit">
-										Modificar
+										{t("modify")}
 									</button>
 								</Form>
 							</div>
 						)}
 					</Formik>
 				}
-				<button onClick={(e) => navigate("/panel")}>Ir a Panel</button>
-				<button onClick={(e) => navigate("/profilehome")}>Ir a usuarios</button>
+				<button onClick={(e) => navigate("/panel")}>{t("go_to_panel")}</button>
+				<button onClick={(e) => navigate("/profilehome")}>{t("go_to_users")}</button>
 			</div>
 		</Container>
 	);

@@ -6,8 +6,10 @@ import iconMenssage from "../../assets/iconMenssage.png";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const News = () => {
+	const { t, i18n } = useTranslation();
 	const dispatch = useDispatch();
 	let [newsDB, setNews] = useState([]);
 	const navigate = useNavigate();
@@ -40,12 +42,12 @@ const News = () => {
 		<Container>
 			<div className="portada">
 				<button className="head-btn" onClick={(e) => navigate("/createNews")}>
-					Crear Noticia
+					{t("create_a_new_story")}
 				</button>
 				<button className="head-btn" onClick={(e) => navigate("/panel")}>
-					Ir a Panel
+					{t("go_to_panel")}
 				</button>
-				<h1>News</h1>
+				<h1>{t("news")}</h1>
 			</div>
 
 			<div className="content">
@@ -58,7 +60,7 @@ const News = () => {
 									<img alt="" src={iconMenssage} className="image" />
 								</div>
 								<div>
-									<h2 className="user">Developers</h2>
+									<h2 className="user">{t("developers")}</h2>
 									<div className="date">
 										{moment(data.createdAt).format("MMMM d")} at{" "}
 										{moment(data.createdAt).format("h:mm A")}
@@ -68,12 +70,14 @@ const News = () => {
 							<div className="title">{data.title}</div>
 							<div className="description">{data.description}</div>
 							{user.roles[0].name === "Admin" || user.roles[0].name === "SuperAdmin" ? (
-								<button onClick={(e) => deleteButton(data._id)}>Eliminar</button>
+								<button onClick={(e) => deleteButton(data._id)}>{t("delete")}</button>
 							) : (
 								""
 							)}
 							{user.roles[0].name === "Admin" || user.roles[0].name === "SuperAdmin" ? (
-								<button onClick={(e) => navigate(`/News/${data._id}`)}>Modificar</button>
+								<button onClick={(e) => navigate(`/News/${data._id}`)}>
+									{t("modify")}
+								</button>
 							) : (
 								""
 							)}
