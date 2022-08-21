@@ -1,17 +1,38 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import GameMatch from "../../assets/GameMatch.png";
 import iconApp from "../../assets/iconApp.png";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import enflag from "../../assets/englishflag.png";
+import esflag from "../../assets/spanishflag.png";
 
 export default function PanelHome() {
+	const { t, i18n } = useTranslation();
+	const [language, setLenguage] = useState("es");
+
+	const onChangeLanguaje = () => {
+		i18n.changeLanguage(language);
+		if (language === "es") {
+			setLenguage("en");
+		} else {
+			setLenguage("es");
+		}
+	};
+
 	const navigate = useNavigate();
 	const user = useSelector((state) => state.userProfile);
 
 	if (!user) return <div>Loading...</div>;
 	return (
 		<Container>
+			<div className="btn-language">
+				<button className={language} onClick={onChangeLanguaje}>
+					{t("home.button.text")}
+				</button>
+			</div>
+
 			{!user.roles[0].name === "Admin" || !user.roles[0].name === "SuperAdmin" ? (
 				<div>Debes ser al menos admin</div>
 			) : (
@@ -23,13 +44,13 @@ export default function PanelHome() {
 						<img src={iconApp} className="image-icon" alt="" />
 					</div>
 					<button className="modify-btn" onClick={(e) => navigate(`/News`)}>
-						Noticias
+						{t("news")}
 					</button>
 					<button className="modify-btn" onClick={(e) => navigate(`/gamehome`)}>
-						Juegos
+						{t("games")}
 					</button>
 					<button className="modify-btn" onClick={(e) => navigate(`/profilehome`)}>
-						Usuarios
+						{t("users")}
 					</button>
 				</div>
 			)}
@@ -126,6 +147,52 @@ const Container = styled.div`
 			color: #4e0eff;
 			text-decoration: none;
 			font-weight: bold;
+		}
+	}
+	.btn-language {
+		height: 20px;
+		width: 35px;
+	}
+	.en {
+		color: #9a01e2;
+		font-weight: bold;
+		background-color: transparent;
+		position: absolute;
+		top: 0;
+		right: 0;
+
+		&:hover {
+			font-size: 0;
+			height: 20px;
+			width: 35px;
+			position: absolute;
+			top: 0;
+			right: 0;
+			background-color: transparent;
+			background-image: url(${enflag});
+			background-image: no-repeat;
+			background-size: cover;
+		}
+	}
+	.es {
+		color: #9a01e2;
+		font-weight: bold;
+		background-color: transparent;
+		position: absolute;
+		top: 0;
+		right: 0;
+
+		&:hover {
+			font-size: 0;
+			height: 20px;
+			width: 35px;
+			position: absolute;
+			top: 0;
+			right: 0;
+			background-color: transparent;
+			background-image: url(${esflag});
+			background-image: no-repeat;
+			background-size: cover;
 		}
 	}
 `;

@@ -6,6 +6,7 @@ import { TextField } from "./TextField";
 import * as yup from "yup";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const validate = yup.object({
 	name: yup.string().required().min(3),
@@ -16,6 +17,7 @@ const validate = yup.object({
 });
 
 export default function CreateGame() {
+	const { t, i18n } = useTranslation();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -43,53 +45,53 @@ export default function CreateGame() {
 					>
 						{(formik) => (
 							<div>
-								<h1 className="my-4 font-weight-bold .display-4">Crea tu juego</h1>
+								<h1 className="my-4 font-weight-bold .display-4">{t("create_a_game")}</h1>
 								<Form>
 									<TextField
 										className="input"
-										label="Nombre del Juego"
+										label={t("game_name")}
 										name="name"
 										type="text"
 										placeholder="Nombre del juego"
 									/>
 									<TextField
 										className="input"
-										label="Genero de juego"
+										label={t("kind_of_game")}
 										name="gender"
 										type="text"
 										placeholder="Genero del juego"
 									/>
 									<TextField
 										className="input"
-										label="Niveles"
+										label={t("levels")}
 										name="elo"
 										type="text"
 										placeholder="Niveles de jugadores"
 									/>
 									<TextField
 										className="input"
-										label="Posiciones"
+										label={t("positions")}
 										name="position"
 										type="text"
 										placeholder="Posiciones de jugadores"
 									/>
 									<TextField
 										className="input"
-										label="Imagen"
+										label={t("image")}
 										name="image"
 										type="text"
 										placeholder="Imagen en url"
 									/>
 									<button className="btn btn-dark mt-3" type="submit">
-										Crear Juego
+										{t("create_game")}
 									</button>
 								</Form>
 							</div>
 						)}
 					</Formik>
 				}
-				<button onClick={(e) => navigate("/panel")}>Ir a Panel</button>
-				<button onClick={(e) => navigate("/gamehome")}>Ir a Juegos</button>
+				<button onClick={(e) => navigate("/panel")}>{t("go_to_panel")}</button>
+				<button onClick={(e) => navigate("/gamehome")}>{t("go_to_games")}</button>
 			</div>
 		</Container>
 	);

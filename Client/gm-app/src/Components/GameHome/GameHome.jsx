@@ -1,21 +1,22 @@
 import React from "react";
 import GameCard from "../GamesCard/GameCard";
-
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const GameHome = () => {
+	const { t, i18n } = useTranslation();
 	const navigate = useNavigate();
 	return (
 		<Container>
 			<div className="portada">
 				<button className="head-btn" onClick={(e) => navigate("/panel")}>
-					Ir a Panel
+					{t("go_to_panel")}
 				</button>
 				<button className="head-btn" onClick={(e) => navigate("/creategame")}>
-					Crear Juego
+					{t("create_a_game")}
 				</button>
-				<h1>Seleciona tu juego</h1>
+				<h1>{t("select_a_game")}</h1>
 			</div>
 			<GameCard />
 		</Container>

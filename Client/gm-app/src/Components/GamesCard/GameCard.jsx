@@ -2,10 +2,11 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
+import { useTranslation } from "react-i18next";
 import axios from "axios";
 
 const GameCard = () => {
+	const { t, i18n } = useTranslation();
 	let [gamesDB, setGames] = useState([]);
 	const navigate = useNavigate();
 
@@ -44,8 +45,8 @@ const GameCard = () => {
 						<img className="image-game" src={data.image} alt="" key={data._id} />
 					</div>
 
-					<button onClick={(e) => deleteButton(data._id)}>Eliminar</button>
-					<button onClick={(e) => navigate(`games/${data._id}`)}>Modificar</button>
+					<button onClick={(e) => deleteButton(data._id)}>{t("delete")}</button>
+					<button onClick={(e) => navigate(`games/${data._id}`)}>{t("modify")}</button>
 				</div>
 			))}
 		</Container>

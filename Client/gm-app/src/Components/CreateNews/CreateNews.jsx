@@ -6,6 +6,7 @@ import { TextField } from "./TextField";
 import * as yup from "yup";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const validate = yup.object({
 	title: yup.string().required().min(6),
@@ -14,6 +15,7 @@ const validate = yup.object({
 });
 
 export default function CreateNews() {
+	const { t, i18n } = useTranslation();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const user = useSelector((state) => state.userProfile);
@@ -38,40 +40,40 @@ export default function CreateNews() {
 					>
 						{(formik) => (
 							<div>
-								<h1>Crea tu noticia</h1>
+								<h1>{t("create_new_story")}</h1>
 								<Form>
 									<TextField
 										className="input"
-										label="Titulo"
+										label={t("title")}
 										name="title"
 										type="text"
 										placeholder="Titulo de la noticia"
 									/>
 									<TextField
 										className="input"
-										label="Descripcion"
+										label={t("description")}
 										name="description"
 										type="text"
 										placeholder="Narracion"
 									/>
 									<TextField
 										className="input"
-										label="Autor"
+										label={t("author")}
 										name="author"
 										type="text"
 										placeholder={user._id}
 									/>
 
 									<button className="button" type="submit">
-										Crear Noticia
+										{t("create")}
 									</button>
 								</Form>
 							</div>
 						)}
 					</Formik>
 				}
-				<button onClick={(e) => navigate("/panel")}>Ir a Panel</button>
-				<button onClick={(e) => navigate("/news")}>Ir a noticias</button>
+				<button onClick={(e) => navigate("/panel")}>{t("go_to_panel")}</button>
+				<button onClick={(e) => navigate("/news")}>{t("go_to_news")}</button>
 			</div>
 		</Container>
 	);
