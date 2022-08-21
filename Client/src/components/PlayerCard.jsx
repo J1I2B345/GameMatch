@@ -15,11 +15,7 @@ const PlayerCard = ({
 	const [view, setView] = useState(false);
 	return (
 		<View key={id} style={{ margin: 5 }}>
-			<TouchableOpacity
-				activeOpacity={0}
-				underlayColor={""}
-				onPress={() => setView(true)}
-			>
+			<TouchableOpacity underlayColor={""} onPress={() => setView(true)}>
 				<Modal transparent visible={view} animationType="slide">
 					<View
 						style={{

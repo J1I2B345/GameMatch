@@ -10,8 +10,6 @@ import {
 	Text,
 	TouchableWithoutFeedback,
 	Keyboard,
-	SafeAreaView,
-	ScrollView,
 	TouchableOpacity,
 } from "react-native";
 import { Formik } from "formik";
@@ -24,12 +22,16 @@ const reviewSchema = yup.object({
 const CreateNews = () => {
 	const dispatch = useDispatch();
 	const navigation = useNavigate();
-	const user = useSelector((state) => state.games.userProfile);
+	const user = useSelector((state) => state.games.user);
 
 	const submit = (values, actions) => {
 		dispatch(addNews(values));
 		navigation("/news");
 	};
+
+	function handleCancel() {
+		navigation("/news");
+	}
 
 	return (
 		<View style={styles.container}>
@@ -75,9 +77,7 @@ const CreateNews = () => {
 										justifyContent: "center",
 									}}
 								>
-									<Link
-										to="/news"
-										activeOpacity={1}
+									<TouchableOpacity
 										underlayColor={""}
 										style={{
 											marginRight: "50%",
@@ -88,6 +88,7 @@ const CreateNews = () => {
 											backgroundColor: "#cf1500",
 											borderRadius: 15,
 										}}
+										onPress={() => handleCancel()}
 									>
 										<Text
 											style={{
@@ -97,7 +98,7 @@ const CreateNews = () => {
 										>
 											cancel
 										</Text>
-									</Link>
+									</TouchableOpacity>
 									<TouchableOpacity
 										style={{
 											padding: 10,

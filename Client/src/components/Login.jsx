@@ -65,8 +65,6 @@ const Login = () => {
 				"https://backend-gamematch.herokuapp.com/users/login",
 				values
 			);
-
-			console.log(values);
 			dispatch(login(values));
 			navigation("/selectgame");
 		} catch (error) {

@@ -7,22 +7,26 @@ import {
 	SafeAreaView,
 	ScrollView,
 	Linking,
+	TouchableOpacity,
 } from "react-native";
 import { connect, useSelector } from "react-redux";
-import { Link } from "react-router-native";
+import { Link, useNavigate } from "react-router-native";
 import Constants from "expo-constants";
 import Nav from "./Nav";
 import Spinner from "./Spinner";
 
 const Profile = () => {
 	const User = useSelector((state) => state.games.userProfile);
+	const user = useSelector((state) => state.games.user);
+
+	const navigate = useNavigate();
 
 	let arrayStars = [];
 
-	if (User.rating) {
-		if (User.rating.$numberDecimal) {
+	if (user.rating) {
+		if (user.rating.$numberDecimal) {
 			(() => {
-				let ratingCont = User.rating.$numberDecimal;
+				let ratingCont = user.rating.$numberDecimal;
 				while (ratingCont > 0) {
 					ratingCont = ratingCont - 1;
 					arrayStars.push(arrayStars.length + 1);
@@ -255,9 +259,8 @@ const Profile = () => {
 							</View>
 						</ScrollView>
 					</SafeAreaView>
-					<Link
-						to="/profile/edit"
-						activeOpacity={1}
+					<TouchableOpacity
+						activeOpacity={0.7}
 						underlayColor={""}
 						style={{
 							position: "absolute",
@@ -265,12 +268,13 @@ const Profile = () => {
 							left: 20,
 							height: 45,
 						}}
+						onPress={() => navigate("/profile/edit")}
 					>
 						<Image
 							source={require("../../assets/editProfile.png")}
 							style={{ width: 50, height: 50 }}
 						/>
-					</Link>
+					</TouchableOpacity>
 					<StatusBar style="auto" />
 				</View>
 			) : (
