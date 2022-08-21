@@ -1,142 +1,164 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { allUser } from "../../redux/actions";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
 export default function ProfileCard() {
-  const dispatch = useDispatch();
-  let [usersDB, setUserDB] = useState([]);
+	const dispatch = useDispatch();
+	let [usersDB, setUserDB] = useState([]);
+	const navigate = useNavigate();
 
-  const user = useSelector((state) => state.aux);
+	const user = useSelector((state) => state.aux);
 
-  useEffect(() => {
-    dispatch(allUser());
-  }, []);
+	useEffect(() => {
+		dispatch(allUser());
+	}, [dispatch]);
 
-  const deleteButton = async (id) => {
-    try {
-      await axios
-        .delete(`https://backend-gamematch.herokuapp.com/User/${id}`)
-        .then(() => {
-          dispatch(allUser());
-        });
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
+	const deleteButton = async (_id) => {
+		// console.log(_id);
+		try {
+			await axios
+				.delete(`https://backend-gamematch.herokuapp.com/Users/${_id}`)
+				.then(() => {
+					dispatch(allUser());
+				});
+		} catch (error) {
+			console.error(error.message);
+		}
+	};
+	//62f39a361fb29b83a353911f:user, 62f39a361fb29b83a3539121 adm
 
-  if (!user) return <h2>Buscando usuarios...</h2>;
-  return (
-    <Container>
-      {user.map((data) => (
-        <div>
-          <Link to={`/Users/username/${data.username}`}>
-            <div className="container-profile" key={data.name}>
-              <img
-                className="image-profile"
-                src={data.img}
-                alt=""
-                key={data._id}
-              />
-              <h1>{data.username}</h1>
-              <p>{data.rol}</p>
-              <p>{data.password}</p>
-            </div>
-          </Link>
-          <button
-            className="delete-btn"
-            onClick={(e) => deleteButton(data._id)}
-          >
-            Eliminar
-          </button>
-        </div>
-      ))}
-    </Container>
-  );
+	if (!user) return <h2>Buscando usuarios...</h2>;
+	return (
+		<Container>
+			{user.map((data) => (
+				<div className="card-container">
+					<div className="card" key={data.name}>
+						<img className="card-image" src={data.img} alt="" key={data._id} />
+						<h1 className="card-title" key={data.username}>
+							Usuario: {data.username}
+						</h1>
+						<div className="card-text">
+							<p key={data.rol}>
+								Rol actual:
+								{data.roles[0] === "62f39a361fb29b83a3539121" ? "admin" : "user"}
+							</p>
+							<p key={data.ban}>Ban: {data.ban.toString()}</p>
+						</div>
+
+						<button onClick={(e) => deleteButton(data._id)}>Eliminar</button>
+						<button onClick={(e) => navigate(`/Users/${data._id}`)}>Modificar</button>
+					</div>
+				</div>
+			))}
+		</Container>
+	);
 }
 
 const Container = styled.div`
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1rem;
-  align-items: center;
-  background-color: #5f0f99;
+	height: 100%;
+	width: 100%;
+	display: grid;
+	flex-direction: row;
+	grid-template-columns: repeat(3, minmax(200px, 1fr));
+	align-items: stretch;
+	gap: 3em;
+	align-items: center;
+	background-color: #5f0f99;
 
-  .container-profile {
-    flex-direction: column;
-    background-color: #9a01e2;
-    padding: 0.5rem;
-    border: 0.1rem solid #4e0eff;
-    border-radius: 0.4rem;
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
 
-    width: content;
+	body {
+		background: linear-gradient(90deg, black, #022a3c) fixed;
+		padding: 50px;
+		font-family: "Nunito", sans-serif;
+		font-weight: 400em;
+	}
 
-    &:hover {
-      border: 0.8rem solid #997af0;
-      outline: none;
-    }
-  }
-  .image-profile {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    height: 20rem;
-    border-radius: 30px;
-  }
-  html,
-  body {
-    height: 100%;
-    min-height: 100%;
-    max-height: 100%;
-  }
+	button {
+		background-color: #9a01e2;
+		color: #f2f0f1;
+		width: 100%;
+		margin-bottom: 1em;
+		border: none;
+		font-weight: bold;
+		cursor: pointer;
+		border-radius: 0.2em;
+		font-size: 1rem;
+		text-transform: uppercase;
+		&:hover {
+			background-color: #4e0eff;
+		}
+	}
+	span {
+		color: white;
+		text-transform: uppercase;
+		a {
+			color: #4e0eff;
+			text-decoration: none;
+			font-weight: bold;
+		}
+	}
+	.card-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 15px;
+		flex-wrap: wrap;
+	}
+	.card {
+		width: 25em;
+		height: auto;
+		position: relative;
+		background: #fff;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		border-radius: 4px;
+		padding: 20px;
+		transition: all 0.3s ease-in;
+	}
+	.card > * {
+		padding: 10px;
+	}
+	.card .card-image {
+		height: 200px;
+		width: 200px;
+		border: 5px double #022a3c;
+		border-radius: 50%;
+		background-position: center center;
+		background-size: cover;
+	}
+	.card .card-title {
+		padding: 20px 10px;
+		font-size: 1.5rem;
+		text-transform: uppercase;
+		text-shadow: 1px 0px 2px #262654;
+	}
+	.card:nth-child(1) .card-image {
+		background-image: url(coding.jpg);
+	}
+	.card:nth-child(2) .card-image {
+		background-image: url(cooking.jpg);
+	}
+	.card:nth-child(3) .card-image {
+		background-image: url(cycling.jpg);
+	}
+	.card:hover {
+		background: #e84393;
+		color: #fff;
+		box-shadow: 0px 0px 11px 5px #000000;
+	}
 
-  .login-link {
-    color: #f0ebf2;
-  }
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    justify-content: center;
-  }
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    background-color: #00000076;
-    border-radius: 2rem;
-    padding: 5rem;
-  }
-  h1 {
-    color: #f0ebf2;
-    text-transform: uppercase;
-  }
-
-  button {
-    background-color: #9a01e2;
-    color: #f2f0f1;
-    padding: 1rem 2rem;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 0.4rem;
-    font-size: 1rem;
-    text-transform: uppercase;
-    &:hover {
-      background-color: #4e0eff;
-    }
-  }
-  span {
-    color: white;
-    text-transform: uppercase;
-    a {
-      color: #4e0eff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-  }
+	.card .card-text {
+		line-height: 20px;
+		font-size: 400;
+	}
 `;

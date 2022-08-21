@@ -4,32 +4,37 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 const ProfileHome = () => {
-  const navigate = useNavigate();
-  return (
-    <Container>
-      <button onClick={(e) => navigate("/panel")}>Ir a Panel</button>
+	const navigate = useNavigate();
+	return (
+		<Container>
+			<div className="portada">
+				<button className="head-btn" onClick={(e) => navigate("/panel")}>
+					Ir a Panel
+				</button>
 
-      <h1>Selecciona el perfil</h1>
-      <ProfileCard />
-    </Container>
-  );
+				<h1>Seleccionar usuario</h1>
+			</div>
+			<ProfileCard />
+		</Container>
+	);
 };
 
 export default ProfileHome;
 const Container = styled.div`
-  height: 100%;
-  width: 100%;
+  min-height: 100%;
+  min-width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 1rem;
   align-items: center;
   background-color: #5f0f99;
+  
   .image-game {
     margin-top: 2rem;
     height: 12rem;
   }
-  html,
+  
   body {
     height: 100%;
     min-height: 100%;
@@ -96,4 +101,18 @@ const Container = styled.div`
       font-weight: bold;
     }
   }
+  .portada {
+		padding: 30px;
+		text-align: center;
+		background: black;
+		color: white;
+		font-size: 30px;
+		width: 100%;
+
+		.head-btn {
+		min-width: 100%;
+	    margin-top: 1px;
+    	position:relative;
+     	top:-2rem;
+	}
 `;

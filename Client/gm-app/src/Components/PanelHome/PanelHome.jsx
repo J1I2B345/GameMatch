@@ -28,9 +28,9 @@ export default function PanelHome() {
 					<button className="modify-btn" onClick={(e) => navigate(`/gamehome`)}>
 						Juegos
 					</button>
-					{/* <button className="modify-btn" onClick={(e) => navigate(`/profilehome`)}>
+					<button className="modify-btn" onClick={(e) => navigate(`/profilehome`)}>
 						Usuarios
-					</button> */}
+					</button>
 				</div>
 			)}
 		</Container>
@@ -94,18 +94,29 @@ const Container = styled.div`
 			outline: none;
 		}
 	}
-	button {
-		background-color: #9a01e2;
-		color: #f2f0f1;
-		padding: 1rem 2rem;
-		border: none;
-		font-weight: bold;
-		cursor: pointer;
-		border-radius: 0.4rem;
-		font-size: 1rem;
+	.modify-btn {
+		text-align: center;
 		text-transform: uppercase;
+		display: inline-block;
+		margin: 10px;
+		font-weight: bold;
+		padding: 15px 25px 15px 25px;
+		background-color: lightgray;
+		text-shadow: -1px -1px black, 1px 1px white;
+		color: #9a01e2;
+		-webkit-border-radius: 7px;
+		-moz-border-radius: 7px;
+		-o-border-radius: 7px;
+		border-radius: 7px;
+		box-shadow: 0 0.2em gray;
+		cursor: pointer;
 		&:hover {
-			background-color: #4e0eff;
+			color: #4e0eff;
+		}
+		.start-btn:active {
+			box-shadow: none;
+			position: relative;
+			top: 0.5em;
 		}
 	}
 	span {

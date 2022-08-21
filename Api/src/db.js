@@ -1,4 +1,6 @@
 const { connect } = require("mongoose");
+const cron = require("node-cron");
+const UserSchema = require("../src/models/Users");
 
 module.exports = connectDB = () => {
 	try {
@@ -10,6 +12,18 @@ module.exports = connectDB = () => {
 		console.log(e);
 	}
 };
+
+cron.schedule(
+	process.env.CRON_TIME,
+	async () => {
+		let premiumRestartMatch = await UserSchema.update({ premium: true }, { matchs: 200 });
+		let userRestartMatch = await UserSchema.update({ premium: false }, { matchs: 10 });
+	},
+	{
+		scheduled: true,
+		timezone: "America/Sao_Paulo",
+	}
+);
 
 // require('dotenv').config();
 // const fs = require('fs');

@@ -19,7 +19,7 @@ export default function Login() {
 	const dispatch = useDispatch();
 	const navigation = useNavigate();
 	const user = useSelector((state) => state.aux);
-	console.log(user);
+	// console.log(user);
 
 	useEffect(() => {
 		dispatch(allUser());
@@ -71,8 +71,8 @@ export default function Login() {
 				{
 					<Formik
 						initialValues={{
-							email: "",
-							password: "",
+							email: "adm@gmail.com",
+							password: "12345678",
 						}}
 						validationSchema={validate}
 						onSubmit={submit}
