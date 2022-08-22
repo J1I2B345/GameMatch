@@ -23,12 +23,16 @@ const reviewSchema = yup.object({
 const EditNews = () => {
 	const dispatch = useDispatch();
 	const navigation = useNavigate();
-	const user = useSelector((state) => state.games.userProfile);
+	const user = useSelector((state) => state.games.user);
 	const New = useSelector((state) => state.games.newsInfo);
 	console.log(New);
 
 	function handleDelete(idNew) {
 		dispatch(deleteNews(idNew));
+		navigation("/news");
+	}
+
+	function handleCancel() {
 		navigation("/news");
 	}
 
@@ -83,9 +87,7 @@ const EditNews = () => {
 										justifyContent: "space-around",
 									}}
 								>
-									<Link
-										to="/news"
-										activeOpacity={1}
+									<TouchableOpacity
 										underlayColor={""}
 										style={{
 											padding: 10,
@@ -95,6 +97,7 @@ const EditNews = () => {
 											backgroundColor: "#cf1500",
 											borderRadius: 15,
 										}}
+										onPress={() => handleCancel()}
 									>
 										<Text
 											style={{
@@ -104,7 +107,7 @@ const EditNews = () => {
 										>
 											cancel
 										</Text>
-									</Link>
+									</TouchableOpacity>
 									<TouchableOpacity
 										style={{
 											marginRight: -4.5,

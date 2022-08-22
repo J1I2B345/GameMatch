@@ -1,6 +1,6 @@
 import { Picker } from "@react-native-picker/picker";
 import { useEffect, useState, useRef } from "react";
-import { Text, View, Image } from "react-native";
+import { Text, View, Image, TouchableOpacity } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Link, useParams } from "react-router-native";
 import { useSelector, useDispatch } from "react-redux";
@@ -143,9 +143,10 @@ export default function Form() {
 							<></>
 						)}
 						{playerRank !== "--" ? (
-							<View style={{ alignItems: "center" }}>
+							<TouchableOpacity style={{ alignItems: "center" }}>
 								<Link
 									to={`/room/${id}`}
+									underlayColor={"#702575"}
 									onPress={handleSubmit}
 									style={{
 										margin: "auto",
@@ -170,7 +171,7 @@ export default function Form() {
 										Start
 									</Text>
 								</Link>
-							</View>
+							</TouchableOpacity>
 						) : (
 							<></>
 						)}
