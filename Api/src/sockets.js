@@ -22,7 +22,7 @@ module.exports = (io) => {
 		});
 
 		socket.on("client: invitation", (invitation) =>
-			socket.to(invitation.socketid).emit("server: invitation", invitation.user)
+			socket.to(invitation.socketid).emit("server: invitation", invitation)
 		);
 
 		socket.on("client: invitationAccepted", (invitationAccepted) => {

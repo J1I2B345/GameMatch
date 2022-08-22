@@ -26,7 +26,7 @@ const News = () => {
 
 	useEffect(() => {
 		dispatch(getAllNews());
-	});
+	}, []);
 
 	function handlePost(news) {
 		navigate("/news/add");
