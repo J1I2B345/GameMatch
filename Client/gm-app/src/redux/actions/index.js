@@ -104,7 +104,11 @@ export const editNews = (news) => {
 export const editProfile = (user) => {
 	// console.log({ user });
 	return async (dispatch) => {
-		await axios.put(`https://backend-gamematch.herokuapp.com/Users/${user._id}`, user);
+		let updatedUser = await axios.put(
+			`https://backend-gamematch.herokuapp.com/Users/${user._id}`,
+			user
+		);
+		console.log("usuario actualizado", updatedUser);
 		return dispatch({ type: EDIT_PROFILE, payload: user });
 	};
 };

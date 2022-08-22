@@ -79,7 +79,10 @@ const schema = new Schema(
 			type: Number,
 			default: 10,
 		},
-
+		dark: {
+			type: Boolean,
+			default: false,
+		},
 		tenant: String,
 		connection: String,
 		debug: Boolean,
