@@ -40,78 +40,94 @@ export default function SelectChat() {
 
 	return (
 		<View style={{ height: "100%", alignItems: "center" }}>
-			<View style={{ width: "100%", alignItems: "center" }}>
-				<Text
-					style={{ marginTop: Constants.statusBarHeight, color: "white", fontSize: 40 }}
-				>
-					Chats
-				</Text>
-				<View style={{ width: "100%", alignItems: "center" }}>
-					{contacts || error ? (
-						contacts.length > 0 ? (
-							contacts.map((contact) => {
-								return (
-									<TouchableOpacity
-										key={contact._id}
-										onPress={() => handleClick(contact._id)}
+			{contacts || error ? (
+				contacts.length > 0 ? (
+					<View style={{ width: "100%", alignItems: "center" }}>
+						<Text
+							style={{
+								marginTop: Constants.statusBarHeight,
+								color: "white",
+								fontSize: 40,
+							}}
+						>
+							Chats
+						</Text>
+						{contacts.map((contact) => {
+							return (
+								<TouchableOpacity
+									key={contact._id}
+									onPress={() => handleClick(contact._id)}
+									style={{
+										backgroundColor: "#3519B0",
+										borderRadius: 10,
+										flexDirection: "row",
+										alignItems: "center",
+										width: "90%",
+										marginTop: 20,
+										padding: 10,
+									}}
+									activeOpacity={0.7}
+									underlayColor={""}
+								>
+									<View
 										style={{
-											backgroundColor: "#3519B0",
-											borderRadius: 10,
 											flexDirection: "row",
 											alignItems: "center",
-											width: "80%",
-											marginTop: 20,
-											padding: 10,
 										}}
-										activeOpacity={1}
-										underlayColor={""}
+										key={contact._id}
 									>
-										<View
+										<Image
 											style={{
-												flexDirection: "row",
-												alignItems: "center",
+												width: 50,
+												height: 50,
+												borderRadius: 50,
 											}}
-											key={contact._id}
+											source={{
+												uri: contact.img
+													? contact.img
+													: "https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg",
+											}}
+										/>
+										<Text
+											style={{
+												color: "white",
+												fontSize: 25,
+												marginLeft: 20,
+											}}
 										>
-											<Image
-												style={{
-													width: 50,
-													height: 50,
-													borderRadius: 50,
-												}}
-												source={{
-													uri: "https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg",
-												}}
-											/>
-											<Text
-												style={{
-													color: "white",
-													fontSize: 25,
-													marginLeft: 10,
-												}}
-											>
-												{contact.username}
-											</Text>
-										</View>
-									</TouchableOpacity>
-								);
-							})
-						) : (
-							<Text
-								style={{
-									color: "white",
-									fontSize: 25,
-									marginLeft: 10,
-								}}
-							>
-								No friends to chat
-							</Text>
-						)
-					) : (
-						<Spinner />
-					)}
-				</View>
-			</View>
+											{contact.username}
+										</Text>
+									</View>
+								</TouchableOpacity>
+							);
+						})}
+					</View>
+				) : (
+					<View>
+						<Text
+							style={{
+								marginTop: Constants.statusBarHeight,
+								color: "white",
+								fontSize: 40,
+							}}
+						>
+							Chats
+						</Text>
+						<Text
+							style={{
+								color: "white",
+								fontSize: 25,
+								marginLeft: 10,
+							}}
+						>
+							No friends to chat
+						</Text>
+					</View>
+				)
+			) : (
+				<Spinner />
+			)}
+
 			<StatusBar style="auto" />
 			<Nav />
 		</View>

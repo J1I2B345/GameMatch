@@ -8,6 +8,7 @@ import styled from "styled-components";
 
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const validate = yup.object({
 	name: yup.string().required().min(3),
@@ -19,6 +20,7 @@ const validate = yup.object({
 });
 
 export default function EditGame() {
+	const { t, i18n } = useTranslation();
 	const params = useParams();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -63,42 +65,44 @@ export default function EditGame() {
 					>
 						{(formik) => (
 							<div>
-								<h1>Modificar Juego</h1>
+								<h1>{t("edit_game")}</h1>
 
-								<h2>Juego a modificar: {game.name} </h2>
+								<h2>
+									{t("game_to_modify")}: {game.name}{" "}
+								</h2>
 								<img src={game.image} alt="" className="image-game" />
 								<Form>
 									<TextField
 										className="input"
-										label="Nombre del Juego"
+										label={t("game_name")}
 										name="name"
 										type="text"
 										placeholder={game.name}
 									/>
 									<TextField
 										className="input"
-										label="Genero de juego"
+										label={t("kind_of_game")}
 										name="gender"
 										type="text"
 										placeholder={game.gender}
 									/>
 									<TextField
 										className="input"
-										label="Niveles"
+										label={t("levels")}
 										name="elo"
 										type="text"
 										placeholder={game.elo}
 									/>
 									<TextField
 										className="input"
-										label="Posiciones"
+										label={t("positions")}
 										name="position"
 										type="text"
 										placeholder={game.position}
 									/>
 									<TextField
 										className="input"
-										label="Imagen"
+										label={t("image")}
 										name="image"
 										type="text"
 										placeholder={game.image}
@@ -112,15 +116,15 @@ export default function EditGame() {
 									/>
 
 									<button className="btn btn-dark mt-3" type="submit">
-										Modificar
+										{t("modify")}
 									</button>
 								</Form>
 							</div>
 						)}
 					</Formik>
 				}
-				<button onClick={(e) => navigate("/panel")}>Ir a Panel</button>
-				<button onClick={(e) => navigate("/gamehome")}>Ir a juegos</button>
+				<button onClick={(e) => navigate("/panel")}>{t("go_to_panel")}</button>
+				<button onClick={(e) => navigate("/gamehome")}>{t("go_to_games")}</button>
 			</div>
 		</Container>
 	);

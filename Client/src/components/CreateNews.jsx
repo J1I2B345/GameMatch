@@ -2,16 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { addNews } from "../redux/actions/index.js";
 import { Link, useNavigate } from "react-router-native";
 import { connect } from "react-redux";
+import { StatusBar } from "expo-status-bar";
 import {
 	StyleSheet,
-	Button,
 	TextInput,
 	View,
 	Text,
 	TouchableWithoutFeedback,
 	Keyboard,
-	SafeAreaView,
-	ScrollView,
 	TouchableOpacity,
 } from "react-native";
 import { Formik } from "formik";
@@ -24,15 +22,20 @@ const reviewSchema = yup.object({
 const CreateNews = () => {
 	const dispatch = useDispatch();
 	const navigation = useNavigate();
-	const user = useSelector((state) => state.games.userProfile);
+	const user = useSelector((state) => state.games.user);
 
 	const submit = (values, actions) => {
 		dispatch(addNews(values));
 		navigation("/news");
 	};
 
+	function handleCancel() {
+		navigation("/news");
+	}
+
 	return (
 		<View style={styles.container}>
+			<StatusBar style="auto" />
 			<View style={styles.portada}>
 				<Formik
 					initialValues={{
@@ -75,9 +78,7 @@ const CreateNews = () => {
 										justifyContent: "center",
 									}}
 								>
-									<Link
-										to="/news"
-										activeOpacity={1}
+									<TouchableOpacity
 										underlayColor={""}
 										style={{
 											marginRight: "50%",
@@ -88,6 +89,7 @@ const CreateNews = () => {
 											backgroundColor: "#cf1500",
 											borderRadius: 15,
 										}}
+										onPress={() => handleCancel()}
 									>
 										<Text
 											style={{
@@ -97,7 +99,7 @@ const CreateNews = () => {
 										>
 											cancel
 										</Text>
-									</Link>
+									</TouchableOpacity>
 									<TouchableOpacity
 										style={{
 											padding: 10,

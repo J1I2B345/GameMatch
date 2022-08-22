@@ -1,8 +1,16 @@
-import { View, Text, Image, SafeAreaView, ScrollView } from "react-native";
+import {
+	View,
+	Text,
+	Image,
+	SafeAreaView,
+	ScrollView,
+	TouchableOpacity,
+} from "react-native";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { StatusBar } from "expo-status-bar";
-import { Link } from "react-router-native";
+import Constants from "expo-constants";
+import { Link, useNavigate } from "react-router-native";
 import Nav from "./Nav";
 import Game from "./Game";
 import Spinner from "./Spinner";
@@ -10,6 +18,9 @@ import { updateUser, getGames } from "../redux/actions";
 
 export default function SelectGame() {
 	const dispatch = useDispatch();
+
+	const navigate = useNavigate();
+
 	const games = useSelector((state) => state.games.games);
 
 	const userGlobal = useSelector((state) => state.games.user);
@@ -119,9 +130,9 @@ export default function SelectGame() {
 					</ScrollView>
 					{/* {console.log(userGlobal.roles.map(role => role.name).includes('Admin'))} */}
 					{userGlobal?.roles?.map((role) => role.name).includes("Admin") ? (
-						<Link
-							to="/createGame"
-							activeOpacity={1}
+						<TouchableOpacity
+							onPress={() => navigate("/createGame")}
+							activeOpacity={0.7}
 							underlayColor={""}
 							style={{
 								position: "absolute",
@@ -134,7 +145,7 @@ export default function SelectGame() {
 								source={require("../../assets/addGame.png")}
 								style={{ width: 50, height: 50 }}
 							/>
-						</Link>
+						</TouchableOpacity>
 					) : (
 						<Text></Text>
 					)}

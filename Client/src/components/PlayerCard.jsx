@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Image, Text, TouchableOpacity, Alert, Modal } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import { Link } from "react-router-native";
 
 const PlayerCard = ({
@@ -16,19 +17,20 @@ const PlayerCard = ({
 	return (
 		<View key={id} style={{ margin: 5 }}>
 			<TouchableOpacity
-				activeOpacity={0}
+				activeOpacity={0.5}
 				underlayColor={""}
 				onPress={() => setView(true)}
 			>
-				<Modal transparent visible={view} animationType="slide">
+				<Modal transparent visible={view} animationType="fade">
 					<View
 						style={{
 							flex: 1,
-							// backgroundColor: "rgba(1,1,1, 0.5)",
+							backgroundColor: "rgba(1,1,1, 0.5)",
 							alignItems: "center",
 							justifyContent: "center",
 						}}
 					>
+						<StatusBar backgroundColor="rgba(1,1,1, 0.5)" />
 						<View
 							style={{
 								height: "60%",
@@ -43,13 +45,13 @@ const PlayerCard = ({
 									source={{ uri: img }}
 									style={{
 										marginTop: "5%",
-										width: "32%",
-										height: "30%",
-										borderRadius: 30,
+										width: 150,
+										height: 150,
+										borderRadius: 150,
 									}}
 								/>
 							)}
-							<Text style={{ fontSize: 40 }}>{name}</Text>
+							<Text style={{ fontSize: 40, color: "#fff" }}>{name}</Text>
 							<View
 								style={{
 									marginTop: "5%",
@@ -58,10 +60,10 @@ const PlayerCard = ({
 									justifyContent: "space-around",
 								}}
 							>
-								<Text style={{ fontSize: 25 }}>{elo}</Text>
-								<Text style={{ fontSize: 25 }}>{position}</Text>
+								<Text style={{ fontSize: 25, color: "#fff" }}>{elo}</Text>
+								<Text style={{ fontSize: 25, color: "#fff" }}>{position}</Text>
 							</View>
-							<Text style={{ fontSize: 33, marginTop: "5%" }}>
+							<Text style={{ fontSize: 33, marginTop: "5%", color: "#fff" }}>
 								Rating: {rating.$numberDecimal}
 							</Text>
 							<View
