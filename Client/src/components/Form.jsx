@@ -41,7 +41,8 @@ export default function Form() {
 		playerRank ? (user = { ...user, elo: playerRank }) : "";
 		playerPosition ? (user = { ...user, position: playerPosition }) : "";
 		dispatch(updateUser(user));
-		// disparar evento a socket io
+
+		/// here the leave/join room?
 	}
 
 	return (

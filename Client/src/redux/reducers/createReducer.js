@@ -6,7 +6,12 @@ import {
 	ELO,
 	POSITION,
 	ORDER,
+	SOCKET,
+	ADD_ONE_NOTIFICATION,
+	REMOVE_ALL_NOTIFICATIONS,
+	REMOVE_ONE_NOTIFICATION,
 } from "../constants";
+import { io } from "socket.io-client";
 
 const initialState = {
 	games: false,
@@ -19,6 +24,8 @@ const initialState = {
 	order: "Any",
 	position: "All",
 	elo: "All",
+	socketIo: io("https://backend-gamematch.herokuapp.com/"),
+	notifications: [],
 };
 
 const createReducer = (state = initialState, action) => {
@@ -99,7 +106,28 @@ const createReducer = (state = initialState, action) => {
 				...state,
 				order: payload,
 			};
-
+		case ADD_ONE_NOTIFICATION:
+			return {
+				...state,
+				notifications: [...state.notifications, payload],
+			};
+		case REMOVE_ALL_NOTIFICATIONS:
+			return {
+				...state,
+				notifications: [],
+			};
+		case REMOVE_ONE_NOTIFICATION:
+			return {
+				...state,
+				notifications: [
+					state.notifications.filter((notification) => notification.username !== payload),
+				],
+			};
+		// case SOCKET:
+		// 	return {
+		// 		...state,
+		// 		socketIo: payload,
+		// 	};
 		default:
 			return state;
 	}

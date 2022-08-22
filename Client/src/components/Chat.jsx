@@ -9,7 +9,6 @@ import {
 	TouchableOpacity,
 } from "react-native";
 import Constants from "expo-constants";
-import io from "socket.io-client";
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-native";
@@ -25,8 +24,8 @@ const Chat = () => {
 	const [chatMessages, setChatMessages] = useState([]);
 	const user = useSelector((state) => state.games.user);
 	const userName = useSelector((state) => state.games.userNameChat);
-	const socket = useRef();
 	const { id } = useParams();
+	const socket = useSelector((state) => state.games.socketIo);
 
 	useEffect(() => {
 		try {
@@ -43,12 +42,11 @@ const Chat = () => {
 	}, []);
 
 	useEffect(() => {
-		socket.current = io("https://backend-gamematch.herokuapp.com");
-		socket.current.emit("joinChat", user);
+		socket.emit("joinChat", user);
 	}, []);
 
 	useEffect(() => {
-		socket.current.on("server: received message", (msg) => {
+		socket.on("server: received message", (msg) => {
 			let newMessage = {
 				fromSelf: msg.sender.toString() === user._id.toString(),
 				message: msg.message,
@@ -57,9 +55,9 @@ const Chat = () => {
 			setChatMessages([...chatMessages, newMessage]);
 		});
 		return () => {
-			socket.current.off("server: received message");
+			socket.off("server: received message");
 		};
-	}, [socket.current, chatMessages]);
+	}, [socket, chatMessages]);
 
 	async function submitChatMessage(e) {
 		//formatea el mensaje
@@ -73,7 +71,7 @@ const Chat = () => {
 			.post("https://backend-gamematch.herokuapp.com/chats", msg)
 			.catch((error) => console.log(error.message));
 		//si se mandó el mensaje a la DB envía al otro usuario
-		socket.current.emit("client: send message", msg);
+		socket.emit("client: send message", msg);
 		let msgSent = {
 			fromSelf: msg.sender.toString() === user._id.toString(),
 			message: msg.message,

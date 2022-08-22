@@ -6,6 +6,10 @@ import {
 	ELO,
 	POSITION,
 	ORDER,
+	SOCKET,
+	REMOVE_ONE_NOTIFICATION,
+	REMOVE_ALL_NOTIFICATIONS,
+	ADD_ONE_NOTIFICATION,
 } from "../constants";
 import axios from "axios";
 
@@ -198,6 +202,27 @@ export const orderByElo = (payload) => {
 export const orderByPosition = (payload) => {
 	return {
 		type: POSITION,
+		payload,
+	};
+};
+
+// send username
+export const removeOneNotification = (payload) => {
+	return {
+		type: REMOVE_ONE_NOTIFICATION,
+		payload,
+	};
+};
+
+export const removeAllNotifications = () => {
+	return {
+		type: REMOVE_ALL_NOTIFICATIONS,
+	};
+};
+
+export const addOneNotificacion = (payload) => {
+	return {
+		type: ADD_ONE_NOTIFICATION,
 		payload,
 	};
 };
