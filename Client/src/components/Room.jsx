@@ -22,14 +22,7 @@ import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 import { higherRating, lowerRating, selectPosition, selectElo } from "../utils/utils";
 import Spinner from "../components/Spinner";
-import {
-	orderByElo,
-	orderByPosition,
-	orderByRating,
-
-	//to make socket global
-	updateUser,
-} from "../redux/actions";
+import { orderByElo, orderByPosition, orderByRating } from "../redux/actions";
 import axios from "axios";
 
 export default function Room() {
@@ -111,7 +104,7 @@ export default function Room() {
 		socket.emit("joinRoom", user);
 		return () => {
 			socket.off("gameUsers");
-			// socket.emit("leaveRoom", user);
+			socket.emit("leaveRoom", user);
 
 			dispatch(orderByRating("Any"));
 			dispatch(orderByElo("All"));
