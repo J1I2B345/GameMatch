@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-native";
-import { View } from "react-native";
+import { View, Alert } from "react-native";
 import Login from "./Login.jsx";
 import SelectGame from "./SelectGame.jsx";
 import Room from "./Room.jsx";
@@ -17,8 +17,24 @@ import EditProfile from "./EditProfile.jsx";
 import Register from "./Register.jsx";
 import Checkout from "./Checkout.jsx";
 import InvitationsRoom from "./InvitationsRoom.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { addOneNotificacion } from "../redux/actions/index.js";
 
 const Home = () => {
+	const socketIo = useSelector((state) => state.games.socketIo);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (socketIo) {
+			socketIo.on("server: invitation", (invitationUser) => {
+				console.log(invitationUser);
+				dispatch(addOneNotificacion(invitationUser));
+				// setNotifications(invitationUser);
+				Alert.alert("te llegó una notificación tilinn");
+			});
+		}
+	});
 	return (
 		<View>
 			<Routes>

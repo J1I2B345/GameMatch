@@ -22,7 +22,14 @@ import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 import { higherRating, lowerRating, selectPosition, selectElo } from "../utils/utils";
 import Spinner from "../components/Spinner";
-import { orderByElo, orderByPosition, orderByRating, updateUser } from "../redux/actions";
+import {
+	orderByElo,
+	orderByPosition,
+	orderByRating,
+
+	//to make socket global
+	updateUser,
+} from "../redux/actions";
 import axios from "axios";
 
 export default function Room() {
@@ -34,10 +41,14 @@ export default function Room() {
 	const elo = useSelector((state) => state.games.elo);
 	const position = useSelector((state) => state.games.position);
 	const order = useSelector((state) => state.games.order);
-	const socket = useRef();
+	const socket = useSelector((state) => state.games.socketIo);
 	const { id } = useParams();
 	let game = games.find((e) => e._id === id);
+
+	//to make socket global
 	const dispatch = useDispatch();
+
+	/// can recieved here the notification? and then ?
 
 	function sendInvitation(socketid) {
 		// check if matchs available
@@ -46,7 +57,7 @@ export default function Room() {
 			.then((data) => {
 				if (data.data.matchs > 0) {
 					let invitation = { socketid, user };
-					socket.current.emit("client: invitation", invitation);
+					socket.emit("client: invitation", invitation);
 					let newMatchs = { matchs: data.data.matchs - 1 };
 					axios
 						.put(`https://backend-gamematch.herokuapp.com/users/${user._id}`, newMatchs)
@@ -55,13 +66,13 @@ export default function Room() {
 			})
 			.catch((err) => Alert.alert(err.message));
 		// let invitation = { socketid, user };
-		// socket.current.emit("client: invitation", invitation);
+		// socket.emit("client: invitation", invitation);
 		//axios.post("");
 	}
 
 	// function acceptInvitation(socketid) {
 	// 	let acceptedInvitation = { socketid, user };
-	// 	socket.current.emit("client: acceptedInvitation", acceptedInvitation);
+	// 	socket.emit("client: acceptedInvitation", acceptedInvitation);
 	// }
 
 	useEffect(() => {
@@ -94,11 +105,16 @@ export default function Room() {
 	}, [elo, order, position, players]);
 
 	useEffect(() => {
-		socket.current = io("https://backend-gamematch.herokuapp.com/");
-		socket.current.emit("joinRoom", user);
+		// socket.current = io("https://backend-gamematch.herokuapp.com/");
+		// dispatch(setSocketIo(socket.current));
+
+		socket.emit("joinRoom", user);
 		return () => {
-			socket.current.off("gameUsers");
-			socket.current.emit("leaveRoom", user);
+			socket.off("gameUsers");
+			// socket.emit("leaveRoom", user);
+
+			// let newUser = { ...user, socketid: null };
+			// dispatch(updateUser(newUser));
 			dispatch(orderByRating("Any"));
 			dispatch(orderByElo("All"));
 			dispatch(orderByPosition("All"));
@@ -106,25 +122,25 @@ export default function Room() {
 	}, []);
 
 	//received invitation
-	useEffect(() => {
-		socket.current.on("server: invitation", (invitationUser) => {
-			//should // set a state?
-			//this is wrong. just to try
-			let users = { users: [user._id, invitationUser._id] };
-			//chat connection
-			axios
-				.post("https://backend-gamematch.herokuapp.com/chats/addUserToChat/", users)
-				.then((data) => Alert.alert(`Now you can chat with ${invitationUser.username}`))
-				.catch((error) => console.log(error.message));
-		});
-		return () => {
-			socket.current.off("server: invitation");
-		};
-	}, []);
+	// useEffect(() => {
+	// 	socket.on("server: invitation", (invitationUser) => {
+	// 		//should // set a state?
+	// 		//this is wrong. just to try
+	// 		let users = { users: [user._id, invitationUser._id] };
+	// 		//chat connection
+	// 		axios
+	// 			.post("https://backend-gamematch.herokuapp.com/chats/addUserToChat/", users)
+	// 			.then((data) => Alert.alert(`Now you can chat with ${invitationUser.username}`))
+	// 			.catch((error) => console.log(error.message));
+	// 	});
+	// 	return () => {
+	// 		socket.off("server: invitation");
+	// 	};
+	// }, []);
 
 	//invitation accepted -> chat allowed
 	// useEffect(() => {
-	// 	socket.current.on("server: acceptedInvitation", (invitationAccepted) => {
+	// 	socket.on("server: acceptedInvitation", (invitationAccepted) => {
 	// 		let users = { users: [user._id, invitationUser._id] };
 	// 		//chat connection
 	// 		axios
@@ -135,10 +151,11 @@ export default function Room() {
 	// }, []);
 
 	useEffect(() => {
-		socket.current.on("gameUsers", (data) => {
+		socket.on("gameUsers", (data) => {
 			if (data) {
-				let player = data.find((e) => e._id === user._id);
-				dispatch(updateUser(player));
+				// socket -> global
+				// let player = data.find((e) => e._id === user._id);
+				// dispatch(updateUser(player));
 				let playersList = data.filter((e) => e._id !== user._id);
 				setPlayers(playersList);
 
@@ -168,7 +185,7 @@ export default function Room() {
 				setPlayersInOrder(playersOrder);
 			}
 		});
-	}, [socket.current, players]);
+	}, [socket, players]);
 
 	return (
 		<View style={styles.container}>

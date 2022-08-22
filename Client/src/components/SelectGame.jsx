@@ -7,7 +7,7 @@ import { Link } from "react-router-native";
 import Nav from "./Nav";
 import Game from "./Game";
 import Spinner from "./Spinner";
-import { updateUser, getGames } from "../redux/actions";
+import { updateUser, getGames, setsocketIO } from "../redux/actions";
 
 export default function SelectGame() {
 	const dispatch = useDispatch();
