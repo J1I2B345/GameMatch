@@ -324,11 +324,12 @@ var usersR6 = [
 ];
 
 function userJoin(user) {
-	if (rooms.hasOwnProperty(user[game])) {
-		rooms[game].filter((e) => e._id !== user._id);
-		rooms[game].push(user);
+	let gameSelected = user.game;
+	if (rooms.hasOwnProperty(gameSelected)) {
+		rooms[gameSelected].filter((e) => e._id !== user._id);
+		rooms[gameSelected].push(user);
 	} else {
-		rooms[game] = [user];
+		rooms[gameSelected] = [user];
 	}
 	return user;
 }
