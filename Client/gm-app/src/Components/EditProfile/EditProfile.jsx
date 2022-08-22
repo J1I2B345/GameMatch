@@ -32,8 +32,7 @@ export default function EditNews() {
 
 	const submit = (values) => {
 		let editUser = { ...values };
-		console.log(editUser);
-		// editUser.roles = editUser.roles.push(editUser.roles);
+		editUser.roles = editUser.roles.push(editUser.roles);
 		dispatch(editProfile(editUser));
 		// navigate("/profilehome");
 	};
