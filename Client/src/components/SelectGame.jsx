@@ -2,12 +2,11 @@ import { View, Text, Image, SafeAreaView, ScrollView } from "react-native";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { StatusBar } from "expo-status-bar";
-import Constants from "expo-constants";
 import { Link } from "react-router-native";
 import Nav from "./Nav";
 import Game from "./Game";
 import Spinner from "./Spinner";
-import { updateUser, getGames, setsocketIO } from "../redux/actions";
+import { updateUser, getGames } from "../redux/actions";
 
 export default function SelectGame() {
 	const dispatch = useDispatch();
