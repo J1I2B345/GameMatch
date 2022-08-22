@@ -7,7 +7,7 @@ import * as yup from "yup";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
+import axios from "axios";
 const validate = yup.object({
 	roles: yup.string().required(),
 	ban: yup.boolean().required(),
@@ -30,11 +30,16 @@ export default function EditNews() {
 
 	//62f39a361fb29b83a353911f:user, 62f39a361fb29b83a3539121 adm
 
-	const submit = (values) => {
+	const submit = async (values) => {
 		let editUser = { ...values };
-		editUser.roles = editUser.roles.push(editUser.roles);
+		let edit = await axios(`https://backend-gamematch.herokuapp.com/users/${values._id}`);
+
+		//	editUser.roles = editUser.roles.push(editUser.roles);
 		dispatch(editProfile(editUser));
-		// navigate("/profilehome");
+
+		alert("User successfully edited: " + editUser.username + " 💖");
+		console.log(editUser);
+		navigate("/profilehome");
 	};
 
 	if (!user.roles) return <h2>Cargando</h2>;
@@ -43,59 +48,59 @@ export default function EditNews() {
 	return (
 		<Container>
 			<div className="portada">
-				{
-					<Formik
-						initialValues={{
-							roles: `${user.roles[0]}`,
-							ban: user.ban,
-							_id: user._id,
-						}}
-						validationSchema={validate}
-						onSubmit={submit}
-					>
-						{(formik) => (
+				<Formik
+					initialValues={{
+						roles: `${user.roles[0]}`,
+						ban: user.ban,
+						_id: user._id,
+					}}
+					validationSchema={validate}
+					onSubmit={submit}
+				>
+					{(formik) => (
+						<div>
+							<button onClick={(e) => navigate("/panel")}>{t("Home")}</button>
+							<h1>{t("Eding :")}</h1>
 							<div>
-								<h1>{t("edit_user")}</h1>
-
-								<h2>
-									{t("user_to_modify")}: {user.username}
-								</h2>
-								<img className="image" src={user.img} alt="" key={user._id} />
-
-								<Form>
-									<TextField
-										className="input"
-										label="Rol"
-										name="roles"
-										type="text"
-										placeholder={user.roles[0]}
-									/>
-
-									<TextField
-										className="input"
-										label={t("ban")}
-										name="ban"
-										type="boolean"
-										placeholder={user.ban}
-									/>
-									<TextField
-										className="input"
-										label="id"
-										name="_id"
-										type="text"
-										placeholder={user._id}
-									/>
-
-									<button className="button" type="submit">
-										{t("modify")}
-									</button>
-								</Form>
+								<h2>id: {user._id}</h2>
+								<h2>{user.username}</h2> <div></div>
 							</div>
-						)}
-					</Formik>
+
+							<button onClick={(e) => navigate("/profilehome")}> {"<- Back"}</button>
+							<Form>
+								<img className="image" src={user.img} alt="" key={user._id} />
+								<TextField
+									className="input"
+									label="Username"
+									name="username"
+									type="text"
+									placeholder={user.username}
+								/>
+								<TextField
+									className="input"
+									label="password"
+									name="password"
+									type="text"
+									placeholder={user.password}
+								/>
+								<h2>Rol</h2>
+								<select className="input" label="Rol" name="roles" type="text">
+									<option>User</option>
+									<option>Admin</option>
+								</select>
+								<select className="input" label="Rol" name="roles" type="text">
+									<option>Un-ban</option>
+									<option>Ban</option>
+								</select>
+
+								<button className="button" type="submit">
+									{t("modify")}
+								</button>
+							</Form>
+						</div>
+					)}
+				</Formik>
 				}
-				<button onClick={(e) => navigate("/panel")}>{t("go_to_panel")}</button>
-				<button onClick={(e) => navigate("/profilehome")}>{t("go_to_users")}</button>
 			</div>
 		</Container>
 	);

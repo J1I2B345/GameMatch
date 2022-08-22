@@ -11,19 +11,29 @@ export default function ProfileCard() {
 	const navigate = useNavigate();
 
 	const user = useSelector((state) => state.aux);
-
+	const profile = useSelector((state) => state.userProfile);
 	useEffect(() => {
 		dispatch(allUser());
 	}, [dispatch]);
 
 	const deleteButton = async (_id) => {
-		// console.log(_id);
+		console.log(_id);
+
+		const roles = profile.roles;
+		const email = profile.email;
 		try {
-			await axios
-				.delete(`https://backend-gamematch.herokuapp.com/Users/${_id}`)
+			fetch("https://backend-gamematch.herokuapp.com/users/" + _id, {
+				method: "DELETE",
+				headers: { Accept: "applcation/json", "Content-Type": "application/json" },
+				body: JSON.stringify(profile),
+			})
+				.then((response) => {
+					return response.json();
+				})
 				.then(() => {
 					dispatch(allUser());
 				});
+			alert("deleted successfully: " + user.username);
 		} catch (error) {
 			console.error(error.message);
 		}
@@ -33,7 +43,7 @@ export default function ProfileCard() {
 	if (!user) return <h2>Buscando usuarios...</h2>;
 	return (
 		<Container>
-			{user.map((data) => (
+			{user?.map((data) => (
 				<div className="card-container">
 					<div className="card" key={data.name}>
 						<img className="card-image" src={data.img} alt="" key={data._id} />
@@ -43,7 +53,7 @@ export default function ProfileCard() {
 						<div className="card-text">
 							<p key={data.rol}>
 								Rol actual:
-								{data.roles[0] === "62f39a361fb29b83a3539121" ? "admin" : "user"}
+								{data.roles[0] === "62f39a361fb29b83a3539121" ? "Admin" : "User"}
 							</p>
 							<p key={data.ban}>Ban: {data.ban.toString()}</p>
 						</div>
