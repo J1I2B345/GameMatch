@@ -27,6 +27,7 @@ const initialState = {
 	socketIo: io("https://backend-gamematch.herokuapp.com/"),
 	notifications: [
 		{
+			socketid: "O5peJn5NuAMyEIWZAAAD",
 			_id: "62fd8e33777ddf170518b0a5",
 			elo: "Silver",
 			game: "League of Legends",
