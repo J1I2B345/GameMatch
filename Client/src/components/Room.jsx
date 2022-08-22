@@ -113,8 +113,6 @@ export default function Room() {
 			socket.off("gameUsers");
 			// socket.emit("leaveRoom", user);
 
-			// let newUser = { ...user, socketid: null };
-			// dispatch(updateUser(newUser));
 			dispatch(orderByRating("Any"));
 			dispatch(orderByElo("All"));
 			dispatch(orderByPosition("All"));
