@@ -24,22 +24,21 @@ router.get('/:id', async (req, res) => {
 	}
 })
 
-router.post("/" , async (req, res) => {
-	const { reportingUser, title, reason, reportedUser } = req.body;
+router.post("/", async (req, res) => {
+	const { author, title, description, reportedUser } = req.body;
 	try {
-
-		const report = new ReportUsers({
-			reportingUser,
-			title,
-			reason,
-			reportedUser
-		})
-		const saveReport = await report.save();
-		if ( report ) res.status(201).json(saveReport);
+	  const report = new ReportUsers({
+		author,
+		title,
+		description,
+		reportedUser,
+	  });
+	  const saveReport = await report.save();
+	  if (report) res.status(201).json(saveReport);
 	} catch (error) {
-		res.status(400).send({ error: error.message });
+	  res.status(400).send({ error: error.message });
 	}
-});
+  });
 
 router.delete('/:id', async (req, res) => {
 	const { id } = req.params;
