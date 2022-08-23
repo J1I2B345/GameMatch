@@ -22,18 +22,11 @@ const InvitationCard = ({
 	const dispatch = useDispatch();
 
 	function acceptInvitation() {
-		let users = { users: [user._id, invitationSentUser.user._id] };
-		console.log(
-			"socket del que me envió la notificación",
-			invitationSentUser.user.username,
-			invitationSentUser.user.socketid
-		);
+		let users = { users: [user._id, invitationSentUser._id] };
 		//chat connection
 		axios
 			.post("https://backend-gamematch.herokuapp.com/chats/addUserToChat/", users)
-			.then((data) =>
-				Alert.alert(`Now you can chat with ${invitationSentUser.user.username}`)
-			)
+			.then((data) => Alert.alert(`Now you can chat with ${invitationSentUser.username}`))
 			.catch((error) => console.log(error.message));
 
 		//remove the notification from the client
@@ -44,15 +37,8 @@ const InvitationCard = ({
 			userThatAccepted: user,
 			userThatInvited: invitationSentUser,
 		};
-
 		socket.emit("client: invitationAccepted", invitationAccepted);
 	}
-	//invitation accepted -> chat allowed
-	// useEffect(() => {
-	// 	socket.on("server: acceptedInvitation", (invitationAccepted) => {
-	//
-	// 	});
-	// }, []);;
 
 	function declineInvitation() {
 		dispatch(removeOneNotification(invitationSentUser));

@@ -122,7 +122,7 @@ const createReducer = (state = initialState, action) => {
 			return {
 				...state,
 				notifications: state.notifications.filter(
-					(notification) => notification.user._id !== payload.user._id
+					(notification) => notification._id !== payload._id
 				),
 				payload,
 			};

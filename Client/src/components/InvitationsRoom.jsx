@@ -8,25 +8,7 @@ import InvitationCard from "./InvitationCard";
 
 export default function InvitationsRoom() {
 	const userGlobal = useSelector((state) => state.games.user);
-
 	let notificationsReceived = useSelector((state) => state.games.notifications);
-
-	// let game = userGlobal.game;
-	// let games = useSelector((state) => state.games.games);
-	// let userGame = games.find((element) => element.name === game);
-	// let id = userGame._id;
-
-	let socketIo = useSelector((state) => state.games.socketIo);
-
-	console.log("notificaciones", notificationsReceived);
-	// useEffect(() => {
-	// 	if (socketIo) {
-	// 		socketIo.on("server: invitation", (invitationUser) => {
-	// 			setNotifications(invitationUser);
-	// 			Alert.alert("te llegó una notificación tilinn");
-	// 		});
-	// 	}
-	// }, []);
 
 	return (
 		<View style={{ height: "100%" }}>
@@ -37,20 +19,29 @@ export default function InvitationsRoom() {
 						notificationsReceived.map((e) => {
 							return (
 								<InvitationCard
-									key={e.user._id}
-									img={e.user.img}
-									_id={e.user._id}
-									name={e.user.username}
-									elo={e.user.elo}
-									position={e.user.position}
-									rating={e.user.rating}
+									key={e._id}
+									img={e.img}
+									_id={e._id}
+									name={e.username}
+									elo={e.elo}
+									position={e.position}
+									rating={e.rating}
 									socketid={e.socketid}
 									invitationSentUser={e}
 								/>
 							);
 						})
 					) : (
-						<Text> ke ha pazao</Text>
+						<Text
+							style={{
+								textAlign: "center",
+								color: "white",
+								fontSize: 20,
+							}}
+						>
+							{" "}
+							No invitations received
+						</Text>
 					)}
 				</View>
 			</ScrollView>

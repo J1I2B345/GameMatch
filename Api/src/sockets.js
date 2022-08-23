@@ -3,9 +3,8 @@ const { joinChat, leaveChat, getUser } = require("./utilsSockets/chats.js");
 
 module.exports = (io) => {
 	io.on("connection", (socket) => {
-		//funcionalidad sala y match
+		//rooms
 		socket.on("joinRoom", (user) => {
-			console.log("user entró a la sala", user.username, "con el socketid", socket.id);
 			if (user.username) {
 				let userFull = { ...user, socketid: socket.id };
 				global[socket.id] = userFull;
@@ -28,46 +27,25 @@ module.exports = (io) => {
 
 		//invitations
 		socket.on("client: invitation", (invitation) => {
-			// invitation {to: socketid del que envía, user => que envía}
-			// nueva invitacion  = {user + este socket.id}
-
 			let newInvitation = { ...invitation.user };
 			newInvitation.socketid = socket.id;
-			//
-			//
 			socket.to(invitation.to).emit("server: invitation", newInvitation);
 		});
 
 		socket.on("client: invitationAccepted", (invitationAccepted) => {
 			let socketid = invitationAccepted.userThatInvited.socketid;
-			// esta linea no funca
-			// socket.to(socketid).emit("server: invitationAccepted", invitationAccepted);
-			console.log(invitationAccepted, socketid);
-
 			socket.broadcast
 				.to(socketid)
 				.emit("server: invitationAccepted", invitationAccepted);
-			// esta linea no funca
-			console.log("este es invitación enviada que no funca", socketid, typeof socketid); // returns what it has to
 		});
 
 		socket.on("client: invitationDeclined", (invitationDeclined) => {
-			let msg = "te rechazaron la invitacion tilin";
-
-			// not funcanionincionoling
 			socket
 				.to(invitationDeclined.userThatInvited.socketid)
 				.emit("server: invitationDeclined", msg);
-			// not funcanionincionoling
-
-			console.log(
-				"socketid de invitación rechazada",
-				invitationDeclined.userThatInvited.socketid,
-				typeof invitationDeclined.userThatInvited.socketid
-			);
 		});
 
-		//funcionalidad chat
+		//chats
 		socket.on("joinChat", (user) => {
 			let userFull = { ...user, socketid: socket.id };
 			global[socket.id] = userFull;
@@ -84,7 +62,7 @@ module.exports = (io) => {
 		//
 
 		socket.on("disconnect", () => {
-			// functionalidad sala y match
+			// rooms
 			try {
 				if (global[socket.id]) {
 					leaveRoom(global[socket.id].game, global[socket.id]._id);
@@ -98,7 +76,7 @@ module.exports = (io) => {
 			} catch (e) {
 				console.log(e.message);
 			}
-			//funcionalidad chat
+			//chat
 			if (global[socket.id]) {
 				leaveChat(global[socket.id]._id);
 				global[socket.id] = null;

@@ -28,20 +28,15 @@ const Home = () => {
 
 	useEffect(() => {
 		if (socket) {
-			console.log("este es mi socketID", socket.id);
 			socket.on("server: invitation", (invitationUser) => {
-				// dispatch(addOneNotificacion(invitationUser));
+				dispatch(addOneNotificacion(invitationUser));
 				Alert.alert("te llegó una notificación tilinn");
-				console.log(invitationUser);
 			});
 			socket.on("server: invitationAccepted", (userThatAccepted) => {
 				Alert.alert("te aceptaron una invitación");
-				console.log("invitación aceptada", userThatAccepted);
 			});
 			socket.on("server: invitationDeclined", (userThatDeclined) => {
 				Alert.alert("te rechazaron una invitación");
-				// console.log("invitación aceptada", userThatDeclined);
-				console.log(userThatDeclined);
 			});
 		}
 	}, []);
