@@ -26,13 +26,18 @@ module.exports = (io) => {
 		});
 
 		//invitations
-		socket.on("client: invitation", (invitation) =>
-			socket.to(invitation.socketid).emit("server: invitation", invitation)
-		);
+		socket.on("client: invitation", (invitation) => {
+			console.log(
+				"socket id de invitation, esto esta funcionando",
+				invitation.socketid,
+				typeof invitation.socketid
+			);
+			socket.to(invitation.socketid).emit("server: invitation", invitation);
+		});
 
 		socket.on("client: invitationAccepted", (invitationAccepted) => {
 			let socketid = invitationAccepted.userThatInvited.socketid;
-			console.log(socketid); // returns what it has to
+			console.log("este es invitación enviada que no funca", socketid, typeof socketid); // returns what it has to
 			// esta linea no funca
 			socket.to(socketid).emit("server: invitationAccepted", invitationAccepted);
 			// esta linea no funca
