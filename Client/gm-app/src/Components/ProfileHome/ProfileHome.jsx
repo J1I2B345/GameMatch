@@ -12,7 +12,7 @@ const ProfileHome = () => {
 					Ir a Panel
 				</button>
 
-				<h1>Seleccionar usuario</h1>
+				<h1>Select User</h1>
 			</div>
 			<ProfileCard />
 		</Container>

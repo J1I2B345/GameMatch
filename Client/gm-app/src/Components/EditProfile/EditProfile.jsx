@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editProfile, getUser } from "../../redux/actions";
+import { editProfile, getUser, allUser } from "../../redux/actions";
 import { Formik, Form } from "formik";
 import { TextField } from "./TextField";
 import * as yup from "yup";
@@ -25,6 +25,7 @@ export default function EditNews() {
 	// console.log(user.ban);
 
 	useEffect(() => {
+		dispatch(allUser());
 		dispatch(getUser(params._id));
 	}, [dispatch]);
 
@@ -39,7 +40,7 @@ export default function EditNews() {
 
 		alert("User successfully edited: " + editUser.username + " 💖");
 		console.log(editUser);
-		navigate("/profilehome");
+		navigate("/panel");
 	};
 
 	if (!user.roles) return <h2>Cargando</h2>;
@@ -53,6 +54,9 @@ export default function EditNews() {
 						roles: `${user.roles[0]}`,
 						ban: user.ban,
 						_id: user._id,
+						username: user.username,
+						password: user.password,
+						img: user.img,
 					}}
 					validationSchema={validate}
 					onSubmit={submit}
@@ -69,30 +73,41 @@ export default function EditNews() {
 							<button onClick={(e) => navigate("/profilehome")}> {"<- Back"}</button>
 							<Form>
 								<img className="image" src={user.img} alt="" key={user._id} />
+								<h1>username</h1>
 								<TextField
 									className="input"
-									label="Username"
 									name="username"
 									type="text"
 									placeholder={user.username}
 								/>
+								<h1>Password</h1>
 								<TextField
 									className="input"
-									label="password"
 									name="password"
 									type="text"
 									placeholder={user.password}
 								/>
-								<h2>Rol</h2>
-								<select className="input" label="Rol" name="roles" type="text">
-									<option>User</option>
-									<option>Admin</option>
-								</select>
-								<select className="input" label="Rol" name="roles" type="text">
-									<option>Un-ban</option>
-									<option>Ban</option>
-								</select>
+								<h1>ROL</h1>
+								<li style={{ color: "green" }}>Admin</li>
+								<li style={{ color: "violet" }}>User</li>
+								<TextField
+									className="input"
+									name="roles"
+									type="text"
+									placeholder={user.roles}
+								/>
+								<h1>BAN</h1>
+								<li style={{ color: "red" }}>true </li>
+								<li style={{ color: "green" }}>false </li>
+								<TextField
+									className="input"
+									name="ban"
+									type="text"
+									placeholder={user.ban}
+								/>
+								<TextField className="input" name="img" placeholder={user.img} />
 
+								<img src={user.img} alt="profile picture" />
 								<button className="button" type="submit">
 									{t("modify")}
 								</button>
@@ -100,7 +115,6 @@ export default function EditNews() {
 						</div>
 					)}
 				</Formik>
-				}
 			</div>
 		</Container>
 	);

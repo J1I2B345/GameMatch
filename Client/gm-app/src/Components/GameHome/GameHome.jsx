@@ -10,13 +10,18 @@ const GameHome = () => {
 	return (
 		<Container>
 			<div className="portada">
-				<button className="head-btn" onClick={(e) => navigate("/panel")}>
-					{t("go_to_panel")}
-				</button>
-				<button className="head-btn" onClick={(e) => navigate("/creategame")}>
-					{t("create_a_game")}
-				</button>
-				<h1>{t("select_a_game")}</h1>
+				<div>
+					<p></p>
+				</div>
+				<div style={{ position: "fixed", width: "100%", height: "100%" }}>
+					<button className="head-btn" onClick={(e) => navigate("/panel")}>
+						{t("Home")}
+					</button>
+					<button className="head-btn" onClick={(e) => navigate("/creategame")}>
+						{t("create_a_game")}
+					</button>
+				</div>
+				<h1>{t("select game")}</h1>
 			</div>
 			<GameCard />
 		</Container>
@@ -33,7 +38,7 @@ const Container = styled.div`
   justify-content: center;
   gap: 1rem;
   align-items: center;
-  background-color: #5f0f99;
+  background-color: #8f0f99;
   .image-game {
     margin-top: 2rem;
     height: 12rem;
@@ -83,7 +88,7 @@ const Container = styled.div`
     }
   }
   button {
-    background-color: #9a01e2;
+    background-color: #7a01e2;
     color: #f2f0f1;
     padding: 1rem 2rem;
     border: none;
@@ -93,7 +98,7 @@ const Container = styled.div`
     font-size: 1rem;
     text-transform: uppercase;
     &:hover {
-      background-color: #4e0eff;
+      background-color: #5e5eff;
     }
   }
   span {
@@ -106,9 +111,9 @@ const Container = styled.div`
     }
   }
   .portada {
-		padding: 30px;
+		padding: 50px;
 		text-align: center;
-		background: black;
+    background-color: #60f99;
 		color: white;
 		font-size: 30px;
 		width: 100%;

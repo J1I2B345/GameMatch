@@ -7,11 +7,14 @@ import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import enflag from "../../assets/englishflag.png";
 import esflag from "../../assets/spanishflag.png";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { editProfile, getUser, allUser } from "../../redux/actions";
 
 export default function PanelHome() {
 	const { t, i18n } = useTranslation();
 	const [language, setLenguage] = useState("es");
-
+	const dispatch = useDispatch();
 	const onChangeLanguaje = () => {
 		i18n.changeLanguage(language);
 		if (language === "es") {
@@ -20,11 +23,13 @@ export default function PanelHome() {
 			setLenguage("es");
 		}
 	};
-
+	useEffect(() => {
+		dispatch(allUser());
+	}, [dispatch]);
 	const navigate = useNavigate();
 	const user = useSelector((state) => state.userProfile);
 
-	if (!user) return <div>Loading...</div>;
+	//	if (!user) return <div>Loading...</div>;
 	return (
 		<Container>
 			<div className="btn-language">
@@ -33,7 +38,7 @@ export default function PanelHome() {
 				</button>
 			</div>
 
-			{!user.roles[0].name === "Admin" || !user.roles[0].name === "SuperAdmin" ? (
+			{false ? (
 				<div>Debes ser al menos admin</div>
 			) : (
 				<div className="portada">
