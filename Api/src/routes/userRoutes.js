@@ -207,6 +207,7 @@ router.put(
 	}), //*------
 	async (req, res) => {
 		try {
+			req.body.password = await UserSchema.encryptPassword(req.body.password);
 			req.body.username = req.body.username?.trim();
 			req.body.email = req.body.email?.trim();
 			if (req.body.roles) {
@@ -251,15 +252,19 @@ router.put(
 
 //solicitud Tipo DELETE: localhost:3001/users/ID
 //[auth.verifyToken,auth.isAdmin]
-router.delete("/:id", auth.isAdmin, async (req, res) => {
-	try {
-		const user = await UserSchema.findByIdAndDelete(req.params.id);
-		console.log("DELETED  :" + user.username);
-		res.json(user).status(200);
-	} catch (error) {
-		console.log(error);
-		res.status(500).json({ error: error.message });
+router.delete(
+	"/:id",
+	//auth.isAdmin,
+	async (req, res) => {
+		try {
+			const user = await UserSchema.findByIdAndDelete(req.params.id);
+			console.log("DELETED  :" + user.username);
+			res.json(user).status(200);
+		} catch (error) {
+			console.log(error);
+			res.status(500).json({ error: error.message });
+		}
 	}
-});
+);
 
 module.exports = router;
