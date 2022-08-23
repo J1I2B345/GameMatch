@@ -118,6 +118,20 @@ export const addNews = (news) => {
 	};
 };
 
+export const addReport = (report) => {
+	return async () => {
+		let response = await axios.post(
+			`https://backend-gamematch.herokuapp.com/reports`,
+			report
+		);
+		if (response.data.error) alert("error: ", response.data.error);
+		else {
+			alert("Noticia creada exitosamente");
+			return response.data;
+		}
+	};
+};
+
 export const editNews = (news) => {
 	return async () => {
 		return await axios.put(

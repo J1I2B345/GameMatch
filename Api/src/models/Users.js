@@ -72,8 +72,12 @@ const schema = new Schema(
 			default: false,
 		},
 		reports: {
-			type: String,
-			reference: "ReportUsers",
+			type: [
+				{
+					type: String,
+					reference: "ReportUsers",
+				},
+			],
 		},
 		matchs: {
 			type: Number,
