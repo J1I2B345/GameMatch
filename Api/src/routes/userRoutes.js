@@ -1,10 +1,10 @@
 const { Router } = require("express");
 const router = Router();
-
 const UserSchema = require("../models/Users.js");
 const mongoose = require("mongoose");
 const CONFIG = require("../config.js");
-
+const nodemailer = require("nodemailer");
+require("dotenv").config();
 //*authentication methods
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -112,7 +112,7 @@ router.post("/register", verify.checkExistingUser, async (req, res) => {
 		}
 		const savedUser = await newUser.save();
 
-		console.log("Created User: " + newUser.username);
+		console.log("Created User: " + newUser._id);
 
 		/*JSON WEB TOKEN <- sign permite crear el token*/
 		// jwt.sign({dato guardado en el token}, "palabra secreta",{objeto configuraicon})
@@ -122,6 +122,24 @@ router.post("/register", verify.checkExistingUser, async (req, res) => {
 		//	});
 
 		//if (savedUser)  return res.status(200).json({ token });
+		const transport = nodemailer.createTransport({
+			service: "Gmail",
+			auth: {
+				user: process.env.user,
+				pass: process.env.pass,
+			},
+		});
+		console.log(transport);
+		let msg = await transport.sendMail({
+			to: email,
+			subject: "Please confirm your account",
+			html: `<h1>Email Confirmation</h1>
+				<h2>Hello ${username}</h2>
+				<p>Thank you for register. Please confirm your email by clicking on the following link</p>
+				<a href=http://localhost:3001/users/confirm/${newUser._id}> Click here</a>
+				</div>`,
+		});
+		console.log(msg);
 		if (savedUser) return res.status(200).json(savedUser);
 		//*CON ESTO EVIO AL FRONT TODO ME PIDEN LOS DATOS POR ESTE TOKEN
 		else throw new Error("This user has already been created. Login!");
@@ -167,7 +185,7 @@ router.post("/login", async (req, res) => {
 		if (userFound.ban === true) {
 			return res.status(401).json({
 				message:
-					"Dear user, your account is suspended you can't login. Do you believe this is an error? Contact the support",
+					"Dear User, your account is suspended you can't login. Do you Believe a Is an error? contact the support",
 			});
 		}
 		// const pass = await UserSchema.findOne({email: req.body.email, password: req.body.password})
@@ -177,7 +195,7 @@ router.post("/login", async (req, res) => {
 				token: null,
 				message: "Invalid Password",
 			});
-		// si coincide la contraseña
+		// si cohincide la contraseña
 		// const token = jwt.sign({ id: userFound._id }, CONFIG.SECRET, {
 		// 	expiresIn: 86400, // 24 hs
 		// });
@@ -259,6 +277,17 @@ router.delete("/:id", auth.isAdmin, async (req, res) => {
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({ error: error.message });
+	}
+});
+//*----------------CONFIRM USER------------------------
+
+router.get("/confirm/:id", async (req, res) => {
+	const { id } = req.params;
+	try {
+		const user = await UserSchema.findByIdAndUpdate(id, { status: "active" });
+		res.status(200).send("<h1> Account confirmed successfully </h1>");
+	} catch (e) {
+		console.log(e);
 	}
 });
 
