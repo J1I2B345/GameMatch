@@ -136,7 +136,7 @@ router.post("/register", verify.checkExistingUser, async (req, res) => {
 			html: `<h1>Email Confirmation</h1>
 				<h2>Hello ${username}</h2>
 				<p>Thank you for register. Please confirm your email by clicking on the following link</p>
-				<a href=http://localhost:3001/users/confirm/${newUser._id}> Click here</a>
+				<a ${process.env.PORT}/users/confirm/${newUser._id}> Click here</a>
 				</div>`,
 		});
 		console.log(msg);
