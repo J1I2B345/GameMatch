@@ -18,7 +18,7 @@ export default function InvitationsRoom() {
 
 	let socketIo = useSelector((state) => state.games.socketIo);
 
-	console.log("notificaciones", notificationsReceived);
+	// console.log("notificaciones", notificationsReceived);
 	// useEffect(() => {
 	// 	if (socketIo) {
 	// 		socketIo.on("server: invitation", (invitationUser) => {

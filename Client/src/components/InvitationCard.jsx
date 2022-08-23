@@ -39,15 +39,8 @@ const InvitationCard = ({
 			userThatAccepted: user,
 			userThatInvited: invitationSentUser,
 		};
-		console.log(
-			"yo",
-			user,
-			"el que me invitó",
-			invitationSentUser,
-			"el objeto que mando al back",
-			invitationAccepted
-		);
-		// socket.emit("client: invitationAccepted", invitationAccepted);
+
+		socket.emit("client: invitationAccepted", invitationAccepted);
 	}
 	//invitation accepted -> chat allowed
 	// useEffect(() => {
