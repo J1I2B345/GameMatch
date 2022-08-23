@@ -38,7 +38,7 @@ module.exports = (io) => {
 			);
 			let socketid = invitationAccepted.userThatInvited.socketid;
 			let userToSend = invitationAccepted.userThatAccepted;
-			socket.to(socketid).emit("server: invitationAccepted", userToSend);
+			io.emit("server: invitationAccepted", userToSend);
 		});
 
 		//funcionalidad chat
