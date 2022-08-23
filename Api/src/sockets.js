@@ -40,7 +40,10 @@ module.exports = (io) => {
 			// esta linea no funca
 			// socket.to(socketid).emit("server: invitationAccepted", invitationAccepted);
 			console.log(invitationAccepted, socketid);
-			socket.to(socketid).emit("server: invitationAccepted", invitationAccepted);
+
+			socket.broadcast
+				.to(socketid)
+				.emit("server: invitationAccepted", invitationAccepted);
 			// esta linea no funca
 			console.log("este es invitación enviada que no funca", socketid, typeof socketid); // returns what it has to
 		});
