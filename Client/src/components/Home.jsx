@@ -26,6 +26,11 @@ const Home = () => {
 	const socketIo = useSelector((state) => state.games.socketIo);
 	const dispatch = useDispatch();
 
+	socketIo.on("server: invitationAccepted", (userThatAccepted) => {
+		Alert.alert("te aceptaron una invitación");
+		console.log("invitación aceptada", userThatAccepted);
+	});
+
 	useEffect(() => {
 		if (socketIo) {
 			socketIo.on("server: invitation", (invitationUser) => {
@@ -33,11 +38,9 @@ const Home = () => {
 				// setNotifications(invitationUser);
 				Alert.alert("te llegó una notificación tilinn");
 			});
-			socketIo.on("server: invitationAccepted", (userThatAccepted) => {
-				console.log("invitación aceptada", userThatAccepted);
-			});
 		}
 	}, []);
+
 	return (
 		<View>
 			<Routes>
