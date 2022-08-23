@@ -41,7 +41,7 @@ const InvitationCard = ({ id, img, name, elo, position, rating, socketid }) => {
 								<Image
 									source={{ uri: img }}
 									style={{
-										marginTop: "5%",
+										marginTop: "1%",
 										width: 150,
 										height: 150,
 										borderRadius: 150,

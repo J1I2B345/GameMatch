@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { Image, Text, View, Alert } from "react-native";
+import { Image, Text, View, Alert, ScrollView } from "react-native";
 import Constants from "expo-constants";
 import { Link } from "react-router-native";
 import { useSelector } from "react-redux";
@@ -31,26 +31,28 @@ export default function InvitationsRoom() {
 	return (
 		<View style={{ height: "100%" }}>
 			<StatusBar style="auto" />
-
-			{notificationsReceived.length > 0 ? (
-				notificationsReceived.map((e) => {
-					return (
-						<InvitationCard
-							key={e.user._id}
-							img={e.user.img}
-							id={e.user._id}
-							name={e.user.username}
-							elo={e.user.elo}
-							position={e.user.position}
-							rating={e.user.rating}
-							socketid={e.socketid}
-						/>
-					);
-				})
-			) : (
-				<Text> ke ha pazao</Text>
-			)}
-			<Text style={{ marginTop: Constants.statusBarHeight }}>soy invitations</Text>
+			<ScrollView>
+				<View style={{ marginTop: Constants.statusBarHeight, alignItems: "center" }}>
+					{notificationsReceived.length > 0 ? (
+						notificationsReceived.map((e) => {
+							return (
+								<InvitationCard
+									key={e.user._id}
+									img={e.user.img}
+									id={e.user._id}
+									name={e.user.username}
+									elo={e.user.elo}
+									position={e.user.position}
+									rating={e.user.rating}
+									socketid={e.socketid}
+								/>
+							);
+						})
+					) : (
+						<Text> ke ha pazao</Text>
+					)}
+				</View>
+			</ScrollView>
 			<Link
 				to={`/room/${id}`}
 				activeOpacity={1}

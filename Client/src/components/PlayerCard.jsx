@@ -68,7 +68,7 @@ const PlayerCard = ({
 							</Text>
 							<View
 								style={{
-									marginTop: "5%",
+									marginTop: "2%",
 									width: "100%",
 									flexDirection: "row",
 									justifyContent: "space-around",
