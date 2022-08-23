@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const { default: mongoose } = require("mongoose");
 const router = Router();
 const ReviewSchema = require("../models/Reviews");
 const UserSchema = require("../models/Users.js");
@@ -20,7 +21,7 @@ router.get("/", async (req, res) => {
 
 //----------------POST USER REVIEW------------------------
 router.post("/", async (req, res) => {
-	const { userRated, reviewer, qualification, comment } = req.body;
+	const { userRated, reviewer, qualification } = req.body;
 	try {
 		if ((!userRated, !reviewer, !qualification)) {
 			return res.json("te faltan datos pa");
@@ -34,26 +35,25 @@ router.post("/", async (req, res) => {
 			let suma = rated.map((el) => el.qualification);
 			let sum = suma.length > 0 ? suma.reduce((a, b) => a + b) : 0;
 			let rating = (sum + qualification) / (rated.length + 1);
-			const user = await UserSchema.findOneAndUpdate(
-				{ username: userRated },
-				{ rating: rating }
-			);
+			const user = await UserSchema.findByIdAndUpdate(userRated, { rating: rating });
 			const reviewPost = await ReviewSchema(req.body);
 			reviewPost.save();
 			res.status(200).json(reviewPost);
 		} else {
 			const put = await ReviewSchema.findOneAndUpdate(
 				{ userRated: userRated, reviewer: reviewer },
-				{ qualification: qualification, comment: comment }
+				{ qualification: qualification}
 			);
 			const rated = await ReviewSchema.find({ userRated: userRated });
+			console.log(rated)
 			let suma = rated.map((el) => el.qualification);
 			let sum = suma.length > 0 ? suma.reduce((a, b) => a + b) : 0;
 			let rating = sum / rated.length;
-			const user = await UserSchema.findOneAndUpdate(
-				{ username: userRated },
+			const user = await UserSchema.findByIdAndUpdate(
+				userRated,
 				{ rating: rating }
 			);
+			put.qualification = qualification
 			res.status(200).json(put);
 		}
 	} catch (e) {
