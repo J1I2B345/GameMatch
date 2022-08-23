@@ -26,12 +26,6 @@ const Home = () => {
 	const socket = useSelector((state) => state.games.socketIo);
 	const dispatch = useDispatch();
 
-	socket.on("server: invitationAccepted", (userThatAccepted) => {
-		console.log("estoy afuera del useEffect");
-		Alert.alert("te aceptaron una invitación");
-		console.log("invitación aceptada", userThatAccepted);
-	});
-
 	useEffect(() => {
 		if (socket) {
 			socket.on("server: invitation", (invitationUser) => {
@@ -40,16 +34,6 @@ const Home = () => {
 			});
 			socket.on("server: invitationAccepted", (userThatAccepted) => {
 				console.log("estoy adentro del useEffect");
-				Alert.alert("te aceptaron una invitación");
-				console.log("invitación aceptada", userThatAccepted);
-			});
-		}
-	}, []);
-
-	useEffect(() => {
-		if (socket) {
-			socket.on("server: invitationAccepted", (userThatAccepted) => {
-				console.log("estoy adentro del useEffect2");
 				Alert.alert("te aceptaron una invitación");
 				console.log("invitación aceptada", userThatAccepted);
 			});
