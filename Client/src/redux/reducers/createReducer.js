@@ -124,9 +124,9 @@ const createReducer = (state = initialState, action) => {
 		case ADD_ONE_NOTIFICATION:
 			return {
 				...state,
-				notifications: [
-					state.notifications.filter((e) => e._id !== payload._id).concat(payload),
-				],
+				notifications: state.notifications
+					.filter((e) => e._id !== payload._id)
+					.concat(payload),
 			};
 		case REMOVE_ALL_NOTIFICATIONS:
 			return {

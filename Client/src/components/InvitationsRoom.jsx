@@ -39,7 +39,7 @@ export default function InvitationsRoom() {
 								<InvitationCard
 									key={e.user._id}
 									img={e.user.img}
-									id={e.user._id}
+									_id={e.user._id}
 									name={e.user.username}
 									elo={e.user.elo}
 									position={e.user.position}

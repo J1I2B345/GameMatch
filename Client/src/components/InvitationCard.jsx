@@ -2,17 +2,33 @@ import React, { useState } from "react";
 import { View, Image, Text, TouchableOpacity, Alert, Modal } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Link } from "react-router-native";
+import { useSelector } from "react-redux";
 
-const InvitationCard = ({ id, img, name, elo, position, rating, socketid }) => {
+const InvitationCard = ({ _id, img, name, elo, position, rating, socketid }) => {
 	const [view, setView] = useState(false);
-	function acceptInvitation() {
-		console.log("acepté");
+	const user = useSelector((state) => state.games.user);
+	console.log(user);
+
+	function acceptInvitation(socketid) {
+		let users = { users: [user._id, invitationUser._id] };
+		//chat connection
+		axios
+			.post("https://backend-gamematch.herokuapp.com/chats/addUserToChat/", users)
+			.then((data) => Alert.alert(`Now you can chat with ${invitationUser.username}`))
+			.catch((error) => console.log(error.message));
 	}
+	//invitation accepted -> chat allowed
+	// useEffect(() => {
+	// 	socket.on("server: acceptedInvitation", (invitationAccepted) => {
+	//
+	// 	});
+	// }, []);;
+
 	function declineInvitation() {
 		console.log("rechacé");
 	}
 	return (
-		<View key={id} style={{ margin: 5 }}>
+		<View key={_id} style={{ margin: 5 }}>
 			<TouchableOpacity
 				activeOpacity={0.5}
 				underlayColor={""}
