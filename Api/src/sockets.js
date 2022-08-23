@@ -14,16 +14,16 @@ module.exports = (io) => {
 			}
 		});
 
-		socket.on("leaveRoom", (user) => {
-			try {
-				if (user.username) {
-					leaveRoom(user.game, user._id);
-					io.to(user.game).emit("gameUsers", getGameUsers(user.game));
-				}
-			} catch (e) {
-				console.log(e.message);
-			}
-		});
+		// socket.on("leaveRoom", (user) => {
+		// 	try {
+		// 		if (user.username) {
+		// 			leaveRoom(user.game, user._id);
+		// 			io.to(user.game).emit("gameUsers", getGameUsers(user.game));
+		// 		}
+		// 	} catch (e) {
+		// 		console.log(e.message);
+		// 	}
+		// });
 
 		//invitations
 		socket.on("client: invitation", (invitation) => {
@@ -40,7 +40,7 @@ module.exports = (io) => {
 			// esta linea no funca
 			// socket.to(socketid).emit("server: invitationAccepted", invitationAccepted);
 			console.log(invitationAccepted, socketid);
-			io.to(socketid).emit("server: invitationAccepted", invitationAccepted);
+			socket.to(socketid).emit("server: invitationAccepted", invitationAccepted);
 			// esta linea no funca
 			console.log("este es invitación enviada que no funca", socketid, typeof socketid); // returns what it has to
 		});
@@ -79,25 +79,25 @@ module.exports = (io) => {
 
 		socket.on("disconnect", () => {
 			// functionalidad sala y match
-			try {
-				if (global[socket.id]) {
-					leaveRoom(global[socket.id].game, global[socket.id]._id);
-					io.to(global[socket.id].game).emit(
-						"gameUsers",
-						getGameUsers(global[socket.id].game)
-					);
-					global[socket.id] = null;
-					delete global[socket.id];
-				}
-			} catch (e) {
-				console.log(e.message);
-			}
-			//funcionalidad chat
-			if (global[socket.id]) {
-				leaveChat(global[socket.id]._id);
-				global[socket.id] = null;
-				delete global[socket.id];
-			}
+			// try {
+			// 	if (global[socket.id]) {
+			// 		leaveRoom(global[socket.id].game, global[socket.id]._id);
+			// 		io.to(global[socket.id].game).emit(
+			// 			"gameUsers",
+			// 			getGameUsers(global[socket.id].game)
+			// 		);
+			// 		global[socket.id] = null;
+			// 		delete global[socket.id];
+			// 	}
+			// } catch (e) {
+			// 	console.log(e.message);
+			// }
+			// //funcionalidad chat
+			// if (global[socket.id]) {
+			// 	leaveChat(global[socket.id]._id);
+			// 	global[socket.id] = null;
+			// 	delete global[socket.id];
+			// }
 		});
 	});
 };
