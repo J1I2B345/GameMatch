@@ -2,17 +2,19 @@ import React from "react";
 import ProfileCard from "../ProfileCard/ProfileCard";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const ProfileHome = () => {
+	const { t, i18n } = useTranslation();
 	const navigate = useNavigate();
 	return (
 		<Container>
 			<div className="portada">
 				<button className="head-btn" onClick={(e) => navigate("/panel")}>
-					Ir a Panel
+					{t("go_to_panel")}
 				</button>
 
-				<h1>Select User</h1>
+				<h1>{t("select_user")}</h1>
 			</div>
 			<ProfileCard />
 		</Container>

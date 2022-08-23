@@ -33,5 +33,6 @@
 	"edit_new": "Edit New Story",
 	"new_story_to_modify": "New story to modify",
 	"create_game": "Create Game",
-	"create": "Create"
+	"create": "Create",
+	"select_user": "Select user"
 }
