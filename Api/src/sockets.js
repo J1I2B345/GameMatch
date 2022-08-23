@@ -32,9 +32,11 @@ module.exports = (io) => {
 
 		socket.on("client: invitationAccepted", (invitationAccepted) => {
 			let socketid = invitationAccepted.userThatInvited.socketid;
-			console.log(socketid);
+			console.log(socketid); // returns what it has to
 			socket.to(socketid).emit("server: invitationAccepted", invitationAccepted);
 		});
+
+		socket.on("client: invitationAccepted", (msg) => console.log(msg));
 
 		//funcionalidad chat
 		socket.on("joinChat", (user) => {

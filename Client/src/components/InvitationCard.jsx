@@ -51,6 +51,8 @@ const InvitationCard = ({
 
 	function declineInvitation() {
 		dispatch(removeOneNotification(invitationSentUser));
+		let msg = "ke flashas tilin";
+		socket.emit("client: invitationDeclined", msg);
 	}
 	return (
 		<View key={_id} style={{ margin: 5 }}>
