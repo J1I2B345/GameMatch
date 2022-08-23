@@ -223,14 +223,6 @@ export default function Room() {
 								{game.elo && <FilterElo elo={game.elo} />}
 							</View>
 						)}
-						<View style={{ alignItems: "center" }}>
-							<Link to="/invitations" activeOpacity={1} underlayColor="">
-								<Image
-									source={require("../../assets/invitacion.png")}
-									style={{ width: 50, height: 50 }}
-								/>
-							</Link>
-						</View>
 						{/* componente presentacional 
                     
                            ||
