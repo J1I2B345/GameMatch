@@ -26,9 +26,10 @@ module.exports = (io) => {
 		);
 
 		socket.on("client: invitationAccepted", (invitationAccepted) => {
+			// the object contains {userThatAccepted, userThatInvited}
 			socket
-				.to(invitationAccepted.socketid)
-				.emit("server: invitationAccepted", invitationAccepted);
+				.to(invitationAccepted.userThatInvited.socketid)
+				.emit("server: invitationAccepted", invitationAccepted.userThatAccepted);
 		});
 
 		//funcionalidad chat

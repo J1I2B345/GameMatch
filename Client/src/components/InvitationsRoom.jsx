@@ -45,6 +45,7 @@ export default function InvitationsRoom() {
 									position={e.user.position}
 									rating={e.user.rating}
 									socketid={e.socketid}
+									invitationSentUser={e}
 								/>
 							);
 						})

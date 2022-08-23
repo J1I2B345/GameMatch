@@ -34,8 +34,11 @@ const Home = () => {
 				// setNotifications(invitationUser);
 				Alert.alert("te llegó una notificación tilinn");
 			});
+			socketIo.on("server: invitationAccepted", (userThatAccepted) => {
+				console.log(userThatAccepted);
+			});
 		}
-	});
+	}, []);
 	return (
 		<View>
 			<Routes>
