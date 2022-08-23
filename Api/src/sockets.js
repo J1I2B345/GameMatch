@@ -31,21 +31,10 @@ module.exports = (io) => {
 		);
 
 		socket.on("client: invitationAccepted", (invitationAccepted) => {
-			// the object contains {userThatAccepted, userThatInvited}
-			// console.log(
-			// 	// "invitación",
-			// 	// invitationAccepted,
-			//  invitationAccepted.userThatInvited.socketid
-			// );
-			console.log(
-				"socketid del que te envió la invitación. debería ser kevin",
-				invitationAccepted.userThatInvited.socketid
+			io.to(invitationAccepted.userThatInvited.socketid).emit(
+				"server: invitationAccepted",
+				invitationAccepted.userThatAccepted
 			);
-			let socketid = invitationAccepted.userThatInvited.socketid;
-			console.log("socketid en la variable", socketid);
-			let userToSend = invitationAccepted.userThatAccepted;
-			console.log("usuario que aceptó la invitación. debería ser juanito", userToSend);
-			socket.to(socketid).emit("server: invitationAccepted", userToSend);
 		});
 
 		//funcionalidad chat

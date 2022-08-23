@@ -23,20 +23,35 @@ import { useEffect } from "react";
 import { addOneNotificacion } from "../redux/actions/index.js";
 
 const Home = () => {
-	const socketIo = useSelector((state) => state.games.socketIo);
+	const socket = useSelector((state) => state.games.socketIo);
 	const dispatch = useDispatch();
 
-	socketIo.on("server: invitationAccepted", (userThatAccepted) => {
+	socket.on("server: invitationAccepted", (userThatAccepted) => {
+		console.log("estoy afuera del useEffect");
 		Alert.alert("te aceptaron una invitación");
 		console.log("invitación aceptada", userThatAccepted);
 	});
 
 	useEffect(() => {
-		if (socketIo) {
-			socketIo.on("server: invitation", (invitationUser) => {
+		if (socket) {
+			socket.on("server: invitation", (invitationUser) => {
 				dispatch(addOneNotificacion(invitationUser));
-				// setNotifications(invitationUser);
 				Alert.alert("te llegó una notificación tilinn");
+			});
+			socket.on("server: invitationAccepted", (userThatAccepted) => {
+				console.log("estoy adentro del useEffect");
+				Alert.alert("te aceptaron una invitación");
+				console.log("invitación aceptada", userThatAccepted);
+			});
+		}
+	}, []);
+
+	useEffect(() => {
+		if (socket) {
+			socket.on("server: invitationAccepted", (userThatAccepted) => {
+				console.log("estoy adentro del useEffect2");
+				Alert.alert("te aceptaron una invitación");
+				console.log("invitación aceptada", userThatAccepted);
 			});
 		}
 	}, []);
