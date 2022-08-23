@@ -33,10 +33,10 @@ const Home = () => {
 				Alert.alert("te llegó una notificación tilinn");
 			});
 			socket.on("server: invitationAccepted", (userThatAccepted) => {
-				Alert.alert("te aceptaron una invitación");
+				Alert.alert(`${userThatAccepted.username} accepted you invitation. Let's chat!`);
 			});
 			socket.on("server: invitationDeclined", (userThatDeclined) => {
-				Alert.alert("te rechazaron una invitación");
+				Alert.alert(`${userThatAccepted.username} declined your invitation`);
 			});
 		}
 	}, []);

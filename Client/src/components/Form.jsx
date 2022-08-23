@@ -8,6 +8,7 @@ import { updateUser } from "../redux/actions";
 import Constants from "expo-constants";
 import Spinner from "./Spinner";
 import Nav from "./Nav";
+import { SOCKET } from "../redux/constants";
 
 export default function Form() {
 	let [game, setGame] = useState({ position: false });
@@ -17,6 +18,7 @@ export default function Form() {
 	let dispatch = useDispatch();
 	let user = useSelector((state) => state.games.user);
 	const games = useSelector((state) => state.games.games);
+	const socket = useSelector((state) => state.games.socketIo);
 
 	const fetchGame = () => {
 		let respuesta = games.find((e) => e._id === id);
@@ -42,6 +44,9 @@ export default function Form() {
 		playerPosition ? (user = { ...user, position: playerPosition }) : "";
 		dispatch(updateUser(user));
 
+		/// que acá haga el join => tiene que limpiar tu _id de todos los juegos para sacarte de las salas
+		/// tiene que agregarte a la nueva sala
+		socket.emit("start", "estoy haciendo click en el start del formulario");
 		/// here the leave/join room?
 	}
 

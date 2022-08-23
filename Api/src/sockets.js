@@ -14,6 +14,9 @@ module.exports = (io) => {
 			}
 		});
 
+		//socket.on('getGameUsers', user)
+		// socket.to('').getgameusers(user.game)
+
 		socket.on("leaveRoom", (user) => {
 			try {
 				if (user.username) {
@@ -44,6 +47,12 @@ module.exports = (io) => {
 				.to(invitationDeclined.userThatInvited.socketid)
 				.emit("server: invitationDeclined", msg);
 		});
+
+		//playerChangeRoom
+		socket.on("start", (msg) => console.log(msg));
+		//limpiar las notificaciones del usuario.
+		// las notificaciones tendrían que estar en algún lugar
+		// entonces tendría que haber tipo un objeto que sea invitations = {id:{sent: }}
 
 		//chats
 		socket.on("joinChat", (user) => {

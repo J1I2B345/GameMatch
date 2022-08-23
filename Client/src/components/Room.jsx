@@ -80,7 +80,10 @@ export default function Room() {
 		// socket.current = io("https://backend-gamematch.herokuapp.com/");
 		// dispatch(setSocketIo(socket.current));
 
+		//debería agregar los jugadores
 		socket.emit("joinRoom", user);
+		//
+
 		return () => {
 			socket.off("gameUsers");
 			socket.emit("leaveRoom", user);
