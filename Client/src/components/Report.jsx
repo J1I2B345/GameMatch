@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addNews } from "../redux/actions/index.js";
+import { report, addReport } from "../redux/actions/index.js";
 import { Link, useNavigate } from "react-router-native";
 import { connect } from "react-redux";
 import { StatusBar } from "expo-status-bar";
@@ -15,22 +15,22 @@ import {
 import { Formik } from "formik";
 import * as yup from "yup";
 
-const reviewSchema = yup.object({
+const reportSchema = yup.object({
 	description: yup.string().required().min(1),
 });
 
-const Report = () => {
+const Reports = () => {
 	const dispatch = useDispatch();
 	const navigation = useNavigate();
 	const user = useSelector((state) => state.games.user);
 
-	const submit = (values, actions) => {
-		dispatch(addNews(values));
-		navigation("/news");
+	const submits = async (values, actions) => {
+		dispatch(addReport(values));
+		navigation("/chat/profile");
 	};
 
 	function handleCancel() {
-		navigation("/news");
+		navigation("/chat/profile");
 	}
 
 	return (
@@ -43,15 +43,15 @@ const Report = () => {
 						title: "",
 						description: "",
 					}}
-					validationSchema={reviewSchema}
-					onSubmit={submit}
+					validationSchema={reportSchema}
+					onSubmit={submits}
 				>
 					{(formikProps) => (
 						<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 							<View style={styles.form_container}>
-								<Text style={styles.portada_text}>New Post</Text>
+								<Text style={styles.portada_text}>Report User</Text>
 								<TextInput
-									placeholder="Title"
+									placeholder="Reason"
 									onChangeText={formikProps.handleChange("title")}
 									value={formikProps.values.title}
 									onBlur={formikProps.handleBlur("title")}
@@ -177,4 +177,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default Report;
+export default Reports;

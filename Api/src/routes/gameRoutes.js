@@ -43,43 +43,51 @@ router.get("/:id", async (req, res) => {
 //solicitud Tipo  POST: localhost:3001/games/id
 //[auth.verifyToken,auth.isAdmin] auth.isAdmin,
 
-router.post("/", auth.isAdmin, async (req, res) => {
-	const { image, gender, elo, position, name } = req.body;
+router.post(
+	"/",
+	//auth.isAdmin,
+	async (req, res) => {
+		const { image, gender, elo, position, name } = req.body;
 
-	try {
-		const game = new GameSchema({
-			name,
-			image,
-			gender,
-			elo,
-			position,
-		});
-		//console.log(typeof image);
-		const savedGame = await game.save();
-		if (game) res.status(201).json(savedGame);
-		else throw new Error("the game already exists");
-	} catch (error) {
-		res.status(500).json({ error: error.message });
+		try {
+			const game = new GameSchema({
+				name,
+				image,
+				gender,
+				elo,
+				position,
+			});
+			//console.log(typeof image);
+			const savedGame = await game.save();
+			if (game) res.status(201).json(savedGame);
+			else throw new Error("the game already exists");
+		} catch (error) {
+			res.status(500).json({ error: error.message });
+		}
 	}
-});
+);
 
 //*----------------UPDATE GAMES------------------------
 //[auth.verifyToken,auth.isAdmin]auth.isAdmin,
 
-router.put("/:id", auth.isAdmin, async (req, res) => {
-	//solicitud Tipo GET: localhost:3001/games/id
+router.put(
+	"/:id",
+	//auth.isAdmin,
+	async (req, res) => {
+		//solicitud Tipo GET: localhost:3001/games/id
 
-	try {
-		const updateGame = await GameSchema.findByIdAndUpdate(
-			{ _id: req.params.id },
-			req.body,
-			{ new: true }
-		);
-		res.status(201).json(updateGame);
-	} catch (error) {
-		res.status(500).json({ error: error.message });
+		try {
+			const updateGame = await GameSchema.findByIdAndUpdate(
+				{ _id: req.params.id },
+				req.body,
+				{ new: true }
+			);
+			res.status(201).json(updateGame);
+		} catch (error) {
+			res.status(500).json({ error: error.message });
+		}
 	}
-});
+);
 
 //*----------------DELETE GAMES------------------------
 
@@ -87,17 +95,21 @@ router.put("/:id", auth.isAdmin, async (req, res) => {
 
 //[auth.verifyToken,auth.isAdmin]auth.isAdmin,
 
-router.delete("/:id", auth.isAdmin, async (req, res) => {
-	try {
-		const deleteGame = await GameSchema.findByIdAndDelete(
-			{ _id: req.params.id },
-			req.body
-		);
-		if (deleteGame) res.status(200).json(deleteGame);
-		else throw new Error("There is no game with that _id");
-	} catch (error) {
-		res.status(500).json({ message: error.message });
+router.delete(
+	"/:id",
+	//auth.isAdmin,
+	async (req, res) => {
+		try {
+			const deleteGame = await GameSchema.findByIdAndDelete(
+				{ _id: req.params.id },
+				req.body
+			);
+			if (deleteGame) res.status(200).json(deleteGame);
+			else throw new Error("There is no game with that _id");
+		} catch (error) {
+			res.status(500).json({ message: error.message });
+		}
 	}
-});
+);
 
 module.exports = router;

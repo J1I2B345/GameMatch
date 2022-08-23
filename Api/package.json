@@ -25,6 +25,7 @@
 		"morgan": "^1.10.0",
 		"node-cron": "^3.0.2",
 		"node-fetch": "^2.6.7",
+		"nodemailer": "^6.7.8",
 		"nodemon": "^2.0.19",
 		"socket.io": "^4.5.1"
 	},

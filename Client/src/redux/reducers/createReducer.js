@@ -25,22 +25,7 @@ const initialState = {
 	position: "All",
 	elo: "All",
 	socketIo: io("https://backend-gamematch.herokuapp.com/"),
-	notifications: [
-		{
-			socketid: "O5peJn5NuAMyEIWZAAAD",
-			user: {
-				_id: "62fd8e33777ddf170518b0a5",
-				elo: "Silver",
-				game: "League of Legends",
-				img: "https://www.pngplay.com/wp-content/uploads/13/Gamer-Aesthetic-PNG-Photo-Image.png",
-				position: "Top",
-				rating: {
-					$numberDecimal: "0",
-				},
-				username: "kevin1",
-			},
-		},
-	],
+	notifications: [],
 };
 
 const createReducer = (state = initialState, action) => {
@@ -136,12 +121,10 @@ const createReducer = (state = initialState, action) => {
 		case REMOVE_ONE_NOTIFICATION:
 			return {
 				...state,
-				notifications: [
-					state.notifications.filter(
-						(notification) => notification._id !== payload.user._id
-					),
-					payload,
-				],
+				notifications: state.notifications.filter(
+					(notification) => notification._id !== payload._id
+				),
+				payload,
 			};
 		// case SOCKET:
 		// 	return {

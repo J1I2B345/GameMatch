@@ -1,4 +1,5 @@
-import React from "react";
+import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { createGame } from "../../redux/actions";
 import { Formik, Form } from "formik";
@@ -20,12 +21,23 @@ export default function CreateGame() {
 	const { t, i18n } = useTranslation();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
+	const profile = useSelector((state) => state.userProfile);
 	const submit = (values, actions) => {
 		let editedGame = { ...values };
 		editedGame.elo = editedGame.elo.split(",").map((e) => e.trim());
 		editedGame.position = editedGame.position.split(",").map((e) => e.trim());
-		dispatch(createGame(editedGame));
+		fetch(`https://backend-gamematch.herokuapp.com/games/`, {
+			method: "POST",
+			headers: { Accept: "applcation/json", "Content-Type": "application/json" },
+			body: JSON.stringify(editedGame),
+		})
+			.then((response) => {
+				return response.json();
+			})
+			.then(() => {
+				createGame(editedGame);
+			});
+
 		actions.resetForm();
 	};
 	return (

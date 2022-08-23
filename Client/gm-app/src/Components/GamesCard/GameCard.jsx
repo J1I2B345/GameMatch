@@ -1,5 +1,6 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
@@ -23,12 +24,19 @@ const GameCard = () => {
 	useEffect(() => {
 		fetchGames();
 	}, []);
-
+	const profile = useSelector((state) => state.userProfile);
 	const deleteButton = async (id) => {
 		try {
 			// console.log({ game });
-			await axios
-				.delete(`https://backend-gamematch.herokuapp.com/games/${id}`)
+
+			fetch(`https://backend-gamematch.herokuapp.com/games/${id}`, {
+				method: "DELETE",
+				headers: { Accept: "applcation/json", "Content-Type": "application/json" },
+				body: JSON.stringify(profile),
+			})
+				.then((response) => {
+					return response.json();
+				})
 				.then(() => {
 					fetchGames();
 				});
@@ -45,7 +53,6 @@ const GameCard = () => {
 						<div>
 							<img className="image-game" src={data.image} alt="" key={data._id} />
 						</div>
-
 						<button onClick={(e) => deleteButton(data._id)}>{t("delete")}</button>
 						<button onClick={(e) => navigate(`games/${data._id}`)}>{t("modify")}</button>
 					</div>

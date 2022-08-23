@@ -31,7 +31,12 @@ export default function Login() {
 			alert("💌Email not found,try againヾ(≧▽≦*)o ");
 			return;
 		}
-
+		const is = "62f39a361fb29b83a3539121";
+		const users = user.find((d) => d.email === values.email);
+		console.log(users);
+		if (!users.roles.find((d) => is)) {
+			return alert("The site es only for admins. :)");
+		}
 		// if (
 		// 	!user.map((d) => d.email && d.password).includes(values.email && values.password)
 		// ) {
