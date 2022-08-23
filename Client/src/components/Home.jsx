@@ -37,6 +37,12 @@ const Home = () => {
 				Alert.alert("te aceptaron una invitación");
 				console.log("invitación aceptada", userThatAccepted);
 			});
+			socket.on("server: invitationDeclined", (userThatDeclined) => {
+				console.log("estoy adentro del useEffect");
+				Alert.alert("te rechazaron una invitación");
+				// console.log("invitación aceptada", userThatDeclined);
+				console.log(userThatDeclined);
+			});
 		}
 	}, []);
 

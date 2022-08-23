@@ -45,6 +45,11 @@ module.exports = (io) => {
 
 		socket.on("client: invitationDeclined", (invitationDeclined) => {
 			let msg = "te rechazaron la invitacion tilin";
+			console.log(
+				"socketid de invitación rechazada",
+				invitationDeclined.userThatInvited.socketid,
+				typeof invitationDeclined.userThatInvited.socketid
+			);
 			socket
 				.to(invitationDeclined.userThatInvited.socketid)
 				.emit("server: invitationDeclined", msg);
