@@ -33,10 +33,17 @@ module.exports = (io) => {
 		socket.on("client: invitationAccepted", (invitationAccepted) => {
 			let socketid = invitationAccepted.userThatInvited.socketid;
 			console.log(socketid); // returns what it has to
+			// esta linea no funca
 			socket.to(socketid).emit("server: invitationAccepted", invitationAccepted);
+			// esta linea no funca
 		});
 
-		socket.on("client: invitationDeclined", (msg) => console.log(msg));
+		socket.on("client: invitationDeclined", (invitationDeclined) => {
+			let msg = "te rechazaron la invitacion tilin";
+			socket
+				.to(invitationDeclined.userThatInvited.socketid)
+				.emit("server: invitationDeclined", msg);
+		});
 
 		//funcionalidad chat
 		socket.on("joinChat", (user) => {
