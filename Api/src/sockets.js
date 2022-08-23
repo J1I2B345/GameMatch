@@ -30,11 +30,11 @@ module.exports = (io) => {
 			socket.to(invitation.socketid).emit("server: invitation", invitation)
 		);
 
-		socket.on("client: invitationAccepted", (invitationAccepted) => {
-			io
-				// .to(invitationAccepted.userThatInvited.socketid)
-				.emit("server: invitationAccepted", invitationAccepted.userThatAccepted);
-		});
+		socket.on("client: invitationAccepted", (invitationAccepted) =>
+			socket
+				.to(invitationAccepted.userThatInvited.socketid)
+				.emit("server: invitationAccepted", invitationAccepted.userThatAccepted)
+		);
 
 		//funcionalidad chat
 		socket.on("joinChat", (user) => {
