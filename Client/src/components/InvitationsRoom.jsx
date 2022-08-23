@@ -4,11 +4,12 @@ import Constants from "expo-constants";
 import { Link } from "react-router-native";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import InvitationCard from "./InvitationCard";
 
 export default function InvitationsRoom() {
 	const userGlobal = useSelector((state) => state.games.user);
 
-	let notification = useSelector((state) => state.games.notifications);
+	let notificationsReceived = useSelector((state) => state.games.notifications);
 
 	let game = userGlobal.game;
 	let games = useSelector((state) => state.games.games);
@@ -17,7 +18,7 @@ export default function InvitationsRoom() {
 
 	let socketIo = useSelector((state) => state.games.socketIo);
 
-	console.log("notificaciones", notification);
+	console.log("notificaciones", notificationsReceived);
 	// useEffect(() => {
 	// 	if (socketIo) {
 	// 		socketIo.on("server: invitation", (invitationUser) => {
@@ -25,11 +26,30 @@ export default function InvitationsRoom() {
 	// 			Alert.alert("te llegó una notificación tilinn");
 	// 		});
 	// 	}
-	// });
+	// }, []);
 
 	return (
 		<View style={{ height: "100%" }}>
 			<StatusBar style="auto" />
+
+			{notificationsReceived.length > 0 ? (
+				notificationsReceived.map((e) => {
+					return (
+						<InvitationCard
+							key={e.user._id}
+							img={e.user.img}
+							id={e.user._id}
+							name={e.user.username}
+							elo={e.user.elo}
+							position={e.user.position}
+							rating={e.user.rating}
+							socketid={e.socketid}
+						/>
+					);
+				})
+			) : (
+				<Text> ke ha pazao</Text>
+			)}
 			<Text style={{ marginTop: Constants.statusBarHeight }}>soy invitations</Text>
 			<Link
 				to={`/room/${id}`}
