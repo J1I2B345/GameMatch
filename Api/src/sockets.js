@@ -15,9 +15,13 @@ module.exports = (io) => {
 		});
 
 		socket.on("leaveRoom", (user) => {
-			if (user.username) {
-				leaveRoom(user.game, user._id);
-				io.to(user.game).emit("gameUsers", getGameUsers(user.game));
+			try {
+				if (user.username) {
+					leaveRoom(user.game, user._id);
+					io.to(user.game).emit("gameUsers", getGameUsers(user.game));
+				}
+			} catch (e) {
+				console.log(e.message);
 			}
 		});
 
