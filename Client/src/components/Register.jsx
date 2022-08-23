@@ -198,7 +198,7 @@ const Register = () => {
 					</View>
 					<View
 						style={{
-							marginTop: 2,
+							marginTop: 4,
 							marginBottom: 30,
 							width: "78%",
 							height: 0.3,
