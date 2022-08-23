@@ -56,16 +56,19 @@ module.exports = (io) => {
 
 		socket.on("disconnect", () => {
 			// functionalidad sala y match
-			if (global[socket.id]) {
-				leaveRoom(global[socket.id].game, global[socket.id]._id);
-				io.to(global[socket.id].game).emit(
-					"gameUsers",
-					getGameUsers(global[socket.id].game)
-				);
-				global[socket.id] = null;
-				delete global[socket.id];
+			try {
+				if (global[socket.id]) {
+					leaveRoom(global[socket.id].game, global[socket.id]._id);
+					io.to(global[socket.id].game).emit(
+						"gameUsers",
+						getGameUsers(global[socket.id].game)
+					);
+					global[socket.id] = null;
+					delete global[socket.id];
+				}
+			} catch (e) {
+				console.log(e.message);
 			}
-
 			//funcionalidad chat
 			if (global[socket.id]) {
 				leaveChat(global[socket.id]._id);
