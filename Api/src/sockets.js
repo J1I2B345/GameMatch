@@ -36,7 +36,7 @@ module.exports = (io) => {
 			socket.to(socketid).emit("server: invitationAccepted", invitationAccepted);
 		});
 
-		socket.on("client: invitationAccepted", (msg) => console.log(msg));
+		socket.on("client: invitationDeclined", (msg) => console.log(msg));
 
 		//funcionalidad chat
 		socket.on("joinChat", (user) => {
