@@ -28,14 +28,14 @@ module.exports = (io) => {
 
 		//invitations
 		socket.on("client: invitation", (invitation) => {
-			console.log(
-				"este es mi socketID",
-				socket.id,
-				"socket id de invitation, esto esta funcionando",
-				invitation.socketid,
-				typeof invitation.socketid
-			);
-			socket.to(invitation.socketid).emit("server: invitation", invitation);
+			// invitation {to: socketid del que envía, user => que envía}
+			// nueva invitacion  = {user + este socket.id}
+
+			let newInvitation = { ...invitation.user };
+			newInvitation.socketid = socket.id;
+			//
+			//
+			socket.to(invitation.to).emit("server: invitation", newInvitation);
 		});
 
 		socket.on("client: invitationAccepted", (invitationAccepted) => {

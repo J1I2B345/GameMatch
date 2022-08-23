@@ -36,7 +36,7 @@ export default function Room() {
 			.get(`https://backend-gamematch.herokuapp.com/users/${user._id}`)
 			.then((data) => {
 				if (data.data.matchs > 0) {
-					let invitation = { socketid, user };
+					let invitation = { to: socketid, user };
 					socket.emit("client: invitation", invitation);
 					let newMatchs = { matchs: data.data.matchs - 1 };
 					axios
