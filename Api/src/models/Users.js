@@ -86,6 +86,11 @@ const schema = new Schema(
 		tenant: String,
 		connection: String,
 		debug: Boolean,
+		status: {
+			type: String,
+			enum: ["Pending", "Active"],
+			default: "Pending",
+		},
 	},
 	{ timestamps: true, versionKey: false }
 );
