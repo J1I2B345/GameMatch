@@ -1,14 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import {
-	StyleSheet,
-	Text,
-	View,
-	Image,
-	SafeAreaView,
-	ScrollView,
-	Alert,
-	TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, Image, ScrollView, Alert } from "react-native";
 import { Link, useParams } from "react-router-native";
 import Constants from "expo-constants";
 import Nav from "./Nav";
@@ -19,7 +10,6 @@ import FilterPosition from "./Filters/FilterPosition";
 import { useSelector } from "react-redux";
 import { connect, useDispatch } from "react-redux";
 import { useEffect, useRef, useState } from "react";
-import { io } from "socket.io-client";
 import { higherRating, lowerRating, selectPosition, selectElo } from "../utils/utils";
 import Spinner from "../components/Spinner";
 import { orderByElo, orderByPosition, orderByRating } from "../redux/actions";
@@ -38,10 +28,7 @@ export default function Room() {
 	const { id } = useParams();
 	let game = games.find((e) => e._id === id);
 
-	//to make socket global
 	const dispatch = useDispatch();
-
-	/// can recieved here the notification? and then ?
 
 	function sendInvitation(socketid) {
 		// check if matchs available
@@ -49,7 +36,7 @@ export default function Room() {
 			.get(`https://backend-gamematch.herokuapp.com/users/${user._id}`)
 			.then((data) => {
 				if (data.data.matchs > 0) {
-					let invitation = { socketid, user };
+					let invitation = { to: socketid, user };
 					socket.emit("client: invitation", invitation);
 					let newMatchs = { matchs: data.data.matchs - 1 };
 					axios
@@ -58,15 +45,7 @@ export default function Room() {
 				} else throw new Error("No more matchs today");
 			})
 			.catch((err) => Alert.alert(err.message));
-		// let invitation = { socketid, user };
-		// socket.emit("client: invitation", invitation);
-		//axios.post("");
 	}
-
-	// function acceptInvitation(socketid) {
-	// 	let acceptedInvitation = { socketid, user };
-	// 	socket.emit("client: acceptedInvitation", acceptedInvitation);
-	// }
 
 	useEffect(() => {
 		if (players.length) {
@@ -112,41 +91,9 @@ export default function Room() {
 		};
 	}, []);
 
-	//received invitation
-	// useEffect(() => {
-	// 	socket.on("server: invitation", (invitationUser) => {
-	// 		//should // set a state?
-	// 		//this is wrong. just to try
-	// 		let users = { users: [user._id, invitationUser._id] };
-	// 		//chat connection
-	// 		axios
-	// 			.post("https://backend-gamematch.herokuapp.com/chats/addUserToChat/", users)
-	// 			.then((data) => Alert.alert(`Now you can chat with ${invitationUser.username}`))
-	// 			.catch((error) => console.log(error.message));
-	// 	});
-	// 	return () => {
-	// 		socket.off("server: invitation");
-	// 	};
-	// }, []);
-
-	//invitation accepted -> chat allowed
-	// useEffect(() => {
-	// 	socket.on("server: acceptedInvitation", (invitationAccepted) => {
-	// 		let users = { users: [user._id, invitationUser._id] };
-	// 		//chat connection
-	// 		axios
-	// 			.post("https://backend-gamematch.herokuapp.com/chats/addUserToChat/", users)
-	// 			.then((data) => Alert.alert(`Now you can chat with ${invitationUser.username}`))
-	// 			.catch((error) => console.log(error.message));
-	// 	});
-	// }, []);
-
 	useEffect(() => {
 		socket.on("gameUsers", (data) => {
 			if (data) {
-				// socket -> global
-				// let player = data.find((e) => e._id === user._id);
-				// dispatch(updateUser(player));
 				let playersList = data.filter((e) => e._id !== user._id);
 				setPlayers(playersList);
 

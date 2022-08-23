@@ -2,17 +2,54 @@ import React, { useState } from "react";
 import { View, Image, Text, TouchableOpacity, Alert, Modal } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Link } from "react-router-native";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { removeOneNotification } from "../redux/actions";
 
-const InvitationCard = ({ id, img, name, elo, position, rating, socketid }) => {
+const InvitationCard = ({
+	_id,
+	img,
+	name,
+	elo,
+	position,
+	rating,
+	socketid,
+	invitationSentUser,
+}) => {
 	const [view, setView] = useState(false);
+	const user = useSelector((state) => state.games.user);
+	const socket = useSelector((state) => state.games.socketIo);
+	const dispatch = useDispatch();
+
 	function acceptInvitation() {
-		console.log("acepté");
+		let users = { users: [user._id, invitationSentUser._id] };
+		//chat connection
+		axios
+			.post("https://backend-gamematch.herokuapp.com/chats/addUserToChat/", users)
+			.then((data) => Alert.alert(`Now you can chat with ${invitationSentUser.username}`))
+			.catch((error) => console.log(error.message));
+
+		//remove the notification from the client
+		dispatch(removeOneNotification(invitationSentUser));
+
+		// sent to socket to notify the other client that the invitation was accepted
+		let invitationAccepted = {
+			userThatAccepted: user,
+			userThatInvited: invitationSentUser,
+		};
+		socket.emit("client: invitationAccepted", invitationAccepted);
 	}
+
 	function declineInvitation() {
-		console.log("rechacé");
+		dispatch(removeOneNotification(invitationSentUser));
+		let invitationDeclined = {
+			userThatDeclined: user,
+			userThatInvited: invitationSentUser,
+		};
+		socket.emit("client: invitationDeclined", invitationDeclined);
 	}
 	return (
-		<View key={id} style={{ margin: 5 }}>
+		<View key={_id} style={{ margin: 5 }}>
 			<TouchableOpacity
 				activeOpacity={0.5}
 				underlayColor={""}
@@ -73,7 +110,7 @@ const InvitationCard = ({ id, img, name, elo, position, rating, socketid }) => {
 							>
 								<TouchableOpacity
 									onPress={() => {
-										declineInvitation(socketid), setView(false);
+										declineInvitation(), setView(false);
 									}}
 								>
 									<Image
@@ -83,7 +120,7 @@ const InvitationCard = ({ id, img, name, elo, position, rating, socketid }) => {
 								</TouchableOpacity>
 								<TouchableOpacity
 									onPress={() => {
-										acceptInvitation(socketid), setView(false);
+										acceptInvitation(), setView(false);
 									}}
 								>
 									<Image
