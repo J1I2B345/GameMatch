@@ -54,33 +54,44 @@ const News = () => {
 				{news &&
 					news.length &&
 					news.map((data) => (
-						<div key={data._id} className="container">
-							<div>
+						<div key={data._id} className="card-container">
+							<div className="card">
 								<div>
-									<img alt="" src={iconMenssage} className="image" />
-								</div>
-								<div>
-									<h2 className="user">{t("developers")}</h2>
-									<div className="date">
-										{moment(data.createdAt).format("MMMM d")} at{" "}
-										{moment(data.createdAt).format("h:mm A")}
+									<div>
+										<img alt="" src={iconMenssage} className="image" />
+									</div>
+									<div>
+										<h2 className="card-title">{t("developers")}</h2>
+										<div className="card-text">
+											<div>
+												<div className="date">
+													{moment(data.createdAt).format("MMMM d")} at{" "}
+													{moment(data.createdAt).format("h:mm A")}
+												</div>
+											</div>
+											<div className="title">{data.title}</div>
+											<div className="description">{data.description}</div>
+										</div>
 									</div>
 								</div>
+								{user.roles[0].name === "Admin" || user.roles[0].name === "SuperAdmin" ? (
+									<button className="btn-card" onClick={(e) => deleteButton(data._id)}>
+										{t("delete")}
+									</button>
+								) : (
+									""
+								)}
+								{user.roles[0].name === "Admin" || user.roles[0].name === "SuperAdmin" ? (
+									<button
+										className="btn-card"
+										onClick={(e) => navigate(`/News/${data._id}`)}
+									>
+										{t("modify")}
+									</button>
+								) : (
+									""
+								)}
 							</div>
-							<div className="title">{data.title}</div>
-							<div className="description">{data.description}</div>
-							{user.roles[0].name === "Admin" || user.roles[0].name === "SuperAdmin" ? (
-								<button onClick={(e) => deleteButton(data._id)}>{t("delete")}</button>
-							) : (
-								""
-							)}
-							{user.roles[0].name === "Admin" || user.roles[0].name === "SuperAdmin" ? (
-								<button onClick={(e) => navigate(`/News/${data._id}`)}>
-									{t("modify")}
-								</button>
-							) : (
-								""
-							)}
 						</div>
 					))}
 			</div>
@@ -91,7 +102,7 @@ const News = () => {
 export default News;
 
 const Container = styled.div`
-	height: 100%;
+	height: 100vh;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
@@ -99,66 +110,142 @@ const Container = styled.div`
 	gap: 1rem;
 	align-items: center;
 	background-color: #5f0f99;
-	.image-game {
-		margin-top: 2rem;
-		height: 12rem;
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
 	}
-	html,
-	body {
+
+	.content {
 		height: 100%;
-		min-height: 100%;
-		max-height: 100%;
-	}
-	.image {
-		margin-top: 2rem;
-		height: 3rem;
-	}
-	.login-link {
-		color: #f0ebf2;
-	}
-	.brand {
-		display: flex;
-		align-items: center;
-		gap: 1rem;
-		justify-content: center;
-	}
-	form {
-		display: flex;
-		flex-direction: column;
-		gap: 2rem;
-		background-color: #00000076;
-		border-radius: 2rem;
-		padding: 5rem;
-	}
-	h1 {
-		color: #f0ebf2;
-		text-transform: uppercase;
-	}
-	input {
-		background-color: transparent;
-		padding: 1rem;
-		border: 0.1rem solid #4e0eff;
-		border-radius: 0.4rem;
-		color: white;
 		width: 100%;
-		font-size: 1rem;
-		&:focus {
-			border: 0.1rem solid #997af0;
-			outline: none;
+		display: grid;
+		flex-direction: row;
+		grid-template-columns: repeat(3, minmax(200px, 1fr));
+		align-items: stretch;
+		gap: 3em;
+		align-items: center;
+		background-color: #5f0f99;
+		.image {
+			height: 100px;
+			width: 100px;
+			background-position: center center;
+			background-size: cover;
+		}
+		.card-container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 15px;
+			flex-wrap: wrap;
+		}
+		.card {
+			width: 25em;
+			height: auto;
+			position: relative;
+			background: #5b146c;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			border-radius: 4px;
+			padding: 20px;
+			transition: all 0.3s ease-in;
+		}
+		.card > * {
+			padding: 10px;
+		}
+		.btn-card {
+			background-color: #9a01e2;
+			color: #f2f0f1;
+			width: 100%;
+			margin-bottom: 1em;
+			border: none;
+			font-weight: bold;
+			cursor: pointer;
+			border-radius: 0.2em;
+			font-size: 1rem;
+			text-transform: uppercase;
+			&:hover {
+				background-color: #4e0eff;
+			}
+		}
+		.card .card-title {
+			padding: 20px 10px;
+			font-size: 1.5rem;
+			text-transform: uppercase;
+			text-shadow: 1px 0px 2px #262654;
+		}
+		.card .card-text {
+			margin-bottom: 1em;
+			line-height: 20px;
+			font-size: 20px;
+			color: #f2f0f1;
 		}
 	}
-	button {
-		background-color: #9a01e2;
-		color: #f2f0f1;
-		padding: 1rem 2rem;
-		border: none;
-		font-weight: bold;
-		cursor: pointer;
-		border-radius: 0.4rem;
-		font-size: 1rem;
-		text-transform: uppercase;
-		&:hover {
-			background-color: #4e0eff;
+
+	.portada {
+		padding: 30px;
+		text-align: center;
+		background: black;
+		color: white;
+		font-size: 30px;
+		width: 100%;
+
+		.head-btn {
+			min-width: 50%;
+			margin-top: 1px;
+			position: relative;
+			top: -2rem;
+			background-color: #9a01e2;
+			color: #f2f0f1;
+			padding: 1rem 2rem;
+			border: none;
+			font-weight: bold;
+			cursor: pointer;
+			border-radius: 0.4rem;
+			font-size: 1rem;
+			text-transform: uppercase;
+			&:hover {
+				background-color: #4e0eff;
+			}
+		}
+
+		.image-game {
+			margin-top: 2rem;
+			height: 12rem;
+		}
+
+		.brand {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+			justify-content: center;
+		}
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 2rem;
+			background-color: #00000076;
+			border-radius: 2rem;
+			padding: 5rem;
+		}
+		h1 {
+			color: #f0ebf2;
+			text-transform: uppercase;
+		}
+		input {
+			background-color: transparent;
+			padding: 1rem;
+			border: 0.1rem solid #4e0eff;
+			border-radius: 0.4rem;
+			color: white;
+			width: 100%;
+			font-size: 1rem;
+			&:focus {
+				border: 0.1rem solid #997af0;
+				outline: none;
+			}
 		}
 	}
 	span {
@@ -169,19 +256,5 @@ const Container = styled.div`
 			text-decoration: none;
 			font-weight: bold;
 		}
-	}
-	.portada {
-		padding: 30px;
-		text-align: center;
-		background: black;
-		color: white;
-		font-size: 30px;
-		width: 100%;
-
-		.head-btn {
-		min-width: 50%;
-	    margin-top: 1px;
-    	position:relative;
-     	top:-2rem;
 	}
 `;

@@ -37,10 +37,9 @@ export default function PanelHome() {
 				<div>Debes ser al menos admin</div>
 			) : (
 				<div className="portada">
-					<div className="portada_text">
+					<div className="portada-image">
 						<img src={GameMatch} className="image-game" alt="" />
-					</div>
-					<div className="portada_img">
+
 						<img src={iconApp} className="image-icon" alt="" />
 					</div>
 					<button className="modify-btn" onClick={(e) => navigate(`/News`)}>
@@ -70,6 +69,16 @@ const Container = styled.div`
 	.image-game {
 		margin-top: 2rem;
 		height: 12rem;
+	}
+	.portada-image {
+		align-items: center;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		margin-bottom: 1rem;
+		.image-icon {
+			width: 2rem;
+		}
 	}
 	html,
 	body {
