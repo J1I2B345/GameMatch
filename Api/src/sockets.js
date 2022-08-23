@@ -5,6 +5,7 @@ module.exports = (io) => {
 	io.on("connection", (socket) => {
 		//funcionalidad sala y match
 		socket.on("joinRoom", (user) => {
+			console.log("user entró a la sala", user.username, "con el socketid", socket.id);
 			if (user.username) {
 				let userFull = { ...user, socketid: socket.id };
 				global[socket.id] = userFull;
@@ -28,6 +29,8 @@ module.exports = (io) => {
 		//invitations
 		socket.on("client: invitation", (invitation) => {
 			console.log(
+				"este es mi socketID",
+				socket.id,
 				"socket id de invitation, esto esta funcionando",
 				invitation.socketid,
 				typeof invitation.socketid

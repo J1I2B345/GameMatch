@@ -23,6 +23,11 @@ const InvitationCard = ({
 
 	function acceptInvitation() {
 		let users = { users: [user._id, invitationSentUser.user._id] };
+		console.log(
+			"socket del que me envió la notificación",
+			invitationSentUser.user.username,
+			invitationSentUser.user.socketid
+		);
 		//chat connection
 		axios
 			.post("https://backend-gamematch.herokuapp.com/chats/addUserToChat/", users)
