@@ -29,13 +29,12 @@ const Home = () => {
 	useEffect(() => {
 		if (socketIo) {
 			socketIo.on("server: invitation", (invitationUser) => {
-				console.log(invitationUser);
 				dispatch(addOneNotificacion(invitationUser));
 				// setNotifications(invitationUser);
 				Alert.alert("te llegó una notificación tilinn");
 			});
 			socketIo.on("server: invitationAccepted", (userThatAccepted) => {
-				console.log(userThatAccepted);
+				console.log("invitación aceptada", userThatAccepted);
 			});
 		}
 	}, []);
