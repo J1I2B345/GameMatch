@@ -25,20 +25,21 @@ module.exports = (io) => {
 			}
 		});
 
+		//invitations
 		socket.on("client: invitation", (invitation) =>
 			socket.to(invitation.socketid).emit("server: invitation", invitation)
 		);
 
 		socket.on("client: invitationAccepted", (invitationAccepted) => {
 			// the object contains {userThatAccepted, userThatInvited}
-			console.log(
-				// "invitación",
-				// invitationAccepted,
-				typeof invitationAccepted.userThatInvited.socketid
-			);
+			// console.log(
+			// 	// "invitación",
+			// 	// invitationAccepted,
+			//  invitationAccepted.userThatInvited.socketid
+			// );
 			let socketid = invitationAccepted.userThatInvited.socketid;
 			let userToSend = invitationAccepted.userThatAccepted;
-			io.emit("server: invitationAccepted", userToSend);
+			return socket.to(socketid).emit("server: invitationAccepted", userToSend);
 		});
 
 		//funcionalidad chat
