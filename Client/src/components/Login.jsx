@@ -13,6 +13,7 @@ import {
 	ScrollView,
 	Image,
 	Alert,
+	TouchableOpacity,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { StatusBar } from "expo-status-bar";
@@ -80,7 +81,12 @@ const Login = () => {
 	return (
 		<SafeAreaView style={styles.container}>
 			<ScrollView style={{ width: "100%" }}>
-				<View style={{ alignItems: "center" }}>
+				<View
+					style={{
+						marginTop: "25%",
+						alignItems: "center",
+					}}
+				>
 					<View style={styles.portada}>
 						<View style={styles.portada_text}>
 							<Image
@@ -155,32 +161,47 @@ const Login = () => {
 					<View
 						style={{
 							marginTop: 45,
+							width: "80%",
 							fontSize: 15,
 							height: "auto",
+							alignItems: "center",
+							justifyContent: "center",
 							flexDirection: "row",
 						}}
 					>
 						<Text
 							style={{
-								color: "white",
-								fontSize: 20,
-								marginBottom: 40,
+								color: "#fff",
+								fontSize: 18,
 							}}
 						>
 							Don't have an account?
 						</Text>
-						<Link to="/register" activeOpacity={1} underlayColor={"none"}>
+						<TouchableOpacity
+							onPress={() => navigation("/register")}
+							activeOpacity={0.5}
+							underlayColor={"none"}
+						>
 							<Text
 								style={{
-									color: "violet",
-									fontSize: 20,
+									color: "#f9ff",
+									fontSize: 18,
 								}}
 							>
 								{" "}
-								✔ Register
+								○ Register
 							</Text>
-						</Link>
+						</TouchableOpacity>
 					</View>
+					<View
+						style={{
+							marginTop: 1,
+							width: "78%",
+							height: 0.3,
+							backgroundColor: "white",
+							marginBottom: 45,
+						}}
+					></View>
 				</View>
 				<StatusBar style="auto" />
 			</ScrollView>
@@ -195,7 +216,8 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 	},
 	portada: {
-		marginTop: 120,
+		// marginTop: 120,
+		marginTop: 40,
 		flexDirection: "row",
 		marginBottom: 20,
 	},
