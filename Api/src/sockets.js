@@ -37,22 +37,26 @@ module.exports = (io) => {
 
 		socket.on("client: invitationAccepted", (invitationAccepted) => {
 			let socketid = invitationAccepted.userThatInvited.socketid;
-			console.log("este es invitación enviada que no funca", socketid, typeof socketid); // returns what it has to
 			// esta linea no funca
 			socket.to(socketid).emit("server: invitationAccepted", invitationAccepted);
 			// esta linea no funca
+			console.log("este es invitación enviada que no funca", socketid, typeof socketid); // returns what it has to
 		});
 
 		socket.on("client: invitationDeclined", (invitationDeclined) => {
 			let msg = "te rechazaron la invitacion tilin";
+
+			// not funcanionincionoling
+			socket
+				.to(invitationDeclined.userThatInvited.socketid)
+				.emit("server: invitationDeclined", msg);
+			// not funcanionincionoling
+
 			console.log(
 				"socketid de invitación rechazada",
 				invitationDeclined.userThatInvited.socketid,
 				typeof invitationDeclined.userThatInvited.socketid
 			);
-			socket
-				.to(invitationDeclined.userThatInvited.socketid)
-				.emit("server: invitationDeclined", msg);
 		});
 
 		//funcionalidad chat
