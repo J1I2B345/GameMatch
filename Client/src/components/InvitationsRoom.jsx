@@ -11,10 +11,10 @@ export default function InvitationsRoom() {
 
 	let notificationsReceived = useSelector((state) => state.games.notifications);
 
-	let game = userGlobal.game;
-	let games = useSelector((state) => state.games.games);
-	let userGame = games.find((element) => element.name === game);
-	let id = userGame._id;
+	// let game = userGlobal.game;
+	// let games = useSelector((state) => state.games.games);
+	// let userGame = games.find((element) => element.name === game);
+	// let id = userGame._id;
 
 	let socketIo = useSelector((state) => state.games.socketIo);
 
@@ -54,7 +54,7 @@ export default function InvitationsRoom() {
 				</View>
 			</ScrollView>
 			<Link
-				to={`/room/${id}`}
+				to={`/selectgame`}
 				activeOpacity={1}
 				underlayColor={""}
 				style={{

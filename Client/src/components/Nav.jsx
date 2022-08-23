@@ -17,6 +17,12 @@ const Nav = () => {
 						style={{ width: 30, height: 30 }}
 					/>
 				</Link>
+				<Link to="/invitations" activeOpacity={1} underlayColor="">
+					<Image
+						source={require("../../assets/invitacion.png")}
+						style={{ width: 50, height: 50 }}
+					/>
+				</Link>
 				<Link to="/news" underlayColor={"#9A01E2"} style={styles.icon}>
 					<Image
 						source={require("../../assets/iconForo.png")}
