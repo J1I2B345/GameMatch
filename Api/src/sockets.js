@@ -3,7 +3,7 @@ const { joinChat, leaveChat, getUser } = require("./utilsSockets/chats.js");
 
 module.exports = (io) => {
 	io.on("connection", (socket) => {
-		//funcionalidad sala y match
+		//rooms
 		socket.on("joinRoom", (user) => {
 			if (user.username) {
 				let userFull = { ...user, socketid: socket.id };
@@ -15,23 +15,37 @@ module.exports = (io) => {
 		});
 
 		socket.on("leaveRoom", (user) => {
-			if (user.username) {
-				leaveRoom(user.game, user._id);
-				io.to(user.game).emit("gameUsers", getGameUsers(user.game));
+			try {
+				if (user.username) {
+					leaveRoom(user.game, user._id);
+					io.to(user.game).emit("gameUsers", getGameUsers(user.game));
+				}
+			} catch (e) {
+				console.log(e.message);
 			}
 		});
 
-		socket.on("client: invitation", (invitation) =>
-			socket.to(invitation.socketid).emit("server: invitation", invitation)
-		);
+		//invitations
+		socket.on("client: invitation", (invitation) => {
+			let newInvitation = { ...invitation.user };
+			newInvitation.socketid = socket.id;
+			socket.to(invitation.to).emit("server: invitation", newInvitation);
+		});
 
 		socket.on("client: invitationAccepted", (invitationAccepted) => {
-			socket
-				.to(invitationAccepted.socketid)
+			let socketid = invitationAccepted.userThatInvited.socketid;
+			socket.broadcast
+				.to(socketid)
 				.emit("server: invitationAccepted", invitationAccepted);
 		});
 
-		//funcionalidad chat
+		socket.on("client: invitationDeclined", (invitationDeclined) => {
+			socket
+				.to(invitationDeclined.userThatInvited.socketid)
+				.emit("server: invitationDeclined", msg);
+		});
+
+		//chats
 		socket.on("joinChat", (user) => {
 			let userFull = { ...user, socketid: socket.id };
 			global[socket.id] = userFull;
@@ -48,18 +62,21 @@ module.exports = (io) => {
 		//
 
 		socket.on("disconnect", () => {
-			// functionalidad sala y match
-			if (global[socket.id]) {
-				leaveRoom(global[socket.id].game, global[socket.id]._id);
-				io.to(global[socket.id].game).emit(
-					"gameUsers",
-					getGameUsers(global[socket.id].game)
-				);
-				global[socket.id] = null;
-				delete global[socket.id];
+			// rooms
+			try {
+				if (global[socket.id]) {
+					leaveRoom(global[socket.id].game, global[socket.id]._id);
+					io.to(global[socket.id].game).emit(
+						"gameUsers",
+						getGameUsers(global[socket.id].game)
+					);
+					global[socket.id] = null;
+					delete global[socket.id];
+				}
+			} catch (e) {
+				console.log(e.message);
 			}
-
-			//funcionalidad chat
+			//chat
 			if (global[socket.id]) {
 				leaveChat(global[socket.id]._id);
 				global[socket.id] = null;

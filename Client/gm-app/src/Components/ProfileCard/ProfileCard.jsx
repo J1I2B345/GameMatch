@@ -11,48 +11,68 @@ export default function ProfileCard() {
 	const navigate = useNavigate();
 
 	const user = useSelector((state) => state.aux);
-
+	const profile = useSelector((state) => state.userProfile);
 	useEffect(() => {
 		dispatch(allUser());
 	}, [dispatch]);
 
 	const deleteButton = async (_id) => {
-		// console.log(_id);
+		console.log(_id);
+
+		const roles = profile.roles;
+		const email = profile.email;
 		try {
-			await axios
-				.delete(`https://backend-gamematch.herokuapp.com/Users/${_id}`)
+			fetch("https://backend-gamematch.herokuapp.com/users/" + _id, {
+				method: "DELETE",
+				headers: { Accept: "applcation/json", "Content-Type": "application/json" },
+				body: JSON.stringify(profile),
+			})
+				.then((response) => {
+					return response.json();
+				})
 				.then(() => {
 					dispatch(allUser());
 				});
+			alert("deleted successfully: " + user.username);
 		} catch (error) {
 			console.error(error.message);
 		}
 	};
 	//62f39a361fb29b83a353911f:user, 62f39a361fb29b83a3539121 adm
 
-	if (!user) return <h2>Buscando usuarios...</h2>;
+	//	if (!user) return <h2>Buscando usuarios...</h2>;
 	return (
 		<Container>
-			{user.map((data) => (
-				<div className="card-container">
-					<div className="card" key={data.name}>
-						<img className="card-image" src={data.img} alt="" key={data._id} />
-						<h1 className="card-title" key={data.username}>
-							Usuario: {data.username}
-						</h1>
-						<div className="card-text">
-							<p key={data.rol}>
-								Rol actual:
-								{data.roles[0] === "62f39a361fb29b83a3539121" ? "admin" : "user"}
-							</p>
-							<p key={data.ban}>Ban: {data.ban.toString()}</p>
-						</div>
+			{!user ? (
+				<h2> Loading please wait... </h2>
+			) : (
+				user?.map((data) => (
+					<div className="card-container">
+						<div className="card" key={data.name}>
+							<img className="card-image" src={data.img} alt="" key={data._id} />
+							<h1 className="card-title" key={data.username}>
+								Usuario: {data.username}
+							</h1>
+							<div className="card-text">
+								<p style={{ color: "violet" }}>Type: </p>{" "}
+								<strong style={{ color: "green" }} key={data.rol}>
+									<i>{data.roles[0] === "62f39a361fb29b83a3539121" ? "Admin" : "User"}</i>
+								</strong>
+								<p style={{ color: "violet" }}> Ban:</p>{" "}
+								<strong>
+									{" "}
+									<i style={{ color: "green" }} key={data.ban}>
+										{data.ban.toString()}
+									</i>
+								</strong>
+							</div>
 
-						<button onClick={(e) => deleteButton(data._id)}>Eliminar</button>
-						<button onClick={(e) => navigate(`/Users/${data._id}`)}>Modificar</button>
+							<button onClick={(e) => deleteButton(data._id)}>Eliminar</button>
+							<button onClick={(e) => navigate(`/Users/${data._id}`)}>Modificar</button>
+						</div>
 					</div>
-				</div>
-			))}
+				))
+			)}
 		</Container>
 	);
 }
@@ -139,6 +159,7 @@ const Container = styled.div`
 	.card .card-title {
 		padding: 20px 10px;
 		font-size: 1.5rem;
+		color: purple;
 		text-transform: uppercase;
 		text-shadow: 1px 0px 2px #262654;
 	}

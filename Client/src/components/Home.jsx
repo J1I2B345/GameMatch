@@ -23,19 +23,24 @@ import { useEffect } from "react";
 import { addOneNotificacion } from "../redux/actions/index.js";
 
 const Home = () => {
-	const socketIo = useSelector((state) => state.games.socketIo);
+	const socket = useSelector((state) => state.games.socketIo);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		if (socketIo) {
-			socketIo.on("server: invitation", (invitationUser) => {
-				console.log(invitationUser);
+		if (socket) {
+			socket.on("server: invitation", (invitationUser) => {
 				dispatch(addOneNotificacion(invitationUser));
-				// setNotifications(invitationUser);
 				Alert.alert("te llegó una notificación tilinn");
 			});
+			socket.on("server: invitationAccepted", (userThatAccepted) => {
+				Alert.alert("te aceptaron una invitación");
+			});
+			socket.on("server: invitationDeclined", (userThatDeclined) => {
+				Alert.alert("te rechazaron una invitación");
+			});
 		}
-	});
+	}, []);
+
 	return (
 		<View>
 			<Routes>
