@@ -17,6 +17,7 @@ import EditProfile from "./EditProfile.jsx";
 import Register from "./Register.jsx";
 import Checkout from "./Checkout.jsx";
 import InvitationsRoom from "./InvitationsRoom.jsx";
+import Report from "./Report.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { addOneNotificacion } from "../redux/actions/index.js";
@@ -55,6 +56,7 @@ const Home = () => {
 				<Route path="/checkout" element={<Checkout />} />
 				<Route path="/register" element={<Register />} />
 				<Route path="/invitations" element={<InvitationsRoom />} />
+				<Route path="/report" element={<Report />} />
 			</Routes>
 		</View>
 	);

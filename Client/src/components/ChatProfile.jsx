@@ -131,10 +131,12 @@ const ChatProfile = () => {
 										source={require("../../assets/starCalification.png")}
 										style={{ width: 35, height: 35, marginBottom: 15 }}
 									/>
-									<Image
-										source={require("../../assets/report.png")}
-										style={{ marginLeft: 35, width: 50, height: 50, marginBottom: 15 }}
-									/>
+									<TouchableOpacity onPress={() => navigate("/report")}>
+										<Image
+											source={require("../../assets/report.png")}
+											style={{ marginLeft: 35, width: 50, height: 50, marginBottom: 15 }}
+										/>
+									</TouchableOpacity>
 								</View>
 								{User.description ? (
 									<View
