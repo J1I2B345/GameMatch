@@ -37,9 +37,15 @@ module.exports = (io) => {
 			// 	// invitationAccepted,
 			//  invitationAccepted.userThatInvited.socketid
 			// );
+			console.log(
+				"socketid del que te envió la invitación. debería ser kevin",
+				invitationAccepted.userThatInvited.socketid
+			);
 			let socketid = invitationAccepted.userThatInvited.socketid;
+			console.log("socketid en la variable", socketid);
 			let userToSend = invitationAccepted.userThatAccepted;
-			return socket.to(socketid).emit("server: invitationAccepted", userToSend);
+			console.log("usuario que aceptó la invitación. debería ser juanito", userToSend);
+			socket.to(socketid).emit("server: invitationAccepted", userToSend);
 		});
 
 		//funcionalidad chat
