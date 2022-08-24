@@ -16,6 +16,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 
 const reviewSchema = yup.object({
+	title: yup.string().required().min(1),
 	description: yup.string().required().min(1),
 });
 
@@ -57,6 +58,9 @@ const CreateNews = () => {
 									onBlur={formikProps.handleBlur("title")}
 									style={styles.input}
 								/>
+								<Text style={{ color: "red", fontSize: 15, marginBottom: -10 }}>
+									{formikProps.touched.title && formikProps.errors.title}
+								</Text>
 								<View style={styles.relleno}></View>
 								<TextInput
 									placeholder="Description"
@@ -69,6 +73,9 @@ const CreateNews = () => {
 										height: 90,
 									}}
 								/>
+								<Text style={{ color: "red", fontSize: 15, marginBottom: -10 }}>
+									{formikProps.touched.description && formikProps.errors.description}
+								</Text>
 								<View style={styles.relleno}></View>
 								<View
 									style={{

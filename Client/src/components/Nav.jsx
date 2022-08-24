@@ -1,9 +1,18 @@
 import { Link } from "react-router-native";
 import { StyleSheet, View, Image } from "react-native";
+import { useSelector } from "react-redux";
 
 const Nav = () => {
+	const darkMood = useSelector((state) => state.games.darkMood);
+
 	return (
-		<View style={styles.container}>
+		<View
+			style={
+				darkMood == false
+					? styles.container
+					: { ...styles.container, backgroundColor: "#4D0F73" }
+			}
+		>
 			<View style={styles.icon_container}>
 				<Link to="/selectchat" underlayColor={"#9A01E2"} style={styles.icon}>
 					<Image
@@ -17,10 +26,10 @@ const Nav = () => {
 						style={{ width: 30, height: 30 }}
 					/>
 				</Link>
-				<Link to="/invitations" activeOpacity={1} underlayColor="">
+				<Link to="/invitations" underlayColor={"#9A01E2"} style={styles.icon}>
 					<Image
-						source={require("../../assets/invitacion.png")}
-						style={{ width: 50, height: 50 }}
+						source={require("../../assets/iconNotification.png")}
+						style={{ width: 30, height: 30 }}
 					/>
 				</Link>
 				<Link to="/news" underlayColor={"#9A01E2"} style={styles.icon}>
@@ -57,8 +66,8 @@ const styles = StyleSheet.create({
 	},
 
 	icon: {
-		marginRight: 25,
-		marginLeft: 25,
+		marginRight: "4.2%",
+		marginLeft: "4.2%",
 		width: 40,
 		height: 32,
 		borderRadius: 50,

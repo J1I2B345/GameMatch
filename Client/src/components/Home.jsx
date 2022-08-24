@@ -56,7 +56,7 @@ const Home = () => {
 				<Route path="form/:id" element={<Form />} />
 				<Route path="/createGame" element={<CreateGame />} />
 				<Route path="/room/:id" element={<Room />} />
-				<Route path="selectchat" element={<SelectChat />} />
+				<Route path="/selectchat" element={<SelectChat />} />
 				<Route path="/chat/:id" element={<Chat />} />
 				<Route path="/chat/profile" element={<ChatProfile />} />
 				<Route path="/profile" element={<Profile />} />

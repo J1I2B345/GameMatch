@@ -23,6 +23,7 @@ const News = () => {
 	const navigate = useNavigate();
 	const news = useSelector((state) => state.games.news);
 	const user = useSelector((state) => state.games.user);
+	const darkMood = useSelector((state) => state.games.darkMood);
 
 	useEffect(() => {
 		dispatch(getAllNews());
@@ -67,12 +68,21 @@ const News = () => {
 					</View>
 
 					<View
-						style={{
-							marginBottom: 5,
-							height: 2,
-							width: "90%",
-							backgroundColor: "#98228C",
-						}}
+						style={
+							darkMood == false
+								? {
+										marginBottom: 5,
+										height: 2,
+										width: "90%",
+										backgroundColor: "#98228C",
+								  }
+								: {
+										marginBottom: 5,
+										height: 2,
+										width: "90%",
+										backgroundColor: "#4D0F73",
+								  }
+						}
 					></View>
 
 					<SafeAreaView style={{ width: "100%", marginBottom: 170 }}>

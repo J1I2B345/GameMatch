@@ -10,25 +10,33 @@ import {
 	TouchableOpacity,
 	Modal,
 } from "react-native";
-import { connect, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-native";
 import Constants from "expo-constants";
 import Nav from "./Nav";
 import Spinner from "./Spinner";
 import { useState } from "react";
+import { useEffect } from "react";
+import { darkMoodChange, getUserById } from "../redux/actions";
 
 const Profile = () => {
-	const User = useSelector((state) => state.games.userProfile);
-	const user = useSelector((state) => state.games.user);
-
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const user = useSelector((state) => state.games.user);
+	const darkMood = useSelector((state) => state.games.darkMood);
+
+	useEffect(() => {
+		dispatch(getUserById(user._id));
+	}, [dispatch]);
+
+	const User = useSelector((state) => state.games.userProfile);
 
 	let arrayStars = [];
 
-	if (user.rating) {
-		if (user.rating.$numberDecimal) {
+	if (User.rating) {
+		if (User.rating.$numberDecimal) {
 			(() => {
-				let ratingCont = user.rating.$numberDecimal;
+				let ratingCont = User.rating.$numberDecimal;
 				while (ratingCont > 0) {
 					ratingCont = ratingCont - 1;
 					arrayStars.push(arrayStars.length + 1);
@@ -36,6 +44,11 @@ const Profile = () => {
 				return arrayStars;
 			})();
 		}
+	}
+
+	function themeMood(mood) {
+		let change = mood == true ? false : true;
+		dispatch(darkMoodChange(change));
 	}
 
 	const [view, setView] = useState(false);
@@ -47,8 +60,18 @@ const Profile = () => {
 			{User._id && User.username ? (
 				<View style={styles.container}>
 					<Modal transparent={true} visible={view} animationType="slide">
-						<View style={{ height: "100%", backgroundColor: "#5B146C" }}>
-							<StatusBar backgroundColor="#5B146C" />
+						<View
+							style={
+								darkMood == false
+									? { height: "100%", backgroundColor: "#5B146C" }
+									: { height: "100%", backgroundColor: "#4D0F73" }
+							}
+						>
+							{darkMood == false ? (
+								<StatusBar backgroundColor="#5B146C" />
+							) : (
+								<StatusBar backgroundColor="#4D0F73" />
+							)}
 							<View>
 								<Text
 									style={{
@@ -62,6 +85,7 @@ const Profile = () => {
 									Settings
 								</Text>
 								<TouchableOpacity
+									onPress={() => themeMood(darkMood)}
 									activeOpacity={0.5}
 									style={{
 										marginLeft: 18,
@@ -79,13 +103,48 @@ const Profile = () => {
 										style={{
 											marginLeft: 10,
 											marginBottom: 10,
-											width: "100%",
 											color: "white",
 											fontSize: 20,
 										}}
 									>
 										Theme
 									</Text>
+									{darkMood == false ? (
+										<Text
+											style={{
+												marginLeft: "40%",
+												marginRight: 10,
+												marginBottom: 10,
+												color: "white",
+												fontSize: 20,
+											}}
+										>
+											Light
+										</Text>
+									) : (
+										<Text
+											style={{
+												marginLeft: "40%",
+												marginRight: 10,
+												marginBottom: 10,
+												color: "white",
+												fontSize: 20,
+											}}
+										>
+											Dark
+										</Text>
+									)}
+									{darkMood == false ? (
+										<Image
+											source={require("../../assets/buttonOff.png")}
+											style={{ width: 30, height: 30 }}
+										/>
+									) : (
+										<Image
+											source={require("../../assets/buttonOn.png")}
+											style={{ marginLeft: 3, width: 30, height: 30 }}
+										/>
+									)}
 								</TouchableOpacity>
 
 								<TouchableOpacity
@@ -97,7 +156,6 @@ const Profile = () => {
 										width: "100%",
 										alignItems: "center",
 										borderRadius: 15,
-										backgroundColor: "#5B146C",
 										flexDirection: "row",
 									}}
 									onPress={() => setConfirmation(true)}
@@ -282,13 +340,27 @@ const Profile = () => {
 									</View>
 								</View>
 
-								<View
-									style={
-										User.premium == false
-											? { ...styles.separador, marginBottom: 10 }
-											: styles.separador
-									}
-								></View>
+								{darkMood == false ? (
+									<View
+										style={
+											User.premium == false
+												? { ...styles.separador, marginBottom: 10 }
+												: styles.separador
+										}
+									></View>
+								) : (
+									<View
+										style={
+											User.premium == false
+												? {
+														...styles.separador,
+														marginBottom: 10,
+														backgroundColor: "#4D0F73",
+												  }
+												: styles.separador
+										}
+									></View>
+								)}
 
 								{User.premium == false ? (
 									<View style={{ paddingBottom: 5 }}>
@@ -296,7 +368,16 @@ const Profile = () => {
 											to="/whypremium"
 											activeOpacity={1}
 											underlayColor={"#f4b04d"}
-											style={styles.button}
+											style={
+												darkMood == false
+													? styles.button
+													: {
+															...styles.button,
+															backgroundColor: "none",
+															borderWidth: 1,
+															borderColor: "#fbcb1b",
+													  }
+											}
 										>
 											<View style={{ flexDirection: "row" }}>
 												<Text style={styles.button_text}>

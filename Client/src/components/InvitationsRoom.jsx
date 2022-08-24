@@ -5,6 +5,7 @@ import { Link } from "react-router-native";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import InvitationCard from "./InvitationCard";
+import Nav from "./Nav";
 
 export default function InvitationsRoom() {
 	const userGlobal = useSelector((state) => state.games.user);
@@ -32,35 +33,23 @@ export default function InvitationsRoom() {
 							);
 						})
 					) : (
-						<Text
-							style={{
-								textAlign: "center",
-								color: "white",
-								fontSize: 20,
-							}}
-						>
-							{" "}
-							No invitations received
-						</Text>
+						<View style={{ height: "100%", justifyContent: "center" }}>
+							<Text
+								style={{
+									marginTop: "90%",
+									textAlign: "center",
+									color: "white",
+									fontSize: 20,
+								}}
+							>
+								{" "}
+								No invitations received
+							</Text>
+						</View>
 					)}
 				</View>
 			</ScrollView>
-			<Link
-				to={`/selectgame`}
-				activeOpacity={1}
-				underlayColor={""}
-				style={{
-					position: "absolute",
-					bottom: 80,
-					left: 20,
-					height: 45,
-				}}
-			>
-				<Image
-					source={require("../../assets/iconBack.png")}
-					style={{ width: 50, height: 50 }}
-				/>
-			</Link>
+			<Nav />
 		</View>
 	);
 }
