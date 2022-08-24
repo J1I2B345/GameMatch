@@ -17,10 +17,10 @@ const Nav = () => {
 						style={{ width: 30, height: 30 }}
 					/>
 				</Link>
-				<Link to="/invitations" activeOpacity={1} underlayColor="">
+				<Link to="/invitations" underlayColor={"#9A01E2"} style={styles.icon}>
 					<Image
-						source={require("../../assets/invitacion.png")}
-						style={{ width: 50, height: 50 }}
+						source={require("../../assets/iconNotification.png")}
+						style={{ width: 30, height: 30 }}
 					/>
 				</Link>
 				<Link to="/news" underlayColor={"#9A01E2"} style={styles.icon}>
@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
 	},
 
 	icon: {
-		marginRight: 25,
-		marginLeft: 25,
+		marginRight: "4.2%",
+		marginLeft: "4.2%",
 		width: 40,
 		height: 32,
 		borderRadius: 50,

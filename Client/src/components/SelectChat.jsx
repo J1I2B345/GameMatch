@@ -1,7 +1,14 @@
 import axios from "axios";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import {
+	Image,
+	SafeAreaView,
+	ScrollView,
+	Text,
+	TouchableOpacity,
+	View,
+} from "react-native";
 import Constants from "expo-constants";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-native";
@@ -52,55 +59,69 @@ export default function SelectChat() {
 						>
 							Chats
 						</Text>
-						{contacts.map((contact) => {
-							return (
-								<TouchableOpacity
-									key={contact._id}
-									onPress={() => handleClick(contact._id)}
-									style={{
-										backgroundColor: "#3519B0",
-										borderRadius: 10,
-										flexDirection: "row",
-										alignItems: "center",
-										width: "90%",
-										marginTop: 20,
-										padding: 10,
-									}}
-									activeOpacity={0.7}
-									underlayColor={""}
-								>
-									<View
-										style={{
-											flexDirection: "row",
-											alignItems: "center",
-										}}
-										key={contact._id}
-									>
-										<Image
-											style={{
-												width: 50,
-												height: 50,
-												borderRadius: 50,
-											}}
-											source={{
-												uri: contact.img
-													? contact.img
-													: "https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg",
-											}}
-										/>
-										<Text
-											style={{
-												color: "white",
-												fontSize: 25,
-												marginLeft: 20,
-											}}
-										>
-											{contact.username}
-										</Text>
-									</View>
-								</TouchableOpacity>
-							);
-						})}
+						<SafeAreaView
+							style={{
+								width: "100%",
+								marginTop: 0,
+								marginBottom: 190,
+								alignItems: "center",
+								justifyContent: "center",
+							}}
+						>
+							<ScrollView style={{ width: "100%" }}>
+								<View style={{ width: "100%", paddingBottom: 12, alignItems: "center" }}>
+									{contacts.map((contact) => {
+										return (
+											<TouchableOpacity
+												key={contact._id}
+												onPress={() => handleClick(contact._id)}
+												style={{
+													margin: 6,
+													padding: 10,
+													width: "94%",
+													borderRadius: 10,
+													flexDirection: "row",
+													alignItems: "center",
+													backgroundColor: "#3519B0",
+												}}
+												activeOpacity={0.7}
+												underlayColor={""}
+											>
+												<View
+													style={{
+														flexDirection: "row",
+														alignItems: "center",
+													}}
+													key={contact._id}
+												>
+													<Image
+														style={{
+															width: 50,
+															height: 50,
+															borderRadius: 50,
+														}}
+														source={{
+															uri: contact.img
+																? contact.img
+																: "https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg",
+														}}
+													/>
+													<Text
+														style={{
+															color: "white",
+															fontSize: 25,
+															marginLeft: 20,
+														}}
+													>
+														{contact.username}
+													</Text>
+												</View>
+											</TouchableOpacity>
+										);
+									})}
+								</View>
+							</ScrollView>
+						</SafeAreaView>
 					</View>
 				) : (
 					<View>

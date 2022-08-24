@@ -17,6 +17,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 
 const reviewSchema = yup.object({
+	title: yup.string().required().min(1),
 	description: yup.string().required().min(1),
 });
 
@@ -25,7 +26,6 @@ const EditNews = () => {
 	const navigation = useNavigate();
 	const user = useSelector((state) => state.games.user);
 	const New = useSelector((state) => state.games.newsInfo);
-	console.log(New);
 
 	function handleDelete(idNew) {
 		dispatch(deleteNews(idNew));
@@ -66,6 +66,9 @@ const EditNews = () => {
 									onBlur={formikProps.handleBlur("title")}
 									style={styles.input}
 								/>
+								<Text style={{ color: "red", fontSize: 15, marginBottom: -10 }}>
+									{formikProps.touched.title && formikProps.errors.title}
+								</Text>
 								<View style={styles.relleno}></View>
 								<TextInput
 									multiline={true}
@@ -78,6 +81,9 @@ const EditNews = () => {
 										height: 90,
 									}}
 								/>
+								<Text style={{ color: "red", fontSize: 15, marginBottom: -10 }}>
+									{formikProps.touched.description && formikProps.errors.description}
+								</Text>
 								<View style={styles.relleno}></View>
 								<View
 									style={{

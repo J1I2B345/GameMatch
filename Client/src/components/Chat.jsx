@@ -138,7 +138,7 @@ const Chat = () => {
 								alignItems: "center",
 							}}
 						>
-							<Text style={{ color: "#fff", fontSize: 35 }}>{userName.username}</Text>
+							<Text style={{ color: "#fff", fontSize: 25 }}>{userName.username}</Text>
 						</TouchableOpacity>
 					</View>
 					<ScrollView

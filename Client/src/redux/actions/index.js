@@ -104,20 +104,6 @@ export const sendStateNewsInfo = (newsInfo) => {
 	};
 };
 
-export const addNews = (news) => {
-	// return async () => {
-	// 	return await axios.post(`https://backend-gamematch.herokuapp.com/news`, news);
-	// };
-	return async () => {
-		let response = await axios.post(`https://backend-gamematch.herokuapp.com/news`, news);
-		if (response.data.error) alert("error: ", response.data.error);
-		else {
-			alert("Noticia creada exitosamente");
-			return response.data;
-		}
-	};
-};
-
 export const addReport = (report) => {
 	return async () => {
 		let response = await axios.post(
@@ -126,7 +112,18 @@ export const addReport = (report) => {
 		);
 		if (response.data.error) alert("error: ", response.data.error);
 		else {
-			alert("Noticia creada exitosamente");
+			alert("Successfully Report");
+			return response.data;
+		}
+	};
+};
+
+export const addNews = (news) => {
+	return async () => {
+		let response = await axios.post(`https://backend-gamematch.herokuapp.com/news`, news);
+		if (response.data.error) alert("error: ", response.data.error);
+		else {
+			alert("News created successfully");
 			return response.data;
 		}
 	};
