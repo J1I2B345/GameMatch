@@ -1,9 +1,18 @@
 import { Link } from "react-router-native";
 import { StyleSheet, View, Image } from "react-native";
+import { useSelector } from "react-redux";
 
 const Nav = () => {
+	const darkMood = useSelector((state) => state.games.darkMood);
+
 	return (
-		<View style={styles.container}>
+		<View
+			style={
+				darkMood == false
+					? styles.container
+					: { ...styles.container, backgroundColor: "#4D0F73" }
+			}
+		>
 			<View style={styles.icon_container}>
 				<Link to="/selectchat" underlayColor={"#9A01E2"} style={styles.icon}>
 					<Image

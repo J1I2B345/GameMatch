@@ -19,6 +19,7 @@ const initialState = {
 	newsInfo: [],
 	user: [],
 	userProfile: [],
+	darkMood: false,
 	userNameChat: {},
 	aux: [],
 	order: "Any",
@@ -31,6 +32,9 @@ const initialState = {
 const createReducer = (state = initialState, action) => {
 	const { type, payload } = action;
 	switch (type) {
+		case "DARK_MOOD":
+			return { ...state, darkMood: payload };
+
 		case CREATE_GAME:
 			return { ...state, games: [...state.games, payload] };
 

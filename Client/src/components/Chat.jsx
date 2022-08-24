@@ -26,6 +26,7 @@ const Chat = () => {
 	const userName = useSelector((state) => state.games.userNameChat);
 	const { id } = useParams();
 	const socket = useSelector((state) => state.games.socketIo);
+	const darkMood = useSelector((state) => state.games.darkMood);
 
 	useEffect(() => {
 		try {
@@ -100,17 +101,32 @@ const Chat = () => {
 			{userName && userName.username ? (
 				<View style={{ height: "100%" }}>
 					<View
-						style={{
-							height: Constants.statusBarHeight,
-							backgroundColor: "#281883",
-						}}
+						style={
+							darkMood == false
+								? {
+										height: Constants.statusBarHeight,
+										backgroundColor: "#281883",
+								  }
+								: {
+										height: Constants.statusBarHeight,
+										backgroundColor: "#4D0F73",
+								  }
+						}
 					></View>
 					<View
-						style={{
-							backgroundColor: "#281883",
-							alignItems: "center",
-							flexDirection: "row",
-						}}
+						style={
+							darkMood == false
+								? {
+										backgroundColor: "#281883",
+										alignItems: "center",
+										flexDirection: "row",
+								  }
+								: {
+										backgroundColor: "#4D0F73",
+										alignItems: "center",
+										flexDirection: "row",
+								  }
+						}
 					>
 						<TouchableOpacity
 							onPress={() => backToSelectChat()}

@@ -17,12 +17,13 @@ import Nav from "./Nav";
 import { getNameUserChat } from "../redux/actions";
 
 export default function SelectChat() {
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	let [contacts, setContacts] = useState("");
 	const [error, setError] = useState("");
 	let user = useSelector((state) => state.games.user);
+	let darkMood = useSelector((state) => state.games.darkMood);
 	let id = user._id;
-	const navigate = useNavigate();
-	const dispatch = useDispatch();
 
 	async function getChats() {
 		try {
@@ -61,14 +62,25 @@ export default function SelectChat() {
 							Chats
 						</Text>
 
-						<View
-							style={{
-								marginBottom: 5,
-								height: 2,
-								width: "90%",
-								backgroundColor: "#98228C",
-							}}
-						></View>
+						{darkMood == false ? (
+							<View
+								style={{
+									marginBottom: 5,
+									height: 2,
+									width: "90%",
+									backgroundColor: "#98228C",
+								}}
+							></View>
+						) : (
+							<View
+								style={{
+									marginBottom: 5,
+									height: 2,
+									width: "90%",
+									backgroundColor: "#4D0F73",
+								}}
+							></View>
+						)}
 
 						<SafeAreaView
 							style={{
@@ -86,15 +98,27 @@ export default function SelectChat() {
 											<TouchableOpacity
 												key={contact._id}
 												onPress={() => handleClick(contact._id)}
-												style={{
-													margin: 6,
-													padding: 10,
-													width: "94%",
-													borderRadius: 10,
-													flexDirection: "row",
-													alignItems: "center",
-													backgroundColor: "#3519B0",
-												}}
+												style={
+													darkMood == false
+														? {
+																margin: 6,
+																padding: 10,
+																width: "94%",
+																borderRadius: 10,
+																flexDirection: "row",
+																alignItems: "center",
+																backgroundColor: "#3519B0",
+														  }
+														: {
+																margin: 6,
+																padding: 10,
+																width: "94%",
+																borderRadius: 10,
+																flexDirection: "row",
+																alignItems: "center",
+																backgroundColor: "#4D0F73",
+														  }
+												}
 												activeOpacity={0.7}
 												underlayColor={""}
 											>
@@ -147,14 +171,25 @@ export default function SelectChat() {
 							Chats
 						</Text>
 
-						<View
-							style={{
-								marginBottom: 5,
-								height: 2,
-								width: "90%",
-								backgroundColor: "#98228C",
-							}}
-						></View>
+						{darkMood == false ? (
+							<View
+								style={{
+									marginBottom: 5,
+									height: 2,
+									width: "90%",
+									backgroundColor: "#98228C",
+								}}
+							></View>
+						) : (
+							<View
+								style={{
+									marginBottom: 5,
+									height: 2,
+									width: "90%",
+									backgroundColor: "#4D0F73",
+								}}
+							></View>
+						)}
 
 						<View style={{ height: "80%", justifyContent: "center" }}>
 							<Text

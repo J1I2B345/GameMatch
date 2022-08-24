@@ -13,6 +13,10 @@ import {
 } from "../constants";
 import axios from "axios";
 
+export const darkMoodChange = (mood) => (dispatch) => {
+	dispatch({ type: "DARK_MOOD", payload: mood });
+};
+
 export const createGame = (game) => (dispatch) => {
 	return fetch("https://backend-gamematch.herokuapp.com/games", {
 		method: "POST",
