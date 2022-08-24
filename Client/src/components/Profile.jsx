@@ -146,6 +146,34 @@ const Profile = () => {
 										/>
 									)}
 								</TouchableOpacity>
+								<TouchableOpacity
+									onPress={() => navigate("/profile/changepassword")}
+									activeOpacity={0.5}
+									style={{
+										marginLeft: 18,
+										paddingTop: 20,
+										paddingBottom: 10,
+										width: "100%",
+										borderRadius: 15,
+										flexDirection: "row",
+									}}
+								>
+									<Image
+										source={require("../../assets/password.png")}
+										style={{ width: 30, height: 30 }}
+									/>
+									<Text
+										style={{
+											marginLeft: 10,
+											marginBottom: 10,
+											width: "100%",
+											color: "white",
+											fontSize: 20,
+										}}
+									>
+										Change Password
+									</Text>
+								</TouchableOpacity>
 
 								<TouchableOpacity
 									activeOpacity={0.5}
