@@ -32,11 +32,15 @@ const Home = () => {
 				dispatch(addOneNotificacion(invitationUser));
 				Alert.alert("te llegó una notificación tilinn");
 			});
-			socket.on("server: invitationAccepted", (userThatAccepted) => {
-				Alert.alert(`${userThatAccepted.username} accepted you invitation. Let's chat!`);
+			socket.on("server: invitationAccepted", (invitationAccepted) => {
+				Alert.alert(
+					`${invitationAccepted.userThatAccepted.username} accepted you invitation. Let's chat!`
+				);
 			});
-			socket.on("server: invitationDeclined", (userThatDeclined) => {
-				Alert.alert(`${userThatAccepted.username} declined your invitation`);
+			socket.on("server: invitationDeclined", (invitationDeclined) => {
+				Alert.alert(
+					`${invitationDeclined.userThatDeclined.username} declined your invitation`
+				);
 			});
 			socket.on("server: erasePreviousNotifications", (_id) => {
 				dispatch(removeOneNotification(_id));
