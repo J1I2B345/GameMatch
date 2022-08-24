@@ -18,6 +18,7 @@ const verify = require("../middlewares/verifyLogin");
 router.get("/", async (req, res) => {
 	try {
 		const users = await UserSchema.find();
+
 		if (users) res.json(users);
 		else throw new Error("no users in the DB");
 	} catch (e) {

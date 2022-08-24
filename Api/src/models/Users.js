@@ -71,14 +71,24 @@ const schema = new Schema(
 			type: Boolean,
 			default: false,
 		},
-		reports: {
-			type: [
-				{
-					type: String,
-					reference: "ReportUsers",
-				},
-			],
-		},
+		reports: [
+			{
+				type: [
+					{
+						type: String,
+						reference: "ReportUsers",
+					},
+				],
+			},
+		],
+		// reports: {
+		// 	type: [
+		// 		{
+		// 			type: String,
+		// 			reference: "ReportUsers",
+		// 		},
+		// 	],
+		// },
 		matchs: {
 			type: Number,
 			default: 10,
