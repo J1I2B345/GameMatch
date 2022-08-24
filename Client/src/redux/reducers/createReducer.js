@@ -19,6 +19,7 @@ const initialState = {
 	newsInfo: [],
 	user: [],
 	userProfile: [],
+	darkMood: false,
 	userNameChat: {},
 	aux: [],
 	order: "Any",
@@ -31,13 +32,16 @@ const initialState = {
 const createReducer = (state = initialState, action) => {
 	const { type, payload } = action;
 	switch (type) {
+		case "DARK_MOOD":
+			return { ...state, darkMood: payload };
+
 		case CREATE_GAME:
 			return { ...state, games: [...state.games, payload] };
 
 		case "ADD_NEWS":
 			return { ...state, news: [payload, ...state.news] };
 
-		case "EDIT_PROFILE":
+		case "GET_USER_BY_ID":
 			return { ...state, userProfile: payload };
 
 		case "GET_ALL_NEWS":
@@ -68,7 +72,7 @@ const createReducer = (state = initialState, action) => {
 		case "REGISTER":
 			return { ...state };
 
-		case "USER":
+		case "ALL_USERS":
 			return {
 				...state,
 				aux: payload,

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { report, addReport } from "../redux/actions/index.js";
-import { Link, useNavigate } from "react-router-native";
+import { addReport } from "../redux/actions/index.js";
+import { useNavigate } from "react-router-native";
 import { connect } from "react-redux";
 import { StatusBar } from "expo-status-bar";
 import {
@@ -16,7 +16,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 
 const reportSchema = yup.object({
-	description: yup.string().required().min(1),
+	reason: yup.string().required().min(10),
 });
 
 const Reports = () => {
@@ -26,7 +26,8 @@ const Reports = () => {
 
 	const submits = async (values, actions) => {
 		dispatch(addReport(values));
-		navigation("/chat/profile");
+		// dispatch(deleteChat(values._id))
+		navigation("/selectchat");
 	};
 
 	function handleCancel() {
@@ -40,8 +41,7 @@ const Reports = () => {
 				<Formik
 					initialValues={{
 						author: user._id,
-						title: "",
-						description: "",
+						reason: "",
 					}}
 					validationSchema={reportSchema}
 					onSubmit={submits}
@@ -49,26 +49,25 @@ const Reports = () => {
 					{(formikProps) => (
 						<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 							<View style={styles.form_container}>
-								<Text style={styles.portada_text}>Report User</Text>
+								<Text style={styles.portada_title}>Report User</Text>
+								<Text style={styles.portada_text}>
+									When the report is sent the chat will be deleted so... the user can no
+									longer bother you
+								</Text>
 								<TextInput
 									placeholder="Reason"
-									onChangeText={formikProps.handleChange("title")}
-									value={formikProps.values.title}
-									onBlur={formikProps.handleBlur("title")}
-									style={styles.input}
-								/>
-								<View style={styles.relleno}></View>
-								<TextInput
-									placeholder="Description"
 									multiline={true}
-									onChangeText={formikProps.handleChange("description")}
-									value={formikProps.values.description}
-									onBlur={formikProps.handleBlur("description")}
+									onChangeText={formikProps.handleChange("reason")}
+									value={formikProps.values.reason}
+									onBlur={formikProps.handleBlur("reason")}
 									style={{
 										...styles.input,
 										height: 90,
 									}}
 								/>
+								<Text style={{ color: "red", fontSize: 15, marginBottom: -10 }}>
+									{formikProps.touched.reason && formikProps.errors.reason}
+								</Text>
 								<View style={styles.relleno}></View>
 								<View
 									style={{
@@ -143,12 +142,18 @@ const styles = StyleSheet.create({
 		backgroundColor: "#3019bf",
 		borderRadius: 20,
 	},
-	portada_text: {
-		marginBottom: 15,
+	portada_title: {
 		width: "100%",
 		color: "white",
 		textAlign: "center",
 		fontSize: 35,
+	},
+	portada_text: {
+		marginBottom: 10,
+		width: "100%",
+		color: "white",
+		textAlign: "center",
+		fontSize: 15,
 	},
 	form_container: {
 		width: "100%",

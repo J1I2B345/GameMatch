@@ -8,33 +8,13 @@ import { editProfile } from "../redux/actions";
 
 const Checkout = () => {
 	const redirect = useNavigate();
-	const [url, setUrl] = useState(null);
 	const dispatch = useDispatch();
+	const [url, setUrl] = useState(null);
 	const User = useSelector((state) => state.games.userProfile);
-	console.log(User);
+
 	const initialValues = {
 		_id: User._id,
 		premium: true,
-		username: User.username,
-		img: User.img
-			? User.img
-			: "https://www.pinpng.com/pngs/m/402-4020060_random-image-from-user-smash-ball-pixel-art.png",
-		description: User.description ? User.description : "",
-		socialNetworks: {
-			steam:
-				User.socialNetworks && User.socialNetworks.steam ? User.socialNetworks.steam : "",
-			riot:
-				User.socialNetworks && User.socialNetworks.riot ? User.socialNetworks.riot : "",
-			discord:
-				User.socialNetworks && User.socialNetworks.discord
-					? User.socialNetworks.discord
-					: "",
-			ig: User.socialNetworks && User.socialNetworks.ig ? User.socialNetworks.ig : "",
-			twitter:
-				User.socialNetworks && User.socialNetworks.twitter
-					? User.socialNetworks.twitter
-					: "",
-		},
 	};
 	const comprador = { email: User.email };
 	const urlpago = "https://backend-gamematch.herokuapp.com/pago";
