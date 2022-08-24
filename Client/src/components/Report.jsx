@@ -16,7 +16,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 
 const reportSchema = yup.object({
-	reason: yup.string().required().min(10),
+	description: yup.string().required().min(10),
 });
 
 const Reports = () => {
@@ -26,7 +26,6 @@ const Reports = () => {
 	const reportedUsers = useSelector((state) => state.games.userNameChat);
 
 	const submits = async (values, actions) => {
-		// console.log(values)
 		dispatch(addReport(values));
 		navigation("/selectchat");
 	};
@@ -42,7 +41,8 @@ const Reports = () => {
 				<Formik
 					initialValues={{
 						author: user._id,
-						reason: "",
+						title: user.username,
+						description: "",
 						reportedUser: reportedUsers._id,
 					}}
 					validationSchema={reportSchema}
@@ -59,16 +59,16 @@ const Reports = () => {
 								<TextInput
 									placeholder="Reason"
 									multiline={true}
-									onChangeText={formikProps.handleChange("reason")}
-									value={formikProps.values.reason}
-									onBlur={formikProps.handleBlur("reason")}
+									onChangeText={formikProps.handleChange("description")}
+									value={formikProps.values.description}
+									onBlur={formikProps.handleBlur("description")}
 									style={{
 										...styles.input,
 										height: 90,
 									}}
 								/>
 								<Text style={{ color: "red", fontSize: 15, marginBottom: -10 }}>
-									{formikProps.touched.reason && formikProps.errors.reason}
+									{formikProps.touched.description && formikProps.errors.description}
 								</Text>
 								<View style={styles.relleno}></View>
 								<View
