@@ -45,7 +45,7 @@ module.exports = (io) => {
 		socket.on("client: invitationDeclined", (invitationDeclined) => {
 			socket
 				.to(invitationDeclined.userThatInvited.socketid)
-				.emit("server: invitationDeclined", msg);
+				.emit("server: invitationDeclined", invitationDeclined);
 		});
 
 		socket.on("client: erasePreviousNotifications", (_id) => {
