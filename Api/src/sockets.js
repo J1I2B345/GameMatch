@@ -50,8 +50,8 @@ module.exports = (io) => {
 				.emit("server: invitationDeclined", invitationDeclined);
 		});
 
-		socket.on("client: erasePreviousNotifications", (_id) => {
-			socket.broadcast.emit("server: erasePreviousNotifications", _id);
+		socket.on("client: erasePreviousNotifications", (user) => {
+			socket.broadcast.emit("server: erasePreviousNotifications", user);
 		});
 
 		//chats
@@ -83,8 +83,11 @@ module.exports = (io) => {
 					}
 
 					//notifications
-
-					io.emit("server: erasePreviousNotifications", global[socket.id]._id);
+					socket.broadcast.emit(
+						"server: erasePreviousNotifications",
+						global[socket.id]._id
+					);
+					io.emit("server: erasePreviousNotifications", global[socket.id]);
 
 					//chat
 					leaveChat(global[socket.id]._id);

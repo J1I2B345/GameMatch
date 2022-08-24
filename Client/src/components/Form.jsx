@@ -47,7 +47,7 @@ export default function Form() {
 	function handleSubmit() {
 		dispatch(removeAllNotifications());
 		socket.emit("leaveRoom", user);
-		socket.emit("client: erasePreviousNotifications", user._id);
+		socket.emit("client: erasePreviousNotifications", user);
 		playerRank ? (user = { ...user, elo: playerRank }) : "";
 		playerPosition ? (user = { ...user, position: playerPosition }) : "";
 		socket.emit("joinRoom", user);

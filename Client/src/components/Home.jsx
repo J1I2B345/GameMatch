@@ -48,8 +48,8 @@ const Home = () => {
 				);
 				alert(`${invitationDeclined.userThatDeclined.username} declined your invitation`);
 			});
-			socket.on("server: erasePreviousNotifications", (_id) => {
-				dispatch(removeOneNotification(_id));
+			socket.on("server: erasePreviousNotifications", (user) => {
+				dispatch(removeOneNotification(user));
 			});
 		}
 	}, []);
