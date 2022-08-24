@@ -23,10 +23,11 @@ const Reports = () => {
 	const dispatch = useDispatch();
 	const navigation = useNavigate();
 	const user = useSelector((state) => state.games.user);
+	const reportedUsers = useSelector((state) => state.games.userNameChat);
 
 	const submits = async (values, actions) => {
+		// console.log(values)
 		dispatch(addReport(values));
-		// dispatch(deleteChat(values._id))
 		navigation("/selectchat");
 	};
 
@@ -42,6 +43,7 @@ const Reports = () => {
 					initialValues={{
 						author: user._id,
 						reason: "",
+						reportedUser: reportedUsers._id,
 					}}
 					validationSchema={reportSchema}
 					onSubmit={submits}
