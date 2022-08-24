@@ -136,7 +136,7 @@ router.post("/register", verify.checkExistingUser, async (req, res) => {
 			html: `<h1>Email Confirmation</h1>
 				<h2>Hello ${username}</h2>
 				<p>Thank you for register. Please confirm your email by clicking on the following link</p>
-				<a https://backend-gamematch.herokuapp.com/users/confirm/${newUser._id}> Click here</a>
+				<a href="https://backend-gamematch.herokuapp.com/users/confirm/${newUser._id}"> Click here</a>
 				</div>`,
 		});
 		console.log(msg);
@@ -225,7 +225,10 @@ router.put(
 	}), //*------
 	async (req, res) => {
 		try {
-			req.body.password = await UserSchema.encryptPassword(req.body.password);
+			console.log(req.body);
+			if (req.body.password) {
+				req.body.password = await UserSchema.encryptPassword(req.body.password);
+			}
 			req.body.username = req.body.username?.trim();
 			req.body.email = req.body.email?.trim();
 			if (req.body.roles) {
@@ -250,8 +253,7 @@ router.put(
 			console.log("UPDATE :" + userUpdate.username);
 			res.status(200).json(userUpdate);
 		} catch (error) {
-			console.log("Error trying to update a user");
-			res.status(500).json({ error: error.message });
+			res.status(500).json(error);
 		}
 	}
 );
@@ -283,9 +285,7 @@ router.delete(
 			res.status(500).json({ error: error.message });
 		}
 	}
-
 );
-
 
 //*----------------CONFIRM USER------------------------
 
@@ -298,6 +298,5 @@ router.get("/confirm/:id", async (req, res) => {
 		console.log(e);
 	}
 });
-
 
 module.exports = router;
