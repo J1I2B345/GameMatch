@@ -147,7 +147,7 @@ const Profile = () => {
 													fontSize: 20,
 												}}
 											>
-												¿Are you sure you want to log out?
+												¿Are you sure you want to sing out?
 											</Text>
 											<View
 												style={{

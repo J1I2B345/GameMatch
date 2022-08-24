@@ -136,7 +136,7 @@ const Container = styled.div`
 		width: 25em;
 		height: auto;
 		position: relative;
-		background: #fff;
+		background: #5b146c;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -173,7 +173,6 @@ const Container = styled.div`
 		background-image: url(cycling.jpg);
 	}
 	.card:hover {
-		background: #e84393;
 		color: #fff;
 		box-shadow: 0px 0px 11px 5px #000000;
 	}
