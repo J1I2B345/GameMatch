@@ -110,6 +110,9 @@ export default function Room() {
 				setPlayersInOrder(playersOrder);
 			}
 		});
+		return () => {
+			socket.off("gameUsers");
+		};
 	}, [socket, players]);
 
 	return (
