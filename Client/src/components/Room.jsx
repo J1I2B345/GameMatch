@@ -74,11 +74,14 @@ export default function Room() {
 		}
 	}, [elo, order, position, players]);
 
-	useEffect(() => {}, []);
-
 	useEffect(() => {
 		socket.emit("getGameUsers", user);
+		console.log("estoy emitiendo getGameUsers");
+	}, []);
+
+	useEffect(() => {
 		socket.on("gameUsers", (data) => {
+			console.log("recibí gameUsers", data);
 			if (data) {
 				let playersList = data.filter((e) => e._id !== user._id);
 				setPlayers(playersList);
