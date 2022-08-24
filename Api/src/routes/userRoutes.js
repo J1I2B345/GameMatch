@@ -225,7 +225,6 @@ router.put(
 	}), //*------
 	async (req, res) => {
 		try {
-			console.log(req.body);
 			if (req.body.password) {
 				req.body.password = await UserSchema.encryptPassword(req.body.password);
 			}
