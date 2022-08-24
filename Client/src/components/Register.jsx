@@ -200,7 +200,7 @@ const Register = () => {
 						style={{
 							marginTop: 4,
 							marginBottom: 30,
-							width: "78%",
+							width: "74%",
 							height: 0.3,
 							backgroundColor: "white",
 						}}

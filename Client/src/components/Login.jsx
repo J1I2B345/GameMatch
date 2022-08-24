@@ -196,7 +196,7 @@ const Login = () => {
 					<View
 						style={{
 							marginTop: 4,
-							width: "78%",
+							width: "75%",
 							height: 0.3,
 							backgroundColor: "white",
 							marginBottom: 45,

@@ -44,7 +44,7 @@ export default function InvitationsRoom() {
 						<View style={{ height: "100%", justifyContent: "center" }}>
 							<Text
 								style={{
-									marginTop: "90%",
+									marginTop: "85%",
 									textAlign: "center",
 									color: "white",
 									fontSize: 20,
