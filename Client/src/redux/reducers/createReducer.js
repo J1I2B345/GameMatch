@@ -126,11 +126,6 @@ const createReducer = (state = initialState, action) => {
 				),
 				payload,
 			};
-		// case SOCKET:
-		// 	return {
-		// 		...state,
-		// 		socketIo: payload,
-		// 	};
 		default:
 			return state;
 	}

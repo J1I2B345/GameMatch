@@ -20,7 +20,7 @@ import InvitationsRoom from "./InvitationsRoom.jsx";
 import Report from "./Report.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { addOneNotificacion } from "../redux/actions/index.js";
+import { addOneNotificacion, removeOneNotification } from "../redux/actions/index.js";
 
 const Home = () => {
 	const socket = useSelector((state) => state.games.socketIo);
@@ -37,6 +37,9 @@ const Home = () => {
 			});
 			socket.on("server: invitationDeclined", (userThatDeclined) => {
 				Alert.alert(`${userThatAccepted.username} declined your invitation`);
+			});
+			socket.on("server: erasePreviousNotifications", (_id) => {
+				dispatch(removeOneNotification(_id));
 			});
 		}
 	}, []);

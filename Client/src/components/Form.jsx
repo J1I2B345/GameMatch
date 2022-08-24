@@ -40,14 +40,11 @@ export default function Form() {
 	}
 
 	function handleSubmit() {
+		socket.emit("leaveRoom", user);
+		socket.emit("client: erasePreviousNotifications", user._id);
 		playerRank ? (user = { ...user, elo: playerRank }) : "";
 		playerPosition ? (user = { ...user, position: playerPosition }) : "";
 		dispatch(updateUser(user));
-
-		/// que acá haga el join => tiene que limpiar tu _id de todos los juegos para sacarte de las salas
-		/// tiene que agregarte a la nueva sala
-		socket.emit("start", "estoy haciendo click en el start del formulario");
-		/// here the leave/join room?
 	}
 
 	return (

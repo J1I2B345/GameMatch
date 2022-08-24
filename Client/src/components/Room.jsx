@@ -77,16 +77,11 @@ export default function Room() {
 	}, [elo, order, position, players]);
 
 	useEffect(() => {
-		// socket.current = io("https://backend-gamematch.herokuapp.com/");
-		// dispatch(setSocketIo(socket.current));
-
-		//debería agregar los jugadores
+		//should add players to room
 		socket.emit("joinRoom", user);
-		//
 
 		return () => {
 			socket.off("gameUsers");
-			socket.emit("leaveRoom", user);
 
 			dispatch(orderByRating("Any"));
 			dispatch(orderByElo("All"));

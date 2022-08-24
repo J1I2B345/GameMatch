@@ -48,6 +48,10 @@ module.exports = (io) => {
 				.emit("server: invitationDeclined", msg);
 		});
 
+		socket.on("client: erasePreviousNotifications", (_id) => {
+			io.broadcast.emit("server: erasePreviousNotifications", _id);
+		});
+
 		//playerChangeRoom
 		socket.on("start", (msg) => console.log(msg));
 		//limpiar las notificaciones del usuario.
@@ -91,6 +95,7 @@ module.exports = (io) => {
 				global[socket.id] = null;
 				delete global[socket.id];
 			}
+			f;
 		});
 	});
 };
