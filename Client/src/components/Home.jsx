@@ -18,6 +18,7 @@ import Register from "./Register.jsx";
 import Checkout from "./Checkout.jsx";
 import InvitationsRoom from "./InvitationsRoom.jsx";
 import Report from "./Report.jsx";
+import ChangePassword from "./ChangePassword.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { addOneNotificacion, removeOneNotification } from "../redux/actions/index.js";
@@ -60,6 +61,7 @@ const Home = () => {
 				<Route path="/chat/:id" element={<Chat />} />
 				<Route path="/chat/profile" element={<ChatProfile />} />
 				<Route path="/profile" element={<Profile />} />
+				<Route path="/profile/changepassword" element={<ChangePassword />} />
 				<Route path="/profile/edit" element={<EditProfile />} />
 				<Route path="/whypremium" element={<WhyPremium />} />
 				<Route path="/news" element={<News />} />
