@@ -43,7 +43,6 @@ const Home = () => {
 				);
 			});
 			socket.on("server: erasePreviousNotifications", (_id) => {
-				console.log("alguien salió");
 				dispatch(removeOneNotification(_id));
 			});
 		}
