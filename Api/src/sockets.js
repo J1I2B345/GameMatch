@@ -16,8 +16,7 @@ module.exports = (io) => {
 
 		//sendUsers
 		socket.on("getGameUsers", (user) => {
-			console.log("recibiendo getGameUsers", user);
-			socket.to(user.socketid).emit("gameUsers", getGameUsers(user.game));
+			socket.to(user.socketid).emit("sendGameUsers", getGameUsers(user.game));
 		});
 
 		socket.on("leaveRoom", (user) => {
