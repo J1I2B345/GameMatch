@@ -120,7 +120,10 @@ export const sendStateNewsInfo = (newsInfo) => {
 export const addReport = (report) => {
 	return async () => {
 		// console.log(report)
-		let response = await axios.post(`http://localhost:3001/reports`, report);
+		let response = await axios.post(
+			`https://backend-gamematch.herokuapp.com/reports`,
+			report
+		);
 		if (response.data.error) alert("error: ", response.data.error);
 		else {
 			alert("Successfully Report");

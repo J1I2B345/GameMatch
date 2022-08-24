@@ -26,7 +26,7 @@ const Reports = () => {
 	const reportedUsers = useSelector((state) => state.games.userNameChat);
 
 	const submits = async (values, actions) => {
-		// console.log(values)
+		console.log(values);
 		dispatch(addReport(values));
 		navigation("/selectchat");
 	};
