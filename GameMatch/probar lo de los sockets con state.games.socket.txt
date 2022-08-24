@@ -1,0 +1,21 @@
+constant s
+export const CREATE_SOCKET= "CREATE_SOCKET"
+
+
+actions
+socket.current.on('server: received message', (msg) => {console.log('msg recibido', msg.message, 'estado actual de chatMessage:', chatMessage, 'estado de chatMessages', chatMessages), setChatMessages([...chatMessages, msg.message])})
+
+          return()=>{
+               socket.current.off('server: received message')
+          }
+
+
+reducer
+
+ case CREATE_SOCKET:
+               return {
+                    ...state, 
+                    socket: payload
+               }
+
+

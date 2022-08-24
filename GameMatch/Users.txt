@@ -1,0 +1,39 @@
+{
+        "_id": "62eab75414a6ecd141376019",
+        "email": "userMishuno@gmail.com",
+        "rating": {
+            "$numberDecimal": "5"
+        },
+        "premium": false,
+        "rol": "user",
+        "chats": [],
+        "reviews": [],
+        "givenReviews": [],
+        "username": "Michi",
+        "img": "https://img.itch.zone/aW1nLzQyMTg3MTcuanBn/original/AfGtkn.jpg",
+        "description": "un michi gamer",
+        "steam": "zXunMichuGamerXz",
+        "riot": "zXunMichuGamerXz",
+        "password": "exellentYpezcado",
+        "__v": 0
+    },
+    {
+        "_id": "62eb0c01955a70c903573050",
+        "email": "userMishuno2@gmail.com",
+        "rating": {
+            "$numberDecimal": "5"
+        },
+        "premium": false,
+        "rol": "adc",
+        "chats": [],
+        "reviews": [],
+        "givenReviews": [],
+        "username": "Michi2",
+        "img": "https://img.itch.zone/aW1nLzQyMTg3MTcuanBn/original/AfGtkn.jpg",
+        "description": "un michi gamer",
+        "steam": "zXunMichuGamerXz2",
+        "riot": "zXunMichuGamerXz2",
+        "password": "exellentYpezcadow",
+        "__v": 0,
+        "name": "michi"
+    }

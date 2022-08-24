@@ -14,8 +14,10 @@ module.exports = (io) => {
 			}
 		});
 
-		//socket.on('getGameUsers', user)
-		// socket.to('').getgameusers(user.game)
+		//sendUsers
+		socket.on("getGameUsers", (user) => {
+			socket.to(user.socketid).emit("gameUsers", getGameUsers(user.game));
+		});
 
 		socket.on("leaveRoom", (user) => {
 			try {
@@ -69,25 +71,29 @@ module.exports = (io) => {
 		//
 
 		socket.on("disconnect", () => {
-			// rooms
 			try {
+				// rooms
 				if (global[socket.id]) {
-					leaveRoom(global[socket.id].game, global[socket.id]._id);
-					io.to(global[socket.id].game).emit(
-						"gameUsers",
-						getGameUsers(global[socket.id].game)
-					);
+					if (global[socket.id].game) {
+						leaveRoom(global[socket.id].game, global[socket.id]._id);
+						io.to(global[socket.id].game).emit(
+							"gameUsers",
+							getGameUsers(global[socket.id].game)
+						);
+					}
+
+					//notifications
+					socket.on("client: erasePreviousNotifications", (_id) => {
+						socket.broadcast.emit("server: erasePreviousNotifications", _id);
+					});
+
+					//chat
+					leaveChat(global[socket.id]._id);
 					global[socket.id] = null;
 					delete global[socket.id];
 				}
 			} catch (e) {
 				console.log(e.message);
-			}
-			//chat
-			if (global[socket.id]) {
-				leaveChat(global[socket.id]._id);
-				global[socket.id] = null;
-				delete global[socket.id];
 			}
 		});
 	});
