@@ -76,9 +76,6 @@ export default function Room() {
 
 	useEffect(() => {
 		socket.emit("getGameUsers", user);
-		socket.on("sendGameUsers", (data) => {
-			console.log("recibiendo data porque la pedí con sendUser", data[data.length - 1]);
-		});
 	}, []);
 
 	useEffect(() => {
