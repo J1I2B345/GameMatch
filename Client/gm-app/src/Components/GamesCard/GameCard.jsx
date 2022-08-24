@@ -48,13 +48,13 @@ const GameCard = () => {
 	return (
 		<Container>
 			{gamesDB.map((data) => (
-				<div key={data.name}>
-					<div>
-						<h2>{data.name}</h2>
-						<button onClick={(e) => navigate(`games/${data._id}`)}>{t("Edit")}</button>
+				<div className="card-container">
+					<div className="card" key={data.name}>
+						<div>
+							<img className="image-game" src={data.image} alt="" key={data._id} />
+						</div>
 						<button onClick={(e) => deleteButton(data._id)}>{t("delete")}</button>
-						<br />
-						<img className="image-game" src={data.image} alt="" key={data._id} />
+						<button onClick={(e) => navigate(`games/${data._id}`)}>{t("modify")}</button>
 					</div>
 				</div>
 			))}
@@ -67,23 +67,18 @@ export default GameCard;
 const Container = styled.div`
 	height: 100%;
 	width: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	gap: 1rem;
+	display: grid;
+	flex-direction: row;
+	grid-template-columns: repeat(3, minmax(200px, 1fr));
+	align-items: stretch;
+	gap: 3em;
 	align-items: center;
 	background-color: #5f0f99;
-	.image-game {
-		margin-top: 2rem;
-		margin-bottom: 2rem;
-		height: 20rem;
-		border-radius: 30px;
-	}
-	html,
-	body {
-		height: 100%;
-		min-height: 100%;
-		max-height: 100%;
+
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
 	}
 
 	.login-link {
@@ -123,11 +118,12 @@ const Container = styled.div`
 	button {
 		background-color: #9a01e2;
 		color: #f2f0f1;
-		padding: 1rem 2rem;
+		width: 100%;
+		margin-bottom: 1em;
 		border: none;
 		font-weight: bold;
 		cursor: pointer;
-		border-radius: 0.4rem;
+		border-radius: 0.2em;
 		font-size: 1rem;
 		text-transform: uppercase;
 		&:hover {
@@ -142,5 +138,40 @@ const Container = styled.div`
 			text-decoration: none;
 			font-weight: bold;
 		}
+	}
+	.card-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 15px;
+		flex-wrap: wrap;
+	}
+	.card {
+		width: 25em;
+		height: auto;
+		position: relative;
+		background: transparent;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		border-radius: 4px;
+		padding: 20px;
+		transition: all 0.3s ease-in;
+	}
+	.card > * {
+		padding: 10px;
+	}
+	.card .image-game {
+		height: 100%;
+		width: 25em;
+		background-position: center center;
+		background-size: cover;
+		border-radius: 30px;
+	}
+
+	.card:hover {
+		color: #fff;
+		box-shadow: 0px 0px 11px 5px #000000;
 	}
 `;

@@ -33,5 +33,6 @@
 	"edit_new": "Modificar noticia",
 	"new_story_to_modify": "Noticia a modificar",
 	"create_game": "Crear Juego",
-	"create": "Crear"
+	"create": "Crear",
+	"select_user": "Selecciona un usuario"
 }

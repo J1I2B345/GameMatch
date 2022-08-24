@@ -13,6 +13,7 @@ import {
 	ScrollView,
 	Image,
 	Alert,
+	TouchableOpacity,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
@@ -166,7 +167,6 @@ const Register = () => {
 					<View
 						style={{
 							marginTop: 30,
-							marginBottom: 30,
 							flexDirection: "row",
 							fontSize: 15,
 							height: "auto",
@@ -175,23 +175,36 @@ const Register = () => {
 						<Text
 							style={{
 								color: "white",
-								fontSize: 20,
+								fontSize: 18,
 							}}
 						>
-							Alredy have account?
+							Alredy have an account?
 						</Text>
-						<Link to="/" activeOpacity={1} underlayColor={"none"}>
+						<TouchableOpacity
+							onPress={() => navigation("/")}
+							activeOpacity={0.5}
+							underlayColor={"none"}
+						>
 							<Text
 								style={{
 									color: "violet",
-									fontSize: 20,
+									fontSize: 18,
 								}}
 							>
 								{" "}
 								◉ Login!
 							</Text>
-						</Link>
+						</TouchableOpacity>
 					</View>
+					<View
+						style={{
+							marginTop: 4,
+							marginBottom: 30,
+							width: "78%",
+							height: 0.3,
+							backgroundColor: "white",
+						}}
+					></View>
 				</View>
 				<StatusBar style="auto" />
 			</ScrollView>
