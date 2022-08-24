@@ -81,7 +81,7 @@ export default function Room() {
 
 	useEffect(() => {
 		socket.on("gameUsers", (data) => {
-			console.log("recibí gameUsers", data);
+			console.log("recibí gameUsers", data[data.length - 1]);
 			if (data) {
 				let playersList = data.filter((e) => e._id !== user._id);
 				setPlayers(playersList);
