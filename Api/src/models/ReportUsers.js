@@ -6,27 +6,14 @@ const schema = new Schema({
 		reference: "Users",
 		required: true,
 	},
-	users: {
-		type: [
-			{
-				type: Schema.Types.ObjectId,
-				referece: "Users",
-				required: true,
-			},
-		],
+	reportedUser: {
+		type: Schema.Types.ObjectId,
+		referece: "Users",
+		required: true,
 	},
-	title: {
+	reason: {
 		type: String,
 		required: true,
 	},
-	description: {
-		type: String,
-		required: true,
-	},
-	// reportedUser: {
-	//   type: Schema.Types.ObjectId,
-	//   reference: "Users",
-	//   required: false,
-	// },
 });
 module.exports = model("ReportUsers", schema);

@@ -24,36 +24,20 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-	const { author, users, title, description, reportedUser } = req.body;
+	const { author, reportedUser, reason } = req.body;
+	console.log(author, reportedUser, reason);
 	try {
-		//   const report = new ReportUsers({
-		// 	author,
-		// 	title,
-		// 	description,
-		// 	reportedUser,
-		//   });
-		//   const saveReport = await report.save();
-		//   if (report) res.status(201).json(saveReport);
-		// if (users[0] === users[1])
-		// throw new Error("sender and receiver must be two differents users");
-		// if (author !== users[0] && author !== users[1])
-		// throw new Error("sender must be one of the users in this chat");
-		const chat = { author, description, users, title };
-		const chatSaved = await ReportUsers.create(chat);
+		const report = { author, reason, reportedUser };
+		const reportSaved = await ReportUsers.create(report);
 
-		if (chatSaved) {
-			const addUser0ToChatOfUser1 = await UserSchema.findByIdAndUpdate(
-				// users[1],
-				author,
-				{
-					$addToSet: {
-						reports: [users, title, description],
-					},
-				}
-				// { new: true }
-			);
+		if (reportSaved) {
+			const addUser0ToChatOfUser1 = await UserSchema.findByIdAndUpdate(reportedUser, {
+				$addToSet: {
+					reports: [author, reason],
+				},
+			});
 
-			res.status(201).send("Message send");
+			res.status(201).send("Report created");
 		}
 	} catch (error) {
 		res.status(400).send({ error: error.message });
