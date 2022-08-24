@@ -92,6 +92,7 @@ export default function InvitationsRoom() {
 					/>
 				</Link>
 			)}
+			<Nav />
 		</View>
 	);
 }
