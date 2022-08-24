@@ -38,12 +38,11 @@ const EditProfile = () => {
 
 	const users = useSelector((state) => state.games.aux);
 
-	const { _id, premium, username, img, description, socialNetworks } = useSelector(
+	const { _id, username, img, description, socialNetworks } = useSelector(
 		(state) => state.games.userProfile
 	);
 	const User = {
 		_id,
-		premium,
 		username,
 		img,
 		description,
@@ -89,7 +88,6 @@ const EditProfile = () => {
 					<Formik
 						initialValues={{
 							_id: User._id,
-							premium: User.premium,
 							username: User.username,
 							img: User.img
 								? User.img

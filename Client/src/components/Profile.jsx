@@ -10,25 +10,32 @@ import {
 	TouchableOpacity,
 	Modal,
 } from "react-native";
-import { connect, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-native";
 import Constants from "expo-constants";
 import Nav from "./Nav";
 import Spinner from "./Spinner";
 import { useState } from "react";
+import { useEffect } from "react";
+import { getUserById } from "../redux/actions";
 
 const Profile = () => {
-	const User = useSelector((state) => state.games.userProfile);
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const user = useSelector((state) => state.games.user);
 
-	const navigate = useNavigate();
+	useEffect(() => {
+		dispatch(getUserById(user._id));
+	}, [dispatch]);
+
+	const User = useSelector((state) => state.games.userProfile);
 
 	let arrayStars = [];
 
-	if (user.rating) {
-		if (user.rating.$numberDecimal) {
+	if (User.rating) {
+		if (User.rating.$numberDecimal) {
 			(() => {
-				let ratingCont = user.rating.$numberDecimal;
+				let ratingCont = User.rating.$numberDecimal;
 				while (ratingCont > 0) {
 					ratingCont = ratingCont - 1;
 					arrayStars.push(arrayStars.length + 1);
@@ -85,6 +92,14 @@ const Profile = () => {
 										}}
 									>
 										Theme
+										<Text
+											style={{
+												color: "gray",
+											}}
+										>
+											{"     "}
+											{User.dark === false ? "light" : "dark"}
+										</Text>
 									</Text>
 								</TouchableOpacity>
 

@@ -53,12 +53,23 @@ export default function SelectChat() {
 						<Text
 							style={{
 								marginTop: Constants.statusBarHeight,
+								marginBottom: 5,
 								color: "white",
 								fontSize: 40,
 							}}
 						>
 							Chats
 						</Text>
+
+						<View
+							style={{
+								marginBottom: 5,
+								height: 2,
+								width: "90%",
+								backgroundColor: "#98228C",
+							}}
+						></View>
+
 						<SafeAreaView
 							style={{
 								width: "100%",
@@ -124,25 +135,39 @@ export default function SelectChat() {
 						</SafeAreaView>
 					</View>
 				) : (
-					<View>
+					<View style={{ height: "100%" }}>
 						<Text
 							style={{
 								marginTop: Constants.statusBarHeight,
+								marginBottom: 5,
 								color: "white",
 								fontSize: 40,
 							}}
 						>
 							Chats
 						</Text>
-						<Text
+
+						<View
 							style={{
-								color: "white",
-								fontSize: 25,
-								marginLeft: 10,
+								marginBottom: 5,
+								height: 2,
+								width: "90%",
+								backgroundColor: "#98228C",
 							}}
-						>
-							No friends to chat
-						</Text>
+						></View>
+
+						<View style={{ height: "80%", justifyContent: "center" }}>
+							<Text
+								style={{
+									textAlign: "center",
+									color: "white",
+									fontSize: 25,
+									marginLeft: 10,
+								}}
+							>
+								No friends to chat
+							</Text>
+						</View>
 					</View>
 				)
 			) : (

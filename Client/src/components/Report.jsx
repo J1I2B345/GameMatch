@@ -51,7 +51,7 @@ const Reports = () => {
 							<View style={styles.form_container}>
 								<Text style={styles.portada_title}>Report User</Text>
 								<Text style={styles.portada_text}>
-									when the report is sent the chat will be deleted so... the user can no
+									When the report is sent the chat will be deleted so... the user can no
 									longer bother you
 								</Text>
 								<TextInput

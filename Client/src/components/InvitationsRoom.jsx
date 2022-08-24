@@ -33,17 +33,19 @@ export default function InvitationsRoom() {
 							);
 						})
 					) : (
-						<Text
-							style={{
-								marginTop: Constants.statusBarHeight,
-								textAlign: "center",
-								color: "white",
-								fontSize: 20,
-							}}
-						>
-							{" "}
-							No invitations received
-						</Text>
+						<View style={{ height: "100%", justifyContent: "center" }}>
+							<Text
+								style={{
+									marginTop: "90%",
+									textAlign: "center",
+									color: "white",
+									fontSize: 20,
+								}}
+							>
+								{" "}
+								No invitations received
+							</Text>
+						</View>
 					)}
 				</View>
 			</ScrollView>
