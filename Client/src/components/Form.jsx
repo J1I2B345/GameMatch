@@ -4,7 +4,7 @@ import { Text, View, Image, TouchableOpacity } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Link, useParams } from "react-router-native";
 import { useSelector, useDispatch } from "react-redux";
-import { updateUser } from "../redux/actions";
+import { removeAllNotifications, updateUser } from "../redux/actions";
 import Constants from "expo-constants";
 import Spinner from "./Spinner";
 import Nav from "./Nav";
@@ -17,6 +17,7 @@ export default function Form() {
 	let dispatch = useDispatch();
 	let user = useSelector((state) => state.games.user);
 	const games = useSelector((state) => state.games.games);
+	const socket = useSelector((state) => state.games.socketIo);
 
 	const fetchGame = () => {
 		let respuesta = games.find((e) => e._id === id);
@@ -38,11 +39,12 @@ export default function Form() {
 	}
 
 	function handleSubmit() {
+		dispatch(removeAllNotifications());
+		socket.emit("leaveRoom", user);
+		socket.emit("client: erasePreviousNotifications", user._id);
 		playerRank ? (user = { ...user, elo: playerRank }) : "";
 		playerPosition ? (user = { ...user, position: playerPosition }) : "";
 		dispatch(updateUser(user));
-
-		/// here the leave/join room?
 	}
 
 	return (

@@ -20,7 +20,7 @@ import InvitationsRoom from "./InvitationsRoom.jsx";
 import Report from "./Report.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { addOneNotificacion } from "../redux/actions/index.js";
+import { addOneNotificacion, removeOneNotification } from "../redux/actions/index.js";
 
 const Home = () => {
 	const socket = useSelector((state) => state.games.socketIo);
@@ -32,11 +32,18 @@ const Home = () => {
 				dispatch(addOneNotificacion(invitationUser));
 				Alert.alert("te llegó una notificación tilinn");
 			});
-			socket.on("server: invitationAccepted", (userThatAccepted) => {
-				Alert.alert("te aceptaron una invitación");
+			socket.on("server: invitationAccepted", (invitationAccepted) => {
+				Alert.alert(
+					`${invitationAccepted.userThatAccepted.username} accepted you invitation. Let's chat!`
+				);
 			});
-			socket.on("server: invitationDeclined", (userThatDeclined) => {
-				Alert.alert("te rechazaron una invitación");
+			socket.on("server: invitationDeclined", (invitationDeclined) => {
+				Alert.alert(
+					`${invitationDeclined.userThatDeclined.username} declined your invitation`
+				);
+			});
+			socket.on("server: erasePreviousNotifications", (_id) => {
+				dispatch(removeOneNotification(_id));
 			});
 		}
 	}, []);

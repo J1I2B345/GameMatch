@@ -119,18 +119,13 @@ const createReducer = (state = initialState, action) => {
 				notifications: [],
 			};
 		case REMOVE_ONE_NOTIFICATION:
+			console.log;
 			return {
 				...state,
 				notifications: state.notifications.filter(
-					(notification) => notification._id !== payload._id
+					(notification) => notification._id !== payload
 				),
-				payload,
 			};
-		// case SOCKET:
-		// 	return {
-		// 		...state,
-		// 		socketIo: payload,
-		// 	};
 		default:
 			return state;
 	}
