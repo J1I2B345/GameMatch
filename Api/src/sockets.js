@@ -49,14 +49,8 @@ module.exports = (io) => {
 		});
 
 		socket.on("client: erasePreviousNotifications", (_id) => {
-			io.broadcast.emit("server: erasePreviousNotifications", _id);
+			socket.broadcast.emit("server: erasePreviousNotifications", _id);
 		});
-
-		//playerChangeRoom
-		socket.on("start", (msg) => console.log(msg));
-		//limpiar las notificaciones del usuario.
-		// las notificaciones tendrían que estar en algún lugar
-		// entonces tendría que haber tipo un objeto que sea invitations = {id:{sent: }}
 
 		//chats
 		socket.on("joinChat", (user) => {
