@@ -4,7 +4,13 @@ import { Text, View, Image, TouchableOpacity } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Link, useParams } from "react-router-native";
 import { useSelector, useDispatch } from "react-redux";
-import { removeAllNotifications, updateUser } from "../redux/actions";
+import {
+	removeAllNotifications,
+	updateUser,
+	orderByElo,
+	orderByPosition,
+	orderByRating,
+} from "../redux/actions";
 import Constants from "expo-constants";
 import Spinner from "./Spinner";
 import Nav from "./Nav";
@@ -44,6 +50,10 @@ export default function Form() {
 		socket.emit("client: erasePreviousNotifications", user._id);
 		playerRank ? (user = { ...user, elo: playerRank }) : "";
 		playerPosition ? (user = { ...user, position: playerPosition }) : "";
+		socket.emit("joinRoom", user);
+		dispatch(orderByRating("Any"));
+		dispatch(orderByElo("All"));
+		dispatch(orderByPosition("All"));
 		dispatch(updateUser(user));
 	}
 

@@ -12,7 +12,7 @@ import { connect, useDispatch } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { higherRating, lowerRating, selectPosition, selectElo } from "../utils/utils";
 import Spinner from "../components/Spinner";
-import { orderByElo, orderByPosition, orderByRating } from "../redux/actions";
+// import { orderByElo, orderByPosition, orderByRating } from "../redux/actions";
 import axios from "axios";
 
 export default function Room() {
@@ -27,8 +27,6 @@ export default function Room() {
 	const socket = useSelector((state) => state.games.socketIo);
 	const { id } = useParams();
 	let game = games.find((e) => e._id === id);
-
-	const dispatch = useDispatch();
 
 	function sendInvitation(socketid) {
 		// check if matchs available
@@ -77,16 +75,7 @@ export default function Room() {
 	}, [elo, order, position, players]);
 
 	useEffect(() => {
-		//should add players to room
-		socket.emit("joinRoom", user);
-
-		return () => {
-			socket.off("gameUsers");
-
-			dispatch(orderByRating("Any"));
-			dispatch(orderByElo("All"));
-			dispatch(orderByPosition("All"));
-		};
+		socket.emit("getGameUsers", user);
 	}, []);
 
 	useEffect(() => {
@@ -121,6 +110,9 @@ export default function Room() {
 				setPlayersInOrder(playersOrder);
 			}
 		});
+		return () => {
+			socket.off("gameUsers");
+		};
 	}, [socket, players]);
 
 	return (
