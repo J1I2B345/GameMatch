@@ -95,7 +95,6 @@ module.exports = (io) => {
 				global[socket.id] = null;
 				delete global[socket.id];
 			}
-			f;
 		});
 	});
 };
