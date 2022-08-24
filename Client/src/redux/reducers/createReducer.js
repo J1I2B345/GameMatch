@@ -119,7 +119,8 @@ const createReducer = (state = initialState, action) => {
 				notifications: [],
 			};
 		case REMOVE_ONE_NOTIFICATION:
-			console.log;
+			console.log("remove", payload);
+			console.log("notification", state.notifications);
 			return {
 				...state,
 				notifications: state.notifications.filter(

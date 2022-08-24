@@ -8,7 +8,15 @@ import InvitationCard from "./InvitationCard";
 
 export default function InvitationsRoom() {
 	const userGlobal = useSelector((state) => state.games.user);
+	const games = useSelector((state) => state.games.games);
 	let notificationsReceived = useSelector((state) => state.games.notifications);
+	const game = userGlobal.game;
+	var selectedGame;
+	let _id;
+	if (game) {
+		selectedGame = games.find((el) => el.name === game);
+		_id = selectedGame._id;
+	}
 
 	return (
 		<View style={{ height: "100%" }}>
@@ -45,22 +53,41 @@ export default function InvitationsRoom() {
 					)}
 				</View>
 			</ScrollView>
-			<Link
-				to={`/selectgame`}
-				activeOpacity={1}
-				underlayColor={""}
-				style={{
-					position: "absolute",
-					bottom: 80,
-					left: 20,
-					height: 45,
-				}}
-			>
-				<Image
-					source={require("../../assets/iconBack.png")}
-					style={{ width: 50, height: 50 }}
-				/>
-			</Link>
+			{_id ? (
+				<Link
+					to={`/room/${_id}`}
+					activeOpacity={1}
+					underlayColor={""}
+					style={{
+						position: "absolute",
+						bottom: 80,
+						left: 20,
+						height: 45,
+					}}
+				>
+					<Image
+						source={require("../../assets/iconBack.png")}
+						style={{ width: 50, height: 50 }}
+					/>
+				</Link>
+			) : (
+				<Link
+					to={`/selectgame`}
+					activeOpacity={1}
+					underlayColor={""}
+					style={{
+						position: "absolute",
+						bottom: 80,
+						left: 20,
+						height: 45,
+					}}
+				>
+					<Image
+						source={require("../../assets/iconBack.png")}
+						style={{ width: 50, height: 50 }}
+					/>
+				</Link>
+			)}
 		</View>
 	);
 }

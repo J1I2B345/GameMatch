@@ -105,7 +105,7 @@ const ChatProfile = () => {
 									justifyContent: "center",
 								}}
 							>
-								<View
+								{/* <View
 									style={{
 										alignItems: "center",
 										flexDirection: "row",
@@ -137,7 +137,7 @@ const ChatProfile = () => {
 											style={{ marginLeft: 35, width: 50, height: 50, marginBottom: 15 }}
 										/>
 									</TouchableOpacity>
-								</View>
+								</View> */}
 								{User.description ? (
 									<View
 										style={{
