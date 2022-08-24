@@ -84,7 +84,7 @@ module.exports = (io) => {
 
 					//notifications
 
-					io.emit("server: erasePreviousNotifications", _id);
+					io.emit("server: erasePreviousNotifications", global[socket.id]._id);
 
 					//chat
 					leaveChat(global[socket.id]._id);
