@@ -16,8 +16,9 @@ import Nav from "./Nav";
 import Spinner from "./Spinner";
 
 const ChatProfile = () => {
-	const User = useSelector((state) => state.games.userNameChat);
 	const navigate = useNavigate();
+	const User = useSelector((state) => state.games.userNameChat);
+	const darkMood = useSelector((state) => state.games.darkMood);
 
 	let arrayStars = [];
 
@@ -43,19 +44,7 @@ const ChatProfile = () => {
 			{User._id && User.username ? (
 				<View style={styles.container}>
 					<SafeAreaView
-						style={
-							User.premium == false
-								? {
-										width: "100%",
-										alignItems: "center",
-										justifyContent: "center",
-								  }
-								: {
-										width: "100%",
-										alignItems: "center",
-										justifyContent: "center",
-								  }
-						}
+						style={{ width: "100%", alignItems: "center", justifyContent: "center" }}
 					>
 						<ScrollView>
 							<View style={styles.portada_container}>
@@ -91,13 +80,27 @@ const ChatProfile = () => {
 									</View>
 								</View>
 							</View>
-							<View
-								style={
-									User.premium == false
-										? { ...styles.separador, marginBottom: 10 }
-										: styles.separador
-								}
-							></View>
+							{darkMood == false ? (
+								<View
+									style={
+										User.premium == false
+											? { ...styles.separador, marginBottom: 10 }
+											: styles.separador
+									}
+								></View>
+							) : (
+								<View
+									style={
+										User.premium == false
+											? {
+													...styles.separador,
+													marginBottom: 10,
+													backgroundColor: "#4D0F73",
+											  }
+											: styles.separador
+									}
+								></View>
+							)}
 							<View
 								style={{
 									width: "100%",
@@ -153,13 +156,26 @@ const ChatProfile = () => {
 								</View>
 								{User.description ? (
 									<View
-										style={{
-											...styles.info_container,
-											paddingBottom: 20,
-											marginTop: 0,
-											alignItems: "center",
-											justifyContent: "center",
-										}}
+										style={
+											darkMood == false
+												? {
+														...styles.info_container,
+														paddingBottom: 20,
+														marginTop: 0,
+														alignItems: "center",
+														justifyContent: "center",
+												  }
+												: {
+														...styles.info_container,
+														paddingBottom: 20,
+														marginTop: 0,
+														alignItems: "center",
+														justifyContent: "center",
+														backgroundColor: "#200021",
+														borderColor: "#4700A1",
+														borderWidth: 2,
+												  }
+										}
 									>
 										<Text
 											style={{
@@ -183,11 +199,26 @@ const ChatProfile = () => {
 											User.socialNetworks.twitter == ""
 												? { display: "none" }
 												: User.description
-												? {
+												? darkMood == false
+													? {
+															...styles.info_container,
+															marginTop: -5,
+													  }
+													: {
+															...styles.info_container,
+															marginTop: -5,
+															backgroundColor: "#200021",
+															borderColor: "#4700A1",
+															borderWidth: 2,
+													  }
+												: darkMood == false
+												? styles.info_container
+												: {
 														...styles.info_container,
-														marginTop: -5,
+														backgroundColor: "#200021",
+														borderColor: "#4700A1",
+														borderWidth: 2,
 												  }
-												: styles.info_container
 										}
 									>
 										<Text style={styles.users_title}>
@@ -338,7 +369,7 @@ const styles = StyleSheet.create({
 	separador: {
 		marginBottom: 15,
 		height: 2,
-		width: "90%",
+		width: "100%",
 		backgroundColor: "#98228C",
 	},
 	info_container: {

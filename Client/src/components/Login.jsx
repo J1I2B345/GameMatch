@@ -31,6 +31,7 @@ const reviewSchema = yup.object({
 //const userGlobal = useSelector((state) => state.games.user);
 const Login = () => {
 	const user = useSelector((state) => state.games.aux);
+	const darkMood = useSelector((state) => state.games.darkMood);
 
 	const dispatch = useDispatch();
 	const navigation = useNavigate();
@@ -95,10 +96,17 @@ const Login = () => {
 							/>
 						</View>
 						<View style={styles.portada_img}>
-							<Image
-								source={require("../../assets/iconApp.png")}
-								style={{ width: 110, height: 110 }}
-							/>
+							{darkMood == false ? (
+								<Image
+									source={require("../../assets/iconApp.png")}
+									style={{ width: 110, height: 110 }}
+								/>
+							) : (
+								<Image
+									source={require("../../assets/iconAppChange.png")}
+									style={{ width: 110, height: 110 }}
+								/>
+							)}
 						</View>
 					</View>
 					<View style={styles.form_container}>

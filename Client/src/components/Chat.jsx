@@ -181,15 +181,36 @@ const Chat = () => {
 										<View
 											style={
 												chatMessage.fromSelf === true
+													? darkMood == false
+														? {
+																margin: 5,
+																marginLeft: "20%",
+																padding: 13,
+																width: "auto",
+																borderRadius: 15,
+																color: "#fff",
+																textAlign: "left",
+																backgroundColor: "#443abb",
+														  }
+														: {
+																margin: 5,
+																marginLeft: "20%",
+																padding: 13,
+																width: "auto",
+																borderRadius: 15,
+																color: "#fff",
+																textAlign: "left",
+																backgroundColor: "#640F8C",
+														  }
+													: darkMood == false
 													? {
 															margin: 5,
-															marginLeft: "20%",
+															marginRight: "20%",
 															padding: 13,
 															width: "auto",
 															borderRadius: 15,
 															color: "#fff",
-															textAlign: "left",
-															backgroundColor: "#443abb",
+															backgroundColor: "#655ebe",
 													  }
 													: {
 															margin: 5,
@@ -198,7 +219,7 @@ const Chat = () => {
 															width: "auto",
 															borderRadius: 15,
 															color: "#fff",
-															backgroundColor: "#655ebe",
+															backgroundColor: "#503276",
 													  }
 											}
 										>

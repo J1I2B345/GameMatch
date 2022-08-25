@@ -89,7 +89,19 @@ const News = () => {
 						<ScrollView>
 							<View style={{ alignItems: "center" }}>
 								{news.map((data) => (
-									<View key={data._id} style={styles.card_container}>
+									<View
+										key={data._id}
+										style={
+											darkMood == false
+												? styles.card_container
+												: {
+														...styles.card_container,
+														backgroundColor: "#200021",
+														borderColor: "#4700A1",
+														borderWidth: 2,
+												  }
+										}
+									>
 										{data.author.length > 0 && user._id == data.author[0]._id ? (
 											<TouchableOpacity
 												style={{
@@ -116,15 +128,27 @@ const News = () => {
 											}}
 										>
 											<View
-												style={{
-													backgroundColor: "#9d0e9c",
-													borderRadius: 50,
-													padding: 5,
-													justifyContent: "center",
-													alignItems: "center",
-													width: 45,
-													height: 45,
-												}}
+												style={
+													darkMood == false
+														? {
+																backgroundColor: "#9d0e9c",
+																borderRadius: 50,
+																padding: 5,
+																justifyContent: "center",
+																alignItems: "center",
+																width: 45,
+																height: 45,
+														  }
+														: {
+																backgroundColor: "#4D0F73",
+																borderRadius: 50,
+																padding: 5,
+																justifyContent: "center",
+																alignItems: "center",
+																width: 45,
+																height: 45,
+														  }
+												}
 											>
 												{data.author && data.author.length > 0 && data.author[0].img ? (
 													<Image
