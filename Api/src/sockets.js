@@ -5,13 +5,13 @@ module.exports = (io) => {
 	io.on("connection", (socket) => {
 		//rooms
 		socket.on("joinRoom", (user) => {
-			if (user.username) {
+			if (user) {
 				let userFull = { ...user, socketid: socket.id };
 				global[socket.id] = userFull;
 				userJoin(userFull);
 				socket.join(userFull.game);
 				io.to(userFull.game).emit("gameUsers", getGameUsers(userFull.game));
-			}
+			} else io.to(userFull.game).emit("gameUsers", getGameUsers(userFull.game));
 		});
 
 		//sendUsers

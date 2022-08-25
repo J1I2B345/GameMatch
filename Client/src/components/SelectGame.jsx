@@ -118,11 +118,9 @@ export default function SelectGame() {
 											key={game._id}
 											id={game._id}
 											image={game.image}
-											name={game.name}
 											gender={game.gender}
 											positions={game.position}
 											rank={game.elo}
-											onPress={onPress}
 										/>
 									);
 								})}
