@@ -22,12 +22,13 @@ const reportSchema = yup.object({
 const Reports = () => {
 	const dispatch = useDispatch();
 	const navigation = useNavigate();
-	const user = useSelector((state) => state.games.user);
 	const reportedUsers = useSelector((state) => state.games.userNameChat);
-	const userss = [user._id, reportedUsers._id];
+	const user = useSelector((state) => state.games.user);
+	const users = { users: [user._id, reportedUsers._id] };
+
 	const submits = async (values, actions) => {
 		dispatch(addReport(values));
-		dispatch(deleteChat(userss));
+		dispatch(deleteChat(users));
 		navigation("/selectchat");
 	};
 
