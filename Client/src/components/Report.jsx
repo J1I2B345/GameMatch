@@ -24,7 +24,7 @@ const Reports = () => {
 	const navigation = useNavigate();
 	const reportedUsers = useSelector((state) => state.games.userNameChat);
 	const user = useSelector((state) => state.games.user);
-	const users = { users: [user._id, reportedUsers._id] };
+	const users = [user._id, reportedUsers._id];
 
 	const submits = async (values, actions) => {
 		dispatch(addReport(values));
