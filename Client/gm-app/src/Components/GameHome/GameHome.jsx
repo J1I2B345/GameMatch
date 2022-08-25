@@ -15,7 +15,7 @@ const GameHome = () => {
 				</div>
 				<div>
 					<h1 style={{ fontFamily: "monospace", color: "	#E6E6FA" }}>
-						⚙️ Games Administration
+						⚙️ {t("games_administration")}
 					</h1>
 					<button className="head-btn" onClick={(e) => navigate("/panel")}>
 						{t("Home")}

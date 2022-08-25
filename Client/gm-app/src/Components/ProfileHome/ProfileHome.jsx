@@ -11,7 +11,7 @@ const ProfileHome = () => {
 		<Container>
 			<div className="portada">
 				<h1 style={{ fontFamily: "monospace", color: "	#E6E6FA" }}>
-					⚙️ User Administration
+					⚙️ {t("user_administration")}
 				</h1>
 				<button className="head-btn" onClick={(e) => navigate("/panel")}>
 					{t("Home")}
@@ -33,7 +33,7 @@ const ProfileHome = () => {
 				<p></p>
 				<p></p>
 				<p style={{ fontFamily: "monospace", color: "	#fff" }}>
-					@GameMatch-2022 All rigths reserved{" "}
+					{t("reserved")}{" "}
 				</p>
 				<p></p> <p></p>
 				<p></p>

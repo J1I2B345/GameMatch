@@ -44,13 +44,13 @@ const News = () => {
 				<div>
 					<div>
 						<h1 style={{ fontFamily: "monospace", color: "	#E6E6FA" }}>
-							⚙️ New's Administration
+							⚙️{t("new_administration")}
 						</h1>
 						<button className="head-btn" onClick={(e) => navigate("/panel")}>
 							{t("Home")}
 						</button>
 						<button className="head-btn" onClick={(e) => navigate("/createNews")}>
-							{t("Crate News")}
+							{t("create_a_news")}
 						</button>
 					</div>
 				</div>
@@ -70,7 +70,7 @@ const News = () => {
 										<h2 className="card-title">{t("developers")}</h2>
 										<div className="card-text">
 											<div></div>
-											<p>Title:</p>
+											<p>{t("title")}:</p>
 											<div
 												style={{
 													padding: "5px",

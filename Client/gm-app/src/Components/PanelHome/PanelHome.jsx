@@ -48,7 +48,7 @@ export default function PanelHome() {
 						<img src={iconApp} className="image-icon" alt="" />
 					</div> */}
 					<div className="form">
-						💜Welcome Back Dear Admin:
+						💜{t("welcome_home")}:
 						<h1 style={{ fontFamily: "monospace", color: "	#FFD700" }}>
 							꧁{user?.username}꧂
 						</h1>
@@ -56,14 +56,14 @@ export default function PanelHome() {
 					</div>
 
 					<button className="modify-btn" onClick={(e) => navigate(`/News`)}>
-						{t(" 🌐  News Panel Site")}
+					🌐{t("news_panel_site")}
 					</button>
 
 					<button className="modify-btn" onClick={(e) => navigate(`/gamehome`)}>
-						{t("🎮 Games Panel Site")}
+					 🎮{t("games_panel_site")}
 					</button>
 					<button className="modify-btn" onClick={(e) => navigate(`/profilehome`)}>
-						{t("⚙️ Users Panel Site")}
+					⚙️{t("users_panel_site")}
 					</button>
 				</div>
 			)}
