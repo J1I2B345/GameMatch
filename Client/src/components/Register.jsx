@@ -69,6 +69,10 @@ const Register = () => {
 					values
 				);
 				navigation("/");
+				Alert.alert(`✨To finish Confirm your Email Address✨`);
+				// Alert.alert(
+				// 	`✨To finish Confirm your Email Address: We send you a confirmation message to the email ${values.email}✨`
+				// );
 				Alert.alert("💖Welcome to GameMatch!!🎮");
 			}
 		} catch (error) {
