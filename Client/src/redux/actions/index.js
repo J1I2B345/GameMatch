@@ -11,6 +11,7 @@ import {
 	REMOVE_ALL_NOTIFICATIONS,
 	ADD_ONE_NOTIFICATION,
 } from "../constants";
+import { Alert } from "react-native";
 import axios from "axios";
 
 export const darkMoodChange = (mood) => (dispatch) => {
@@ -23,9 +24,9 @@ export const rateUser = (data) => {
 			`https://backend-gamematch.herokuapp.com/review`,
 			data
 		);
-		if (response.data.error) alert("error: ", response.data.error);
+		if (response.data.error) Alert.alert("error: ", response.data.error);
 		else {
-			alert(`Rated User whit ${data.qualification} stars`);
+			Alert.alert(`Rated User whit ${data.qualification} stars`);
 			return response.data;
 		}
 	};
@@ -42,8 +43,8 @@ export const createGame = (game) => (dispatch) => {
 		})
 		.then((json) => {
 			if (!json.error) {
-				alert("game created!"), dispatch({ type: CREATE_GAME, payload: json });
-			} else alert(json.error);
+				Alert.alert("game created!"), dispatch({ type: CREATE_GAME, payload: json });
+			} else Alert.alert(json.error);
 		});
 };
 
@@ -146,9 +147,9 @@ export const deleteChat = (users) => {
 export const addNews = (news) => {
 	return async () => {
 		let response = await axios.post(`https://backend-gamematch.herokuapp.com/news`, news);
-		if (response.data.error) alert("error: ", response.data.error);
+		if (response.data.error) Alert.alert("error: ", response.data.error);
 		else {
-			alert("News created successfully");
+			Alert.alert("News created successfully");
 			return response.data;
 		}
 	};
