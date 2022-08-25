@@ -158,7 +158,7 @@ router.delete("/message/:id", async (req, res) => {
 // }
 router.delete("/users", async (req, res) => {
 	try {
-		const users = req.body.users;
+		const users = req.body;
 		if (users.length !== 2) throw new Error("must enter two users");
 		if (users[0] === users[1]) throw new Error("insert two differents users");
 		let chatDeleted = await Chat.deleteMany({ users });
