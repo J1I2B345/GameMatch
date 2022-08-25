@@ -57,7 +57,9 @@ export default function EditGame() {
 						alt=""
 					/>
 					<h1>
-						<i style={{ fontFamily: "monospace", color: "	#E6E6FA" }}>✒️{t("editing_game")}</i>
+						<i style={{ fontFamily: "monospace", color: "	#E6E6FA" }}>
+							✒️{t("editing_game")}
+						</i>
 					</h1>
 					<h1 style={{ fontFamily: "monospace", color: "		#F0E68C" }}>{game.name}</h1>
 					<div></div>

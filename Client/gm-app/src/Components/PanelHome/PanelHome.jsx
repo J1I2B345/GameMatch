@@ -56,14 +56,14 @@ export default function PanelHome() {
 					</div>
 
 					<button className="modify-btn" onClick={(e) => navigate(`/News`)}>
-					🌐{t("news_panel_site")}
+						🌐{t("news_panel_site")}
 					</button>
 
 					<button className="modify-btn" onClick={(e) => navigate(`/gamehome`)}>
-					 🎮{t("games_panel_site")}
+						🎮{t("games_panel_site")}
 					</button>
 					<button className="modify-btn" onClick={(e) => navigate(`/profilehome`)}>
-					⚙️{t("users_panel_site")}
+						⚙️{t("users_panel_site")}
 					</button>
 				</div>
 			)}
@@ -72,7 +72,7 @@ export default function PanelHome() {
 }
 
 const Container = styled.div`
-	height: 100vh;
+	min-height: 100vh;
 	width: 100%;
 	display: flex;
 	flex-direction: column;

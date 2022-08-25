@@ -261,8 +261,6 @@ const Chat = () => {
 						<TouchableWithoutFeedback
 							onPress={(e) => {
 								submitChatMessage(e);
-								console.log(chatMessages);
-								console.log(user);
 								setChatMessage("");
 							}}
 						>

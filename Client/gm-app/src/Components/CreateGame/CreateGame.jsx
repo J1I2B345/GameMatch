@@ -36,7 +36,9 @@ export default function CreateGame() {
 			})
 			.then(() => {
 				createGame(editedGame);
-			});
+				alert("Created game");
+			})
+			.catch((err) => alert(err.message));
 
 		actions.resetForm();
 	};
@@ -50,7 +52,9 @@ export default function CreateGame() {
 						alt=""
 					/>
 					<h1>
-						<i style={{ fontFamily: "monospace", color: "	#E6E6FA" }}>✒️{t("create_game")}</i>
+						<i style={{ fontFamily: "monospace", color: "	#E6E6FA" }}>
+							✒️{t("create_game")}
+						</i>
 					</h1>
 					<div></div>
 				</div>
