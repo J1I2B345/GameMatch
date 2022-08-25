@@ -141,13 +141,14 @@ const EditProfile = () => {
 									<Text style={{ ...styles.title_input, marginTop: 30 }}>
 										Profile Picture
 									</Text>
-									<TextInput
+									<TouchableOpacity></TouchableOpacity>
+									{/* <TextInput
 										style={styles.input}
 										placeholder="Url"
 										onChangeText={formikProps.handleChange("img")}
 										value={formikProps.values.img}
 										onBlur={formikProps.handleBlur("img")}
-									/>
+									/> */}
 									<View style={styles.relleno}></View>
 									<Text style={styles.title_input}>Username</Text>
 									<TextInput
