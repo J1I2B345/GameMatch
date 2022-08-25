@@ -52,6 +52,7 @@ const GameCard = () => {
 					<div className="card" key={data.name}>
 						<div>
 							<img className="image-game" src={data.image} alt="" key={data._id} />
+							<h1 style={{ fontFamily: "consolas", color: "		#E6E6FA" }}>{data.name}</h1>
 						</div>
 						<button onClick={(e) => deleteButton(data._id)}>{t("delete")}</button>
 						<button onClick={(e) => navigate(`games/${data._id}`)}>{t("modify")}</button>

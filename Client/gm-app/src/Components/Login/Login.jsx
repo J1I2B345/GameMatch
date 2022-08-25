@@ -34,7 +34,7 @@ export default function Login() {
 		const is = "62f39a361fb29b83a3539121";
 		const users = user.find((d) => d.email === values.email);
 		console.log(users);
-		if (!users.roles.find((d) => is)) {
+		if (users.roles[0] !== "62f39a361fb29b83a3539121") {
 			return alert("The site es only for admins. :)");
 		}
 		// if (
@@ -85,20 +85,23 @@ export default function Login() {
 						{(formik) => (
 							<div>
 								<Form>
+									<h1 style={{ fontFamily: "monospace", color: "	#8B008B" }}>
+										꧁Admin Panel꧂
+									</h1>
 									{/* <label className="se"><h1>Hi!, Welcome Back</h1></label> */}
 									<TextField
 										className="input"
-										label="Email Address"
+										label="📧 Email Address"
 										name="email"
 										type="text"
-										placeholder="Email Address"
+										placeholder="email@example.com..."
 									/>
 									<TextField
 										className="input"
-										label="Password"
+										label="✳ Password"
 										name="password"
 										type="password"
-										placeholder="Password"
+										placeholder="password"
 									/>
 
 									<button type="submit">Login</button>
@@ -107,6 +110,26 @@ export default function Login() {
 						)}
 					</Formik>
 				}
+				<div className="container">
+					<p></p>
+					<p></p>
+					<div className="container">
+						<p></p>
+					</div>
+					<p></p>
+					<p></p>
+					<p></p>
+					<p></p>
+					<p></p>
+					<p></p>
+					<p></p>
+					<p></p>
+					<p style={{ fontFamily: "monospace", color: "	#fff" }}>
+						@GameMatch-2022 All rigths reserved{" "}
+					</p>
+					<p></p> <p></p>
+					<p></p>
+				</div>
 			</div>
 			{/* <div>
 				Don't have account?
@@ -132,10 +155,13 @@ const Container = styled.div`
 	justify-content: center;
 	gap: 1rem;
 	align-items: center;
-	background-color: #5f0f99;
+	background-color: #4f0f99;
+	background-size: cover;
+	color: #4b0082;
+
 	.image-game {
 		margin-top: 2rem;
-		height: 12rem;
+		height: 10rem;
 	}
 	.image-icon {
 		margin-top: 2rem;
@@ -154,9 +180,11 @@ const Container = styled.div`
 		display: flex;
 		flex-direction: column;
 		gap: 2rem;
-		background-color: #00000076;
+		background-color: #e6e6fa;
 		border-radius: 2rem;
 		padding: 5rem;
+		color: #800080;
+		font-size: 1.5rem;
 	}
 	h1 {
 		color: #f0ebf2;
@@ -167,7 +195,7 @@ const Container = styled.div`
 		padding: 1rem;
 		border: 0.1rem solid #4e0eff;
 		border-radius: 0.4rem;
-		color: white;
+		color: #4b0082;
 		width: 80%;
 		font-size: 1rem;
 		&:focus {
@@ -190,7 +218,7 @@ const Container = styled.div`
 		}
 	}
 	span {
-		color: white;
+		color: #4b0082;
 		text-transform: uppercase;
 		a {
 			color: #4e0eff;

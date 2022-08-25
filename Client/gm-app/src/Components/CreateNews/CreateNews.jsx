@@ -27,6 +27,22 @@ export default function CreateNews() {
 
 	return (
 		<Container>
+			<div>
+				<img
+					className="image"
+					src="https://art.pixilart.com/5d3816468847327.gif"
+					alt=""
+				/>
+				<h1>
+					<i style={{ fontFamily: "monospace", color: "	#E6E6FA" }}>
+						✒️Writing new article...{" "}
+					</i>
+				</h1>
+			</div>
+			<div style={{ marginLeft: "-800px", position: "fixed" }}>
+				<button onClick={(e) => navigate("/panel")}>{t("Home")}</button>
+				<button onClick={(e) => navigate("/news")}> {"<- Back"}</button>
+			</div>
 			<div className="portada">
 				{
 					<Formik
@@ -40,7 +56,6 @@ export default function CreateNews() {
 					>
 						{(formik) => (
 							<div>
-								<h1>{t("create_new_story")}</h1>
 								<Form>
 									<TextField
 										className="input"
@@ -72,15 +87,13 @@ export default function CreateNews() {
 						)}
 					</Formik>
 				}
-				<button onClick={(e) => navigate("/panel")}>{t("go_to_panel")}</button>
-				<button onClick={(e) => navigate("/news")}>{t("go_to_news")}</button>
 			</div>
 		</Container>
 	);
 }
 
 const Container = styled.div`
-	min-height: 100vh;
+	height: 100%;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
@@ -88,17 +101,21 @@ const Container = styled.div`
 	gap: 1rem;
 	align-items: center;
 	background-color: #5f0f99;
+	color: #4b0082;
 	.image-game {
 		margin-top: 2rem;
 		height: 12rem;
 	}
 	html,
 	body {
-		min-height: 100vh;
+		height: 100%;
+		min-height: 100%;
+		max-height: 100%;
 	}
 	.image {
+		border-radius: 50%;
 		margin-top: 2rem;
-		height: 3rem;
+		height: 250px;
 	}
 	.login-link {
 		color: #f0ebf2;
@@ -113,20 +130,21 @@ const Container = styled.div`
 		display: flex;
 		flex-direction: column;
 		gap: 2rem;
-		background-color: #00000076;
+		background-color: #e6e6fa;
 		border-radius: 2rem;
 		padding: 5rem;
+		color: #800080;
+		font-size: 1.5rem;
 	}
 	h1 {
-		color: #f0ebf2;
-		text-transform: uppercase;
+		color: #4b0082;
 	}
 	input {
 		background-color: transparent;
 		padding: 1rem;
 		border: 0.1rem solid #4e0eff;
 		border-radius: 0.4rem;
-		color: white;
+		color: #4b0082;
 		width: 100%;
 		font-size: 1rem;
 		&:focus {

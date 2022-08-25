@@ -51,7 +51,7 @@ export default function ProfileCard() {
 						<div className="card" key={data.name}>
 							<img className="card-image" src={data.img} alt="" key={data._id} />
 							<h1 className="card-title" key={data.username}>
-								Usuario: {data.username}
+								{data.username}
 							</h1>
 							<div className="card-text">
 								<p style={{ color: "violet" }}>Type: </p>{" "}
@@ -136,7 +136,7 @@ const Container = styled.div`
 		width: 25em;
 		height: auto;
 		position: relative;
-		background: #5b146c;
+		background-color: #e6e6fa;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;

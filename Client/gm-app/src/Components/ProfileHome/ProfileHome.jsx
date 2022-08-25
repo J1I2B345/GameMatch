@@ -10,13 +10,34 @@ const ProfileHome = () => {
 	return (
 		<Container>
 			<div className="portada">
+				<h1 style={{ fontFamily: "monospace", color: "	#E6E6FA" }}>
+					⚙️ User Administration
+				</h1>
 				<button className="head-btn" onClick={(e) => navigate("/panel")}>
-					{t("go_to_panel")}
+					{t("Home")}
 				</button>
-
-				<h1>{t("select_user")}</h1>
 			</div>
 			<ProfileCard />
+			<div className="container">
+				<p></p>
+				<p></p>
+				<div className="container">
+					<p></p>
+				</div>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p style={{ fontFamily: "monospace", color: "	#fff" }}>
+					@GameMatch-2022 All rigths reserved{" "}
+				</p>
+				<p></p> <p></p>
+				<p></p>
+			</div>
 		</Container>
 	);
 };
@@ -106,15 +127,14 @@ const Container = styled.div`
   .portada {
 		padding: 30px;
 		text-align: center;
-		background: black;
+    background-color:	#4B0082;
 		color: white;
 		font-size: 30px;
 		width: 100%;
 
 		.head-btn {
-		min-width: 100%;
-	    margin-top: 1px;
-    	position:relative;
-     	top:-2rem;
+
+    	position:abolute;
+ 
 	}
 `;

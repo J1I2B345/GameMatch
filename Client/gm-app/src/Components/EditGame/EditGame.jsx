@@ -50,6 +50,25 @@ export default function EditGame() {
 	return (
 		<Container>
 			<div className="portada">
+				<div>
+					<img
+						className="image"
+						src="https://cdn-icons-png.flaticon.com/512/262/262545.png"
+						alt=""
+					/>
+					<h1>
+						<i style={{ fontFamily: "monospace", color: "	#E6E6FA" }}>✒️Editing Game...</i>
+					</h1>
+					<h1 style={{ fontFamily: "monospace", color: "		#F0E68C" }}>{game.name}</h1>
+					<div></div>
+
+					<img src={game.image} alt="" className="image" />
+				</div>
+				<div style={{ marginLeft: "-300px", position: "fixed" }}>
+					<button onClick={(e) => navigate("/panel")}>{t("Home")}</button>
+					<button onClick={(e) => navigate("/gamehome")}> {"<- Back"}</button>
+				</div>
+
 				{
 					<Formik
 						initialValues={{
@@ -65,37 +84,31 @@ export default function EditGame() {
 					>
 						{(formik) => (
 							<div>
-								<h1>{t("edit_game")}</h1>
-
-								<h2>
-									{t("game_to_modify")}: {game.name}{" "}
-								</h2>
-								<img src={game.image} alt="" className="image-game" />
 								<Form>
 									<TextField
 										className="input"
-										label={t("game_name")}
+										label={t("Name")}
 										name="name"
 										type="text"
 										placeholder={game.name}
 									/>
 									<TextField
 										className="input"
-										label={t("kind_of_game")}
+										label={t("Kind_of_game")}
 										name="gender"
 										type="text"
 										placeholder={game.gender}
 									/>
 									<TextField
 										className="input"
-										label={t("levels")}
+										label={t("Levels")}
 										name="elo"
 										type="text"
 										placeholder={game.elo}
 									/>
 									<TextField
 										className="input"
-										label={t("positions")}
+										label={t("Positions")}
 										name="position"
 										type="text"
 										placeholder={game.position}
@@ -123,8 +136,6 @@ export default function EditGame() {
 						)}
 					</Formik>
 				}
-				<button onClick={(e) => navigate("/panel")}>{t("go_to_panel")}</button>
-				<button onClick={(e) => navigate("/gamehome")}>{t("go_to_games")}</button>
 			</div>
 		</Container>
 	);
@@ -139,11 +150,10 @@ const Container = styled.div`
 	gap: 1rem;
 	align-items: center;
 	background-color: #5f0f99;
+	color: #4b0082;
 	.image-game {
 		margin-top: 2rem;
-		margin-bottom: 2rem;
-		height: 20rem;
-		border-radius: 30px;
+		height: 12rem;
 	}
 	html,
 	body {
@@ -152,8 +162,9 @@ const Container = styled.div`
 		max-height: 100%;
 	}
 	.image {
+		border-radius: 10%;
 		margin-top: 2rem;
-		height: 3rem;
+		height: 250px;
 	}
 	.login-link {
 		color: #f0ebf2;
@@ -168,20 +179,21 @@ const Container = styled.div`
 		display: flex;
 		flex-direction: column;
 		gap: 2rem;
-		background-color: #00000076;
+		background-color: #e6e6fa;
 		border-radius: 2rem;
 		padding: 5rem;
+		color: #800080;
+		font-size: 1.5rem;
 	}
 	h1 {
-		color: #f0ebf2;
-		text-transform: uppercase;
+		color: #4b0082;
 	}
 	input {
 		background-color: transparent;
 		padding: 1rem;
 		border: 0.1rem solid #4e0eff;
 		border-radius: 0.4rem;
-		color: white;
+		color: #4b0082;
 		width: 100%;
 		font-size: 1rem;
 		&:focus {
