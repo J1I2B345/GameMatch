@@ -433,13 +433,26 @@ const Profile = () => {
 								)}
 								{User.description ? (
 									<View
-										style={{
-											...styles.info_container,
-											paddingBottom: 20,
-											marginTop: 0,
-											alignItems: "center",
-											justifyContent: "center",
-										}}
+										style={
+											darkMood == false
+												? {
+														...styles.info_container,
+														paddingBottom: 20,
+														marginTop: 0,
+														alignItems: "center",
+														justifyContent: "center",
+												  }
+												: {
+														...styles.info_container,
+														paddingBottom: 20,
+														marginTop: 0,
+														alignItems: "center",
+														justifyContent: "center",
+														backgroundColor: "#200021",
+														borderColor: "#4700A1",
+														borderWidth: 2,
+												  }
+										}
 									>
 										<Text
 											style={{
@@ -463,11 +476,26 @@ const Profile = () => {
 											User.socialNetworks.twitter == ""
 												? { display: "none" }
 												: User.description
-												? {
+												? darkMood == false
+													? {
+															...styles.info_container,
+															marginTop: -5,
+													  }
+													: {
+															...styles.info_container,
+															marginTop: -5,
+															backgroundColor: "#200021",
+															borderColor: "#4700A1",
+															borderWidth: 2,
+													  }
+												: darkMood == false
+												? styles.info_container
+												: {
 														...styles.info_container,
-														marginTop: -5,
+														backgroundColor: "#200021",
+														borderColor: "#4700A1",
+														borderWidth: 2,
 												  }
-												: styles.info_container
 										}
 									>
 										<Text style={styles.users_title}>
@@ -654,6 +682,9 @@ const styles = StyleSheet.create({
 		paddingBottom: 10,
 		borderRadius: 20,
 		width: "90%",
+		// borderColor: "#4F2C7C",
+		// borderColor: "#4700A1",
+		// borderWidth: 2,
 		backgroundColor: "#443ABB",
 		justifyContent: "center",
 	},

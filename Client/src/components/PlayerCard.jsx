@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Image, Text, TouchableOpacity, Alert, Modal } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Link } from "react-router-native";
+import { useSelector } from "react-redux";
 
 const PlayerCard = ({
 	id,
@@ -13,7 +14,9 @@ const PlayerCard = ({
 	socketid,
 	sendInvitation,
 }) => {
+	const darkMood = useSelector((state) => state.games.darkMood);
 	const [view, setView] = useState(false);
+
 	return (
 		<View key={id} style={{ margin: 5 }}>
 			<TouchableOpacity
@@ -40,17 +43,22 @@ const PlayerCard = ({
 								alignItems: "center",
 							}}
 						>
-							{img && (
-								<Image
-									source={{ uri: img }}
-									style={{
-										marginTop: "5%",
-										width: 150,
-										height: 150,
-										borderRadius: 150,
-									}}
-								/>
-							)}
+							<Image
+								source={
+									img
+										? { uri: img }
+										: {
+												uri: "https://www.pngplay.com/wp-content/uploads/13/Gamer-Aesthetic-PNG-Photo-Image.png",
+										  }
+								}
+								style={{
+									marginTop: "5%",
+									width: 150,
+									height: 150,
+									borderRadius: 150,
+								}}
+							/>
+
 							<Text style={{ fontSize: 40, color: "#fff" }}>{name}</Text>
 							<View
 								style={{
@@ -95,26 +103,42 @@ const PlayerCard = ({
 					</View>
 				</Modal>
 				<View
-					style={{
-						width: 350,
-						height: 80,
-						borderRadius: 20,
-						backgroundColor: "#3519B0",
-						flexDirection: "row",
-						alignItems: "center",
-					}}
+					style={
+						darkMood == false
+							? {
+									width: 350,
+									height: 80,
+									borderRadius: 20,
+									backgroundColor: "#3519B0",
+									flexDirection: "row",
+									alignItems: "center",
+							  }
+							: {
+									width: 350,
+									height: 80,
+									borderRadius: 20,
+									backgroundColor: "#4700A1",
+									flexDirection: "row",
+									alignItems: "center",
+							  }
+					}
 				>
-					{img && (
-						<Image
-							source={{ uri: img }}
-							style={{
-								marginLeft: 20,
-								width: 60,
-								height: 60,
-								borderRadius: 50,
-							}}
-						/>
-					)}
+					<Image
+						source={
+							img
+								? { uri: img }
+								: {
+										uri: "https://www.pngplay.com/wp-content/uploads/13/Gamer-Aesthetic-PNG-Photo-Image.png",
+								  }
+						}
+						style={{
+							marginLeft: 20,
+							width: 60,
+							height: 60,
+							borderRadius: 50,
+						}}
+					/>
+
 					<View
 						style={{
 							marginLeft: 10,

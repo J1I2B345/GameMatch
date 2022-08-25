@@ -10,6 +10,7 @@ import Nav from "./Nav";
 export default function InvitationsRoom() {
 	const userGlobal = useSelector((state) => state.games.user);
 	const games = useSelector((state) => state.games.games);
+	const darkMood = useSelector((state) => state.games.darkMood);
 	let notificationsReceived = useSelector((state) => state.games.notifications);
 	const game = userGlobal.game;
 	var selectedGame;
@@ -25,21 +26,52 @@ export default function InvitationsRoom() {
 			<ScrollView>
 				<View style={{ marginTop: Constants.statusBarHeight, alignItems: "center" }}>
 					{notificationsReceived.length > 0 ? (
-						notificationsReceived.map((e) => {
-							return (
-								<InvitationCard
-									key={e._id}
-									img={e.img}
-									_id={e._id}
-									name={e.username}
-									elo={e.elo}
-									position={e.position}
-									rating={e.rating}
-									socketid={e.socketid}
-									invitationSentUser={e}
-								/>
-							);
-						})
+						<View style={{ width: "100%", alignItems: "center" }}>
+							<Text
+								style={{
+									marginBottom: 5,
+									color: "white",
+									fontSize: 40,
+								}}
+							>
+								Invitations
+							</Text>
+							{darkMood == false ? (
+								<View
+									style={{
+										marginBottom: 5,
+										height: 2,
+										width: "90%",
+										backgroundColor: "#98228C",
+									}}
+								></View>
+							) : (
+								<View
+									style={{
+										marginBottom: 5,
+										height: 2,
+										width: "90%",
+										backgroundColor: "#4D0F73",
+									}}
+								></View>
+							)}
+
+							{notificationsReceived.map((e) => {
+								return (
+									<InvitationCard
+										key={e._id}
+										img={e.img}
+										_id={e._id}
+										name={e.username}
+										elo={e.elo}
+										position={e.position}
+										rating={e.rating}
+										socketid={e.socketid}
+										invitationSentUser={e}
+									/>
+								);
+							})}
+						</View>
 					) : (
 						<View style={{ height: "100%", justifyContent: "center" }}>
 							<Text
