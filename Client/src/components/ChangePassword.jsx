@@ -92,7 +92,7 @@ const ChangePassword = () => {
 									Confirm Password
 								</Text>
 								<TextInput
-									placeholder="Confirm Password"
+									placeholder="Repeat Password"
 									secureTextEntry={true}
 									onChangeText={formikProps.handleChange("confirmPassword")}
 									value={formikProps.values.confirmPassword}

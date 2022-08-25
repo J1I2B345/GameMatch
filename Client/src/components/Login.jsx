@@ -25,8 +25,8 @@ import { allUser } from "../redux/actions";
 import axios from "axios";
 
 const reviewSchema = yup.object({
-	email: yup.string().required().min(3).email(),
-	password: yup.string().required().min(3),
+	email: yup.string().required().email(),
+	password: yup.string().required(),
 });
 //const userGlobal = useSelector((state) => state.games.user);
 const Login = () => {
@@ -51,6 +51,10 @@ const Login = () => {
 			);
 			return;
 		}
+		if (users.status == "Pending") {
+			Alert.alert(`💌Please confirm your email address to continue✨`);
+			return;
+		}
 
 		// if (
 		// 	!user.map((d) => d.email && d.password).includes(values.email && values.password)
@@ -70,7 +74,7 @@ const Login = () => {
 			dispatch(login(values));
 			navigation("/selectgame");
 		} catch (error) {
-			Alert.alert("Error: " + error.message);
+			Alert.alert("Password invalid,try againヾ(≧▽≦*)o");
 			console.log({ error });
 			return;
 		}
