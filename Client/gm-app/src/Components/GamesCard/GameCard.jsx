@@ -23,7 +23,7 @@ const GameCard = () => {
 
 	useEffect(() => {
 		fetchGames();
-	}, []);
+	}, [gamesDB]);
 	const profile = useSelector((state) => state.userProfile);
 	const deleteButton = async (id) => {
 		try {
