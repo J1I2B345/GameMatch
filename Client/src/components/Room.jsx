@@ -26,7 +26,7 @@ export default function Room() {
 	const order = useSelector((state) => state.games.order);
 	const socket = useSelector((state) => state.games.socketIo);
 	const { id } = useParams();
-	let game = games.find((e) => e._id === id);
+	const [game, setGame] = useState("");
 
 	function sendInvitation(socketid) {
 		// check if matchs available
@@ -75,8 +75,10 @@ export default function Room() {
 	}, [elo, order, position, players]);
 
 	useEffect(() => {
+		setGame(games.find((e) => e._id === id));
 		socket.emit("getGameUsers", user);
-	}, []);
+		console.log("get gamers", user);
+	}, [game]);
 
 	useEffect(() => {
 		socket.on("gameUsers", (data) => {

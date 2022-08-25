@@ -15,6 +15,7 @@ const Checkout = () => {
 	const initialValues = {
 		_id: User._id,
 		premium: true,
+		matchs: 200,
 	};
 	const comprador = { email: User.email };
 	const urlpago = "https://backend-gamematch.herokuapp.com/pago";

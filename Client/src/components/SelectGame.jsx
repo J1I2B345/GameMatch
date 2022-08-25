@@ -31,16 +31,16 @@ export default function SelectGame() {
 		}
 	}, []);
 
-	function onPress(game) {
-		let user = {
-			username: userGlobal.username,
-			_id: userGlobal._id,
-			img: userGlobal.img,
-			rating: userGlobal.rating,
-			game,
-		};
-		dispatch(updateUser(user));
-	}
+	// function onPress(game) {
+	// 		let user = {
+	// 			username: userGlobal.username,
+	// 			_id: userGlobal._id,
+	// 			img: userGlobal.img,
+	// 			rating: userGlobal.rating,
+	// 			game,
+	// 		};
+	// 		dispatch(updateUser(user));
+	// }
 
 	return (
 		<View>
@@ -118,11 +118,9 @@ export default function SelectGame() {
 											key={game._id}
 											id={game._id}
 											image={game.image}
-											name={game.name}
 											gender={game.gender}
 											positions={game.position}
 											rank={game.elo}
-											onPress={onPress}
 										/>
 									);
 								})}
