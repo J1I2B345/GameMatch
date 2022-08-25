@@ -17,6 +17,20 @@ export const darkMoodChange = (mood) => (dispatch) => {
 	dispatch({ type: "DARK_MOOD", payload: mood });
 };
 
+export const rateUser = (data) => {
+	return async () => {
+		let response = await axios.post(
+			`https://backend-gamematch.herokuapp.com/review`,
+			data
+		);
+		if (response.data.error) alert("error: ", response.data.error);
+		else {
+			alert(`Rated User whit ${data.qualification} stars`);
+			return response.data;
+		}
+	};
+};
+
 export const createGame = (game) => (dispatch) => {
 	return fetch("https://backend-gamematch.herokuapp.com/games", {
 		method: "POST",
@@ -68,7 +82,6 @@ export const getUser = (username) => (dispatch) => {
 };
 
 export const editProfile = (user) => {
-	console.log(user);
 	return async (dispatch) => {
 		await axios.put(`https://backend-gamematch.herokuapp.com/users/${user._id}`, user);
 	};
