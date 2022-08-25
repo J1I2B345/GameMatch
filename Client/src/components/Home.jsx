@@ -6,6 +6,7 @@ import Room from "./Room.jsx";
 import Form from "./Form.jsx";
 import Chat from "./Chat.jsx";
 import ChatProfile from "./ChatProfile.jsx";
+import Qualification from "./Qualification.jsx";
 import CreateGame from "./CreateGame.jsx";
 import Profile from "./Profile.jsx";
 import WhyPremium from "./WhyPremium.jsx";
@@ -65,6 +66,7 @@ const Home = () => {
 				<Route path="/selectchat" element={<SelectChat />} />
 				<Route path="/chat/:id" element={<Chat />} />
 				<Route path="/chat/profile" element={<ChatProfile />} />
+				<Route path="/chat/profile/qualification" element={<Qualification />} />
 				<Route path="/profile" element={<Profile />} />
 				<Route path="/profile/changepassword" element={<ChangePassword />} />
 				<Route path="/profile/edit" element={<EditProfile />} />

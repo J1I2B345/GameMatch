@@ -111,26 +111,39 @@ const ChatProfile = () => {
 										flexDirection: "row",
 									}}
 								>
-									<Image
-										source={require("../../assets/starCalification.png")}
-										style={{ width: 35, height: 35, marginBottom: 15 }}
-									/>
-									<Image
-										source={require("../../assets/starCalification.png")}
-										style={{ width: 35, height: 35, marginBottom: 15 }}
-									/>
-									<Image
-										source={require("../../assets/starCalification.png")}
-										style={{ width: 35, height: 35, marginBottom: 15 }}
-									/>
-									<Image
-										source={require("../../assets/starCalification.png")}
-										style={{ width: 35, height: 35, marginBottom: 15 }}
-									/>
-									<Image
-										source={require("../../assets/starCalification.png")}
-										style={{ width: 35, height: 35, marginBottom: 15 }}
-									/>
+									<TouchableOpacity
+										onPress={() => navigate("/chat/profile/qualification")}
+										style={{ flexDirection: "row" }}
+									>
+										<Image
+											source={require("../../assets/Star.png")}
+											style={{
+												marginRight: 5,
+												width: 25,
+												height: 25,
+												marginBottom: 15,
+												marginTop: "4%",
+											}}
+										/>
+										<Text
+											style={{
+												...styles.text_name,
+												width: "auto",
+											}}
+										>
+											Rate User
+										</Text>
+										<Image
+											source={require("../../assets/starCalification.png")}
+											style={{
+												marginLeft: 5,
+												width: 28,
+												height: 28,
+												marginBottom: 15,
+												marginTop: "4%",
+											}}
+										/>
+									</TouchableOpacity>
 									<TouchableOpacity onPress={() => navigate("/report")}>
 										<Image
 											source={require("../../assets/report.png")}
