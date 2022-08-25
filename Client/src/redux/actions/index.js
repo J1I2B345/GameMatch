@@ -138,9 +138,16 @@ export const addReport = (report) => {
 };
 
 export const deleteChat = (users) => {
-	// console.log(users);
-	return async (dispatch) => {
-		await axios.delete(`https://backend-gamematch.herokuapp.com/chats/users`, users);
+	return async () => {
+		let response = await axios.delete(
+			"https://backend-gamematch.herokuapp.com/chats/users",
+			users
+		);
+		if (response.data.error) Alert.alert("error: ", response.data.error);
+		else {
+			alert("Report User Successfully");
+			return response.data;
+		}
 	};
 };
 
