@@ -49,7 +49,8 @@ export default function Form() {
 		socket.emit("leaveRoom", user);
 		socket.emit("client: erasePreviousNotifications", user);
 		playerRank ? (user = { ...user, elo: playerRank }) : "";
-		playerPosition ? (user = { ...user, position: playerPosition }) : "";
+		playerPosition ? (user = { ...user, position: playerPosition, game }) : "";
+		console.log(user);
 		socket.emit("joinRoom", user);
 		dispatch(orderByRating("Any"));
 		dispatch(orderByElo("All"));

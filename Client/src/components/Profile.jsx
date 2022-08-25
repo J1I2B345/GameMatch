@@ -24,6 +24,7 @@ const Profile = () => {
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.games.user);
 	const darkMood = useSelector((state) => state.games.darkMood);
+	const socket = useSelector((state) => state.games.socketIo);
 
 	useEffect(() => {
 		dispatch(getUserById(user._id));
@@ -44,6 +45,10 @@ const Profile = () => {
 				return arrayStars;
 			})();
 		}
+	}
+
+	function signOutSocket() {
+		socket.emit("signOut");
 	}
 
 	function themeMood(mood) {
@@ -275,7 +280,9 @@ const Profile = () => {
 														backgroundColor: "#2089DC",
 														borderRadius: 15,
 													}}
-													onPress={() => navigate("/")}
+													onPress={() => {
+														signOutSocket(), navigate("/");
+													}}
 												>
 													<Text
 														style={{

@@ -68,8 +68,37 @@ module.exports = (io) => {
 			}
 		});
 
-		//
+		//signout
+		socket.on("signOut", () => {
+			try {
+				// rooms
+				if (global[socket.id]) {
+					if (global[socket.id].game) {
+						leaveRoom(global[socket.id].game, global[socket.id]._id);
+						io.to(global[socket.id].game).emit(
+							"gameUsers",
+							getGameUsers(global[socket.id].game)
+						);
+					}
 
+					//notifications
+					socket.broadcast.emit(
+						"server: erasePreviousNotifications",
+						global[socket.id]._id
+					);
+					io.emit("server: erasePreviousNotifications", global[socket.id]);
+
+					//chat
+					leaveChat(global[socket.id]._id);
+					global[socket.id] = null;
+					delete global[socket.id];
+				}
+			} catch (e) {
+				console.log(e.message);
+			}
+		});
+
+		//disconnect from app
 		socket.on("disconnect", () => {
 			try {
 				// rooms
