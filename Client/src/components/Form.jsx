@@ -49,7 +49,7 @@ export default function Form() {
 		socket.emit("leaveRoom", user);
 		socket.emit("client: erasePreviousNotifications", user);
 		playerRank ? (user = { ...user, elo: playerRank }) : "";
-		playerPosition ? (user = { ...user, position: playerPosition, game }) : "";
+		playerPosition ? (user = { ...user, position: playerPosition, game: game.name }) : "";
 		socket.emit("joinRoom", user);
 		dispatch(orderByRating("Any"));
 		dispatch(orderByElo("All"));
