@@ -63,17 +63,28 @@ export default function EditNews() {
 				>
 					{(formik) => (
 						<div>
-							<button onClick={(e) => navigate("/panel")}>{t("Home")}</button>
-							<h1>{t("Eding :")}</h1>
+							<p></p>
 							<div>
-								<h2>id: {user._id}</h2>
-								<h2>{user.username}</h2> <div></div>
+								<img
+									className="image"
+									src="https://imgs.search.brave.com/0SPdrau71xoJpN8vFNeVQnrpaljs27y2UmcfZb0GIRU/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvcHJl/dmlld3MvMDAwLzM2/Ni85NTMvb3JpZ2lu/YWwvZWRpdC1wcm9m/aWxlLXZlY3Rvci1p/Y29uLmpwZw"
+									alt=""
+									key={user._id}
+								/>
+								<h1>
+									<i style={{ fontFamily: "monospace", color: "	#E6E6FA" }}>✒️Edting...</i>
+								</h1>
+								<h2 style={{ fontFamily: "monospace", color: "		#F0E68C" }}>
+									{user.username}
+								</h2>{" "}
+								<div></div>
 							</div>
-
-							<button onClick={(e) => navigate("/profilehome")}> {"<- Back"}</button>
+							<div style={{ marginLeft: "-300px", position: "fixed" }}>
+								<button onClick={(e) => navigate("/panel")}>{t("Home")}</button>
+								<button onClick={(e) => navigate("/profilehome")}> {"<- Back"}</button>
+							</div>
 							<Form>
-								<img className="image" src={user.img} alt="" key={user._id} />
-								<h1>username</h1>
+								<h1>Username</h1>
 								<TextField
 									className="input"
 									name="username"
@@ -87,7 +98,7 @@ export default function EditNews() {
 									type="text"
 									placeholder={user.password}
 								/>
-								<h1>ROL</h1>
+								<h1>Rol</h1>
 								<li style={{ color: "green" }}>Admin</li>
 								<li style={{ color: "violet" }}>User</li>
 								<TextField
@@ -96,7 +107,7 @@ export default function EditNews() {
 									type="text"
 									placeholder={user.roles}
 								/>
-								<h1>BAN</h1>
+								<h1>Ban</h1>
 								<li style={{ color: "red" }}>true </li>
 								<li style={{ color: "green" }}>false </li>
 								<TextField
@@ -107,7 +118,7 @@ export default function EditNews() {
 								/>
 								<TextField className="input" name="img" placeholder={user.img} />
 
-								<img src={user.img} alt="profile picture" />
+								<img src={user.img} alt="profile picture" className="image" />
 								<button className="button" type="submit">
 									{t("modify")}
 								</button>
@@ -128,6 +139,7 @@ const Container = styled.div`
 	gap: 1rem;
 	align-items: center;
 	background-color: #5f0f99;
+	color: #4b0082;
 	.image-game {
 		margin-top: 2rem;
 		height: 12rem;
@@ -139,8 +151,9 @@ const Container = styled.div`
 		max-height: 100%;
 	}
 	.image {
+		border-radius: 50%;
 		margin-top: 2rem;
-		height: 15rem;
+		height: 250px;
 	}
 	.login-link {
 		color: #f0ebf2;
@@ -155,21 +168,22 @@ const Container = styled.div`
 		display: flex;
 		flex-direction: column;
 		gap: 2rem;
-		background-color: #00000076;
+		background-color: #e6e6fa;
 		border-radius: 2rem;
 		padding: 5rem;
+		color: #800080;
+		font-size: 1.5rem;
 	}
 	h1 {
-		color: #f0ebf2;
-		text-transform: uppercase;
+		color: #4b0082;
 	}
 	input {
 		background-color: transparent;
 		padding: 1rem;
 		border: 0.1rem solid #4e0eff;
 		border-radius: 0.4rem;
-		color: white;
-		width: 100%;
+		color: #4b0082;
+		width: 50%;
 		font-size: 1rem;
 		&:focus {
 			border: 0.1rem solid #997af0;

@@ -72,7 +72,7 @@ const Register = () => {
 				Alert.alert("💖Welcome to GameMatch!!🎮");
 			}
 		} catch (error) {
-			Alert.alert(error.message);
+			//Alert.alert(error.message);
 			console.log({ message: error.message });
 		}
 	};

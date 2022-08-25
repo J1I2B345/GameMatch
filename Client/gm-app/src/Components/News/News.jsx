@@ -41,13 +41,19 @@ const News = () => {
 	return (
 		<Container>
 			<div className="portada">
-				<button className="head-btn" onClick={(e) => navigate("/createNews")}>
-					{t("create_a_new_story")}
-				</button>
-				<button className="head-btn" onClick={(e) => navigate("/panel")}>
-					{t("go_to_panel")}
-				</button>
-				<h1>{t("news")}</h1>
+				<div>
+					<div>
+						<h1 style={{ fontFamily: "monospace", color: "	#E6E6FA" }}>
+							⚙️ New's Administration
+						</h1>
+						<button className="head-btn" onClick={(e) => navigate("/panel")}>
+							{t("Home")}
+						</button>
+						<button className="head-btn" onClick={(e) => navigate("/createNews")}>
+							{t("Crate News")}
+						</button>
+					</div>
+				</div>
 			</div>
 
 			<div className="content">
@@ -63,14 +69,35 @@ const News = () => {
 									<div>
 										<h2 className="card-title">{t("developers")}</h2>
 										<div className="card-text">
-											<div>
-												<div className="date">
-													{moment(data.createdAt).format("MMMM d")} at{" "}
-													{moment(data.createdAt).format("h:mm A")}
-												</div>
+											<div></div>
+											<p>Title:</p>
+											<div
+												style={{
+													padding: "5px",
+													marginTop: "10px",
+													color: "	#9932CC",
+													fontSize: "25px",
+												}}
+											>
+												<p style={{ fontFamily: "monospace", color: "	#BA55D3" }}>
+													{data.title}{" "}
+												</p>{" "}
 											</div>
-											<div className="title">{data.title}</div>
-											<div className="description">{data.description}</div>
+
+											<div
+												style={{
+													backgroundColor: "#F0F8FF",
+													padding: "35px",
+													marginTop: "10px",
+												}}
+											>
+												{data.description}
+											</div>
+										</div>
+										<div className="date">
+											🕐
+											{moment(data.createdAt).format("MMMM d")} at{" "}
+											{moment(data.createdAt).format("h:mm A")}
 										</div>
 									</div>
 								</div>
@@ -143,7 +170,7 @@ const Container = styled.div`
 			width: 25em;
 			height: auto;
 			position: relative;
-			background: #5b146c;
+			background-color: #e6e6fa;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
@@ -151,6 +178,7 @@ const Container = styled.div`
 			border-radius: 4px;
 			padding: 20px;
 			transition: all 0.3s ease-in;
+			color: ;
 		}
 		.card > * {
 			padding: 10px;
@@ -180,23 +208,25 @@ const Container = styled.div`
 			margin-bottom: 1em;
 			line-height: 20px;
 			font-size: 20px;
-			color: #f2f0f1;
+			color: #800080;
 		}
 	}
 
 	.portada {
 		padding: 30px;
 		text-align: center;
-		background: black;
+    background-color:	#4B0082;
 		color: white;
 		font-size: 30px;
 		width: 100%;
 
 		.head-btn {
-			min-width: 50%;
-			margin-top: 1px;
+
+    	position:abolute;
+	
+			margin: 10px;
 			position: relative;
-			top: -2rem;
+	
 			background-color: #9a01e2;
 			color: #f2f0f1;
 			padding: 1rem 2rem;
@@ -209,6 +239,8 @@ const Container = styled.div`
 			&:hover {
 				background-color: #4e0eff;
 			}
+	}
+	
 		}
 
 		.image-game {

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, { Profiler, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import GameMatch from "../../assets/GameMatch.png";
 import iconApp from "../../assets/iconApp.png";
@@ -42,19 +42,28 @@ export default function PanelHome() {
 				<div>Debes ser al menos admin</div>
 			) : (
 				<div className="portada">
-					<div className="portada-image">
+					{/* <div className="portada-image">
 						<img src={GameMatch} className="image-game" alt="" />
 
 						<img src={iconApp} className="image-icon" alt="" />
+					</div> */}
+					<div className="form">
+						💜Welcome Back Dear Admin:
+						<h1 style={{ fontFamily: "monospace", color: "	#FFD700" }}>
+							꧁{user?.username}꧂
+						</h1>
+						<img className="image-game" alt="" src={user?.img} />
 					</div>
+
 					<button className="modify-btn" onClick={(e) => navigate(`/News`)}>
-						{t("news")}
+						{t(" 🌐  News Panel Site")}
 					</button>
+
 					<button className="modify-btn" onClick={(e) => navigate(`/gamehome`)}>
-						{t("games")}
+						{t("🎮 Games Panel Site")}
 					</button>
 					<button className="modify-btn" onClick={(e) => navigate(`/profilehome`)}>
-						{t("users")}
+						{t("⚙️ Users Panel Site")}
 					</button>
 				</div>
 			)}
@@ -104,13 +113,15 @@ const Container = styled.div`
 		gap: 1rem;
 		justify-content: center;
 	}
-	form {
+	.form {
 		display: flex;
 		flex-direction: column;
 		gap: 2rem;
-		background-color: #00000076;
+		background-color: #e6e6fa;
 		border-radius: 2rem;
 		padding: 5rem;
+		color: #800080;
+		font-size: 1.5rem;
 	}
 	h1 {
 		color: #f0ebf2;
@@ -130,29 +141,15 @@ const Container = styled.div`
 		}
 	}
 	.modify-btn {
+		background-color: #ba55d3;
+		border: none;
+		color: white;
+		padding: 15px 32px;
 		text-align: center;
-		text-transform: uppercase;
+		text-decoration: none;
 		display: inline-block;
+		font-size: 16px;
 		margin: 10px;
-		font-weight: bold;
-		padding: 15px 25px 15px 25px;
-		background-color: lightgray;
-		text-shadow: -1px -1px black, 1px 1px white;
-		color: #9a01e2;
-		-webkit-border-radius: 7px;
-		-moz-border-radius: 7px;
-		-o-border-radius: 7px;
-		border-radius: 7px;
-		box-shadow: 0 0.2em gray;
-		cursor: pointer;
-		&:hover {
-			color: #4e0eff;
-		}
-		.start-btn:active {
-			box-shadow: none;
-			position: relative;
-			top: 0.5em;
-		}
 	}
 	span {
 		color: white;
