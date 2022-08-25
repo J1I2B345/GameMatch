@@ -4,10 +4,10 @@
 		"slug": "gamematch",
 		"version": "1.0.0",
 		"orientation": "portrait",
-		"icon": "./assets/icon.png",
+		"icon": "./assets/iconAppChange.png",
 		"userInterfaceStyle": "light",
 		"splash": {
-			"image": "./assets/splash.png",
+			"image": "./assets/iconAppChange.png",
 			"resizeMode": "contain",
 			"backgroundColor": "#ffffff"
 		},
@@ -20,12 +20,12 @@
 		},
 		"android": {
 			"adaptiveIcon": {
-				"foregroundImage": "./assets/adaptive-icon.png",
+				"foregroundImage": "./assets/iconAppChange.png",
 				"backgroundColor": "#FFFFFF"
 			}
 		},
 		"web": {
-			"favicon": "./assets/favicon.png"
+			"favicon": "./assets/iconAppChange.png"
 		}
 	}
 }
