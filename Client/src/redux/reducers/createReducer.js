@@ -1,238 +1,137 @@
-
-import { CREATE_GAME, GET_USERNAME, UPDATE_USER, CREATE_SOCKET, GET_GAMES } from '../constants';
-
-import playersLoL from '../../data/usersLOL';
-import playersCSGO from '../../data/usersCSGO';
-import playersR6 from '../../data/usersR6';
-// import userProfile from '../../data/UsersInfo';
+import {
+	CREATE_GAME,
+	GET_USERNAME,
+	UPDATE_USER,
+	GET_GAMES,
+	ELO,
+	POSITION,
+	ORDER,
+	SOCKET,
+	ADD_ONE_NOTIFICATION,
+	REMOVE_ALL_NOTIFICATIONS,
+	REMOVE_ONE_NOTIFICATION,
+} from "../constants";
+import { io } from "socket.io-client";
 
 const initialState = {
-  games: false,
-  news: [],
-  playersLoL: [],
-  playersCSGO: playersCSGO,
-  playersR6: playersR6,
-  user: [],
-  userProfile: [],
-  aux: [],
+	games: false,
+	news: [],
+	newsInfo: [],
+	user: [],
+	userProfile: [],
+	darkMood: false,
+	userNameChat: {},
+	aux: [],
+	order: "Any",
+	position: "All",
+	elo: "All",
+	socketIo: io("https://backend-gamematch.herokuapp.com/"),
+	notifications: [],
 };
 
 const createReducer = (state = initialState, action) => {
-  const { type, payload } = action;
-  switch (type) {
-    case CREATE_GAME:
-      return { ...state, games: [...state.games, payload] };
+	const { type, payload } = action;
+	switch (type) {
+		case "DARK_MOOD":
+			return { ...state, darkMood: payload };
 
-    case "ADD_NEWS":
-      return { ...state, news: [payload, ...state.news] };
+		case CREATE_GAME:
+			return { ...state, games: [...state.games, payload] };
 
-    case "EDIT_PROFILE":
-      return { ...state, userProfile: payload };
+		case "ADD_NEWS":
+			return { ...state, news: [payload, ...state.news] };
 
-    case "ORDER_BY_RATING": {
-      let playersInLoL = initialState.playersLoL;
-      let playersInCSGO = initialState.playersCSGO;
-      let playersInR6 = initialState.playersR6;
-      if (payload === "Min-Max") {
-        playersInLoL = [...state.playersLoL].sort(function (a, b) {
-          if (a.rating > b.rating) {
-            return 1;
-          }
-          if (a.rating < b.rating) {
-            return -1;
-          }
-          return 0;
-        });
-        playersInCSGO = [...state.playersCSGO].sort(function (a, b) {
-          if (a.rating > b.rating) {
-            return 1;
-          }
-          if (a.rating < b.rating) {
-            return -1;
-          }
-          return 0;
-        });
-        playersInR6 = [...state.playersR6].sort(function (a, b) {
-          if (a.rating > b.rating) {
-            return 1;
-          }
-          if (a.rating < b.rating) {
-            return -1;
-          }
-          return 0;
-        });
+		case "GET_USER_BY_ID":
+			return { ...state, userProfile: payload };
 
-        return {
-          ...state,
-          playersLoL: playersInLoL,
-          playersCSGO: playersInCSGO,
-          playersR6: playersInR6,
-        };
-      } else if (payload === "Max-Min") {
-        playersInLoL = [...state.playersLoL].sort(function (a, b) {
-          if (a.rating < b.rating) {
-            return 1;
-          }
-          if (a.rating > b.rating) {
-            return -1;
-          }
-          return 0;
-        });
-        playersInCSGO = [...state.playersCSGO].sort(function (a, b) {
-          if (a.rating < b.rating) {
-            return 1;
-          }
-          if (a.rating > b.rating) {
-            return -1;
-          }
-          return 0;
-        });
-        playersInR6 = [...state.playersR6].sort(function (a, b) {
-          if (a.rating < b.rating) {
-            return 1;
-          }
-          if (a.rating > b.rating) {
-            return -1;
-          }
-          return 0;
-        });
-        return {
-          ...state,
-          playersLoL: playersInLoL,
-          playersCSGO: playersInCSGO,
-          playersR6: playersInR6,
-        };
-      } else
-        return {
-          ...state,
-          playersLoL: playersInLoL,
-          playersCSGO: playersInCSGO,
-          playersR6: playersInR6,
-        };
-    }
+		case "GET_ALL_NEWS":
+			return {
+				...state,
+				news: payload,
+			};
 
-    case "FILTER_BY_POSITION":
-      if (payload === "All")
-        return {
-          ...state,
-          playersLoL: playersLoL,
-          playersCSGO: playersCSGO,
-          playersR6: playersR6,
-        };
-      let allPlayers = [playersLoL, playersCSGO, playersR6];
-      allPlayers = allPlayers.flat();
-      let playerPosition = allPlayers.filter(
-        (player) =>
-          /// true
-          player.position === payload
-      );
+		case "NEW_INFO":
+			return {
+				...state,
+				newsInfo: payload,
+			};
 
-      if (playerPosition.length > 0)
-        return {
-          ...state,
-          playersLoL: playerPosition,
-          playersCSGO: playerPosition,
-          playersR6: playerPosition,
-        };
+		case GET_USERNAME:
+			return { ...state, user: payload, userProfile: payload };
 
-      return {
-        ...state,
-        playersIsEmpty: "There are no players with this position",
-      };
+		case UPDATE_USER:
+			return { ...state, user: payload };
 
-    case "FILTER_BY_ELO_LOL":
-      if (payload === "All")
-        return {
-          ...state,
-          playersLoL: playersLoL,
-        };
-      let playerEloLoL = playersLoL.filter(
-        (player) =>
-          //true
-          player.elo === payload
-      );
-      if (playerEloLoL.length > 0)
-        return {
-          ...state,
-          playersLoL: playerEloLoL,
-        };
-      return {
-        ...state,
-        playersIsEmpty: "There are no players with this elo",
-      };
+		case "LOGIN":
+			return {
+				...state,
+				user: payload,
+				userProfile: payload,
+			};
 
-    case "FILTER_BY_ELO_CSGO":
-      if (payload === "All")
-        return {
-          ...state,
-          playersCSGO: playersCSGO,
-        };
+		case "REGISTER":
+			return { ...state };
 
-      let playerEloCSGO = playersCSGO.filter(
-        (player) =>
-          //true
-          player.elo.toLowerCase() === payload.toLowerCase()
-      );
-      if (playerEloCSGO.length > 0)
-        return {
-          ...state,
-          playersCSGO: playerEloCSGO,
-        };
-      return {
-        ...state,
-        playersIsEmpty: "There are no players with this elo",
-      };
+		case "ALL_USERS":
+			return {
+				...state,
+				aux: payload,
+			};
 
-    case "FILTER_BY_ELO_R6":
-      if (payload === "All")
-        return {
-          ...state,
-          playersR6: playersR6,
-        };
+		case "USER_NAME_CHAT":
+			return {
+				...state,
+				userNameChat: payload,
+			};
 
-      let playerEloR6 = playersR6.filter((player) => player.elo === payload);
-      if (playerEloR6.length > 0)
-        return {
-          ...state,
-          playersR6: playerEloR6,
-        };
-      return {
-        ...state,
-        playersIsEmpty: "There are no players with this elo",
-      };
+		case "SET_EMPTY_USER_NAME_CHAT":
+			return {
+				...state,
+				userNameChat: payload,
+			};
 
-    case "GET_ALL_NEWS":
-      return {
-        ...state,
-        news: payload,
-      };
-
-    case GET_USERNAME:
-      return { ...state, user: payload, userProfile: payload };
-
-    case UPDATE_USER:
-      return { ...state, user: payload };
-    case "LOGIN":
-      return {
-         ...state, 
-         user: payload, 
-         userProfile: payload };
-    case "REGISTER":
-      return { ...state };
-    case "USER":
-      return {
-        ...state,
-        aux: payload,
-      };
-
-    case GET_GAMES:
-        return {
-          ...state, 
-          games: payload
-        };
-    default:
-      return state;
-  }
+		case GET_GAMES:
+			return {
+				...state,
+				games: payload,
+			};
+		case ELO:
+			return {
+				...state,
+				elo: payload,
+			};
+		case POSITION:
+			return {
+				...state,
+				position: payload,
+			};
+		case ORDER:
+			return {
+				...state,
+				order: payload,
+			};
+		case ADD_ONE_NOTIFICATION:
+			return {
+				...state,
+				notifications: state.notifications
+					.filter((e) => e._id !== payload._id)
+					.concat(payload),
+			};
+		case REMOVE_ALL_NOTIFICATIONS:
+			return {
+				...state,
+				notifications: [],
+			};
+		case REMOVE_ONE_NOTIFICATION:
+			return {
+				...state,
+				notifications: state.notifications.filter(
+					(notification) => notification._id !== payload._id
+				),
+			};
+		default:
+			return state;
+	}
 };
 
 export default createReducer;

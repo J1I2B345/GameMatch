@@ -1,4 +1,11 @@
 export const CREATE_GAME = "CREATE_GAME";
-export const GET_USERNAME= "GET_USERNAME";
-export const UPDATE_USER= "UPDATE_USER";
-export const GET_GAMES= "GET_GAMES";
+export const GET_USERNAME = "GET_USERNAME";
+export const UPDATE_USER = "UPDATE_USER";
+export const GET_GAMES = "GET_GAMES";
+export const ELO = "ELO";
+export const POSITION = "POSITION";
+export const ORDER = "ORDER";
+export const SOCKET = "SOCKET";
+export const REMOVE_ONE_NOTIFICATION = "REMOVE_ONE_NOTIFICATION";
+export const REMOVE_ALL_NOTIFICATIONS = "REMOVE_ALL_NOTIFICATIONS";
+export const ADD_ONE_NOTIFICATION = "ADD_ONE_NOTIFICATION";
