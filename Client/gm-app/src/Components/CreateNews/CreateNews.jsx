@@ -35,13 +35,13 @@ export default function CreateNews() {
 				/>
 				<h1>
 					<i style={{ fontFamily: "monospace", color: "	#E6E6FA" }}>
-						✒️Writing new article...{" "}
+						✒️{t("writing_new_article")}{" "}
 					</i>
 				</h1>
 			</div>
 			<div style={{ marginLeft: "-800px", position: "fixed" }}>
 				<button onClick={(e) => navigate("/panel")}>{t("Home")}</button>
-				<button onClick={(e) => navigate("/news")}> {"<- Back"}</button>
+				<button onClick={(e) => navigate("/news")}> {t("back")}</button>
 			</div>
 			<div className="portada">
 				{
@@ -62,14 +62,14 @@ export default function CreateNews() {
 										label={t("title")}
 										name="title"
 										type="text"
-										placeholder="Titulo de la noticia"
+										placeholder={t("news_title")}
 									/>
 									<TextField
 										className="input"
 										label={t("description")}
 										name="description"
 										type="text"
-										placeholder="Narracion"
+										placeholder={t("story")}
 									/>
 									<TextField
 										className="input"

@@ -50,13 +50,13 @@ export default function CreateGame() {
 						alt=""
 					/>
 					<h1>
-						<i style={{ fontFamily: "monospace", color: "	#E6E6FA" }}>✒️Create Game...</i>
+						<i style={{ fontFamily: "monospace", color: "	#E6E6FA" }}>✒️{t("create_game")}</i>
 					</h1>
 					<div></div>
 				</div>
 				<div style={{ marginLeft: "-300px", position: "fixed" }}>
 					<button onClick={(e) => navigate("/panel")}>{t("Home")}</button>
-					<button onClick={(e) => navigate("/gamehome")}> {"<- Back"}</button>
+					<button onClick={(e) => navigate("/gamehome")}> {t("back")}</button>
 				</div>
 				{
 					<Formik
@@ -109,7 +109,7 @@ export default function CreateGame() {
 										placeholder="Imagen en url"
 									/>
 									<button className="btn btn-dark mt-3" type="submit">
-										{t("create_game")}
+										{t("create_game_btn")}
 									</button>
 								</Form>
 							</div>

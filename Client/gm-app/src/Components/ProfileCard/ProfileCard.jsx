@@ -4,6 +4,7 @@ import { allUser } from "../../redux/actions";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+import { t } from "i18next";
 
 export default function ProfileCard() {
 	const dispatch = useDispatch();
@@ -17,7 +18,7 @@ export default function ProfileCard() {
 	}, [dispatch]);
 
 	const deleteButton = async (_id) => {
-		console.log(_id);
+		// console.log(_id);
 
 		const roles = profile.roles;
 		const email = profile.email;
@@ -54,11 +55,11 @@ export default function ProfileCard() {
 								{data.username}
 							</h1>
 							<div className="card-text">
-								<p style={{ color: "violet" }}>Type: </p>{" "}
+								<p style={{ color: "violet" }}>{t("Type")}: </p>{" "}
 								<strong style={{ color: "green" }} key={data.rol}>
 									<i>{data.roles[0] === "62f39a361fb29b83a3539121" ? "Admin" : "User"}</i>
 								</strong>
-								<p style={{ color: "violet" }}> Ban:</p>{" "}
+								<p style={{ color: "violet" }}> {t("ban")}:</p>{" "}
 								<strong>
 									{" "}
 									<i style={{ color: "green" }} key={data.ban}>
@@ -67,8 +68,8 @@ export default function ProfileCard() {
 								</strong>
 							</div>
 
-							<button onClick={(e) => deleteButton(data._id)}>Eliminar</button>
-							<button onClick={(e) => navigate(`/Users/${data._id}`)}>Modificar</button>
+							<button onClick={(e) => deleteButton(data._id)}>{t("delete")}</button>
+							<button onClick={(e) => navigate(`/Users/${data._id}`)}>{t("modify")}</button>
 						</div>
 					</div>
 				))

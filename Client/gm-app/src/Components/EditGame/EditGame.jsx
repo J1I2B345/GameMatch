@@ -57,7 +57,7 @@ export default function EditGame() {
 						alt=""
 					/>
 					<h1>
-						<i style={{ fontFamily: "monospace", color: "	#E6E6FA" }}>✒️Editing Game...</i>
+						<i style={{ fontFamily: "monospace", color: "	#E6E6FA" }}>✒️{t("editing_game")}</i>
 					</h1>
 					<h1 style={{ fontFamily: "monospace", color: "		#F0E68C" }}>{game.name}</h1>
 					<div></div>
@@ -66,7 +66,7 @@ export default function EditGame() {
 				</div>
 				<div style={{ marginLeft: "-300px", position: "fixed" }}>
 					<button onClick={(e) => navigate("/panel")}>{t("Home")}</button>
-					<button onClick={(e) => navigate("/gamehome")}> {"<- Back"}</button>
+					<button onClick={(e) => navigate("/gamehome")}> {t("back")}</button>
 				</div>
 
 				{
@@ -87,28 +87,28 @@ export default function EditGame() {
 								<Form>
 									<TextField
 										className="input"
-										label={t("Name")}
+										label={t("game_name")}
 										name="name"
 										type="text"
 										placeholder={game.name}
 									/>
 									<TextField
 										className="input"
-										label={t("Kind_of_game")}
+										label={t("kind_of_game")}
 										name="gender"
 										type="text"
 										placeholder={game.gender}
 									/>
 									<TextField
 										className="input"
-										label={t("Levels")}
+										label={t("levels")}
 										name="elo"
 										type="text"
 										placeholder={game.elo}
 									/>
 									<TextField
 										className="input"
-										label={t("Positions")}
+										label={t("positions")}
 										name="position"
 										type="text"
 										placeholder={game.position}

@@ -47,14 +47,14 @@ export default function EditNews() {
 					key={review._id}
 				/>
 				<h1>
-					<i style={{ fontFamily: "monospace", color: "	#E6E6FA" }}>✒️Edit new's... </i>
+					<i style={{ fontFamily: "monospace", color: "	#E6E6FA" }}>✒️{t("edit_new")} </i>
 				</h1>
 				<h2 style={{ fontFamily: "monospace", color: "		#F0E68C" }}>{review.name}</h2>{" "}
 				<div></div>
 			</div>
 			<div style={{ marginLeft: "-800px", position: "fixed" }}>
 				<button onClick={(e) => navigate("/panel")}>{t("Home")}</button>
-				<button onClick={(e) => navigate("/news")}> {"<- Back"}</button>
+				<button onClick={(e) => navigate("/news")}> {t("back")}</button>
 			</div>
 			<div className="portada">
 				{

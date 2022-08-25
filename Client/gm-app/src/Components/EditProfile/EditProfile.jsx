@@ -72,7 +72,7 @@ export default function EditNews() {
 									key={user._id}
 								/>
 								<h1>
-									<i style={{ fontFamily: "monospace", color: "	#E6E6FA" }}>✒️Edting...</i>
+									<i style={{ fontFamily: "monospace", color: "	#E6E6FA" }}>✒️{t("editing")}</i>
 								</h1>
 								<h2 style={{ fontFamily: "monospace", color: "		#F0E68C" }}>
 									{user.username}
@@ -81,17 +81,17 @@ export default function EditNews() {
 							</div>
 							<div style={{ marginLeft: "-300px", position: "fixed" }}>
 								<button onClick={(e) => navigate("/panel")}>{t("Home")}</button>
-								<button onClick={(e) => navigate("/profilehome")}> {"<- Back"}</button>
+								<button onClick={(e) => navigate("/profilehome")}> {t("back")}</button>
 							</div>
 							<Form>
-								<h1>Username</h1>
+								<h1>{t("username")}</h1>
 								<TextField
 									className="input"
 									name="username"
 									type="text"
 									placeholder={user.username}
 								/>
-								<h1>Password</h1>
+								<h1>{t("password")}</h1>
 								<TextField
 									className="input"
 									name="password"
@@ -107,7 +107,7 @@ export default function EditNews() {
 									type="text"
 									placeholder={user.roles}
 								/>
-								<h1>Ban</h1>
+								<h1>{t("ban")}</h1>
 								<li style={{ color: "red" }}>true </li>
 								<li style={{ color: "green" }}>false </li>
 								<TextField
