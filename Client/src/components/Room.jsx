@@ -77,7 +77,6 @@ export default function Room() {
 	useEffect(() => {
 		setGame(games.find((e) => e._id === id));
 		socket.emit("getGameUsers", user);
-		console.log("get gamers", user);
 	}, [game]);
 
 	useEffect(() => {

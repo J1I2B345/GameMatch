@@ -169,7 +169,7 @@ const Chat = () => {
 							{chatMessages &&
 								chatMessages.map((chatMessage, i) => (
 									<View
-										key={chatMessages._id}
+										key={i}
 										style={
 											chatMessage.fromSelf === true
 												? {
