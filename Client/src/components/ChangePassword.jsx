@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addNews } from "../redux/actions/index.js";
+import { addNews, editProfile } from "../redux/actions/index.js";
 import { Link, useNavigate } from "react-router-native";
 import { connect } from "react-redux";
 import { StatusBar } from "expo-status-bar";
@@ -11,12 +11,13 @@ import {
 	TouchableWithoutFeedback,
 	Keyboard,
 	TouchableOpacity,
+	Alert,
 } from "react-native";
 import { Formik } from "formik";
 import * as yup from "yup";
 
 const reviewSchema = yup.object({
-	description: yup.string().required().min(1),
+	password: yup.string().required().min(8),
 });
 
 const ChangePassword = () => {
@@ -25,7 +26,13 @@ const ChangePassword = () => {
 	const user = useSelector((state) => state.games.user);
 
 	const submit = (values, actions) => {
-		dispatch(addNews(values));
+		let data = { _id: values._id, password: values.password };
+		if (values.password !== values.confirmPassword) {
+			Alert.alert("The password dont match, try again");
+			return;
+		}
+		dispatch(editProfile(data));
+		Alert.alert("Password Changed Successfully");
 		navigation("/profile");
 	};
 
@@ -39,9 +46,9 @@ const ChangePassword = () => {
 			<View style={styles.portada}>
 				<Formik
 					initialValues={{
-						author: user._id,
-						title: "",
-						description: "",
+						_id: user._id,
+						password: "",
+						confirmPassword: "",
 					}}
 					validationSchema={reviewSchema}
 					onSubmit={submit}
@@ -50,26 +57,51 @@ const ChangePassword = () => {
 						<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 							<View style={styles.form_container}>
 								<Text style={styles.portada_text}>Change Password</Text>
+								<Text
+									style={{
+										...styles.portada_text,
+										marginLeft: 30,
+										marginBottom: 5,
+										textAlign: "left",
+										fontSize: 20,
+									}}
+								>
+									New Password
+								</Text>
 								<TextInput
-									placeholder="Title"
-									onChangeText={formikProps.handleChange("title")}
-									value={formikProps.values.title}
-									onBlur={formikProps.handleBlur("title")}
+									placeholder="New Password"
+									secureTextEntry={true}
+									onChangeText={formikProps.handleChange("password")}
+									value={formikProps.values.password}
+									onBlur={formikProps.handleBlur("password")}
 									style={styles.input}
 								/>
+								<Text style={{ color: "red", fontSize: 15, marginBottom: -10 }}>
+									{formikProps.touched.password && formikProps.errors.password}
+								</Text>
 								<View style={styles.relleno}></View>
-								<TextInput
-									placeholder="Description"
-									multiline={true}
-									onChangeText={formikProps.handleChange("description")}
-									value={formikProps.values.description}
-									onBlur={formikProps.handleBlur("description")}
+								<Text
 									style={{
-										...styles.input,
-										height: 90,
+										...styles.portada_text,
+										marginLeft: 30,
+										marginBottom: 5,
+										textAlign: "left",
+										fontSize: 20,
 									}}
+								>
+									Confirm Password
+								</Text>
+								<TextInput
+									placeholder="Confirm Password"
+									secureTextEntry={true}
+									onChangeText={formikProps.handleChange("confirmPassword")}
+									value={formikProps.values.confirmPassword}
+									onBlur={formikProps.handleBlur("confirmPassword")}
+									style={styles.input}
 								/>
+								<Text style={{ color: "red", fontSize: 15, marginBottom: -10 }}></Text>
 								<View style={styles.relleno}></View>
+
 								<View
 									style={{
 										flexDirection: "row",
@@ -144,7 +176,7 @@ const styles = StyleSheet.create({
 		borderRadius: 20,
 	},
 	portada_text: {
-		marginBottom: 15,
+		marginBottom: 10,
 		width: "100%",
 		color: "white",
 		textAlign: "center",
