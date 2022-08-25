@@ -121,19 +121,13 @@ export const addReport = (report) => {
 		await axios.post("https://backend-gamematch.herokuapp.com/reports", report);
 	};
 };
-// export const addReport = (report) => {
-// 	return async () => {
-// 		let response = await axios.post(
-// 			`https://backend-gamematch.herokuapp.com/reports`,
-// 			report
-// 		);
-// 		if (response.data.error) alert("error: ", response.data.error);
-// 		else {
-// 			alert("Successfully Report");
-// 			return response.data;
-// 		}
-// 	};
-// };
+
+export const deleteChat = (users) => {
+	// console.log(users);
+	return async (dispatch) => {
+		await axios.delete(`https://backend-gamematch.herokuapp.com/chats/users`, users);
+	};
+};
 
 export const addNews = (news) => {
 	return async () => {

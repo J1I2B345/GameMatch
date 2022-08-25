@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addReport } from "../redux/actions/index.js";
+import { addReport, deleteChat } from "../redux/actions/index.js";
 import { useNavigate } from "react-router-native";
 import { connect } from "react-redux";
 import { StatusBar } from "expo-status-bar";
@@ -16,7 +16,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 
 const reportSchema = yup.object({
-	description: yup.string().required().min(10),
+	reason: yup.string().required().min(10),
 });
 
 const Reports = () => {
@@ -24,9 +24,10 @@ const Reports = () => {
 	const navigation = useNavigate();
 	const user = useSelector((state) => state.games.user);
 	const reportedUsers = useSelector((state) => state.games.userNameChat);
-
+	const userss = [user._id, reportedUsers._id];
 	const submits = async (values, actions) => {
 		dispatch(addReport(values));
+		dispatch(deleteChat(userss));
 		navigation("/selectchat");
 	};
 
@@ -41,8 +42,7 @@ const Reports = () => {
 				<Formik
 					initialValues={{
 						author: user._id,
-						title: user.username,
-						description: "",
+						reason: "",
 						reportedUser: reportedUsers._id,
 					}}
 					validationSchema={reportSchema}
@@ -59,16 +59,16 @@ const Reports = () => {
 								<TextInput
 									placeholder="Reason"
 									multiline={true}
-									onChangeText={formikProps.handleChange("description")}
-									value={formikProps.values.description}
-									onBlur={formikProps.handleBlur("description")}
+									onChangeText={formikProps.handleChange("reason")}
+									value={formikProps.values.reason}
+									onBlur={formikProps.handleBlur("reason")}
 									style={{
 										...styles.input,
 										height: 90,
 									}}
 								/>
 								<Text style={{ color: "red", fontSize: 15, marginBottom: -10 }}>
-									{formikProps.touched.description && formikProps.errors.description}
+									{formikProps.touched.reason && formikProps.errors.reason}
 								</Text>
 								<View style={styles.relleno}></View>
 								<View
