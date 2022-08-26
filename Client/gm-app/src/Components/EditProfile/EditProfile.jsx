@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editProfile, getUser, allUser } from "../../redux/actions";
-import { Formik, Form } from "formik";
+import { Formik, Form, Field } from "formik";
 import { TextField } from "./TextField";
 import * as yup from "yup";
 import styled from "styled-components";
@@ -32,6 +32,7 @@ export default function EditNews() {
 	//62f39a361fb29b83a353911f:user, 62f39a361fb29b83a3539121 adm
 
 	const submit = async (values) => {
+		console.log({values})
 		let editUser = { ...values };
 		let edit = await axios(`https://backend-gamematch.herokuapp.com/users/${values._id}`);
 
@@ -40,7 +41,7 @@ export default function EditNews() {
 
 		alert("User successfully edited: " + editUser.username + " 💖");
 		console.log(editUser);
-		navigate("/panel");
+		 navigate("/panel");
 	};
 
 	if (!user.roles) return <h2>Cargando</h2>;
@@ -101,21 +102,20 @@ export default function EditNews() {
 								<h1>Rol</h1>
 								<li style={{ color: "green" }}>Admin</li>
 								<li style={{ color: "violet" }}>User</li>
-								<TextField
-									className="input"
-									name="roles"
-									type="text"
-									placeholder={user.roles}
-								/>
+								
+
+								<Field as="select" name="roles"  className="select">
+								<option value="Admin" className="option">Admin</option>
+             					<option value="User" className="option">User</option>
+								</Field>
+								
+
+								
 								<h1>{t("ban")}</h1>
-								<li style={{ color: "red" }}>true </li>
-								<li style={{ color: "green" }}>false </li>
-								<TextField
-									className="input"
-									name="ban"
-									type="text"
-									placeholder={user.ban}
-								/>
+								<Field as="select" name="ban"  className="select">
+								<option value="true" className="option">True</option>
+             					<option value="false" className="option">False</option>
+								</Field>
 								<TextField className="input" name="img" placeholder={user.img} />
 
 								<img src={user.img} alt="profile picture" className="image" />
@@ -213,4 +213,18 @@ const Container = styled.div`
 			font-weight: bold;
 		}
 	}
+	.select{
+		background-color: transparent;
+		padding: 1rem;
+		border: 0.1rem solid #4e0eff;
+		border-radius: 0.4rem;
+		color: #4b0082;
+		width:100%;
+		font-size: 1rem;	  
+	}
+	.option{
+		color: #4b0082;
+		background-color: transparent;
+	}
+	
 `;
