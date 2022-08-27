@@ -61,24 +61,26 @@ const Chat = () => {
 	}, [socket, chatMessages]);
 
 	async function submitChatMessage(e) {
-		//formatea el mensaje
-		let msg = {
-			message: chatMessage,
-			users: [user._id, id],
-			sender: user._id,
-		};
-		//envía mensaje a la DB
-		let msgInDb = await axios
-			.post("https://backend-gamematch.herokuapp.com/chats", msg)
-			.catch((error) => console.log(error.message));
-		//si se mandó el mensaje a la DB envía al otro usuario
-		socket.emit("client: send message", msg);
-		let msgSent = {
-			fromSelf: msg.sender.toString() === user._id.toString(),
-			message: msg.message,
-		};
-		setChatMessages([...chatMessages, msgSent]);
-		setChatMessage("");
+		if (chatMessage.trim() !== "") {
+			//formatea el mensaje
+			let msg = {
+				message: chatMessage.trim(),
+				users: [user._id, id],
+				sender: user._id,
+			};
+			//envía mensaje a la DB
+			let msgInDb = await axios
+				.post("https://backend-gamematch.herokuapp.com/chats", msg)
+				.catch((error) => console.log(error.message));
+			//si se mandó el mensaje a la DB envía al otro usuario
+			socket.emit("client: send message", msg);
+			let msgSent = {
+				fromSelf: msg.sender.toString() === user._id.toString(),
+				message: msg.message,
+			};
+			setChatMessages([...chatMessages, msgSent]);
+			setChatMessage("");
+		}
 	}
 
 	function handleChange(e) {
@@ -167,7 +169,7 @@ const Chat = () => {
 							{chatMessages &&
 								chatMessages.map((chatMessage, i) => (
 									<View
-										key={chatMessages._id}
+										key={i}
 										style={
 											chatMessage.fromSelf === true
 												? {
