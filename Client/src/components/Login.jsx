@@ -1,4 +1,3 @@
-import { addNews } from "../redux/actions/index.js";
 import { Link, useNavigate } from "react-router-native";
 import { connect } from "react-redux";
 import {
@@ -15,56 +14,21 @@ import {
 	Alert,
 	TouchableOpacity,
 } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { StatusBar } from "expo-status-bar";
-import { useState, useEffect } from "react";
-import { login } from "../redux/actions";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { allUser } from "../redux/actions";
 import axios from "axios";
 
 const reviewSchema = yup.object({
 	email: yup.string().required().email(),
 	password: yup.string().required(),
 });
-//const userGlobal = useSelector((state) => state.games.user);
 const Login = () => {
-	const user = useSelector((state) => state.games.aux);
 	const darkMood = useSelector((state) => state.games.darkMood);
-
-	//const dispatch = useDispatch();
 	const navigation = useNavigate();
-	// useEffect(() => {
-	// 	dispatch(allUser());
-	// }, []);
 	const _id = "";
 	const submit = async (values, actions) => {
-		// if (!user.map((d) => d.email).includes(values.email)) {
-		// 	Alert.alert("💌Email not found,try againヾ(≧▽≦*)o ");
-		// 	return;
-		// }
-		// const users = user.find((d) => d.email === values.email);
-		// if (users.ban == true) {
-		// 	Alert.alert(
-		// 		`💚Dear User we sorry 😔 your account is suspended.Do you Believe a Is an error?. contact the support`
-		// 	);
-		// 	return;
-		// }
-		// if (users.status == "Pending") {
-		// 	Alert.alert(`💌Please confirm your email address to continue✨`);
-		// 	return;
-		// }
-
-		//////// if (
-		// 	!user.map((d) => d.email && d.password).includes(values.email && values.password)
-		// ) {
-		// 	Alert.alert("❔Password invalid,try againヾ(≧▽≦*)o");
-		// 	return;
-		// }
-
-		//  for(let i = 0; i < user.length; i++) {if( user[i].email ===values.email)
-		// 	{return	_id=user.id}}
 		try {
 			let res = await axios.post(
 				"https://backend-gamematch.herokuapp.com/users/login",
