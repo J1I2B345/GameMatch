@@ -199,6 +199,12 @@ router.post("/login", async (req, res) => {
 				token: null,
 				message: "Invalid Password",
 			});
+
+		if (userFound.status == "Pending") {
+			return res
+				.status(400)
+				.json({ message: `💌Please confirm your email address to continue✨` });
+		}
 		// si cohincide la contraseña
 		// const token = jwt.sign({ id: userFound._id }, CONFIG.SECRET, {
 		// 	expiresIn: 86400, // 24 hs
