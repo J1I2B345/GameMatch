@@ -67,14 +67,13 @@ const Login = () => {
 		// 	{return	_id=user.id}}
 		try {
 			let res = await axios.post(
-				"http://localhost:3001/users/login",
-				// "https://backend-gamematch.herokuapp.com/users/login",
+				"https://backend-gamematch.herokuapp.com/users/login",
 				values
 			);
 
 			navigation("/selectgame");
 		} catch (error) {
-			Alert.alert(error.response.data.message);
+			Alert.alert(error.response.data.message || error.message);
 			return;
 		}
 	};
