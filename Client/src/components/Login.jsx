@@ -33,30 +33,30 @@ const Login = () => {
 	const user = useSelector((state) => state.games.aux);
 	const darkMood = useSelector((state) => state.games.darkMood);
 
-	const dispatch = useDispatch();
+	//const dispatch = useDispatch();
 	const navigation = useNavigate();
-	useEffect(() => {
-		dispatch(allUser());
-	}, []);
+	// useEffect(() => {
+	// 	dispatch(allUser());
+	// }, []);
 	const _id = "";
 	const submit = async (values, actions) => {
-		if (!user.map((d) => d.email).includes(values.email)) {
-			Alert.alert("💌Email not found,try againヾ(≧▽≦*)o ");
-			return;
-		}
-		const users = user.find((d) => d.email === values.email);
-		if (users.ban == true) {
-			Alert.alert(
-				`💚Dear User we sorry 😔 your account is suspended.Do you Believe a Is an error?. contact the support`
-			);
-			return;
-		}
-		if (users.status == "Pending") {
-			Alert.alert(`💌Please confirm your email address to continue✨`);
-			return;
-		}
+		// if (!user.map((d) => d.email).includes(values.email)) {
+		// 	Alert.alert("💌Email not found,try againヾ(≧▽≦*)o ");
+		// 	return;
+		// }
+		// const users = user.find((d) => d.email === values.email);
+		// if (users.ban == true) {
+		// 	Alert.alert(
+		// 		`💚Dear User we sorry 😔 your account is suspended.Do you Believe a Is an error?. contact the support`
+		// 	);
+		// 	return;
+		// }
+		// if (users.status == "Pending") {
+		// 	Alert.alert(`💌Please confirm your email address to continue✨`);
+		// 	return;
+		// }
 
-		// if (
+		//////// if (
 		// 	!user.map((d) => d.email && d.password).includes(values.email && values.password)
 		// ) {
 		// 	Alert.alert("❔Password invalid,try againヾ(≧▽≦*)o");
@@ -65,23 +65,18 @@ const Login = () => {
 
 		//  for(let i = 0; i < user.length; i++) {if( user[i].email ===values.email)
 		// 	{return	_id=user.id}}
-
 		try {
 			let res = await axios.post(
 				"https://backend-gamematch.herokuapp.com/users/login",
 				values
 			);
-			dispatch(login(values));
+
 			navigation("/selectgame");
 		} catch (error) {
-			Alert.alert("Password invalid,try againヾ(≧▽≦*)o");
-			console.log({ error });
+			Alert.alert(error.response.data.message || error.message);
 			return;
 		}
 	};
-
-	//  dispatch(login(values));
-	// navigation("/selectgame");
 
 	return (
 		<SafeAreaView style={styles.container}>
@@ -128,14 +123,13 @@ const Login = () => {
 										<TextInput
 											placeholder="Email Address"
 											onChangeText={formikProps.handleChange("email")}
-											value={formikProps.values.email}
+											value={formikProps.values.email.toLowerCase()}
 											onBlur={formikProps.handleBlur("email")}
 											style={styles.input}
 										/>
-										{/* {console.log(formikProps)} */}
+
 										<Text style={{ color: "red", fontSize: 15, marginBottom: -10 }}>
 											{formikProps.touched.email && formikProps.errors.email}
-											{/* {console.log(formikProps.values.email) } */}
 										</Text>
 
 										<TextInput

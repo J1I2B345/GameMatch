@@ -16,7 +16,6 @@ const schema = new Schema(
 		username: {
 			type: String,
 			required: true,
-			defaul: "not declared Add a name !:)",
 			unique: true,
 			trim: true,
 		},

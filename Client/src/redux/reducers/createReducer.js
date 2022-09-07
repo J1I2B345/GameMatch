@@ -72,11 +72,11 @@ const createReducer = (state = initialState, action) => {
 		case "REGISTER":
 			return { ...state };
 
-		case "ALL_USERS":
-			return {
-				...state,
-				aux: payload,
-			};
+		// case "ALL_USERS":
+		// 	return {
+		// 		...state,
+		// 		aux: payload,
+		// 	};
 
 		case "USER_NAME_CHAT":
 			return {

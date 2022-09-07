@@ -33,13 +33,9 @@ const Home = () => {
 			socket.on("server: invitation", (invitationUser) => {
 				dispatch(addOneNotificacion(invitationUser));
 				Alert.alert("Notification received");
-				alert("Notification received");
 			});
 			socket.on("server: invitationAccepted", (invitationAccepted) => {
 				Alert.alert(
-					`${invitationAccepted.userThatAccepted.username} accepted you invitation. Let's chat!`
-				);
-				alert(
 					`${invitationAccepted.userThatAccepted.username} accepted you invitation. Let's chat!`
 				);
 			});
@@ -47,7 +43,6 @@ const Home = () => {
 				Alert.alert(
 					`${invitationDeclined.userThatDeclined.username} declined your invitation`
 				);
-				alert(`${invitationDeclined.userThatDeclined.username} declined your invitation`);
 			});
 			socket.on("server: erasePreviousNotifications", (user) => {
 				dispatch(removeOneNotification(user));

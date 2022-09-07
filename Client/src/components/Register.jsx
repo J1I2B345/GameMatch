@@ -36,11 +36,12 @@ const reviewSchema = yup.object({
 const Register = () => {
 	const dispatch = useDispatch();
 	const navigation = useNavigate();
-	useEffect(() => {
-		dispatch(allUser());
-	}, []);
 
-	const user = useSelector((state) => state.games.aux);
+	// useEffect(() => {
+	// 	dispatch(allUser());
+	// }, []);
+
+	// const user = useSelector((state) => state.games.aux);
 	// console.log(user[0])
 	const setpassword = (value) => {
 		setConfirm(value);
@@ -50,34 +51,33 @@ const Register = () => {
 		//console.log(values);
 		try {
 			if (values) {
-				if (user.map((d) => d.email).includes(values.email)) {
-					Alert.alert("The email already exists");
-					return;
-				}
-				if (user.map((d) => d.username).includes(values.username)) {
-					Alert.alert("The username already exists, try again");
-					return;
-				}
+				// if (user.map((d) => d.email).includes(values.email)) {
+				// 	Alert.alert("The email already exists");
+				// 	return;
+				// }
+				// if (user.map((d) => d.username).includes(values.username)) {
+				// 	Alert.alert("The username already exists, try again");
+				// 	return;
+				// }
 
-				if (confirm !== values.password) {
-					Alert.alert("The password dont match, try again");
-					return;
-				}
-				dispatch(register(values));
+				// if (confirm !== values.password) {
+				// 	Alert.alert("The password dont match, try again");
+				// 	return;
+				// }
+				// dispatch(register(values));
 				await axios.post(
 					"https://backend-gamematch.herokuapp.com/users/register",
 					values
 				);
 				navigation("/");
+				Alert.alert("💖Welcome to GameMatch!!🎮");
 				Alert.alert(`✨To finish Confirm your Email Address✨`);
 				// Alert.alert(
 				// 	`✨To finish Confirm your Email Address: We send you a confirmation message to the email ${values.email}✨`
 				// );
-				Alert.alert("💖Welcome to GameMatch!!🎮");
 			}
 		} catch (error) {
-			//Alert.alert(error.message);
-			console.log({ message: error.message });
+			Alert.alert(error.response.data.message);
 		}
 	};
 
