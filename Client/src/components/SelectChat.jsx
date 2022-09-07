@@ -61,7 +61,6 @@ export default function SelectChat() {
 						>
 							Chats
 						</Text>
-
 						{darkMood == false ? (
 							<View
 								style={{
@@ -82,81 +81,78 @@ export default function SelectChat() {
 							></View>
 						)}
 
-						<SafeAreaView
-							style={{
-								width: "100%",
-								marginTop: 0,
-								marginBottom: 190,
-								alignItems: "center",
-								justifyContent: "center",
-							}}
-						>
-							<ScrollView style={{ width: "100%" }}>
-								<View style={{ width: "100%", paddingBottom: 12, alignItems: "center" }}>
-									{contacts.map((contact) => {
-										return (
-											<TouchableOpacity
+						<ScrollView style={{ width: "100%", height: "80%" }}>
+							<View
+								style={{
+									width: "100%",
+									height: "80%",
+									paddingBottom: 12,
+									alignItems: "center",
+								}}
+							>
+								{contacts.map((contact) => {
+									return (
+										<TouchableOpacity
+											key={contact._id}
+											onPress={() => handleClick(contact._id)}
+											style={
+												darkMood == false
+													? {
+															margin: 6,
+															padding: 10,
+															width: "94%",
+															borderRadius: 10,
+															flexDirection: "row",
+															alignItems: "center",
+															backgroundColor: "#3519B0",
+													  }
+													: {
+															margin: 6,
+															padding: 10,
+															width: "94%",
+															borderRadius: 10,
+															flexDirection: "row",
+															alignItems: "center",
+															backgroundColor: "#4D0F73",
+													  }
+											}
+											activeOpacity={0.7}
+											underlayColor={""}
+										>
+											<View
+												style={{
+													flexDirection: "row",
+													alignItems: "center",
+												}}
 												key={contact._id}
-												onPress={() => handleClick(contact._id)}
-												style={
-													darkMood == false
-														? {
-																margin: 6,
-																padding: 10,
-																width: "94%",
-																borderRadius: 10,
-																flexDirection: "row",
-																alignItems: "center",
-																backgroundColor: "#3519B0",
-														  }
-														: {
-																margin: 6,
-																padding: 10,
-																width: "94%",
-																borderRadius: 10,
-																flexDirection: "row",
-																alignItems: "center",
-																backgroundColor: "#4D0F73",
-														  }
-												}
-												activeOpacity={0.7}
-												underlayColor={""}
 											>
-												<View
+												<Image
 													style={{
-														flexDirection: "row",
-														alignItems: "center",
+														width: 50,
+														height: 50,
+														borderRadius: 50,
 													}}
-													key={contact._id}
+													source={{
+														uri: contact.img
+															? contact.img
+															: "https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg",
+													}}
+												/>
+												<Text
+													style={{
+														color: "white",
+														fontSize: 25,
+														marginLeft: 20,
+													}}
 												>
-													<Image
-														style={{
-															width: 50,
-															height: 50,
-															borderRadius: 50,
-														}}
-														source={{
-															uri: contact.img
-																? contact.img
-																: "https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg",
-														}}
-													/>
-													<Text
-														style={{
-															color: "white",
-															fontSize: 25,
-															marginLeft: 20,
-														}}
-													>
-														{contact.username}
-													</Text>
-												</View>
-											</TouchableOpacity>
-										);
-									})}
-								</View>
-							</ScrollView>
-						</SafeAreaView>
+													{contact.username}
+												</Text>
+											</View>
+										</TouchableOpacity>
+									);
+								})}
+							</View>
+						</ScrollView>
 					</View>
 				) : (
 					<View style={{ height: "100%" }}>
