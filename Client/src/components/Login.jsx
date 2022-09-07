@@ -75,8 +75,6 @@ const Login = () => {
 			navigation("/selectgame");
 		} catch (error) {
 			Alert.alert(error.response.data.message);
-			alert(error.response.data.message);
-			console.log({ error: error.response.data.message });
 			return;
 		}
 	};

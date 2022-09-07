@@ -207,15 +207,15 @@ export const register = (data) => (dispatch) => {
 		});
 };
 
-export const allUser = () => (dispatch) => {
-	return fetch(`https://backend-gamematch.herokuapp.com/users`)
-		.then((response) => response.json())
-		.then((json) => {
-			const { username, _id, img, email } = json;
+// export const allUser = () => (dispatch) => {
+// 	return fetch(`https://backend-gamematch.herokuapp.com/users`)
+// 		.then((response) => response.json())
+// 		.then((json) => {
+// 			const { username, _id, img, email } = json;
 
-			dispatch({ type: "ALL_USERS", payload: json });
-		});
-};
+// 			dispatch({ type: "ALL_USERS", payload: json });
+// 		});
+// };
 
 export const getGames = () => (dispatch) => {
 	return axios

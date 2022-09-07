@@ -70,16 +70,14 @@ const Register = () => {
 					values
 				);
 				navigation("/");
+				Alert.alert("💖Welcome to GameMatch!!🎮");
 				Alert.alert(`✨To finish Confirm your Email Address✨`);
 				// Alert.alert(
 				// 	`✨To finish Confirm your Email Address: We send you a confirmation message to the email ${values.email}✨`
 				// );
-				Alert.alert("💖Welcome to GameMatch!!🎮");
 			}
 		} catch (error) {
 			Alert.alert(error.response.data.message);
-			alert(error.response.data.message);
-			console.log({ message: error.response.data.message });
 		}
 	};
 
