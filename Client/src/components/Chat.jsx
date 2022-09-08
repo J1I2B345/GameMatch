@@ -31,9 +31,11 @@ const Chat = () => {
 	useEffect(() => {
 		try {
 			const getMessages = async () => {
-				const response = await axios.get(
-					`https://backend-gamematch.herokuapp.com/chats/?sender=${user._id}&receiver=${id}`
-				);
+				const response = await axios
+					.get(
+						`https://backend-gamematch.herokuapp.com/chats/?sender=${user._id}&receiver=${id}`
+					)
+					.catch((err) => console.log(err.message));
 				setChatMessages(response.data);
 			};
 			getMessages();
