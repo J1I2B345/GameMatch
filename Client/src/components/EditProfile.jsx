@@ -63,12 +63,12 @@ const EditProfile = () => {
 
 	const submit = async (values, actions) => {
 		try {
-			await axios.put(`http://localhost:3001/users/${_id}`, values);
+			await axios.put(`https://backend-gamematch.herokuapp.com/users/${_id}`, values);
 			navigate("/profile");
 		} catch (error) {
 			let message;
 			if (error.response.data.codeName && error.response.data.keyValue) {
-				message = `${error.response.data.codeName}: ${
+				message = `Error: ${error.response.data.codeName}: ${
 					Object.keys(error.response.data.keyValue)[0]
 				}`;
 			} else {
