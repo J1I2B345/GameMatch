@@ -23,6 +23,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { allUser } from "../redux/actions";
 import axios from "axios";
+import { LOGIN } from "../../gm-app/src/redux/actions/index.js";
 
 const reviewSchema = yup.object({
 	email: yup.string().required().email(),
@@ -35,28 +36,28 @@ const Login = () => {
 
 	const dispatch = useDispatch();
 	const navigation = useNavigate();
-	useEffect(() => {
-		dispatch(allUser());
-	}, []);
+	// useEffect(() => {
+	// 	dispatch(allUser());
+	// }, []);
 	const _id = "";
 	const submit = async (values, actions) => {
-		if (!user.map((d) => d.email).includes(values.email)) {
-			Alert.alert("💌Email not found,try againヾ(≧▽≦*)o ");
-			return;
-		}
-		const users = user.find((d) => d.email === values.email);
-		if (users.ban == true) {
-			Alert.alert(
-				`💚Dear User we sorry 😔 your account is suspended.Do you Believe a Is an error?. contact the support`
-			);
-			return;
-		}
-		if (users.status == "Pending") {
-			Alert.alert(`💌Please confirm your email address to continue✨`);
-			return;
-		}
+		// if (!user.map((d) => d.email).includes(values.email)) {
+		// 	Alert.alert("💌Email not found,try againヾ(≧▽≦*)o ");
+		// 	return;
+		// }
+		// const users = user.find((d) => d.email === values.email);
+		// if (users.ban == true) {
+		// 	Alert.alert(
+		// 		`💚Dear User we sorry 😔 your account is suspended.Do you Believe a Is an error?. contact the support`
+		// 	);
+		// 	return;
+		// }
+		// if (users.status == "Pending") {
+		// 	Alert.alert(`💌Please confirm your email address to continue✨`);
+		// 	return;
+		// }
 
-		// if (
+		//////// if (
 		// 	!user.map((d) => d.email && d.password).includes(values.email && values.password)
 		// ) {
 		// 	Alert.alert("❔Password invalid,try againヾ(≧▽≦*)o");
@@ -65,23 +66,30 @@ const Login = () => {
 
 		//  for(let i = 0; i < user.length; i++) {if( user[i].email ===values.email)
 		// 	{return	_id=user.id}}
-
 		try {
 			let res = await axios.post(
 				"https://backend-gamematch.herokuapp.com/users/login",
 				values
 			);
-			dispatch(login(values));
+			let user = {
+				username: res.data.username,
+				_id: res.data._id,
+				chats: res.data.chats,
+				dark: res.data.dark,
+				premium: res.data.premium,
+				rating: res.data.rating,
+				reviews: res.data.reviews,
+				roles: res.data.roles,
+				status: res.data.status,
+			};
+			dispatch(login(user));
+
 			navigation("/selectgame");
 		} catch (error) {
-			Alert.alert("Password invalid,try againヾ(≧▽≦*)o");
-			console.log({ error });
+			Alert.alert(error.response.data.message || error.message);
 			return;
 		}
 	};
-
-	//  dispatch(login(values));
-	// navigation("/selectgame");
 
 	return (
 		<SafeAreaView style={styles.container}>
@@ -132,10 +140,9 @@ const Login = () => {
 											onBlur={formikProps.handleBlur("email")}
 											style={styles.input}
 										/>
-										{/* {console.log(formikProps)} */}
+
 										<Text style={{ color: "red", fontSize: 15, marginBottom: -10 }}>
 											{formikProps.touched.email && formikProps.errors.email}
-											{/* {console.log(formikProps.values.email) } */}
 										</Text>
 
 										<TextInput
