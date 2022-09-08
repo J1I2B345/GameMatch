@@ -105,7 +105,7 @@ const InvitationCard = ({
 								<Text style={{ fontSize: 25, color: "#fff" }}>{position}</Text>
 							</View>
 							<Text style={{ fontSize: 33, marginTop: "5%", color: "#fff" }}>
-								Rating: {rating.$numberDecimal}
+								Rating: {Math.floor(rating.$numberDecimal)}
 							</Text>
 							<View
 								style={{
