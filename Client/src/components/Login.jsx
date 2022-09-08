@@ -23,6 +23,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { allUser } from "../redux/actions";
 import axios from "axios";
+import { LOGIN } from "../../gm-app/src/redux/actions/index.js";
 
 const reviewSchema = yup.object({
 	email: yup.string().required().email(),
@@ -33,7 +34,7 @@ const Login = () => {
 	const user = useSelector((state) => state.games.aux);
 	const darkMood = useSelector((state) => state.games.darkMood);
 
-	//const dispatch = useDispatch();
+	const dispatch = useDispatch();
 	const navigation = useNavigate();
 	// useEffect(() => {
 	// 	dispatch(allUser());
@@ -70,6 +71,18 @@ const Login = () => {
 				"https://backend-gamematch.herokuapp.com/users/login",
 				values
 			);
+			let user = {
+				username: res.data.username,
+				_id: res.data._id,
+				chats: res.data.chats,
+				dark: res.data.dark,
+				premium: res.data.premium,
+				rating: res.data.rating,
+				reviews: res.data.reviews,
+				roles: res.data.roles,
+				status: res.data.status,
+			};
+			dispatch(login(user));
 
 			navigation("/selectgame");
 		} catch (error) {
@@ -123,7 +136,7 @@ const Login = () => {
 										<TextInput
 											placeholder="Email Address"
 											onChangeText={formikProps.handleChange("email")}
-											value={formikProps.values.email.toLowerCase()}
+											value={formikProps.values.email}
 											onBlur={formikProps.handleBlur("email")}
 											style={styles.input}
 										/>

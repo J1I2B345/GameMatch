@@ -22,6 +22,7 @@ import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
 import { useState } from "react";
 import { useEffect } from "react";
+import axios from "axios";
 
 const reviewSchema = yup.object({
 	img: yup.string(),
@@ -29,14 +30,8 @@ const reviewSchema = yup.object({
 });
 
 const EditProfile = () => {
-	const dispatch = useDispatch();
+	// const dispatch = useDispatch();
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		dispatch(allUser());
-	}, []);
-
-	const users = useSelector((state) => state.games.aux);
 
 	const { _id, username, img, description, socialNetworks } = useSelector(
 		(state) => state.games.userProfile
@@ -66,16 +61,21 @@ const EditProfile = () => {
 		}
 	};
 
-	const submit = (values, actions) => {
-		if (
-			users.map((d) => d.username).includes(values.username) &&
-			values.username != User.username
-		) {
-			Alert.alert("The username already exists, try again");
-			return;
-		} else {
-			dispatch(editProfile(values));
+	const submit = async (values, actions) => {
+		try {
+			await axios.put(`https://backend-gamematch.herokuapp.com/users/${_id}`, values);
 			navigate("/profile");
+		} catch (error) {
+			let message;
+			if (error.response.data.codeName && error.response.data.keyValue) {
+				message = `Error: ${error.response.data.codeName}: ${
+					Object.keys(error.response.data.keyValue)[0]
+				}`;
+			} else {
+				message = error.message;
+			}
+			Alert.alert(message);
+			return;
 		}
 	};
 

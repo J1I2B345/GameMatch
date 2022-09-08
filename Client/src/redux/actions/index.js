@@ -20,14 +20,18 @@ export const darkMoodChange = (mood) => (dispatch) => {
 
 export const rateUser = (data) => {
 	return async () => {
-		let response = await axios.post(
-			`https://backend-gamematch.herokuapp.com/review`,
-			data
-		);
-		if (response.data.error) Alert.alert("error: ", response.data.error);
-		else {
-			Alert.alert(`Rated User whit ${data.qualification} stars`);
-			return response.data;
+		try {
+			let response = await axios.post(
+				`https://backend-gamematch.herokuapp.com/review`,
+				data
+			);
+			if (response.data.error) Alert.alert("error: ", response.data.error);
+			else {
+				Alert.alert(`Rated User whit ${data.qualification} stars`);
+				return response.data;
+			}
+		} catch (e) {
+			console.log(e.message);
 		}
 	};
 };
@@ -45,7 +49,8 @@ export const createGame = (game) => (dispatch) => {
 			if (!json.error) {
 				Alert.alert("game created!"), dispatch({ type: CREATE_GAME, payload: json });
 			} else Alert.alert(json.error);
-		});
+		})
+		.catch((e) => console.log(e.message));
 };
 
 export const getUser = (username) => (dispatch) => {
@@ -79,27 +84,44 @@ export const getUser = (username) => (dispatch) => {
 				rol,
 			};
 			dispatch({ type: GET_USERNAME, payload: user });
-		});
+		})
+		.catch((e) => console.log(e));
 };
 
 export const editProfile = (user) => {
 	return async (dispatch) => {
-		await axios.put(`https://backend-gamematch.herokuapp.com/users/${user._id}`, user);
+		try {
+			await axios.put(`https://backend-gamematch.herokuapp.com/users/${user._id}`, user);
+		} catch (e) {
+			console.log(e.message);
+		}
 	};
 };
 
 export const getUserById = (idUser) => {
 	return async (dispatch) => {
-		let json = await axios.get(`https://backend-gamematch.herokuapp.com/users/${idUser}`);
-		dispatch({ type: "GET_USER_BY_ID", payload: json.data });
+		try {
+			let json = await axios.get(
+				`https://backend-gamematch.herokuapp.com/users/${idUser}`
+			);
+			dispatch({ type: "GET_USER_BY_ID", payload: json.data });
+		} catch (e) {
+			console.log(e.message);
+		}
 	};
 };
 
 export const getNameUserChat = (idUser) => {
-	return async (dispatch) => {
-		let json = await axios.get(`https://backend-gamematch.herokuapp.com/users/${idUser}`);
-		dispatch({ type: "USER_NAME_CHAT", payload: json.data });
-	};
+	try {
+		return async (dispatch) => {
+			let json = await axios.get(
+				`https://backend-gamematch.herokuapp.com/users/${idUser}`
+			);
+			dispatch({ type: "USER_NAME_CHAT", payload: json.data });
+		};
+	} catch (e) {
+		console.log(e.message);
+	}
 };
 
 export const setEmptyUserName = () => {
@@ -120,7 +142,7 @@ export const getAllNews = () => {
 				payload: json.data,
 			});
 		} catch (error) {
-			alter(error.message);
+			alert(error.message);
 		}
 	};
 };
@@ -132,65 +154,78 @@ export const sendStateNewsInfo = (newsInfo) => {
 };
 
 export const addReport = (report) => {
-	return async (dispatch) => {
-		await axios.post("https://backend-gamematch.herokuapp.com/reports", report);
-	};
+	try {
+		return async (dispatch) => {
+			await axios.post("https://backend-gamematch.herokuapp.com/reports", report);
+		};
+	} catch (e) {
+		console.log(e.message);
+	}
 };
 
 export const deleteChat = (users) => {
 	return async () => {
-		let response = await axios.delete(
-			"https://backend-gamematch.herokuapp.com/chats/users",
-			users
-		);
-		if (response.data.error) Alert.alert("error: ", response.data.error);
-		else {
-			alert("Report User Successfully");
-			return response.data;
+		try {
+			let response = await axios.delete(
+				"https://backend-gamematch.herokuapp.com/chats/users",
+				users
+			);
+			if (response.data.error) Alert.alert("error: ", response.data.error);
+			else {
+				alert("Report User Successfully");
+				return response.data;
+			}
+		} catch (e) {
+			console.log(e.message);
 		}
 	};
 };
 
 export const addNews = (news) => {
-	return async () => {
-		let response = await axios.post(`https://backend-gamematch.herokuapp.com/news`, news);
-		if (response.data.error) Alert.alert("error: ", response.data.error);
-		else {
-			Alert.alert("News created successfully");
-			return response.data;
-		}
-	};
+	try {
+		return async () => {
+			let response = await axios.post(
+				`https://backend-gamematch.herokuapp.com/news`,
+				news
+			);
+			if (response.data.error) Alert.alert("error: ", response.data.error);
+			else {
+				Alert.alert("News created successfully");
+				return response.data;
+			}
+		};
+	} catch (e) {
+		console.log(e.message);
+	}
 };
 
 export const editNews = (news) => {
-	return async () => {
-		return await axios.put(
-			`https://backend-gamematch.herokuapp.com/news/edit/${news._id}`,
-			news
-		);
-	};
+	try {
+		return async () => {
+			return await axios.put(
+				`https://backend-gamematch.herokuapp.com/news/edit/${news._id}`,
+				news
+			);
+		};
+	} catch (e) {
+		console.log(e.message);
+	}
 };
 
 export const deleteNews = (idNew) => {
-	return async () => {
-		return await axios.delete(
-			`https://backend-gamematch.herokuapp.com/news/delete/${idNew}`
-		);
-	};
+	try {
+		return async () => {
+			return await axios.delete(
+				`https://backend-gamematch.herokuapp.com/news/delete/${idNew}`
+			);
+		};
+	} catch (e) {
+		console.log(e.message);
+	}
 };
 
-export const login = (data) => (dispatch) => {
-	return fetch("https://backend-gamematch.herokuapp.com/users/login", {
-		method: "POST",
-		headers: { Accept: "applcation/json", "Content-Type": "application/json" },
-		body: JSON.stringify(data),
-	})
-		.then((response) => {
-			return response.json();
-		})
-		.then((json) => {
-			dispatch({ type: "LOGIN", payload: json });
-		});
+export const login = (data) => {
+	return { type: "LOGIN", payload: data };
 };
 
 export const register = (data) => (dispatch) => {
@@ -204,7 +239,8 @@ export const register = (data) => (dispatch) => {
 		})
 		.then((json) => {
 			dispatch({ type: "REGISTER", payload: json });
-		});
+		})
+		.catch((e) => console.log(e.message));
 };
 
 // export const allUser = () => (dispatch) => {
@@ -212,6 +248,7 @@ export const register = (data) => (dispatch) => {
 // 		.then((response) => response.json())
 // 		.then((json) => {
 // 			const { username, _id, img, email } = json;
+// 			console.log(json.length);
 
 // 			dispatch({ type: "ALL_USERS", payload: json });
 // 		});
