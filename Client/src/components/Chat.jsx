@@ -105,32 +105,17 @@ const Chat = () => {
 			{userName && userName.username ? (
 				<View style={{ height: "100%" }}>
 					<View
-						style={
-							darkMood == false
-								? {
-										height: Constants.statusBarHeight,
-										backgroundColor: "#281883",
-								  }
-								: {
-										height: Constants.statusBarHeight,
-										backgroundColor: "#4D0F73",
-								  }
-						}
+						style={{
+							height: Constants.statusBarHeight,
+							backgroundColor: darkMood == false ? "#281883" : "#4D0F73",
+						}}
 					></View>
 					<View
-						style={
-							darkMood == false
-								? {
-										backgroundColor: "#281883",
-										alignItems: "center",
-										flexDirection: "row",
-								  }
-								: {
-										backgroundColor: "#4D0F73",
-										alignItems: "center",
-										flexDirection: "row",
-								  }
-						}
+						style={{
+							backgroundColor: darkMood == false ? "#281883" : "#4D0F73",
+							alignItems: "center",
+							flexDirection: "row",
+						}}
 					>
 						<TouchableOpacity
 							onPress={() => backToSelectChat()}
@@ -172,49 +157,23 @@ const Chat = () => {
 								chatMessages.map((chatMessage, i) => (
 									<View
 										key={i}
-										style={
-											chatMessage.fromSelf === true
-												? {
-														alignItems: "flex-end",
-												  }
-												: {
-														alignItems: "flex-start",
-												  }
-										}
+										style={{
+											alignItems:
+												chatMessage.fromSelf === true ? "flex-end" : "flex-start",
+										}}
 									>
 										<View
 											style={
 												chatMessage.fromSelf === true
-													? darkMood == false
-														? {
-																margin: 5,
-																marginLeft: "20%",
-																padding: 13,
-																width: "auto",
-																borderRadius: 15,
-																color: "#fff",
-																textAlign: "left",
-																backgroundColor: "#443abb",
-														  }
-														: {
-																margin: 5,
-																marginLeft: "20%",
-																padding: 13,
-																width: "auto",
-																borderRadius: 15,
-																color: "#fff",
-																textAlign: "left",
-																backgroundColor: "#640F8C",
-														  }
-													: darkMood == false
 													? {
 															margin: 5,
-															marginRight: "20%",
+															marginLeft: "20%",
 															padding: 13,
 															width: "auto",
 															borderRadius: 15,
 															color: "#fff",
-															backgroundColor: "#655ebe",
+															textAlign: "left",
+															backgroundColor: darkMood == false ? "#443abb" : "#640F8C",
 													  }
 													: {
 															margin: 5,
@@ -223,7 +182,7 @@ const Chat = () => {
 															width: "auto",
 															borderRadius: 15,
 															color: "#fff",
-															backgroundColor: "#503276",
+															backgroundColor: darkMood == false ? "#655ebe" : "#503276",
 													  }
 											}
 										>
@@ -292,16 +251,5 @@ const styles = StyleSheet.create({
 		height: "100%",
 	},
 });
-
-// antiguo style chat
-// style={{
-//     margin: 5,
-//     padding: 13,
-//     borderRadius: 15,
-//     width: 65,
-//     color: "#fff",
-//     textAlign: "center",
-//     backgroundColor: "#655EBE",
-// }}
 
 export default Chat;
